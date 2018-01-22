@@ -50,6 +50,10 @@ public class Robot extends IterativeRobot {
 	
 	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 	
+	//encoder ticks to cross auto line
+	//TODO
+	int autoLineDistance = 0;
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -109,7 +113,7 @@ public class Robot extends IterativeRobot {
 		{
 			if(position == 1){
 				//switch - left and position - left
-				//state w= 
+				//state = ?
 			}else if(position == 2){
 				//switch - left and position - middle
 				//state = ?
@@ -147,6 +151,17 @@ public class Robot extends IterativeRobot {
 			ex: "position - left and switch - left" being cases 1-3, 
 			then "position - right and switch - left" being cases 4-6*/
 			switch(state){
+				//the robot only crosses the auto line
+				case 0: 
+					if(leftEncoder.get() < autoLineDistance && rightEncoder.get() < autoLineDistance){
+						setAll(0.4);
+					}else{
+						//TODO
+						//Put the number of the final state
+						state = 0;
+					}
+				//the switch is on the left and the robot is in the leftmost position
+				case 1: 
 					
 			}
 		}
