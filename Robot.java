@@ -90,6 +90,48 @@ public class Robot extends IterativeRobot {
 		
 		slideEncoder.reset();
 		
+		public static int position = 0;
+		//1 - Left
+		//2 - Middle
+		//3 - Right
+		//TODO Before match starts put in robot position otherwise it will just cross auto line
+		
+		//state 0 just makes the robot cross the auto line
+		int state = 0; 
+		
+		/*Giant state machine with 
+		ex: "position - left and switch - left" being cases 1-3, 
+		then "position - right and switch - left" being cases 4-6*/
+		
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.charAt(0) == 'L')
+		{
+			if(position == 1){
+				//switch - left and position - left
+				//state w= 
+			}else if(position == 2){
+				//switch - left and position - middle
+				//state = ?
+			}else if(position == 3){
+				//switch - left and position - right
+				//state = ?
+			}
+		} else if(gameData.charAt(0) == 'R'){
+			if(position == 1){
+				//switch - right and position - left
+				//state = ?
+			}else if(position == 2){
+				//switch - right and position - middle
+				//state = ?
+			}else if(position == 3){
+				//switch - right and position - right
+				//state = ?
+			}
+		}
+		
+		Boolean armsReleased = false;
+		
 	}
 
 	/**
@@ -97,14 +139,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch (autoSelected) {
-		case customAuto:
-				
-			break;
-		case defaultAuto:
-		default:
-			// Put default auto code here
-			break;
+		if(armsReleased == false){
+			//TODO move forward and then move bakcwards to release arms
+			armsReleased = true;
+		}else{
+			/*Giant state machine with 
+			ex: "position - left and switch - left" being cases 1-3, 
+			then "position - right and switch - left" being cases 4-6*/
+			switch(state){
+					
+			}
 		}
 	}
 
