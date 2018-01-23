@@ -146,7 +146,9 @@ public class Robot extends IterativeRobot {
 			ex: "position - left and switch - left" being cases 1-3, 
 			then "position - right and switch - left" being cases 4-6*/
 			switch(RobotMap.state) {
+				case 0: 
 				
+				case 1:
 			}
 		}
 	}

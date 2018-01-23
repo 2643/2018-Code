@@ -22,4 +22,6 @@ public class RobotMap {
 	
 	//the speed for the robot during autonomous 
 	public static double autoSpeed = 0; //TODO
+	
+	
 }
