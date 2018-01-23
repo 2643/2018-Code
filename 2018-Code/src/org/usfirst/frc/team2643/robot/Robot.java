@@ -26,26 +26,26 @@ public class Robot extends IterativeRobot {
 	SendableChooser<String> chooser = new SendableChooser<>();
 	
 	//Six Drive Motors
-	WPI_TalonSRX t1 = new WPI_TalonSRX(1);
-	WPI_TalonSRX t2 = new WPI_TalonSRX(2);
-	WPI_TalonSRX t3 = new WPI_TalonSRX(3);
-	WPI_TalonSRX t4 = new WPI_TalonSRX(4);
-	WPI_TalonSRX t5 = new WPI_TalonSRX(5);
-	WPI_TalonSRX t6 = new WPI_TalonSRX(6);
+	static WPI_TalonSRX t1 = new WPI_TalonSRX(1);
+	static WPI_TalonSRX t2 = new WPI_TalonSRX(2);
+	static WPI_TalonSRX t3 = new WPI_TalonSRX(3);
+	static WPI_TalonSRX t4 = new WPI_TalonSRX(4);
+	static WPI_TalonSRX t5 = new WPI_TalonSRX(5);
+	static WPI_TalonSRX t6 = new WPI_TalonSRX(6);
 	
 	//LinearSlide Motors
-	WPI_TalonSRX s1 = new WPI_TalonSRX(7);
-	WPI_TalonSRX s2 = new WPI_TalonSRX(8);
+	static WPI_TalonSRX s1 = new WPI_TalonSRX(7);
+	static WPI_TalonSRX s2 = new WPI_TalonSRX(8);
 	
-	DigitalInput slideLimit = new DigitalInput(1);
+	static DigitalInput slideLimit = new DigitalInput(1);
 	
-	Joystick stick = new Joystick(0);
+	static Joystick stick = new Joystick(0);
 	
 	int driveState = 0;
 	
-	Encoder leftEncoder = new Encoder(0,1);
-	Encoder rightEncoder = new Encoder(1,0);
-	Encoder slideEncoder = new Encoder(1,1);
+	static Encoder leftEncoder = new Encoder(0,1);
+	static Encoder rightEncoder = new Encoder(1,0);
+	static Encoder slideEncoder = new Encoder(1,1);
 	
 	
 	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
@@ -109,24 +109,28 @@ public class Robot extends IterativeRobot {
 		{
 			if(RobotMap.position == 1){
 				//switch - left and position - left
-				//state w= 
+				RobotMap.state = 1;
 			}else if(RobotMap.position == 2){
 				//switch - left and position - middle
-				//state = ?
+				RobotMap.state = 2;
 			}else if(RobotMap.position == 3){
 				//switch - left and position - right
-				//state = ?
+				RobotMap.state = 3;
+			}else{
+				RobotMap.state = 0;
 			}
 		} else if(gameData.charAt(0) == 'R'){
 			if(RobotMap.position == 1){
 				//switch - right and position - left
-				//state = ?
+				RobotMap.state = 4;
 			}else if(RobotMap.position == 2){
 				//switch - right and position - middle
-				//state = ?
+				RobotMap.state = 5;
 			}else if(RobotMap.position == 3){
 				//switch - right and position - right
-				//state = ?
+				RobotMap.state = 6;
+			}else{
+				RobotMap.state = 0;
 			}
 		}
 		
@@ -147,8 +151,19 @@ public class Robot extends IterativeRobot {
 			then "position - right and switch - left" being cases 4-6*/
 			switch(RobotMap.state) {
 				case 0: 
-				
+					CrossAutoLineOnly.start();
 				case 1:
+					SwitchLeftAndPositionLeft.start();
+				case 2:
+					SwitchLeftAndPositionMiddle.start();
+				case 3:
+					SwitchLeftAndPositionRight.start();
+				case 4:
+					SwitchRightAndPositionLeft.start();
+				case 5: 
+					SwitchRightAndPositionMiddle.start();
+				case 6: 
+					SwitchRightAndPositionRight.start();
 			}
 		}
 	}
@@ -176,7 +191,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 	
-	public void SRXarcadeDrive(double x, double y) {
+	public static void SRXarcadeDrive(double x, double y) {
 		if(x<-0.05 || x>0.05) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
 			setRightMotors(x);
 			setLeftMotors(x);
@@ -190,21 +205,21 @@ public class Robot extends IterativeRobot {
 		}
 	}
 	
-	public void SRXtankDrive(double x, double y) { //Very basic tank drive.
+	public static void SRXtankDrive(double x, double y) { //Very basic tank drive.
 		setLeftMotors(-x);
 		setRightMotors(y);
 	}
-	public void setLeftMotors(double x) { //Set all of the motors on the left side to the given value.
+	public static void setLeftMotors(double x) { //Set all of the motors on the left side to the given value.
 		t1.set(x);
 		t2.set(x);
 		t3.set(x);
 	}
-	public void setRightMotors(double x) { //Set all of the motors on the right side to the given value.
+	public static void setRightMotors(double x) { //Set all of the motors on the right side to the given value.
 		t4.set(x);
 		t5.set(x);
 		t6.set(x);
 	}
-	public void setAll(double x) { //Set all of the motors to the given value. 
+	public static void setAll(double x) { //Set all of the motors to the given value. 
 		t1.set(x);
 		t2.set(x);
 		t3.set(x);
