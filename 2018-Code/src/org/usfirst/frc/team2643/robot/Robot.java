@@ -21,8 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	//
-	final String CrossAutoLineOnly = "CrossAutoLineOnly";
+	final String OnlyCrossAutoLine = "CrossAutoLineOnly";
 	final String PositionLeft = "PositionLeft";
 	final String PositionMiddle = "PositionMiddle";
 	final String PositionRight = "PositionRight";
@@ -62,7 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault(CrossAutoLineOnly, CrossAutoLineOnly);
+		chooser.addDefault(OnlyCrossAutoLine, OnlyCrossAutoLine);
 		
 		chooser.addObject(PositionLeft, PositionLeft);
 		chooser.addObject(PositionMiddle, PositionMiddle);
@@ -102,13 +101,16 @@ public class Robot extends IterativeRobot {
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L')
+		if(gameData.charAt(0) == 'L' && !autoSelected.equals(OnlyCrossAutoLine))
 		{
 			autoSelected = "SwitchLeftAnd"  + autoSelected;
-		} else if(gameData.charAt(0) == 'R'){
+		} 
+		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(OnlyCrossAutoLine))
+		{
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		
+		System.out.println("Auto selected: " + autoSelected);
 		RobotMap.armsReleased = false;	
 	}
 
@@ -117,28 +119,28 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if(RobotMap.armsReleased == false){
-			//TODO move forward and then move bakcwards to release arms
+		if(RobotMap.armsReleased == false)
+		{
+			//TODO move forward and then move backwards to release arms
 			RobotMap.armsReleased = true;
-		}else{
-			/*Giant state machine with 
-			ex: "position - left and switch - left" being cases 1-3, 
-			then "position - right and switch - left" being cases 4-6*/
+		}
+		else
+		{
 			switch(RobotMap.state) {
 				case 0: 
-					CrossAutoLineOnly.start();
+					CrossAutoLineOnly.runPeriodic();
 				case 1:
-					SwitchLeftAndPositionLeft.start();
+					SwitchLeftAndPositionLeft.runPeriodic();
 				case 2:
-					SwitchLeftAndPositionMiddle.start();
+					SwitchLeftAndPositionMiddle.runPeriodic();
 				case 3:
-					SwitchLeftAndPositionRight.start();
+					SwitchLeftAndPositionRight.runPeriodic();
 				case 4:
-					SwitchRightAndPositionLeft.start();
+					SwitchRightAndPositionLeft.runPeriodic();
 				case 5: 
-					SwitchRightAndPositionMiddle.start();
+					SwitchRightAndPositionMiddle.runPeriodic();
 				case 6: 
-					SwitchRightAndPositionRight.start();
+					SwitchRightAndPositionRight.runPeriodic();
 			}
 		}
 	}
