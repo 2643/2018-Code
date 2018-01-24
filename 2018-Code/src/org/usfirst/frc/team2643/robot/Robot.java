@@ -99,7 +99,7 @@ public class Robot extends IterativeRobot {
 		
 		slideEncoder.reset();
 		
-		NO LONGER NECESSARY because
+		//NO LONGER NECESSARY because
 		//Giant state machine with 
 		//ex: "position - left and switch - left" being cases 1-3, 
 		//then "position - right and switch - left" being cases 4-6
@@ -134,7 +134,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.state = 0;
 			}
 		}
-		*/
+		
 		RobotMap.armsReleased = false;	
 	}
 
@@ -230,4 +230,3 @@ public class Robot extends IterativeRobot {
 	}
 	
 }
-
