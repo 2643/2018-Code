@@ -20,8 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	final String defaultAuto = "Default";
-	final String customAuto = "My Auto";
+	
+	//
+	final String CrossAutoLineOnly = "CrossAutoLineOnly";
+	final String PositionLeft = "PositionLeft";
+	final String PositionMiddle = "PositionMiddle";
+	final String PositionRight = "PositionRight";
+	
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
 	
@@ -57,8 +62,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("Default Auto", defaultAuto);
-		chooser.addObject("My Auto", customAuto);
+		chooser.addDefault(CrossAutoLineOnly, CrossAutoLineOnly);
+		
+		chooser.addObject(PositionLeft, PositionLeft);
+		chooser.addObject(PositionMiddle, PositionMiddle);
+		chooser.addObject(PositionRight, PositionRight);
+		
 		SmartDashboard.putData("Auto choices", chooser);
 	}
 
@@ -90,18 +99,10 @@ public class Robot extends IterativeRobot {
 		
 		slideEncoder.reset();
 		
-		
-		//1 - Left
-		//2 - Middle
-		//3 - Right
-		//TODO Before match starts put in robot position otherwise it will just cross auto line
-		
-		//state 0 just makes the robot cross the auto line
-		int state = 0; 
-		
-		/*Giant state machine with 
-		ex: "position - left and switch - left" being cases 1-3, 
-		then "position - right and switch - left" being cases 4-6*/
+		NO LONGER NECESSARY because
+		//Giant state machine with 
+		//ex: "position - left and switch - left" being cases 1-3, 
+		//then "position - right and switch - left" being cases 4-6
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -133,7 +134,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.state = 0;
 			}
 		}
-		
+		*/
 		RobotMap.armsReleased = false;	
 	}
 
