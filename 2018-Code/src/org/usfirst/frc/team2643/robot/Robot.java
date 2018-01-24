@@ -99,40 +99,14 @@ public class Robot extends IterativeRobot {
 		
 		slideEncoder.reset();
 		
-		//NO LONGER NECESSARY because
-		//Giant state machine with 
-		//ex: "position - left and switch - left" being cases 1-3, 
-		//then "position - right and switch - left" being cases 4-6
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if(gameData.charAt(0) == 'L')
 		{
-			if(RobotMap.position == 1){
-				//switch - left and position - left
-				RobotMap.state = 1;
-			}else if(RobotMap.position == 2){
-				//switch - left and position - middle
-				RobotMap.state = 2;
-			}else if(RobotMap.position == 3){
-				//switch - left and position - right
-				RobotMap.state = 3;
-			}else{
-				RobotMap.state = 0;
-			}
+			autoSelected = "SwitchLeftAnd"  + autoSelected;
 		} else if(gameData.charAt(0) == 'R'){
-			if(RobotMap.position == 1){
-				//switch - right and position - left
-				RobotMap.state = 4;
-			}else if(RobotMap.position == 2){
-				//switch - right and position - middle
-				RobotMap.state = 5;
-			}else if(RobotMap.position == 3){
-				//switch - right and position - right
-				RobotMap.state = 6;
-			}else{
-				RobotMap.state = 0;
-			}
+			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		
 		RobotMap.armsReleased = false;	
