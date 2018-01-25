@@ -95,7 +95,8 @@ public class Robot extends IterativeRobot {
 		s1.set(0);
 		
 		slideEncoder.reset();
-		
+		leftEncoder.reset();
+		rightEncoder.reset();
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
