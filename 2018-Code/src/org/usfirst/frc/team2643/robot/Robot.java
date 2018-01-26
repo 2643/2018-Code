@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	final String OnlyCrossAutoLine = "CrossAutoLineOnly";
+	final String CrossAutoLineOnly = "CrossAutoLineOnly";
 	final String PositionLeft = "PositionLeft";
 	final String PositionMiddle = "PositionMiddle";
 	final String PositionRight = "PositionRight";
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault(OnlyCrossAutoLine, OnlyCrossAutoLine);
+		chooser.addDefault(CrossAutoLineOnly, CrossAutoLineOnly);
 		
 		chooser.addObject(PositionLeft, PositionLeft);
 		chooser.addObject(PositionMiddle, PositionMiddle);
@@ -100,11 +100,11 @@ public class Robot extends IterativeRobot {
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L' && !autoSelected.equals(OnlyCrossAutoLine))
+		if(gameData.charAt(0) == 'L' && !autoSelected.equals(CrossAutoLineOnly))
 		{
 			autoSelected = "SwitchLeftAnd"  + autoSelected;
 		} 
-		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(OnlyCrossAutoLine))
+		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(CrossAutoLineOnly))
 		{
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
@@ -125,26 +125,26 @@ public class Robot extends IterativeRobot {
 		}
 		else
 		{
-			switch(RobotMap.state) {
-				case 0: 
+			switch(autoSelected) {
+				case "CrossAutoLineOnly": 
 					CrossAutoLineOnly.runPeriodic();
 					break;
-				case 1:
+				case "SwitchLeftAndPositionLeft":
 					SwitchLeftAndPositionLeft.runPeriodic();
 					break;
-				case 2:
+				case "SwitchLeftAndPositionMiddle":
 					SwitchLeftAndPositionMiddle.runPeriodic();
 					break;
-				case 3:
+				case "SwitchLeftAndPositionRight":
 					SwitchLeftAndPositionRight.runPeriodic();
 					break;
-				case 4:
+				case "SwitchRightAndPositionLeft":
 					SwitchRightAndPositionLeft.runPeriodic();
 					break;
-				case 5: 
+				case "SwitchRightAndPositionMiddle": 
 					SwitchRightAndPositionMiddle.runPeriodic();
 					break;
-				case 6: 
+				case "SwitchRightAndPositionRight": 
 					SwitchRightAndPositionRight.runPeriodic();
 					break;
 			}
@@ -174,6 +174,8 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 	
+	
+	//TODO This is broken please fix it
 	public static void SRXarcadeDrive(double x, double y) {
 		if(x<-0.05 || x>0.05) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
 			setRightMotors(x);
