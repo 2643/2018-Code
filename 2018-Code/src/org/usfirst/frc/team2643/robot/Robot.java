@@ -37,9 +37,9 @@ public class Robot extends IterativeRobot {
 	static WPI_TalonSRX t5 = new WPI_TalonSRX(5);
 	static WPI_TalonSRX t6 = new WPI_TalonSRX(6);
 	
-	//LinearSlide Motors
+	//Motor to move elevator up
+	//weight of the elevator lets it drop
 	static WPI_TalonSRX s1 = new WPI_TalonSRX(7);
-	static WPI_TalonSRX s2 = new WPI_TalonSRX(8);
 	
 	static DigitalInput slideLimit = new DigitalInput(1);
 	
@@ -90,14 +90,13 @@ public class Robot extends IterativeRobot {
 		
 		while(!slideLimit.get()) {
 			s1.set(-.8);
-			s2.set(-.8);
 		}
 		
 		s1.set(0);
-		s2.set(0);
 		
 		slideEncoder.reset();
-		
+		leftEncoder.reset();
+		rightEncoder.reset();
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
