@@ -2,9 +2,8 @@ package org.usfirst.frc.team2643.robot;
 
 public class SwitchLeftAndPositionLeft {
 	public static void runPeriodic(){
-		int state = 1;
 		
-		switch(state){
+		switch(RobotMap.autoProgramState){
 			case 1:
 				if(RobotMap.debug == true){
 					System.out.println("First Case for SwitchLeftAndPositionLeft");
@@ -15,7 +14,7 @@ public class SwitchLeftAndPositionLeft {
 				if(Robot.leftEncoder.get() < RobotMap.ticksToSwitch && Robot.rightEncoder.get() < RobotMap.ticksToSwitch){
 					Robot.setAll(RobotMap.autoSpeed);
 				}else{ //move to state 2
-					state = 2;
+					RobotMap.autoProgramState = 2;
 				}
 			case 2:
 				if(RobotMap.debug == true){
@@ -24,10 +23,10 @@ public class SwitchLeftAndPositionLeft {
 				}
 				
 				//the robot will turn ninety degrees right to face the switch
-				if(!RobotMovementMethods.finishedTurning){
+				if(!RobotMap.finishedTurning){
 					RobotMovementMethods.turnRight();
 				}else{
-					state = 3;
+					RobotMap.autoProgramState = 3;
 				}
 				break;
 			case 3: 

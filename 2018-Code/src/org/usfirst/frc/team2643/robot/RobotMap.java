@@ -27,10 +27,16 @@ public class RobotMap {
 	//encoder ticks for the switch elevator height from bottom limit switch
 	public static int ticksToSwitchHeight = 0; //TODO
 	
+	//the state integer for the switch statement in turnRight()
 	public static int turnRightState = 1;
 	
+	//the state integer for the swtich statement in turnLeft()
 	public static int turnLeftState = 1;
 	
+	//the variable that indicates when the robot has finished turning
 	public static boolean finishedTurning = false;
+	
+	//the state integer for all of the auto programs
+	public static int autoProgramState = 1;
 
 }
