@@ -129,18 +129,25 @@ public class Robot extends IterativeRobot {
 			switch(RobotMap.state) {
 				case 0: 
 					CrossAutoLineOnly.runPeriodic();
+					break;
 				case 1:
 					SwitchLeftAndPositionLeft.runPeriodic();
+					break;
 				case 2:
 					SwitchLeftAndPositionMiddle.runPeriodic();
+					break;
 				case 3:
 					SwitchLeftAndPositionRight.runPeriodic();
+					break;
 				case 4:
 					SwitchRightAndPositionLeft.runPeriodic();
+					break;
 				case 5: 
 					SwitchRightAndPositionMiddle.runPeriodic();
+					break;
 				case 6: 
 					SwitchRightAndPositionRight.runPeriodic();
+					break;
 			}
 		}
 	}
