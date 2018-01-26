@@ -9,7 +9,7 @@ public class RobotMovementMethods {
 	/**
 	 * turnRight()
 	 * 		makes the robot turn 90 degrees
-	 */
+	 */ 
 	public static void turnRight(){
 		
 		switch(RobotMap.turnRightState){
