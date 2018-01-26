@@ -26,5 +26,11 @@ public class RobotMap {
 	
 	//encoder ticks for the switch elevator height from bottom limit switch
 	public static int ticksToSwitchHeight = 0; //TODO
+	
+	public static int turnRightState = 1;
+	
+	public static int turnLeftState = 1;
+	
+	public static boolean finishedTurning = false;
 
 }

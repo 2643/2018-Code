@@ -5,10 +5,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class RobotMovementMethods {
 	
 	
-	public static boolean stoppedBeforeTurning = false;
-	public static boolean finishedTurning = false;
-	
-	
 	//TODO TEST THIS SEPERATELY BEFORE TESTING AUTO CODE!!!
 	/**
 	 * turnRight()
@@ -17,14 +13,12 @@ public class RobotMovementMethods {
 	public static void turnRight(){
 		int state = 1;
 		
-		switch(state){
+		switch(RobotMap.turnRightState){
 			case 1:
 				//if debug is true, print debug statements
 				if(RobotMap.debug == true)
 					System.out.println("First Case for turnRight() method");
 				
-				//if the robot has not stopped before turning...
-				if(stoppedBeforeTurning == false){
 					
 					//set all of the drive motors to zero
 					Robot.setAll(0);
@@ -33,13 +27,9 @@ public class RobotMovementMethods {
 					Robot.leftEncoder.reset();
 					Robot.rightEncoder.reset();
 					
-					//the robot has stopped before turning
-					stoppedBeforeTurning = true;
-					
 					//but it has not turned yet
-					finishedTurning = false;
+					RobotMap.finishedTurning = false;
 					state = 2;
-				}
 				break;
 			case 2:
 				
@@ -63,9 +53,9 @@ public class RobotMovementMethods {
 					Robot.leftEncoder.reset();
 					Robot.rightEncoder.reset();
 					
+					RobotMap.turnRightState = 1;
 					//the robot has finished turning and stoppedBeforeTurning needs to be reset 
-					stoppedBeforeTurning = false;
-					finishedTurning = true;
+					RobotMap.finishedTurning = true;
 				}
 				break;					
 		}
@@ -76,33 +66,26 @@ public class RobotMovementMethods {
 	 * turnLeft() makes the robot turn left 90 degrees
 	 */
 	public static void turnLeft(){
-		int state = 1;
 		
-		switch(state){
+		switch(RobotMap.turnLeftState){
 			case 1: 
 				
 				//if debug is set to true. then print the debug statements
 				if(RobotMap.debug == true)
 					System.out.println("First Case for turnLeft() method");
-			
-				//if the robot has not stopped before turning...
-				if(stoppedBeforeTurning == false){
-					
+
 					//set all of the drive motors to zero
 					Robot.setAll(0);
 					
 					//reset the encoders before turning
 					Robot.leftEncoder.reset();
 					Robot.rightEncoder.reset();
-					
-					//the robot has stopped...
-					stoppedBeforeTurning = true;
 				
 					//but it has not finished turning
-					finishedTurning = false;
+					RobotMap.finishedTurning = false;
 					
-					state = 2;
-				}
+					RobotMap.turnLeftState = 2;
+				
 				break;
 				
 			case 2:
@@ -127,11 +110,9 @@ public class RobotMovementMethods {
 					Robot.leftEncoder.reset();
 					Robot.rightEncoder.reset();
 					
-					//reset this after turning
-					stoppedBeforeTurning = false;
-					
+					RobotMap.turnLeftState = 1;
 					//the robot has finished turning
-					finishedTurning = true;
+					RobotMap.finishedTurning = true;
 				}
 				break;
 		}
