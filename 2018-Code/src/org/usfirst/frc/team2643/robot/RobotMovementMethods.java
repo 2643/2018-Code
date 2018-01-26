@@ -11,7 +11,6 @@ public class RobotMovementMethods {
 	 * 		makes the robot turn 90 degrees
 	 */
 	public static void turnRight(){
-		int state = 1;
 		
 		switch(RobotMap.turnRightState){
 			case 1:
@@ -29,7 +28,7 @@ public class RobotMovementMethods {
 					
 					//but it has not turned yet
 					RobotMap.finishedTurning = false;
-					state = 2;
+					RobotMap.turnRightState = 2;
 				break;
 			case 2:
 				
