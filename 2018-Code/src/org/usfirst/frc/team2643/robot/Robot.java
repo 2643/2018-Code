@@ -188,27 +188,48 @@ public class Robot extends IterativeRobot {
 		}
 	}
 	
+	/**
+	 * Basic tank drive
+	 * @param x
+	 * @param y
+	 */
 	public static void SRXtankDrive(double x, double y) { //Very basic tank drive.
-		setLeftMotors(-x);
+		setLeftMotors(x);
 		setRightMotors(y);
 	}
-	public static void setLeftMotors(double x) { //Set all of the motors on the left side to the given value.
-		t1.set(x);
-		t2.set(x);
-		t3.set(x);
+	/**
+	 * Sets all motors on the left side of the robot to the given value
+	 * @param speed The speed to set the motors to
+	 */
+	public static void setLeftMotors(double speed) { 
+		t1.set(-speed);
+		t2.set(-speed);
+		t3.set(-speed);
 	}
-	public static void setRightMotors(double x) { //Set all of the motors on the right side to the given value.
-		t4.set(x);
-		t5.set(x);
-		t6.set(x);
+	/**
+	 * Sets all motors on the right side of the robot to the given value
+	 * @param The speed to set the motors to
+	 */
+	public static void setRightMotors(double speed) {
+		t4.set(speed);
+		t5.set(speed);
+		t6.set(speed);
 	}
-	public static void setAll(double x) { //Set all of the motors to the given value. 
-		t1.set(x);
-		t2.set(x);
-		t3.set(x);
-		t4.set(x);
-		t5.set(x);
-		t6.set(x);
+	
+	/**
+	 * Sets the robot to a certain speed
+	 * @param speed The speed to set the motor to. Make sure it is not too fast or you will consume too much voltage
+	 */
+	public static void setAll(double speed) { //Set all of the motors to the given value. 
+		setLeftMotors(speed);
+		setRightMotors(speed);
+	}
+	/**
+	 * Stops the robot
+	 */
+	public static void stopAll()
+	{
+		setAll(0);
 	}
 	
 }
