@@ -20,7 +20,7 @@ public class RobotMovementMethods {
 				
 					
 					//set all of the drive motors to zero
-					RobotMap.setAll(0);
+					stopAll();
 					
 					//reset the encoders before turning
 					RobotMap.leftEncoder.reset();
@@ -40,13 +40,13 @@ public class RobotMovementMethods {
 				if(Math.abs(RobotMap.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(RobotMap.rightEncoder.get()) < RobotMap.ticksTo90){
 					
 					//set the left and right motors to opposite values so that it rotates
-					RobotMap.setLeftMotors(0.4);
-					RobotMap.setRightMotors(-0.4);
+					setLeftMotors(0.4);
+					setRightMotors(-0.4);
 					
 				}else{
 					
 					//once it is finished turning, set all the drive motors to zero
-					RobotMap.setAll(0);
+					stopAll();
 					
 					//reset the encoders after turning
 					RobotMap.leftEncoder.reset();
@@ -74,7 +74,7 @@ public class RobotMovementMethods {
 					System.out.println("First Case for turnLeft() method");
 
 					//set all of the drive motors to zero
-					RobotMap.setAll(0);
+					stopAll();
 					
 					//reset the encoders before turning
 					RobotMap.leftEncoder.reset();
@@ -97,13 +97,13 @@ public class RobotMovementMethods {
 				if(Math.abs(RobotMap.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(-RobotMap.rightEncoder.get()) < RobotMap.ticksTo90){
 					
 					//set the drive motors to opposite values to rotate the robot
-					RobotMap.setLeftMotors(-0.4);
-					RobotMap.setRightMotors(0.4);
+					setLeftMotors(-0.4);
+					setRightMotors(0.4);
 				}
 				else //else the robot has turned ninety degrees
 				{
 					//set the motors to zero after turning
-					RobotMap.setAll(0);
+					stopAll();
 					
 					//reset the encoders after turning
 					RobotMap.leftEncoder.reset();
@@ -120,4 +120,64 @@ public class RobotMovementMethods {
 	public void liftToSwitchHeight() {
 		
 	}
+	
+	//TODO This is broken please fix it
+	public static void SRXarcadeDrive(double x, double y) {
+		if(x<-0.05 || x>0.05) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
+			setRightMotors(x);
+			setLeftMotors(x);
+		}
+		else if(y>0.05||y<0.05) { //If the given axis is pushed up or
+			setRightMotors(y);
+			setLeftMotors(-y);
+		}
+		else { //If no joystick activity, set all motors to 0.
+			stopAll();
+		}
+	}
+	
+	/**
+	 * Basic tank drive
+	 * @param x
+	 * @param y
+	 */
+	public static void SRXtankDrive(double x, double y) { //Very basic tank drive.
+		setLeftMotors(x);
+		setRightMotors(y);
+	}
+	/**
+	 * Sets all motors on the left side of the robot to the given value
+	 * @param speed The speed to set the motors to
+	 */
+	public static void setLeftMotors(double speed) { 
+		RobotMap.t1.set(-speed);
+		RobotMap.t2.set(-speed);
+		RobotMap.t3.set(-speed);
+	}
+	/**
+	 * Sets all motors on the right side of the robot to the given value
+	 * @param The speed to set the motors to
+	 */
+	public static void setRightMotors(double speed) {
+		RobotMap.t4.set(speed);
+		RobotMap.t5.set(speed);
+		RobotMap.t6.set(speed);
+	}
+	
+	/**
+	 * Sets the robot to a certain speed
+	 * @param speed The speed to set the motor to. Make sure it is not too fast or you will consume too much voltage
+	 */
+	public static void setAll(double speed) { //Set all of the motors to the given value. 
+		setLeftMotors(speed);
+		setRightMotors(speed);
+	}
+	/**
+	 * Stops the robot
+	 */
+	public static void stopAll()
+	{
+		setAll(0);
+	}
+	
 }
