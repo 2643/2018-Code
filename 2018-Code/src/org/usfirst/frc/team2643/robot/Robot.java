@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
 		System.out.println("Auto selected: " + autoSelected);
 		
 		while(!slideLimit.get()) {
-			s1.set(-.8);
+			s1.set(-0.8);
 		}
 		
 		s1.set(0);
@@ -120,8 +120,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if(RobotMap.armsReleased == false)
 		{
-			//TODO move forward and then move backwards to release arms
-			RobotMap.armsReleased = true;
+			RobotMovementMethods.releaseArm();
 		}
 		else
 		{
