@@ -227,6 +227,15 @@ public class RobotMovementMethods {
 		return isFinished;
 	}
 	
-	public static vo
+	public static void finishReleaseArms()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+
+		AutoState.movingForwardToReleaseArm = true;
+	}
 
 }
