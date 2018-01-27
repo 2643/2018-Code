@@ -5,10 +5,33 @@ package org.usfirst.frc.team2643.robot;
  * 
  */
 public class AutoState {
+	
+	
+	public static int robotState;
+	
+	//states the robot may be in
+	public static final byte NOTHING = 0;
+	public static final byte TURNING = 1;
+	public static final byte MOVING = 2;
+	public static final byte ELEVATING = 3;
+	
 	//if the arms have been released
 	public static boolean ArmsReleased = false;
 	public static boolean MovingForwardToReleaseArm = false;
 	public static boolean MovingBackwardsToRelaseArm = false;
 	
 	
+	
+	public static boolean turning = false;
+	public static int leftEncoderGoal;
+	public static int rightEncoderGoal;
+	
+	
+	
+
+
 }
+/*
+ * ArrayList taskList = new ArrayList<>
+ * 
+ */
