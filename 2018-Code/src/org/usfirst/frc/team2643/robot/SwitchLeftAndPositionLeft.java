@@ -42,13 +42,18 @@ public class SwitchLeftAndPositionLeft {
 				}
 				
 				//the robot will turn ninety degrees right to face the switch
-				if(!RobotMap.finishedTurning)
+				if(!AutoState.turnInitialized)
 				{
-					RobotMovementMethods.turnRight();
+					RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
 				}
 				else
 				{
-					autoProgramState = 3;
+					boolean isFinished = RobotMovementMethods.executeTurn();
+					if(isFinished)
+					{
+						RobotMovementMethods.finishTurn();
+						autoProgramState = 3;
+					}
 				}
 				break;
 			

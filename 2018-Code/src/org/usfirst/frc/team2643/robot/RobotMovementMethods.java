@@ -4,39 +4,23 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMovementMethods {
 
-	
+
 	public static int getLeftEncoder()
 	{
 		return RobotMap.leftEncoder.get();
 	}
-	
+
 	public static int getRightEncoder()
 	{
 		return RobotMap.rightEncoder.get();
 	}
-	
+
 	public static int getAverageEncoder()
 	{
 		return((getRightEncoder() + getLeftEncoder())/2);
 	}
 
-	
-	/**
-	 * Makes a 90 degree right turn
-	 */
-	public static void turnRight()
-	{
-		if(!AutoState.turnInitialized)
-		{
-			setUpTurn(EnvironmentVariables.ticksTo90);
-		}
-		else
-		{
-			executeTurn();
-		}
-		
-	}
-	
+
 	/**
 	 * Prepares the robot for a turn
 	 */
@@ -53,9 +37,11 @@ public class RobotMovementMethods {
 	}
 
 
-	public static void executeTurn()
+	public static boolean executeTurn()
 	{
-		//if it hasnt reached its goal yet
+		boolean isFinished = false;
+		
+		//if it hasn't reached its goal yet
 		if(!checkIfReachedGoal(getRightEncoder(), AutoState.rightEncoderGoal))
 		{
 			//set the motor in the correct direction
@@ -64,19 +50,22 @@ public class RobotMovementMethods {
 		}
 		else
 		{
-			finishTurn();
+			isFinished = true;
 		}
-		//if it hasnt reached its goal yet
+		//if it hasn't reached its goal yet
 		if(!checkIfReachedGoal(getLeftEncoder(), AutoState.leftEncoderGoal))
 		{
 			//set the motor in the correct direction
 			RobotMovementMethods.setLeftMotors(
-					Utils.getSign(AutoState.leftEncoderGoal)*RobotMap.cruisingSpeed);
+					Utils.getSign(AutoState.leftEncoderGoal)
+					*  RobotMap.cruisingSpeed);
 		}
 		else
 		{
-			finishTurn();
+			isFinished = true;
 		}
+		
+		return isFinished;
 	}
 
 	public static void finishTurn()
@@ -120,7 +109,7 @@ public class RobotMovementMethods {
 		return false;
 	}
 
-	
+
 
 	public void liftToSwitchHeight() {
 
@@ -184,17 +173,17 @@ public class RobotMovementMethods {
 	{
 		setAll(0);
 	}
-	
+
 	public static void setUpReleaseArms() {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
 		stopAll();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
-		
+
 		AutoState.movingForwardToReleaseArm = true;
 	}
-	
+
 	/**
 	 *Releases the arms in the beginning of the match 
 	 */
