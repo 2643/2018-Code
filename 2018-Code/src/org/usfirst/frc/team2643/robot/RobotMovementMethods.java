@@ -78,6 +78,7 @@ public class RobotMovementMethods {
 
 		AutoState.leftEncoderGoal = 0;
 		AutoState.rightEncoderGoal = 0;
+		
 	}
 
 	/**

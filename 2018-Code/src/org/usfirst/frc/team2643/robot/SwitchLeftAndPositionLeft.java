@@ -42,9 +42,10 @@ public class SwitchLeftAndPositionLeft {
 				}
 				
 				//the robot will turn ninety degrees right to face the switch
-				if(!AutoState.turnInitialized)
+				if(!AutoState.turning)
 				{
 					RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+					AutoState.turning = false;
 				}
 				else
 				{
@@ -53,6 +54,7 @@ public class SwitchLeftAndPositionLeft {
 					{
 						RobotMovementMethods.finishTurn();
 						autoProgramState = 3;
+						AutoState.turning = false;
 					}
 				}
 				break;

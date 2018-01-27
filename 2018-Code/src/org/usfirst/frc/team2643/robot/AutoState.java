@@ -21,7 +21,6 @@ public class AutoState {
 	public static boolean movingBackwardToRelaseArm = false;
 	
 	
-	public static boolean turnInitialized = false;
 	public static boolean turning = false;
 	public static int leftEncoderGoal;
 	public static int rightEncoderGoal;
