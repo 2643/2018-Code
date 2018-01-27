@@ -2,6 +2,9 @@ package org.usfirst.frc.team2643.robot;
 
 public class SwitchLeftAndPositionLeft {
 	
+	
+	public static int autoProgramState = 1;
+	
 	/**
 	 * This is the auto routine that runs when our robot is on the left and our switch is on the left. 
 	 * Case 1: the robot will move forward until right next to the switch
@@ -10,11 +13,11 @@ public class SwitchLeftAndPositionLeft {
 	 */
 	public static void runPeriodic(){
 		
-		switch(RobotMap.autoProgramState){
+		switch(autoProgramState){
 		
 			//the robot will move forward until right next to the switch
 			case 1:
-				if(RobotMap.DEBUG == true){
+				if(RobotMap.DEBUG){
 					System.out.println("First Case for SwitchLeftAndPositionLeft");
 					System.out.println("Robot will move forward until at the switch");
 				}
@@ -27,13 +30,13 @@ public class SwitchLeftAndPositionLeft {
 				}
 				else
 				{
-					RobotMap.autoProgramState = 2;
+					autoProgramState = 2;
 				}
 				break;
 				
 			//the robot will turn ninety degrees right to face the switch
 			case 2:
-				if(RobotMap.DEBUG == true){
+				if(RobotMap.DEBUG){
 					System.out.println("Second Case for SwitchLeftAndPositionLeft");
 					System.out.println("Robot will turn ninety degrees right to face the switch");
 				}
@@ -45,7 +48,7 @@ public class SwitchLeftAndPositionLeft {
 				}
 				else
 				{
-					RobotMap.autoProgramState = 3;
+					autoProgramState = 3;
 				}
 				break;
 			
