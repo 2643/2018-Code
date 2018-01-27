@@ -17,7 +17,7 @@ public class RobotMap {
 	
 	//encoder ticks it takes for the robot to turn 90 degrees
 	public static int ticksTo90 = 0; //TODO
-	
+	 
 	//makes it so that it only prints statements when debug is true
 	public static boolean debug = false;
 	
