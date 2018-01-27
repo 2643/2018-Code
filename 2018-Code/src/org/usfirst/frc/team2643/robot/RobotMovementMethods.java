@@ -188,14 +188,21 @@ public class RobotMovementMethods {
 	/**
 	 *Releases the arms in the beginning of the match 
 	 */
-	public static void releaseArms(){
+	public static void executeReleaseArms(){
 		if(AutoState.movingForwardToReleaseArm)
 		{
 			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armEncoderGoal))
 			{
 				setAll(RobotMap.cruisingSpeed);
 			}
+			else
+			{
+				AutoState.movingForwardToReleaseArm = false;
+				AutoState.movingBackwardToReleaseArm = true;
+				stopAll();
+			}
 		}
+		else 
 	}
 
 }

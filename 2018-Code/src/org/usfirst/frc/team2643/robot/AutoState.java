@@ -18,8 +18,8 @@ public class AutoState {
 	//if the arms have been released
 	public static boolean armsReleased = false;
 	public static boolean movingForwardToReleaseArm = false;
-	public static boolean movingBackwardToRelaseArm = false;
-	
+	public static boolean movingBackwardToReleaseArm = false;
+	public static final int armEncoderGoal = 500;
 	
 	public static boolean turning = false;
 	public static int leftEncoderGoal;
