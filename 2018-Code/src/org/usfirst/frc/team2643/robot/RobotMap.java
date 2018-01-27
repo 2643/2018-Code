@@ -30,6 +30,9 @@ public class RobotMap {
 	//encoder ticks for slightly past the switch
 	public static int ticksToPassSwitch = 0; //TODO
 	
+	//encoder ticks for the length of the field switch
+	public static int ticksForLengthOfSwitch = 0; //TODO
+	
 	//the state integer for the switch statement in turnRight()
 	public static int turnRightState = 1;
 	
