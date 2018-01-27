@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		System.out.println("Auto selected: " + autoSelected);
-		RobotMap.armsReleased = false;	
+		AutoState.armsReleased = false;	
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if(RobotMap.armsReleased == false)
+		if(AutoState.armsReleased == false)
 		{
 			RobotMovementMethods.releaseArms();
 		}

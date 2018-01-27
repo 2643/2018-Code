@@ -40,10 +40,12 @@ public class RobotMap {
 	
 	//please never use this the battery will drain muy rapido
 	public static final double fullSpeed = 1;
+	
 	//Set all motors to cruising speed! Aye aye cap'n!
-	public static final double cruisingSpeed = 0.6;
-	//A reduced speed for 
-	public static final double reducedSpeed = 0.2;
+	public static final double cruisingSpeed = 0.6; //TODO
+	
+	//A reduced speed for careful stuff 
+	public static final double reducedSpeed = 0.2;  //TODO
 	
 	//makes it so that it only prints statements when debug is true
 	public static final boolean DEBUG = true;

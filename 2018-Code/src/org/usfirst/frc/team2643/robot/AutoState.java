@@ -16,7 +16,7 @@ public class AutoState {
 	public static final byte ELEVATING = 3;
 	
 	//if the arms have been released
-	public static boolean ArmsReleased = false;
+	public static boolean armsReleased = false;
 	public static boolean MovingForwardToReleaseArm = false;
 	public static boolean MovingBackwardsToRelaseArm = false;
 	
