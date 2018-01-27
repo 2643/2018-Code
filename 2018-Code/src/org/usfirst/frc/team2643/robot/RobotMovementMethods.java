@@ -20,6 +20,18 @@ public class RobotMovementMethods {
 		return((getRightEncoder() + getLeftEncoder())/2);
 	}
 
+	
+	/**
+	 * Makes a 90 degree right turn
+	 */
+	public static void rightTurn()
+	{
+		if(!AutoState.turnInitialized)
+		{
+			setUpTurn();
+		}
+	}
+	
 	/**
 	 * Prepares the robot for a turn
 	 */
@@ -175,16 +187,19 @@ public class RobotMovementMethods {
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 		
-		AutoState.MovingForwardsToRelaseArm = true;
+		AutoState.movingForwardToReleaseArm = true;
 	}
 	
 	/**
 	 *Releases the arms in the beginning of the match 
 	 */
 	public static void releaseArms(){
-		if(AutoState.MovingForwardToRelaseArm)
+		if(AutoState.movingForwardToReleaseArm)
 		{
-			
+			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armEncoderGoal))
+			{
+				setAll(RobotMap.cruisingSpeed);
+			}
 		}
 	}
 
