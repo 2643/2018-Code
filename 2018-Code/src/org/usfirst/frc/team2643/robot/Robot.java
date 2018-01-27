@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	final String CrossAutoLineOnly = "CrossAutoLineOnly";
+	//The V is to prevent it from conflicting with a class name
+	final String CrossAutoLineOnly_v = "CrossAutoLineOnly";
 	final String PositionLeft = "PositionLeft";
 	final String PositionMiddle = "PositionMiddle";
 	final String PositionRight = "PositionRight";
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault(CrossAutoLineOnly, CrossAutoLineOnly);
+		chooser.addDefault(CrossAutoLineOnly_v, CrossAutoLineOnly_v);
 		
 		chooser.addObject(PositionLeft, PositionLeft);
 		chooser.addObject(PositionMiddle, PositionMiddle);
@@ -100,11 +100,11 @@ public class Robot extends IterativeRobot {
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L' && !autoSelected.equals(CrossAutoLineOnly))
+		if(gameData.charAt(0) == 'L' && !autoSelected.equals(CrossAutoLineOnly_v))
 		{
 			autoSelected = "SwitchLeftAnd"  + autoSelected;
 		} 
-		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(CrossAutoLineOnly))
+		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(CrossAutoLineOnly_v))
 		{
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
