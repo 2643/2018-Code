@@ -1,5 +1,11 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+
 public class RobotMap {
 
 	//boolean that tells if the motion to released the intake arms has been done
@@ -44,5 +50,29 @@ public class RobotMap {
 	
 	//the state integer for all of the auto programs
 	public static int autoProgramState = 1;
-
+	
+	//Drive motors
+	public static WPI_TalonSRX t1 = new WPI_TalonSRX(1);
+	public static WPI_TalonSRX t2 = new WPI_TalonSRX(2);
+	public static WPI_TalonSRX t3 = new WPI_TalonSRX(3);
+	public static WPI_TalonSRX t4 = new WPI_TalonSRX(4);
+	public static WPI_TalonSRX t5 = new WPI_TalonSRX(5);
+	public static WPI_TalonSRX t6 = new WPI_TalonSRX(6);
+	
+	//Motor to move elevator up
+	//weight of the elevator lets it drop
+	public static WPI_TalonSRX s1 = new WPI_TalonSRX(7);
+	
+	
+	//slid limit for elevator
+	public static DigitalInput slideLimit = new DigitalInput(1);
+	
+	//joystick
+	public static Joystick stick = new Joystick(0);
+	
+	//Encoders
+	public static Encoder leftEncoder = new Encoder(0,1);
+	public static Encoder rightEncoder = new Encoder(1,0);
+	public static Encoder slideEncoder = new Encoder(1,1);
+	
 }

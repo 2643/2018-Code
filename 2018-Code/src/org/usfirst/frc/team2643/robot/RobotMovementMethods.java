@@ -20,11 +20,11 @@ public class RobotMovementMethods {
 				
 					
 					//set all of the drive motors to zero
-					Robot.setAll(0);
+					RobotMap.setAll(0);
 					
 					//reset the encoders before turning
-					Robot.leftEncoder.reset();
-					Robot.rightEncoder.reset();
+					RobotMap.leftEncoder.reset();
+					RobotMap.rightEncoder.reset();
 					
 					//but it has not turned yet
 					RobotMap.finishedTurning = false;
@@ -37,20 +37,20 @@ public class RobotMovementMethods {
 					System.out.println("Second case for turnRight() method");
 				
 				//if the robot has not turned 90 degrees,
-				if(Math.abs(Robot.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(Robot.rightEncoder.get()) < RobotMap.ticksTo90){
+				if(Math.abs(RobotMap.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(RobotMap.rightEncoder.get()) < RobotMap.ticksTo90){
 					
 					//set the left and right motors to opposite values so that it rotates
-					Robot.setLeftMotors(0.4);
-					Robot.setRightMotors(-0.4);
+					RobotMap.setLeftMotors(0.4);
+					RobotMap.setRightMotors(-0.4);
 					
 				}else{
 					
 					//once it is finished turning, set all the drive motors to zero
-					Robot.setAll(0);
+					RobotMap.setAll(0);
 					
 					//reset the encoders after turning
-					Robot.leftEncoder.reset();
-					Robot.rightEncoder.reset();
+					RobotMap.leftEncoder.reset();
+					RobotMap.rightEncoder.reset();
 					
 					RobotMap.turnRightState = 1;
 					//the robot has finished turning and stoppedBeforeTurning needs to be reset 
@@ -74,11 +74,11 @@ public class RobotMovementMethods {
 					System.out.println("First Case for turnLeft() method");
 
 					//set all of the drive motors to zero
-					Robot.setAll(0);
+					RobotMap.setAll(0);
 					
 					//reset the encoders before turning
-					Robot.leftEncoder.reset();
-					Robot.rightEncoder.reset();
+					RobotMap.leftEncoder.reset();
+					RobotMap.rightEncoder.reset();
 				
 					//but it has not finished turning
 					RobotMap.finishedTurning = false;
@@ -94,20 +94,20 @@ public class RobotMovementMethods {
 					System.out.println("Second Case for turnLeft() method");
 				
 				//if the robot has not turned ninety degrees...
-				if(Math.abs(Robot.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(-Robot.rightEncoder.get()) < RobotMap.ticksTo90){
+				if(Math.abs(RobotMap.leftEncoder.get()) < RobotMap.ticksTo90 && Math.abs(-RobotMap.rightEncoder.get()) < RobotMap.ticksTo90){
 					
 					//set the drive motors to opposite values to rotate the robot
-					Robot.setLeftMotors(-0.4);
-					Robot.setRightMotors(0.4);
+					RobotMap.setLeftMotors(-0.4);
+					RobotMap.setRightMotors(0.4);
 				}
 				else //else the robot has turned ninety degrees
 				{
 					//set the motors to zero after turning
-					Robot.setAll(0);
+					RobotMap.setAll(0);
 					
 					//reset the encoders after turning
-					Robot.leftEncoder.reset();
-					Robot.rightEncoder.reset();
+					RobotMap.leftEncoder.reset();
+					RobotMap.rightEncoder.reset();
 					
 					RobotMap.turnLeftState = 1;
 					//the robot has finished turning

@@ -29,27 +29,7 @@ public class Robot extends IterativeRobot {
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
 	
-	//Six Drive Motors
-	static WPI_TalonSRX t1 = new WPI_TalonSRX(1);
-	static WPI_TalonSRX t2 = new WPI_TalonSRX(2);
-	static WPI_TalonSRX t3 = new WPI_TalonSRX(3);
-	static WPI_TalonSRX t4 = new WPI_TalonSRX(4);
-	static WPI_TalonSRX t5 = new WPI_TalonSRX(5);
-	static WPI_TalonSRX t6 = new WPI_TalonSRX(6);
 	
-	//Motor to move elevator up
-	//weight of the elevator lets it drop
-	static WPI_TalonSRX s1 = new WPI_TalonSRX(7);
-	
-	static DigitalInput slideLimit = new DigitalInput(1);
-	
-	static Joystick stick = new Joystick(0);
-	
-	int driveState = 0;
-	
-	static Encoder leftEncoder = new Encoder(0,1);
-	static Encoder rightEncoder = new Encoder(1,0);
-	static Encoder slideEncoder = new Encoder(1,1);
 	
 	
 	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
