@@ -110,6 +110,7 @@ public class RobotMovementMethods {
 					RobotMap.rightEncoder.reset();
 					
 					RobotMap.turnLeftState = 1;
+					
 					//the robot has finished turning
 					RobotMap.finishedTurning = true;
 				}
@@ -178,6 +179,13 @@ public class RobotMovementMethods {
 	public static void stopAll()
 	{
 		setAll(0);
+	}
+	
+	/**
+	 *Releases the arms in the beginning of the match 
+	 */
+	public static void releaseArms(){
+		//TODO
 	}
 	
 }
