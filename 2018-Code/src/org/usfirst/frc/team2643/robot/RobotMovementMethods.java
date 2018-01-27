@@ -4,7 +4,21 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMovementMethods {
 
-
+	
+	public static int getLeftEncoder()
+	{
+		return RobotMap.leftEncoder.get();
+	}
+	
+	public static int getRightEncoder()
+	{
+		return RobotMap.rightEncoder.get();
+	}
+	
+	public static int getAverageEncoder()
+	{
+		return((getRightEncoder() + getLeftEncoder())/2);
+	}
 
 	/**
 	 * Prepares the robot for a turn
@@ -25,7 +39,7 @@ public class RobotMovementMethods {
 	public static void executeTurn()
 	{
 		//if it hasnt reached its goal yet
-		if(!checkIfReachedGoal(RobotMap.rightEncoder.get(), AutoState.rightEncoderGoal))
+		if(!checkIfReachedGoal(getRightEncoder(), AutoState.rightEncoderGoal))
 		{
 			//set the motor in the correct direction
 			RobotMovementMethods.setRightMotors(
@@ -36,7 +50,7 @@ public class RobotMovementMethods {
 			finishTurn();
 		}
 		//if it hasnt reached its goal yet
-		if(!checkIfReachedGoal(RobotMap.leftEncoder.get(), AutoState.leftEncoderGoal))
+		if(!checkIfReachedGoal(getLeftEncoder(), AutoState.leftEncoderGoal))
 		{
 			//set the motor in the correct direction
 			RobotMovementMethods.setLeftMotors(
