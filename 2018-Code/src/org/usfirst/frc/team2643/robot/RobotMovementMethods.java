@@ -24,11 +24,15 @@ public class RobotMovementMethods {
 	/**
 	 * Makes a 90 degree right turn
 	 */
-	public static void rightTurn()
+	public static void turnRight()
 	{
 		if(!AutoState.turnInitialized)
 		{
-			setUpTurn();
+			setUpTurn(EnvironmentVariables.ticksTo90);
+		}
+		else
+		{
+			executeTurn();
 		}
 	}
 	
