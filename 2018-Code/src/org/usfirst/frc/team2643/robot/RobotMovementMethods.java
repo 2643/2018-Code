@@ -187,10 +187,16 @@ public class RobotMovementMethods {
 
 	/**
 	 *Releases the arms in the beginning of the match 
+	 * @return Returns if it is finished yet
 	 */
-	public static void executeReleaseArms(){
+	public static boolean executeReleaseArms(){
+		//whether the method is complete
+		boolean isFinished = false;
+		
+		//This means that it moves forward to shake the arm
 		if(AutoState.movingForwardToReleaseArm)
 		{
+			//if it has not already
 			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armEncoderGoal))
 			{
 				setAll(RobotMap.cruisingSpeed);
@@ -202,7 +208,25 @@ public class RobotMovementMethods {
 				stopAll();
 			}
 		}
-		else 
+		else if(AutoState.movingBackwardToReleaseArm)
+		{
+			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armEncoderGoal))
+			{
+				setAll(-RobotMap.cruisingSpeed);
+			}
+			else
+			{
+				AutoState.movingBackwardToReleaseArm = false;
+				stopAll();
+			}
+		}
+		else
+		{
+			isFinished = true;
+		}
+		return isFinished;
 	}
+	
+	public static vo
 
 }
