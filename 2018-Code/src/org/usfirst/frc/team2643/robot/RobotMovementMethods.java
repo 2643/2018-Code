@@ -167,12 +167,25 @@ public class RobotMovementMethods {
 	{
 		setAll(0);
 	}
-
+	
+	public static void setUpReleaseArms() {
+		AutoState.robotState = AutoState.MOVING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+		
+		AutoState.MovingForwardsToRelaseArm = true;
+	}
+	
 	/**
 	 *Releases the arms in the beginning of the match 
 	 */
 	public static void releaseArms(){
-		//help TODO
+		if(AutoState.MovingForwardToRelaseArm)
+		{
+			
+		}
 	}
 
 }
