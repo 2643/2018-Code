@@ -20,10 +20,10 @@ public class SwitchLeftAndPositionLeft {
 				}
 				
 				//the robot will move forward until it reaches the switch
-				if(Robot.leftEncoder.get() < RobotMap.ticksToSwitch 
-						&& Robot.rightEncoder.get() < RobotMap.ticksToSwitch)
+				if(RobotMap.leftEncoder.get() < RobotMap.ticksToSwitch 
+						&& RobotMap.rightEncoder.get() < RobotMap.ticksToSwitch)
 				{
-					Robot.setAll(RobotMap.autoSpeed);
+					RobotMovementMethods.setAll(RobotMap.autoSpeed);
 				}
 				else
 				{

@@ -9,9 +9,9 @@ public class SwitchLeftAndPositionMiddle {
 					System.out.println("The robot will move forward slightly past the switch");
 				}
 				
-				if(Robot.leftEncoder.get() < RobotMap.ticksToPassSwitch 
-						&& Robot.rightEncoder.get() < RobotMap.ticksToPassSwitch){
-					Robot.setAll(RobotMap.autoSpeed);
+				if(RobotMap.leftEncoder.get() < RobotMap.ticksToPassSwitch 
+						&& RobotMap.rightEncoder.get() < RobotMap.ticksToPassSwitch){
+					RobotMovementMethods.setAll(RobotMap.autoSpeed);
 				}
 				else{
 					RobotMap.autoProgramState = 2;
@@ -37,9 +37,9 @@ public class SwitchLeftAndPositionMiddle {
 					System.out.println("The robot will move forward until at the other end of the switch");
 				}
 				
-				if(Robot.leftEncoder.get() < RobotMap.ticksForLengthOfSwitch
-						&& Robot.rightEncoder.get() < RobotMap.ticksForLengthOfSwitch){
-					Robot.setAll(RobotMap.autoSpeed);
+				if(RobotMap.leftEncoder.get() < RobotMap.ticksForLengthOfSwitch
+						&& RobotMap.rightEncoder.get() < RobotMap.ticksForLengthOfSwitch){
+					RobotMovementMethods.setAll(RobotMap.autoSpeed);
 				}else{
 					RobotMap.autoProgramState = 3;
 				}
