@@ -68,15 +68,15 @@ public class Robot extends IterativeRobot {
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 		
-		while(!slideLimit.get()) {
-			s1.set(-0.8);
+		while(!RobotMap.slideLimit.get()) {
+			RobotMap.s1.set(-0.8);
 		}
 		
-		s1.set(0);
+		RobotMap.s1.set(0);
 		
-		slideEncoder.reset();
-		leftEncoder.reset();
-		rightEncoder.reset();
+		RobotMap.slideEncoder.reset();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -135,14 +135,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		if(stick.getRawButton(2)) { driveState = 1; }
-		else if(stick.getRawButton(1)) { driveState = 0; }
+		if(RobotMap.stick.getRawButton(2)) { driveState = 1; }
+		else if(RobotMap.stick.getRawButton(1)) { driveState = 0; }
 		//Changes drive state. 
 		if(driveState == 0) { //0 is Tank Drive
-			SRXtankDrive(stick.getRawAxis(1), stick.getRawAxis(5));
+			RobotMovementMethods.SRXtankDrive(RobotMap.stick.getRawAxis(1), RobotMap.stick.getRawAxis(5));
 		}
 		else if(driveState == 1) { //1 is arcade
-			SRXarcadeDrive(stick.getRawAxis(0),stick.getRawAxis(1));
+			RobotMovementMethods.SRXarcadeDrive(RobotMap.stick.getRawAxis(0),RobotMap.stick.getRawAxis(1));
 		}
 	}
 
