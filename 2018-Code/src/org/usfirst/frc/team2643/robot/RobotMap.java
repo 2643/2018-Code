@@ -39,45 +39,18 @@ public class RobotMap {
 	/*
 	 * These are variables used in the autonomous code
 	 */
-	//the speed for the robot during autonomous 
-	public static double autoSpeed = 0; //TODO
+	
+	//the speeds for the robot
+	
+	//please never use this the battery will drain muy rapido
+	public static double fullSpeed = 1;
+	//Set all motors to cruising speed! Aye aye cap'n!
+	public static double cruisingSpeed = 0.6;
+	//A reduced speed for 
+	public static double reducedSpeed = 0.2;
 	
 	//makes it so that it only prints statements when debug is true
-	public static boolean debug = false;
-	
-	//boolean that tells if the motion to released the intake arms has been done
-	public static boolean armsReleased = false;
-	
-	//the state integer for all of the auto programs
-	public static int autoProgramState = 1;
-	
-	//the state integer for the switch statement in turnRight()
-	public static int turnRightState = 1;
-	
-	//the state integer for the swtich statement in turnLeft()
-	public static int turnLeftState = 1;
-	
-	//distance from the starting position to the auto line in encoder ticks
-	static int autoLineDistance = 0; //TODO
-	
-	//encoder ticks it takes for the robot to turn 90 degrees
-	public static int ticksTo90 = 0; //TODO
-	
-	//the distance in encoder ticks from the starting position to the field switch
-	public static int ticksToSwitch = 0; //TODO
-	
-	//encoder ticks for the switch elevator height from bottom limit switch
-	public static int ticksToSwitchHeight = 0; //TODO
-	
-	//encoder ticks for slightly past the switch
-	public static int ticksToPassSwitch = 0; //TODO
-	
-	//encoder ticks for the length of the field switch
-	public static int ticksForLengthOfSwitch = 0; //TODO
-	
-	//the variable that indicates when the robot has finished turning
-	public static boolean finishedTurning = false;
-	
+	public static final boolean DEBUG = true;
 	
 	//speed for lowering the slide
 	public static double slideLoweringSpeed = -0.3; //TODO

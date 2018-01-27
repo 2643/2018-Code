@@ -4,7 +4,7 @@ public class SwitchLeftAndPositionMiddle {
 	public static void runPeriodic(){
 		switch(RobotMap.autoProgramState){
 			case 1: 
-				if(RobotMap.debug == true){
+				if(RobotMap.DEBUG == true){
 					System.out.println("First Case for the SwitchLeftAndPositionMiddle");
 					System.out.println("The robot will move forward slightly past the switch");
 				}
@@ -19,7 +19,7 @@ public class SwitchLeftAndPositionMiddle {
 				break;
 				
 			case 2:
-				if(RobotMap.debug == true){
+				if(RobotMap.DEBUG == true){
 					System.out.println("Second Case for the SwitchLeftAndPositionMiddle");
 					System.out.println("The robot will turn ninety degrees right");
 				}
@@ -32,7 +32,7 @@ public class SwitchLeftAndPositionMiddle {
 				break;
 				
 			case 3:
-				if(RobotMap.debug == true){
+				if(RobotMap.DEBUG == true){
 					System.out.println("Third Case for the SwitchLeftAndPositionMidle switch statement.");
 					System.out.println("The robot will move forward until at the other end of the switch");
 				}

@@ -21,10 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	//The V is to prevent it from conflicting with a class name
-	final String CrossAutoLineOnly_v = "CrossAutoLineOnly";
-	final String PositionLeft = "PositionLeft";
-	final String PositionMiddle = "PositionMiddle";
-	final String PositionRight = "PositionRight";
+	final String crossAutoLineOnlyOption = "CrossAutoLineOnly";
+	final String positionLeftOption = "PositionLeft";
+	final String positionMiddleOption = "PositionMiddle";
+	final String positionRightOption = "PositionRight";
 	
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
@@ -41,11 +41,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault(CrossAutoLineOnly_v, CrossAutoLineOnly_v);
+		chooser.addDefault(crossAutoLineOnlyOption, crossAutoLineOnlyOption);
 		
-		chooser.addObject(PositionLeft, PositionLeft);
-		chooser.addObject(PositionMiddle, PositionMiddle);
-		chooser.addObject(PositionRight, PositionRight);
+		chooser.addObject(positionLeftOption, positionLeftOption);
+		chooser.addObject(positionMiddleOption, positionMiddleOption);
+		chooser.addObject(positionRightOption, positionRightOption);
 		
 		SmartDashboard.putData("Auto choices", chooser);
 	}
@@ -80,11 +80,11 @@ public class Robot extends IterativeRobot {
 		
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L' && !autoSelected.equals(CrossAutoLineOnly_v))
+		if(gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
 		{
 			autoSelected = "SwitchLeftAnd"  + autoSelected;
 		} 
-		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(CrossAutoLineOnly_v))
+		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
 		{
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}

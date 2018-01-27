@@ -15,7 +15,7 @@ public class RobotMovementMethods {
 		switch(RobotMap.turnRightState){
 			case 1:
 				//if debug is true, print debug statements
-				if(RobotMap.debug == true)
+				if(RobotMap.DEBUG == true)
 					System.out.println("First Case for turnRight() method");
 				
 					
@@ -33,7 +33,7 @@ public class RobotMovementMethods {
 			case 2:
 				
 				//if the debug statements are set to true, print the debug statements
-				if(RobotMap.debug == true)
+				if(RobotMap.DEBUG == true)
 					System.out.println("Second case for turnRight() method");
 				
 				//if the robot has not turned 90 degrees,
@@ -70,7 +70,7 @@ public class RobotMovementMethods {
 			case 1: 
 				
 				//if debug is set to true. then print the debug statements
-				if(RobotMap.debug == true)
+				if(RobotMap.DEBUG == true)
 					System.out.println("First Case for turnLeft() method");
 
 					//set all of the drive motors to zero
@@ -90,7 +90,7 @@ public class RobotMovementMethods {
 			case 2:
 				
 				//if debug is true, print the debug statements
-				if(RobotMap.debug == true)
+				if(RobotMap.DEBUG == true)
 					System.out.println("Second Case for turnLeft() method");
 				
 				//if the robot has not turned ninety degrees...
@@ -185,7 +185,7 @@ public class RobotMovementMethods {
 	 *Releases the arms in the beginning of the match 
 	 */
 	public static void releaseArms(){
-		//TODO
+		//help TODO
 	}
 	
 }
