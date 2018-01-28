@@ -30,7 +30,3 @@ public class AutoState {
 
 
 }
-/*
- * ArrayList taskList = new ArrayList<>
- * 
- */
