@@ -17,7 +17,8 @@ public class SwitchLeftAndPositionMiddle
 		case 0:
 			if(RobotMap.DEBUG)
 			{
-				System.out.println("GO GO POWER RANGERS!!!!!!");
+				System.out.println("Zeroth Case for SwitchLeftPositionMiddle");
+				System.out.println("Robot will attempt to release arms");
 			}
 
 			if(!AutoState.armsReleasing)
