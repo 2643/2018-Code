@@ -182,7 +182,7 @@ public class RobotMovementMethods {
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
-		AutoState.movingForwardToReleaseArm = true;
+		AutoState.movingForwardToReleaseArms = true;
 	}
 
 	/**
@@ -194,29 +194,29 @@ public class RobotMovementMethods {
 		boolean isFinished = false;
 		
 		//This means that it moves forward to shake the arm
-		if(AutoState.movingForwardToReleaseArm)
+		if(AutoState.movingForwardToReleaseArms)
 		{
 			//if it has not already
-			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armEncoderGoal))
+			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsEncoderGoal))
 			{
 				setAll(RobotMap.cruisingSpeed);
 			}
 			else
 			{
-				AutoState.movingForwardToReleaseArm = false;
-				AutoState.movingBackwardToReleaseArm = true;
+				AutoState.movingForwardToReleaseArms = false;
+				AutoState.movingBackwardToReleaseArms = true;
 				stopAll();
 			}
 		}
-		else if(AutoState.movingBackwardToReleaseArm)
+		else if(AutoState.movingBackwardToReleaseArms)
 		{
-			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armEncoderGoal))
+			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsEncoderGoal))
 			{
 				setAll(-RobotMap.cruisingSpeed);
 			}
 			else
 			{
-				AutoState.movingBackwardToReleaseArm = false;
+				AutoState.movingBackwardToReleaseArms = false;
 				stopAll();
 			}
 		}
@@ -235,9 +235,9 @@ public class RobotMovementMethods {
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
-		AutoState.movingForwardToReleaseArm = false;
-		AutoState.movingBackwardToReleaseArm = false;
-		AutoState.movingForwardToReleaseArm = false;
+		AutoState.movingForwardToReleaseArms = false;
+		AutoState.movingBackwardToReleaseArms = false;
+		AutoState.movingForwardToReleaseArms = false;
 	}
 
 }
