@@ -6,6 +6,28 @@ public class SwitchLeftAndPositionRight {
 	public static void runPeriodic(){
 		switch(autoProgramState){
 		
+			//this will release the arms
+			case 0:
+				if(RobotMap.DEBUG){
+					System.out.println("case 0 for SwitchRightAndPositionLeft");
+				}
+
+				if(!AutoState.armsReleasing)
+				{
+					RobotMovementMethods.setUpReleaseArms();
+					AutoState.armsReleasing = true;
+				}
+				else
+				{
+					boolean isFinished = RobotMovementMethods.executeTurn();
+					if(isFinished)
+					{
+						RobotMovementMethods.finishReleaseArms();
+						autoProgramState = 1;
+						AutoState.armsReleasing = false;
+					}
+				}
+				break;
 			//the robot will go forward until the it goes a little bit past the switch
 			case 1:
 				if(RobotMap.DEBUG){
