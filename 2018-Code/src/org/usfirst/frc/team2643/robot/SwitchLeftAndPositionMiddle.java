@@ -10,7 +10,7 @@ public class SwitchLeftAndPositionMiddle
 	 * Case 2: the robot will rotate ninety degrees right to face the switch
 	 * Case 3: the robot will drop the cube on the switch
 	 */
-	public static void runPeriodic(){
+	public static void runPeriodic(){ 
 
 		switch(autoProgramState){
 		//the robot will attempt to release arms
