@@ -137,7 +137,7 @@ public class SwitchLeftAndPositionMiddle
 				System.out.println("Robot will move forward until at the center of the switch");
 			}
 
-			int encoderGoal = EnvironmentVariables.ticksToSwitch/2;
+			int encoderGoal = EnvironmentVariables.ticksLengthOfSwitch/2;
 			if(RobotMap.leftEncoder.get() < encoderGoal
 					&& RobotMap.rightEncoder.get() < encoderGoal)
 			{
@@ -146,6 +146,31 @@ public class SwitchLeftAndPositionMiddle
 			else
 			{
 				autoProgramState = 6;
+			}
+			break;
+		}
+		case 6:
+		{
+			if(RobotMap.DEBUG){
+				
+				System.out.println("Fourth case for SwitchLeftAndPositionLeft");
+				System.out.println("Robot will turn ninety degrees right to face the switch");
+			}
+
+			if(!AutoState.turning)
+			{
+				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+				AutoState.turning = true;
+			}
+			else
+			{
+				boolean isFinished = RobotMovementMethods.executeTurn();
+				if(isFinished)
+				{
+					RobotMovementMethods.finishTurn();
+					autoProgramState = 7;
+					AutoState.turning = false;
+				}
 			}
 			break;
 		}
