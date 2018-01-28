@@ -11,7 +11,9 @@ public class EnvironmentVariables {
 
 	//the distance in encoder ticks from the starting position to the field switch
 	public static final int ticksToSwitch = 0; //TODO
-
+	
+	public static final int halfwayTicksToSwitch = ticksToSwitch/2;
+	
 	//encoder ticks for the switch elevator height from bottom limit switch
 	public static final int ticksToSwitchHeight = 0; //TODO
 

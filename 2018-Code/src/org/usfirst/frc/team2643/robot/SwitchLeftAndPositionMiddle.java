@@ -37,7 +37,6 @@ public class SwitchLeftAndPositionMiddle
 				}
 			}
 			break;
-
 			//the robot will move forward until right next to the switch
 		case 1:
 			if(RobotMap.DEBUG)
