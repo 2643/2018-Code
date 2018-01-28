@@ -235,7 +235,9 @@ public class RobotMovementMethods {
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
-		AutoState.movingForwardToReleaseArm = true;
+		AutoState.movingForwardToReleaseArm = false;
+		AutoState.movingBackwardToReleaseArm = false;
+		AutoState.movingForwardToReleaseArm = false;
 	}
 
 }
