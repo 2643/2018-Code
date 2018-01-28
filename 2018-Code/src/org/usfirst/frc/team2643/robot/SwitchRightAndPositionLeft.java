@@ -75,8 +75,8 @@ public class SwitchRightAndPositionLeft {
 					System.out.println("case 4 for SwitchRightAndPositionLeft");
 				}
 				
-				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksForLengthOfSwitch
-						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksForLengthOfSwitch){
+				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch
+						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch){
 					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
 				}
 				else{

@@ -70,8 +70,8 @@ public class SwitchLeftAndPositionRight {
 					System.out.println("Third case for the SwitchLeftAndPositionRight program");
 				}
 				
-				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksForLengthOfSwitch
-						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksForLengthOfSwitch){
+				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch
+						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch){
 					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
 				} else{
 					autoProgramState = 4;
