@@ -174,7 +174,11 @@ public class RobotMovementMethods {
 	{
 		setAll(0);
 	}
-
+		
+	
+	/**
+	 *  Sets up release arms
+	 */
 	public static void setUpReleaseArms() {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
@@ -226,7 +230,9 @@ public class RobotMovementMethods {
 		}
 		return isFinished;
 	}
-	
+	/**
+	 * Cleans up after robot
+	 */
 	public static void finishReleaseArms()
 	{
 		AutoState.robotState = AutoState.NOTHING;
