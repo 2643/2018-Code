@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -167,7 +168,26 @@ public class Robot extends IterativeRobot {
 		else{
 			RobotMap.s1.set(0);
 		}
-
+		
+		
+		//Ramp Code
+		if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
+			RobotMap.RightFrontSolenoid.set(true);
+			RobotMap.RightBackSolenoid.set(true);
+		}
+		else if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
+			RobotMap.RightFrontSolenoid.set(false);
+			RobotMap.RightBackSolenoid.set(false);
+		}
+		
+		if(RobotMap.opStick.getRawButton(RobotMap.LeftRampDown)){
+			RobotMap.LeftFrontSolenoid.set(true);
+			RobotMap.LeftBackSolenoid.set(true);
+		}
+		else if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
+			RobotMap.LeftFrontSolenoid.set(false);
+			RobotMap.LeftBackSolenoid.set(false);
+		}
 
 	}
 

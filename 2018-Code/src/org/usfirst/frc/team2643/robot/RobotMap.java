@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
 	/*
@@ -35,6 +36,18 @@ public class RobotMap {
 	public static final Encoder rightEncoder = new Encoder(1,0);
 	public static final Encoder slideEncoder = new Encoder(1,1);
 
+	//Solenoids
+	public static Solenoid RightFrontSolenoid = new Solenoid(1);
+	public static Solenoid RightBackSolenoid = new Solenoid(2);
+	public static Solenoid LeftFrontSolenoid = new Solenoid(3);
+	public static Solenoid LeftBackSolenoid = new Solenoid(4);
+	
+	//the buttons for the robot
+	public static int RightRampDown = 0; //TODO
+	public static int RightRampUp = 0; //TODO
+	public static int LeftRampDown = 0; //TODO
+	public static int LeftRampUp = 0; //TODO
+	
 	
 	//the speeds for the robot
 	
