@@ -100,27 +100,27 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		switch(autoSelected) {
-		case "CrossAutoLineOnly": 
-			CrossAutoLineOnly.runPeriodic();
-			break;
-		case "SwitchLeftAndPositionLeft":
-			SwitchLeftAndPositionLeft.runPeriodic();
-			break;
-		case "SwitchLeftAndPositionMiddle":
-			SwitchLeftAndPositionMiddle.runPeriodic();
-			break;
-		case "SwitchLeftAndPositionRight":
-			SwitchLeftAndPositionRight.runPeriodic();
-			break;
-		case "SwitchRightAndPositionLeft":
-			SwitchRightAndPositionLeft.runPeriodic();
-			break;
-		case "SwitchRightAndPositionMiddle": 
-			SwitchRightAndPositionMiddle.runPeriodic();
-			break;
-		case "SwitchRightAndPositionRight": 
-			SwitchRightAndPositionRight.runPeriodic();
-			break;
+			case "CrossAutoLineOnly": 
+				CrossAutoLineOnly.runPeriodic();
+				break;
+			case "SwitchLeftAndPositionLeft":
+				SwitchLeftAndPositionLeft.runPeriodic();
+				break;
+			case "SwitchLeftAndPositionMiddle":
+				SwitchLeftAndPositionMiddle.runPeriodic();
+				break;
+			case "SwitchLeftAndPositionRight":
+				SwitchLeftAndPositionRight.runPeriodic();
+				break;
+			case "SwitchRightAndPositionLeft":
+				SwitchRightAndPositionLeft.runPeriodic();
+				break;
+			case "SwitchRightAndPositionMiddle": 
+				SwitchRightAndPositionMiddle.runPeriodic();
+				break;
+			case "SwitchRightAndPositionRight": 
+				SwitchRightAndPositionRight.runPeriodic();
+				break;
 		}
 	}
 
@@ -144,26 +144,24 @@ public class Robot extends IterativeRobot {
 			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
 		}
 
-		/*
-		 * Elevator code
+		 /* Elevator code
 		 * -winding it up moves the elevator up
 		 * -unwinding it will drop the elevator
 		 * -needs power to keep the elevator up
 		 * -encoders
 		 * -limit switch on the bottom
-		 * -limit switch on the top?
 		 */
 
 		if(RobotMap.opStick.getPOV() == 0){
 			RobotMap.s1.set(RobotMap.slideRaisingSpeed);
-			if(RobotMap.slideTopLimit.get() == true)
+			if(RobotMap.slideEncoder.get() == RobotMap.slideTopLimit)
 				RobotMap.s1.set(RobotMap.slideHoverSpeed);
 
 		}
 		else if(RobotMap.opStick.getPOV() == 180){
 			RobotMap.s1.set(RobotMap.slideLoweringSpeed);
 			if(RobotMap.slideBottomLimit.get() == true)
-				RobotMap.s1.set(0);;
+				RobotMap.s1.set(0);
 		}
 		else{
 			RobotMap.s1.set(0);
@@ -180,11 +178,11 @@ public class Robot extends IterativeRobot {
 			RobotMap.RightBackSolenoid.set(false);
 		}
 		
-		if(RobotMap.opStick.getRawButton(RobotMap.LeftRampDown)){
+		if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
 			RobotMap.LeftFrontSolenoid.set(true);
 			RobotMap.LeftBackSolenoid.set(true);
 		}
-		else if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
+		else if(RobotMap.opStick.getRawButton(RobotMap.LeftRampDown)){
 			RobotMap.LeftFrontSolenoid.set(false);
 			RobotMap.LeftBackSolenoid.set(false);
 		}
@@ -196,6 +194,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 
 

@@ -23,8 +23,8 @@ public class RobotMap {
 	public static final WPI_TalonSRX s1 = new WPI_TalonSRX(7);
 	
 	
-	//slid limit for elevator
-	public static final DigitalInput slideTopLimit = new DigitalInput(2);
+	//slide limits for elevator
+	public static final int slideTopLimit = 0; //TODO
 	public static final DigitalInput slideBottomLimit = new DigitalInput(1);
 	
 	//joystick
