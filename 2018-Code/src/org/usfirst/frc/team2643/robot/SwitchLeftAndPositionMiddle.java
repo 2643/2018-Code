@@ -193,6 +193,9 @@ public class SwitchLeftAndPositionMiddle
 				}
 				break;
 			}
+			
+			case 7:
+				break;
 		}
 	}
 }

@@ -101,6 +101,9 @@ public class SwitchLeftAndPositionRight {
 			//the robot will drop the cube onto the switch
 			case 5:
 				//drop the cube onto the switch
+				
+			case 6:
+				break;
 		}
 	}
 }

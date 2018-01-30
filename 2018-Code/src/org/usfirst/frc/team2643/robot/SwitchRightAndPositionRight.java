@@ -76,7 +76,9 @@ public class SwitchRightAndPositionRight {
 		case 3: 
 			//TODO drop the cube onto the switch
 			break;
-		}
+		
+		case 4:
+			break;
 		}
 	}
 }

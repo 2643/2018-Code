@@ -113,6 +113,9 @@ public class SwitchRightAndPositionLeft {
 				}
 				
 				//TODO
+				
+			case 6: 
+				break;
 		}
 	}
 }
