@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -67,31 +66,31 @@ public class Robot extends IterativeRobot {
 		autoSelected = chooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+		//System.out.println("Auto selected: " + autoSelected);
 
-		while(!RobotMap.slideBottomLimit.get()) {
-			RobotMap.s1.set(-0.3);
-		}
+//		while(!RobotMap.slideBottomLimit.get()) {
+//			RobotMap.s1.set(-0.3);
+//		}
+//
+//		RobotMap.s1.set(0);
 
-		RobotMap.s1.set(0);
-
-		RobotMap.slideEncoder.reset();
+//		RobotMap.slideEncoder.reset();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
-		{
-			autoSelected = "SwitchLeftAnd"  + autoSelected;
-		} 
-		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
-		{
-			autoSelected = "SwitchRightAnd" + autoSelected;
-		}
-
-		System.out.println("Auto selected: " + autoSelected);
-		AutoState.armsReleasing = false;	
+//		String gameData = "RRR";
+//		//gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		if(gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
+//		{
+//			autoSelected = "SwitchLeftAnd"  + autoSelected;
+//		} 
+//		else if(gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
+//		{
+//			autoSelected = "SwitchRightAnd" + autoSelected;
+//		}
+//
+//		System.out.println("Auto selected: " + autoSelected);
+//		autoSelected = "CrossAutoLineOnly";
 	}
 
 	/**
@@ -99,29 +98,31 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch(autoSelected) {
-			case "CrossAutoLineOnly": 
-				CrossAutoLineOnly.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionLeft":
-				SwitchLeftAndPositionLeft.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionMiddle":
-				SwitchLeftAndPositionMiddle.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionRight":
-				SwitchLeftAndPositionRight.runPeriodic();
-				break;
-			case "SwitchRightAndPositionLeft":
-				SwitchRightAndPositionLeft.runPeriodic();
-				break;
-			case "SwitchRightAndPositionMiddle": 
-				SwitchRightAndPositionMiddle.runPeriodic();
-				break;
-			case "SwitchRightAndPositionRight": 
-				SwitchRightAndPositionRight.runPeriodic();
-				break;
-		}
+		
+		SwitchRightAndPositionLeft.runPeriodic();
+		/*switch(autoSelected) {
+		case "CrossAutoLineOnly": 
+			CrossAutoLineOnly.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionLeft":
+			SwitchLeftAndPositionLeft.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionMiddle":
+			SwitchLeftAndPositionMiddle.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionRight":
+			SwitchLeftAndPositionRight.runPeriodic();
+			break;
+		case "SwitchRightAndPositionLeft":
+			SwitchRightAndPositionLeft.runPeriodic();
+			break;
+		case "SwitchRightAndPositionMiddle": 
+			SwitchRightAndPositionMiddle.runPeriodic();
+			break;
+		case "SwitchRightAndPositionRight": 
+			SwitchRightAndPositionRight.runPeriodic();
+			break;
+		}*/
 	}
 
 
@@ -131,71 +132,44 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
-		/*
-		 * Drive code
-		 */
-		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
-		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
-		//Changes drive state. 
-		if(driveState == 0) { //0 is Tank Drive
-			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
-		}
-		else if(driveState == 1) { //1 is arcade
-			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
-		}
+//		/*
+//		 * Drive code
+//		 */
+//		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
+//		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
+//		//Changes drive state. 
+//		if(driveState == 0) { //0 is Tank Drive
+//			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+//		}
+//		else if(driveState == 1) { //1 is arcade
+//			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
+//		}
+//
+//		/*
+//		 * Elevator code
+//		 * -winding it up moves the elevator up
+//		 * -unwinding it will drop the elevator
+//		 * -needs power to keep the elevator up
+//		 * -encoders
+//		 * -limit switch on the bottom
+//		 * -limit switch on the top?
+//		 */
+//
+//		if(RobotMap.opStick.getPOV() == 0){
+//			RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+//			if(RobotMap.slideTopLimit.get() == true)
+//				RobotMap.s1.set(RobotMap.slideHoverSpeed);
+//
+//		}
+//		else if(RobotMap.opStick.getPOV() == 180){
+//			RobotMap.s1.set(RobotMap.slideLoweringSpeed);
+//			if(RobotMap.slideBottomLimit.get() == true)
+//				RobotMap.s1.set(0);;
+//		}
+//		else{
+//			RobotMap.s1.set(0);
+//		}
 
-		 /* Elevator code
-		 * -winding it up moves the elevator up
-		 * -unwinding it will drop the elevator
-		 * -needs power to keep the elevator up
-		 * -encoders
-		 * -limit switch on the bottom
-		 */
-		
-		if(RobotMap.opStick.getPOV() == 0){
-			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
-				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
-				if (RobotMap.slideEncoder.get() == RobotMap.slideTopLimit) {
-					RobotMap.s1.set(RobotMap.slideHoverSpeed);
-					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
-				}
-			}
-		}
-		else if(RobotMap.opStick.getPOV() == 180){
-			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
-				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
-				if (RobotMap.slideEncoder.get() == RobotMap.slideTopLimit) {
-					RobotMap.s1.set(RobotMap.slideHoverSpeed);
-					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
-				}
-			}
-		}
-		else{
-			RobotMap.s1.set(0);
-			AutoState.elevatorPower = 0;
-		}
-		
-		
-		//Ramp Code
-		if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
-			RobotMap.RightFrontSolenoid.set(true);
-			RobotMap.RightBackSolenoid.set(true);
-		}
-		else if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
-			RobotMap.RightFrontSolenoid.set(false);
-			RobotMap.RightBackSolenoid.set(false);
-		}
-		
-		if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
-			RobotMap.LeftFrontSolenoid.set(true);
-			RobotMap.LeftBackSolenoid.set(true);
-		}
-		else if(RobotMap.opStick.getRawButton(RobotMap.LeftRampDown)){
-			RobotMap.LeftFrontSolenoid.set(false);
-			RobotMap.LeftBackSolenoid.set(false);
-		}
 
 	}
 
@@ -204,7 +178,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		
 	}
 
 
