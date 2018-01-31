@@ -19,7 +19,7 @@ public class SwitchLeftAndPositionRight {
 				}
 				else
 				{
-					boolean isFinished = RobotMovementMethods.executeTurn();
+					boolean isFinished =  RobotMovementMethods.executeTurn();
 					if(isFinished)
 					{
 						RobotMovementMethods.finishReleaseArms();
