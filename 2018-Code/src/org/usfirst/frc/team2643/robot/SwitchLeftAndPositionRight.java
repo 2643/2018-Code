@@ -2,14 +2,15 @@ package org.usfirst.frc.team2643.robot;
 
 public class SwitchLeftAndPositionRight {
 	
-	public static int autoProgramState = 1;
+	public static int autoProgramState = 0;
+	
 	public static void runPeriodic(){
 		switch(autoProgramState){
 		
 			//this will release the arms
 			case 0:
 				if(RobotMap.DEBUG){
-					System.out.println("case 0 for SwitchRightAndPositionLeft");
+					System.out.println("SwitchLeftAndPositionRight Case 0: Robot will release arms");
 				}
 
 				if(!AutoState.armsReleasing)
@@ -28,10 +29,11 @@ public class SwitchLeftAndPositionRight {
 					}
 				}
 				break;
+				
 			//the robot will go forward until the it goes a little bit past the switch
 			case 1:
 				if(RobotMap.DEBUG){
-					System.out.println("First case for the SwitchLeftAndPositionRight program");
+					System.out.println("SwitchLeftAndPositionRight Case 1: Robot will go forward until it is a little bit past the switch");
 				}
 				
 				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksToPassSwitch 
@@ -42,14 +44,14 @@ public class SwitchLeftAndPositionRight {
 				}  
 				break;
 			
-				//the robot will turn right 9220 degrees
+			//the robot will turn left 90 degrees
 			case 2:
 				if(RobotMap.DEBUG){
-					System.out.println("Second case for the SwitchLeftAndPositionRight program");
+					System.out.println("SwitchLeftAndPositionRight Case 2: Robot will turn 90 degrees");
 				}
 				
 				if(!AutoState.turning){
-					RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+					RobotMovementMethods.setUpTurn(-EnvironmentVariables.ticksTo90);
 					AutoState.turning = false;
 				}
 				else
@@ -67,13 +69,16 @@ public class SwitchLeftAndPositionRight {
 			//the robot will go along the back wall of the switch until it is almost at the end
 			case 3:
 				if(RobotMap.DEBUG){
-					System.out.println("Third case for the SwitchLeftAndPositionRight program");
+					System.out.println("SwitchLeftAndPositionRight Case 3: Robot will go along the back of the switch until it is almost at the end.");
 				}
 				
 				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch
-						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch){
+						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch)
+				{
 					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
-				} else{
+				} 
+				else
+				{
 					autoProgramState = 4;
 				}
 				break;
@@ -81,7 +86,7 @@ public class SwitchLeftAndPositionRight {
 			//the robot will rotate 90 right so that it is facing the switch plate 
 			case 4:
 				if(RobotMap.DEBUG){
-					System.out.println("Fourth case for the SwitchLeftAndPositionRight program");
+					System.out.println("SwitchLeftAndPositionRight Case 4: the robot will turn 90 degrees right to face the switch plate");
 				}
 				
 				if(!AutoState.turning){
@@ -100,9 +105,17 @@ public class SwitchLeftAndPositionRight {
 				
 			//the robot will drop the cube onto the switch
 			case 5:
+				if(RobotMap.DEBUG){
+					System.out.println("SwitchLeftAndPositionRight Case 5: Robot will drop the cube onto the switch");
+				}
+				autoProgramState = 6;
 				//drop the cube onto the switch
+				break;
 				
 			case 6:
+				if(RobotMap.DEBUG){
+					System.out.println("SwitchLeftAndPositionRight Case 6: Program is done");
+				}
 				break;
 		}
 	}
