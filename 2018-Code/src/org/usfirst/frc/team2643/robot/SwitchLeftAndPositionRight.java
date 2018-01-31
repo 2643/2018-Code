@@ -39,7 +39,7 @@ public class SwitchLeftAndPositionRight {
 					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
 				}else{
 					autoProgramState = 2;
-				}
+				}  
 				break;
 			
 				//the robot will turn right 9220 degrees
