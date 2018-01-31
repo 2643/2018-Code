@@ -42,7 +42,7 @@ public class SwitchLeftAndPositionRight {
 				}
 				break;
 			
-				//the robot will turn right 90 degrees
+				//the robot will turn right 9220 degrees
 			case 2:
 				if(RobotMap.DEBUG){
 					System.out.println("Second case for the SwitchLeftAndPositionRight program");

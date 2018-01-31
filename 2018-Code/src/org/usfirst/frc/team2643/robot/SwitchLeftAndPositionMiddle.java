@@ -11,9 +11,29 @@ public class SwitchLeftAndPositionMiddle
 	public static void runPeriodic(){ 
 
 		switch(autoProgramState){
+<<<<<<< Upstream, based on branch 'master' of https://github.com/2643/2018-Code.git
 			case 0:
 			
 				if(RobotMap.DEBUG)
+=======
+		case 0:
+		{
+			if(RobotMap.DEBUG)
+			{
+				System.out.println("Zeroth Case for SwitchLeftPositionMiddle");
+				System.out.println("Robot will attempt to release arms");
+			}
+
+			if(!AutoState.armsReleasing)
+			{
+				RobotMovementMethods.setUpReleaseArms();
+				AutoState.armsReleasing = true;
+			}
+			else
+			{
+				boolean isFinished = RobotMovementMethods.executeReleaseArms();
+				if(isFinished)
+>>>>>>> 00534b6 ok
 				{
 					System.out.println("SwitchLeftAndPositionMiddle Case 0: Robot will attempt to release arms");
 				}
