@@ -5,8 +5,6 @@ package org.usfirst.frc.team2643.robot;
  * 
  */
 public class AutoState {
-	
-	
 	public static int robotState;
 	
 	//states the robot may be in
@@ -25,8 +23,15 @@ public class AutoState {
 	public static int leftEncoderGoal;
 	public static int rightEncoderGoal;
 
-	
-	
-
-
+	// Power safeties
+	// If limitMotorOverElevator is true, if the elevator is drawing
+	// a lot of power, it will limit how fast the motors can go.
+	// If limitMotorOverElevator is false, and the motors are drawing
+	// a lot of power, it will not allow you to raise the elevator.
+	public static double motorPower = 0;
+	public static double motorPowerLimit = 0.3; // Indicator for when to limit elevator, or upper limit for motors if elevator is limiting
+	public static boolean limitMotorOverElevator = true;
+	public static double elevatorPowerLimit = 0.4; // Indicator for when to limit motor, or upper limit for elevator if motors are limiting
+	public static double elevatorPower = 0;
+	//TODO: Check values (make sure they make sense)
 }

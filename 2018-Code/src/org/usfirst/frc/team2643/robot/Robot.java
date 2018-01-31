@@ -151,20 +151,30 @@ public class Robot extends IterativeRobot {
 		 * -encoders
 		 * -limit switch on the bottom
 		 */
-
+		
 		if(RobotMap.opStick.getPOV() == 0){
-			RobotMap.s1.set(RobotMap.slideRaisingSpeed);
-			if(RobotMap.slideEncoder.get() == RobotMap.slideTopLimit)
-				RobotMap.s1.set(RobotMap.slideHoverSpeed);
-
+			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
+				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
+				if (RobotMap.slideEncoder.get() == RobotMap.slideTopLimit) {
+					RobotMap.s1.set(RobotMap.slideHoverSpeed);
+					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
+				}
+			}
 		}
 		else if(RobotMap.opStick.getPOV() == 180){
-			RobotMap.s1.set(RobotMap.slideLoweringSpeed);
-			if(RobotMap.slideBottomLimit.get() == true)
-				RobotMap.s1.set(0);
+			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
+				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
+				if (RobotMap.slideEncoder.get() == RobotMap.slideTopLimit) {
+					RobotMap.s1.set(RobotMap.slideHoverSpeed);
+					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
+				}
+			}
 		}
 		else{
 			RobotMap.s1.set(0);
+			AutoState.elevatorPower = 0;
 		}
 		
 		

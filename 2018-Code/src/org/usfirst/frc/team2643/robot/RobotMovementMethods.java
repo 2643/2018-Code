@@ -144,19 +144,29 @@ public class RobotMovementMethods {
 	 * Sets all motors on the left side of the robot to the given value
 	 * @param speed The speed to set the motors to
 	 */
-	public static void setLeftMotors(double speed) { 
+	public static void setLeftMotors(double speed) {
+		if (AutoState.limitMotorOverElevator &&
+				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
+			speed = AutoState.motorPowerLimit;
+		}
 		RobotMap.t1.set(-speed);
 		RobotMap.t2.set(-speed);
 		RobotMap.t3.set(-speed);
+		AutoState.motorPower = speed/2;
 	}
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * @param The speed to set the motors to
 	 */
 	public static void setRightMotors(double speed) {
+		if (AutoState.limitMotorOverElevator &&
+				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
+			speed = AutoState.motorPowerLimit;
+		}
 		RobotMap.t4.set(speed);
 		RobotMap.t5.set(speed);
 		RobotMap.t6.set(speed);
+		AutoState.motorPower = speed/2;
 	}
 
 	/**
@@ -166,6 +176,7 @@ public class RobotMovementMethods {
 	public static void setAll(double speed) { //Set all of the motors to the given value. 
 		setLeftMotors(speed);
 		setRightMotors(speed);
+		AutoState.motorPower = speed;
 	}
 	/**
 	 * Stops the robot
