@@ -242,7 +242,7 @@ public class RobotMovementMethods {
 		return isFinished;
 	}
 	/**
-	 * Cleans up after robot
+	 * Cleans up after robot finishes releasing
 	 */
 	public static void finishReleaseArms()
 	{
