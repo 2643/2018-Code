@@ -132,43 +132,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
-//		/*
-//		 * Drive code
-//		 */
-//		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
-//		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
-//		//Changes drive state. 
-//		if(driveState == 0) { //0 is Tank Drive
-//			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
-//		}
-//		else if(driveState == 1) { //1 is arcade
-//			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
-//		}
-//
-//		/*
-//		 * Elevator code
-//		 * -winding it up moves the elevator up
-//		 * -unwinding it will drop the elevator
-//		 * -needs power to keep the elevator up
-//		 * -encoders
-//		 * -limit switch on the bottom
-//		 * -limit switch on the top?
-//		 */
-//
-//		if(RobotMap.opStick.getPOV() == 0){
-//			RobotMap.s1.set(RobotMap.slideRaisingSpeed);
-//			if(RobotMap.slideTopLimit.get() == true)
-//				RobotMap.s1.set(RobotMap.slideHoverSpeed);
-//
-//		}
-//		else if(RobotMap.opStick.getPOV() == 180){
-//			RobotMap.s1.set(RobotMap.slideLoweringSpeed);
-//			if(RobotMap.slideBottomLimit.get() == true)
-//				RobotMap.s1.set(0);;
-//		}
-//		else{
-//			RobotMap.s1.set(0);
-//		}
+		/*
+		 * Drive code
+		 */
+		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
+		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
+		//Changes drive state. 
+		if(driveState == 0) { //0 is Tank Drive
+			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+		}
+		else if(driveState == 1) { //1 is arcade
+			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
+		}
 
 
 	}

@@ -149,9 +149,8 @@ public class RobotMovementMethods {
 				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
 			speed = AutoState.motorPowerLimit;
 		}
-		RobotMap.t1.set(-speed);
-		RobotMap.t2.set(-speed);
-		RobotMap.t3.set(-speed);
+		RobotMap.lFrontMotor.set(speed);
+		RobotMap.lBackMotor.set(speed);
 		AutoState.motorPower = speed/2;
 	}
 	/**
@@ -163,9 +162,8 @@ public class RobotMovementMethods {
 				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
 			speed = AutoState.motorPowerLimit;
 		}
-		RobotMap.t4.set(speed);
-		RobotMap.t5.set(speed);
-		RobotMap.t6.set(speed);
+		RobotMap.rFrontMotor.set(-speed);
+		RobotMap.rBackMotor.set(-speed);
 		AutoState.motorPower = speed/2;
 	}
 
