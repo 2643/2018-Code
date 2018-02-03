@@ -24,7 +24,7 @@ public class RobotMap {
 	
 	
 	//slide limits for elevator
-	public static final int slideTopLimit = 0; //TODO
+	public static final int slideBeforeTopLimit = 0; //TODO
 	public static final DigitalInput slideBottomLimit = new DigitalInput(1);
 	
 	//joystick
