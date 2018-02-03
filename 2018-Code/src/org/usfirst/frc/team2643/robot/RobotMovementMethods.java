@@ -141,6 +141,76 @@ public class RobotMovementMethods {
 	}
 	
 	/**
+	 *  Sets up release arms
+	 */
+	public static void setUpReleaseArms() {
+		AutoState.robotState = AutoState.MOVING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+
+		AutoState.movingForwardToReleaseArms = true;
+	}
+
+	/**
+	 *Releases the arms in the beginning of the match 
+	 * @return Returns if it is finished yet
+	 */
+	public static boolean executeReleaseArms(){
+		//whether the method is complete
+		boolean isFinished = false;
+		
+		//This means that it moves forward to shake the arm
+		if(AutoState.movingForwardToReleaseArms)
+		{
+			//if it has not already
+			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsEncoderGoal))
+			{
+				setAll(RobotMap.cruisingSpeed);
+			}
+			else
+			{
+				AutoState.movingForwardToReleaseArms = false;
+				AutoState.movingBackwardToReleaseArms = true;
+				stopAll();
+			}
+		}
+		else if(AutoState.movingBackwardToReleaseArms)
+		{
+			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsEncoderGoal))
+			{
+				setAll(-RobotMap.cruisingSpeed);
+			}
+			else
+			{
+				AutoState.movingBackwardToReleaseArms = false;
+				stopAll();
+			}
+		}
+		else
+		{
+			isFinished = true;
+		}
+		return isFinished;
+	}
+	/**
+	 * Cleans up after robot finishes releasing
+	 */
+	public static void finishReleaseArms()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+
+		AutoState.movingForwardToReleaseArms = false;
+		AutoState.movingBackwardToReleaseArms = false;
+		AutoState.movingForwardToReleaseArms = false;
+	}
+	
+	/**
 	 * Checks if the current encoder value has reached its goal
 	 * @param currentEncoder the current value of the encoder
 	 * @param encoderGoal the goal to be reached
@@ -245,77 +315,6 @@ public class RobotMovementMethods {
 	public static void stopAll()
 	{
 		setAll(0);
-	}
-		
-	
-	/**
-	 *  Sets up release arms
-	 */
-	public static void setUpReleaseArms() {
-		AutoState.robotState = AutoState.MOVING;
-		//stop all drive motors and reset everything
-		stopAll();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
-		AutoState.movingForwardToReleaseArms = true;
-	}
-
-	/**
-	 *Releases the arms in the beginning of the match 
-	 * @return Returns if it is finished yet
-	 */
-	public static boolean executeReleaseArms(){
-		//whether the method is complete
-		boolean isFinished = false;
-		
-		//This means that it moves forward to shake the arm
-		if(AutoState.movingForwardToReleaseArms)
-		{
-			//if it has not already
-			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsEncoderGoal))
-			{
-				setAll(RobotMap.cruisingSpeed);
-			}
-			else
-			{
-				AutoState.movingForwardToReleaseArms = false;
-				AutoState.movingBackwardToReleaseArms = true;
-				stopAll();
-			}
-		}
-		else if(AutoState.movingBackwardToReleaseArms)
-		{
-			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsEncoderGoal))
-			{
-				setAll(-RobotMap.cruisingSpeed);
-			}
-			else
-			{
-				AutoState.movingBackwardToReleaseArms = false;
-				stopAll();
-			}
-		}
-		else
-		{
-			isFinished = true;
-		}
-		return isFinished;
-	}
-	/**
-	 * Cleans up after robot finishes releasing
-	 */
-	public static void finishReleaseArms()
-	{
-		AutoState.robotState = AutoState.NOTHING;
-		//stop all drive motors and reset everything
-		stopAll();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
-		AutoState.movingForwardToReleaseArms = false;
-		AutoState.movingBackwardToReleaseArms = false;
-		AutoState.movingForwardToReleaseArms = false;
-	}
+	}	
 
 }

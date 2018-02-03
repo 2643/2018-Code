@@ -29,12 +29,11 @@ public class SwitchLeftAndPositionLeft {
 				}
 				else
 				{
-					boolean isFinished = RobotMovementMethods.executeReleaseArms();
-					if(isFinished)
+					if(RobotMovementMethods.executeReleaseArms())
 					{
 						RobotMovementMethods.finishReleaseArms();
-						autoProgramState = 1;
 						AutoState.armsReleasing = false;
+						autoProgramState++;
 					}
 				}
 				break;
@@ -46,15 +45,16 @@ public class SwitchLeftAndPositionLeft {
 				}
 
 				//The robot will go forward until one of the encoders reaches the switch
-				if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksToMiddleOfSwitch 
-						&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksToMiddleOfSwitch)
+				if(!AutoState.moving)
 				{
-					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
-					
+					RobotMovementMethods.setUpMove(EnvironmentVariables.ticksToMiddleOfSwitch);
+					AutoState.moving = true;
 				}
-				else
+				else if(RobotMovementMethods.executeMove())
 				{
-					autoProgramState = 2;
+					RobotMovementMethods.finishMove();
+					AutoState.moving = false;
+					autoProgramState++;
 				}
 				break;
 
@@ -71,13 +71,12 @@ public class SwitchLeftAndPositionLeft {
 					AutoState.turning = true;
 				}	
 				else
-				{
-					boolean isFinished = RobotMovementMethods.executeTurn();
-					if(isFinished)
+				{ 
+					if(RobotMovementMethods.executeTurn())
 					{
 						RobotMovementMethods.finishTurn();
-						autoProgramState = 3;
 						AutoState.turning = false;
+						autoProgramState++;
 					}
 				}
 				break;
@@ -88,7 +87,7 @@ public class SwitchLeftAndPositionLeft {
 					System.out.println("SwitchLeftAndPositionLeft Case 3: Robot will drop the cube onto the switch.");
 				}
 				//TODO drop the cube onto the switch
-				autoProgramState = 4;
+				autoProgramState++;
 				break;
 			
 			case 4:
