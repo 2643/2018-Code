@@ -112,8 +112,9 @@ public class RobotMovementMethods {
 
 
 
-	public void liftToSwitchHeight() {
-
+	public void liftToSwitchHeight() //TODO
+	{
+		
 	}
 
 	//TODO This is broken please fix it
