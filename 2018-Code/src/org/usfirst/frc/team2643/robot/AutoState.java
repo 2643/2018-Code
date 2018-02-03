@@ -23,6 +23,10 @@ public class AutoState {
 	public static int leftEncoderGoal;
 	public static int rightEncoderGoal;
 
+	
+	public static boolean moving = false;
+	public static int encoderGoal;
+	
 	// Power safeties
 	// If limitMotorOverElevator is true, if the elevator is drawing
 	// a lot of power, it will limit how fast the motors can go.

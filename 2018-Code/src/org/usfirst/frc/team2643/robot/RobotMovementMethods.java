@@ -81,6 +81,65 @@ public class RobotMovementMethods {
 		
 	}
 
+	
+	/**
+	 * Prepares the robot for a move
+	 */
+	public static void setUpMove(int ticks)
+	{
+		AutoState.robotState = AutoState.MOVING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+		
+		AutoState.encoderGoal = ticks;
+	}
+	
+
+	public static boolean executeMove()
+	{
+		boolean isFinished = false;
+		
+		//if it hasn't reached its goal yet
+		if(!checkIfReachedGoal(getRightEncoder(), AutoState.encoderGoal))
+		{
+			//set the motor in the correct direction
+			RobotMovementMethods.setRightMotors(
+					Utils.getSign(AutoState.rightEncoderGoal)*RobotMap.cruisingSpeed);
+		}
+		else
+		{
+			isFinished = true;
+		}
+		//if it hasn't reached its goal yet
+		if(!checkIfReachedGoal(getLeftEncoder(), AutoState.encoderGoal))
+		{
+			//set the motor in the correct direction
+			RobotMovementMethods.setLeftMotors(
+					Utils.getSign(AutoState.encoderGoal)
+					*  RobotMap.cruisingSpeed);
+		}
+		else
+		{
+			isFinished = true;
+		}
+		
+		return isFinished;
+	}
+
+	public static void finishMove()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		//stop all drive motors and reset everything
+		stopAll();
+		RobotMap.leftEncoder.reset();
+		RobotMap.rightEncoder.reset();
+
+		AutoState.leftEncoderGoal = 0;
+		AutoState.rightEncoderGoal = 0;
+	}
+	
 	/**
 	 * Checks if the current encoder value has reached its goal
 	 * @param currentEncoder the current value of the encoder
