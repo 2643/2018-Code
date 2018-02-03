@@ -70,10 +70,10 @@ public class Robot extends IterativeRobot {
 		System.out.println("Auto selected: " + autoSelected);
 
 		while(!RobotMap.slideBottomLimit.get()) {
-			RobotMap.s1.set(-0.3);
+			RobotMap.e1.set(-0.3);
 		}
 
-		RobotMap.s1.set(0);
+		RobotMap.e1.set(0);
 
 		RobotMap.slideEncoder.reset();
 		RobotMap.leftEncoder.reset();
@@ -154,26 +154,26 @@ public class Robot extends IterativeRobot {
 		
 		if(RobotMap.opStick.getPOV() == 0){
 			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+				RobotMap.e1.set(RobotMap.slideRaisingSpeed);
 				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
 				if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
-					RobotMap.s1.set(RobotMap.slideHoverSpeed);
+					RobotMap.e1.set(RobotMap.slideHoverSpeed);
 					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
 				}
 			}
 		}
 		else if(RobotMap.opStick.getPOV() == 180){
 			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+				RobotMap.e1.set(RobotMap.slideRaisingSpeed);
 				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
 				if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
-					RobotMap.s1.set(RobotMap.slideHoverSpeed);
+					RobotMap.e1.set(RobotMap.slideHoverSpeed);
 					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
 				}
 			}
 		}
 		else{
-			RobotMap.s1.set(0);
+			RobotMap.e1.set(0);
 			AutoState.elevatorPower = 0;
 		}
 		
@@ -206,47 +206,47 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if(RobotMap.driveStick.getRawButton(0) == true){
-			RobotMap.t1.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.l1.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(1) == true){
-			RobotMap.t2.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.l2.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(2) == true){
-			RobotMap.t3.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.l3.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(3) == true){
-			RobotMap.t4.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.r4.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(4) == true){
-			RobotMap.t5.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.r5.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(5) == true){
-			RobotMap.t6.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.r6.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(6) == true){
-			RobotMap.s1.set(RobotMap.slideRaisingSpeed);
+			RobotMap.e1.set(RobotMap.slideRaisingSpeed);
 			if(RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit){
-				RobotMap.s1.set(RobotMap.slideHoverSpeed);
+				RobotMap.e1.set(RobotMap.slideHoverSpeed);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(7) == true){
-			RobotMap.s1.set(RobotMap.slideLoweringSpeed);
+			RobotMap.e1.set(RobotMap.slideLoweringSpeed);
 			if(RobotMap.slideBottomLimit.get()){
-				RobotMap.s1.set(0);
+				RobotMap.e1.set(0);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
@@ -255,18 +255,18 @@ public class Robot extends IterativeRobot {
 			RobotMap.leftEncoder.reset();
 			RobotMap.rightEncoder.reset();
 			RobotMap.slideEncoder.reset();
-			RobotMap.t1.set(0);
-			RobotMap.t2.set(0);
-			RobotMap.t3.set(0);
-			RobotMap.t4.set(0);
-			RobotMap.t5.set(0);
-			RobotMap.t6.set(0);
+			RobotMap.l1.set(0);
+			RobotMap.l2.set(0);
+			RobotMap.l3.set(0);
+			RobotMap.r4.set(0);
+			RobotMap.r5.set(0);
+			RobotMap.r6.set(0);
 			
 			if(RobotMap.slideBottomLimit.get() == false){
-				RobotMap.s1.set(RobotMap.slideLoweringSpeed);
+				RobotMap.e1.set(RobotMap.slideLoweringSpeed);
 			}
 			else if(RobotMap.slideBottomLimit.get() == true){
-				RobotMap.s1.set(0);
+				RobotMap.e1.set(0);
 			}
 		}
 	}

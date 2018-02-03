@@ -41,6 +41,7 @@ public class SwitchRightAndPositionMiddle {
 					RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
 				}
 				else{
+					RobotMovementMethods.stopAll();
 					autoProgramState = 2;
 				}
 				break;
