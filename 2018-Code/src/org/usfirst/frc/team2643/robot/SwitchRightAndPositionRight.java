@@ -16,7 +16,7 @@ public class SwitchRightAndPositionRight {
 				RobotMovementMethods.setUpReleaseArms();
 				AutoState.armsReleasing = true;
 			}
-			else if(RobotMovementMethods.executeTurn())
+			else if(RobotMovementMethods.executeReleaseArms())
 			{
 					RobotMovementMethods.finishReleaseArms();
 					AutoState.armsReleasing = false;
