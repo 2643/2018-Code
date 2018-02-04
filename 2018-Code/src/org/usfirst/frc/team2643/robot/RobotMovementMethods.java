@@ -19,6 +19,11 @@ public class RobotMovementMethods {
 	{
 		return((getRightEncoder() + getLeftEncoder())/2);
 	}
+	
+	public static int getMaxEncoder()
+	{
+		return Math.max(getRightEncoder(), getLeftEncoder());
+	}
 
 
 	/**
@@ -28,7 +33,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.TURNING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
@@ -72,7 +77,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
@@ -89,7 +94,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 		
@@ -102,23 +107,11 @@ public class RobotMovementMethods {
 		boolean isFinished = false;
 		
 		//if it hasn't reached its goal yet
-		if(!checkIfReachedGoal(getRightEncoder(), AutoState.encoderGoal))
+		if(!(checkIfReachedGoal(getRightEncoder(), AutoState.encoderGoal) || checkIfReachedGoal(getLeftEncoder(), AutoState.encoderGoal)))
 		{
 			//set the motor in the correct direction
 			RobotMovementMethods.setRightMotors(
-					Utils.getSign(AutoState.rightEncoderGoal)*RobotMap.cruisingSpeed);
-		}
-		else
-		{
-			isFinished = true;
-		}
-		//if it hasn't reached its goal yet
-		if(!checkIfReachedGoal(getLeftEncoder(), AutoState.encoderGoal))
-		{
-			//set the motor in the correct direction
-			RobotMovementMethods.setLeftMotors(
-					Utils.getSign(AutoState.encoderGoal)
-					*  RobotMap.cruisingSpeed);
+					Utils.getSign(AutoState.encoderGoal)*RobotMap.cruisingSpeed);
 		}
 		else
 		{
@@ -132,7 +125,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
@@ -146,7 +139,7 @@ public class RobotMovementMethods {
 	public static void setUpReleaseArms() {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
@@ -167,25 +160,25 @@ public class RobotMovementMethods {
 			//if it has not already
 			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsEncoderGoal))
 			{
-				setAll(RobotMap.cruisingSpeed);
+				setAllMotors(RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingForwardToReleaseArms = false;
 				AutoState.movingBackwardToReleaseArms = true;
-				stopAll();
+				stopAllMotors();
 			}
 		}
 		else if(AutoState.movingBackwardToReleaseArms)
 		{
 			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsEncoderGoal))
 			{
-				setAll(-RobotMap.cruisingSpeed);
+				setAllMotors(-RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingBackwardToReleaseArms = false;
-				stopAll();
+				stopAllMotors();
 			}
 		}
 		else
@@ -201,7 +194,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAll();
+		stopAllMotors();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
@@ -257,7 +250,7 @@ public class RobotMovementMethods {
 			setLeftMotors(-y);
 		}
 		else { //If no joystick activity, set all motors to 0.
-			stopAll();
+			stopAllMotors();
 		}
 	}
 
@@ -304,7 +297,7 @@ public class RobotMovementMethods {
 	 * Sets the robot to a certain speed
 	 * @param speed The speed to set the motor to. Make sure it is not too fast or you will consume too much voltage
 	 */
-	public static void setAll(double speed) { //Set all of the motors to the given value. 
+	public static void setAllMotors(double speed) { //Set all of the motors to the given value. 
 		setLeftMotors(speed);
 		setRightMotors(speed);
 		AutoState.motorPower = speed;
@@ -312,9 +305,9 @@ public class RobotMovementMethods {
 	/**
 	 * Stops the robot
 	 */
-	public static void stopAll()
+	public static void stopAllMotors()
 	{
-		setAll(0);
+		setAllMotors(0);
 	}	
 
 }
