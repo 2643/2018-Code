@@ -44,10 +44,12 @@ public class SwitchLeftAndPositionLeft {
 					System.out.println("SwitchLeftAndPositionLeft Case 1: The robot will move forward until it is right next to the switch");
 				}
 
+				
+				int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
 				//The robot will go forward until one of the encoders reaches the switch
 				if(!AutoState.moving)
 				{
-					RobotMovementMethods.setUpMove(EnvironmentVariables.ticksToMiddleOfSwitch);
+					RobotMovementMethods.setUpMove(encoderGoal);
 					AutoState.moving = true;
 				}
 				else if(RobotMovementMethods.executeMove())
@@ -72,6 +74,7 @@ public class SwitchLeftAndPositionLeft {
 				}	
 				else
 				{ 
+					//until it finishes
 					if(RobotMovementMethods.executeTurn())
 					{
 						RobotMovementMethods.finishTurn();
