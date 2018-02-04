@@ -16,38 +16,37 @@ public class SwitchRightAndPositionRight {
 				RobotMovementMethods.setUpReleaseArms();
 				AutoState.armsReleasing = true;
 			}
-			else
+			else if(RobotMovementMethods.executeTurn())
 			{
-				boolean isFinished = RobotMovementMethods.executeTurn();
-				if(isFinished)
-				{
 					RobotMovementMethods.finishReleaseArms();
-					autoProgramState = 1;
 					AutoState.armsReleasing = false;
-				}
+					autoProgramState++;
 			}
 			break;
 
 		//the robot will move forward until right next to the switch
 		case 1:
+		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight case 1: the robot will move forward until it is right next to the switch");
 			}
-
-			//the robot will move forward until it reaches the switch
-			if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksToMiddleOfSwitch 
-					&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksToMiddleOfSwitch)
+			int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
+			if(!AutoState.moving)
 			{
-				RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
+				RobotMovementMethods.setUpMove(encoderGoal);
+				AutoState.moving = true;
 			}
-			else
+			else if(RobotMovementMethods.executeMove())
 			{
-				autoProgramState = 2;
+				RobotMovementMethods.finishMove();
+				AutoState.moving = false;
+				autoProgramState++;
 			}
 			break;
-
+		}
 		//the robot will turn ninety degrees left to face the switch
 		case 2:
+		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 2: the robot will turn 90 degrees left to face the switch");
 			}
@@ -57,19 +56,15 @@ public class SwitchRightAndPositionRight {
 				RobotMovementMethods.setUpTurn(-EnvironmentVariables.ticksTo90);
 				AutoState.turning = true;
 			}
-			else
+			else if(RobotMovementMethods.executeTurn())
 			{
-				boolean isFinished = RobotMovementMethods.executeTurn();
-				if(isFinished)
-				{
 					RobotMovementMethods.finishTurn();
-					autoProgramState = 3;
 					AutoState.turning = false;
-				}
+					autoProgramState++;
 			}
 			break;
-
-			//the robot will drop the cube on the switch
+		}
+		//the robot will drop the cube on the switch
 		case 3: 
 			//TODO drop the cube onto the switch
 			if(RobotMap.DEBUG){

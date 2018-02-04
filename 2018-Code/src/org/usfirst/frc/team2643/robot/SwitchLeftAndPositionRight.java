@@ -56,37 +56,41 @@ public class SwitchLeftAndPositionRight {
 
 			if(!AutoState.turning){
 				RobotMovementMethods.setUpTurn(-EnvironmentVariables.ticksTo90);
-				AutoState.turning = false;
+				AutoState.turning = true;
 			}
 			else if(RobotMovementMethods.executeTurn())
 			{
 				RobotMovementMethods.finishTurn();
-				autoProgramState = 3;
 				AutoState.turning = false;
-
+				autoProgramState++;
 			}
 			break;
 		}
 
 		//the robot will go along the back wall of the switch until it is almost at the end
 		case 3:
+		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 3: Robot will go along the back of the switch until it is almost at the end.");
 			}
-
-			if(RobotMap.leftEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch
-					&& RobotMap.rightEncoder.get() < EnvironmentVariables.ticksWidthOfSwitch)
+			
+			int encoderGoal = EnvironmentVariables.ticksWidthOfSwitch;
+			if(!AutoState.moving)
 			{
-				RobotMovementMethods.setAll(RobotMap.cruisingSpeed);
-			} 
-			else
+				RobotMovementMethods.setUpMove(encoderGoal);
+				AutoState.moving = true;
+			}
+			else if(RobotMovementMethods.executeMove())
 			{
-				autoProgramState = 4;
+				RobotMovementMethods.finishMove();
+				AutoState.moving = false;
+				autoProgramState++;
 			}
 			break;
-
-			//the robot will rotate 90 right so that it is facing the switch plate 
+		}
+		//the robot will rotate 90 right so that it is facing the switch plate 
 		case 4:
+		{	
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 4: the robot will turn 90 degrees right to face the switch plate");
 			}
@@ -95,25 +99,23 @@ public class SwitchLeftAndPositionRight {
 				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
 				AutoState.turning = true;
 			}
-			else{
-				boolean isFinished = RobotMovementMethods.executeTurn();
-				if(isFinished){
-					RobotMovementMethods.finishTurn();
-					autoProgramState = 5;
-					AutoState.turning = false;
-				}
+			else if(RobotMovementMethods.executeTurn()){
+				RobotMovementMethods.finishTurn();
+				AutoState.turning = false;
+				autoProgramState++;
 			}
 			break;
-
-			//the robot will drop the cube onto the switch
+		}
+		//the robot will drop the cube onto the switch
 		case 5:
+		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 5: Robot will drop the cube onto the switch");
 			}
-			autoProgramState = 6;
+			autoProgramState++;
 			//drop the cube onto the switch
 			break;
-
+		}
 		case 6:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 6: Program is done");
