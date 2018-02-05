@@ -164,6 +164,8 @@ public class RobotMovementMethods {
 			{
 				AutoState.movingForwardToReleaseArms = false;
 				AutoState.movingBackwardToReleaseArms = true;
+				RobotMap.leftEncoder.reset();
+				RobotMap.rightEncoder.reset();
 				stopAllMotors();
 			}
 		}

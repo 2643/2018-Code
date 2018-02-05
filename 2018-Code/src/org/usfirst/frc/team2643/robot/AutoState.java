@@ -18,7 +18,7 @@ public class AutoState {
 	public static boolean movingForwardToReleaseArms = false;
 	public static boolean movingBackwardToReleaseArms = false;
 	public static final int armsForwardEncoderGoal = 500;
-	public static final int armsBackwardEncoderGoal = 300;
+	public static final int armsBackwardEncoderGoal = 400;
 	
 	public static boolean turning = false;
 	public static int leftEncoderGoal;

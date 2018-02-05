@@ -106,8 +106,25 @@ public class SwitchLeftAndPositionRight {
 			}
 			break;
 		}
-		//the robot will drop the cube onto the switch
 		case 5:
+		{	
+			if(RobotMap.DEBUG){
+				System.out.println("SwitchLeftAndPositionRight Case 5: the robot will move 90 to the center of the switch plate");
+			}
+
+			if(!AutoState.turning){
+				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+				AutoState.turning = true;
+			}
+			else if(RobotMovementMethods.executeTurn()){
+				RobotMovementMethods.finishTurn();
+				AutoState.turning = false;
+				autoProgramState++;
+			}
+			break;
+		}
+		//the robot will drop the cube onto the switch
+		case 6:
 		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 5: Robot will drop the cube onto the switch");
@@ -116,7 +133,7 @@ public class SwitchLeftAndPositionRight {
 			//drop the cube onto the switch
 			break;
 		}
-		case 6:
+		case 7:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 6: Program is done");
 			}
