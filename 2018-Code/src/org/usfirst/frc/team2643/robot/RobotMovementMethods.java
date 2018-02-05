@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-import edu.wpi.first.wpilibj.Timer;
-
 public class RobotMovementMethods {
 
 
@@ -158,7 +156,7 @@ public class RobotMovementMethods {
 		if(AutoState.movingForwardToReleaseArms)
 		{
 			//if it has not already
-			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsEncoderGoal))
+			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsForwardEncoderGoal))
 			{
 				setAllMotors(RobotMap.cruisingSpeed);
 			}
@@ -171,7 +169,7 @@ public class RobotMovementMethods {
 		}
 		else if(AutoState.movingBackwardToReleaseArms)
 		{
-			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsEncoderGoal))
+			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsBackwardEncoderGoal))
 			{
 				setAllMotors(-RobotMap.cruisingSpeed);
 			}
