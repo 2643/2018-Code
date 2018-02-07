@@ -6,6 +6,7 @@ public class SwitchRightAndPositionRight {
 	
 	public static void runPeriodic(){
 		switch(autoProgramState){
+		//the robot will release the arms
 		case 0:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 0: Robot will release arms");
@@ -28,7 +29,7 @@ public class SwitchRightAndPositionRight {
 		case 1:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionRight case 1: the robot will move forward until it is right next to the switch");
+				System.out.println("SwitchRightAndPositionRight Case 1: Move forward until next to the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
 			if(!AutoState.moving)
@@ -48,7 +49,7 @@ public class SwitchRightAndPositionRight {
 		case 2:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionRight Case 2: the robot will turn 90 degrees left to face the switch");
+				System.out.println("SwitchRightAndPositionRight Case 2: Turn 90 degrees left");
 			}
 
 			if(!AutoState.turning)
@@ -68,13 +69,14 @@ public class SwitchRightAndPositionRight {
 		case 3: 
 			//TODO drop the cube onto the switch
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionRight Case 3: the robot will drop the cube onto the switch");
+				System.out.println("SwitchRightAndPositionRight Case 3: Drop the cube");
 			}
 			autoProgramState = 4;
 			break;
+		//the program is done
 		case 4:
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionRight Case 4: program is done");
+				System.out.println("SwitchRightAndPositionRight Case 4: Program is done");
 			}
 			break;
 		}

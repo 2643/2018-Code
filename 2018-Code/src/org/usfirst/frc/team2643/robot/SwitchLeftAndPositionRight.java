@@ -31,7 +31,7 @@ public class SwitchLeftAndPositionRight {
 		case 1:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 1: Robot will go forward until it is a little bit past the switch");
+				System.out.println("SwitchLeftAndPositionRight Case 1: Move forward until past the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToPassSwitch;
 			if(!AutoState.moving)
@@ -51,7 +51,7 @@ public class SwitchLeftAndPositionRight {
 		case 2:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 2: Robot will turn 90 degrees");
+				System.out.println("SwitchLeftAndPositionRight Case 2: Turn left 90 degrees");
 			}
 
 			if(!AutoState.turning){
@@ -67,11 +67,11 @@ public class SwitchLeftAndPositionRight {
 			break;
 		}
 
-		//the robot will go along the back wall of the switch until it is almost at the end
+		//the robot will move along the back of the wall until it passes the left end of the switch
 		case 3:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 3: Robot will go along the back of the switch until it is almost at the end.");
+				System.out.println("SwitchLeftAndPositionRight Case 3: Move along back wall and pass the left end of the switch");
 			}
 			
 			int encoderGoal = EnvironmentVariables.ticksWidthOfSwitch;
@@ -88,11 +88,11 @@ public class SwitchLeftAndPositionRight {
 			}
 			break;
 		}
-		//the robot will rotate 90 right so that it is facing the switch plate 
+		//the robot will turn 90 degrees right
 		case 4:
 		{	
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 4: the robot will turn 90 degrees right to face the switch plate");
+				System.out.println("SwitchLeftAndPositionRight Case 4: Turn 90 degrees right");
 			}
 
 			if(!AutoState.turning){
@@ -106,10 +106,11 @@ public class SwitchLeftAndPositionRight {
 			}
 			break;
 		}
+		//the robot will move forward so that it is next to the switch
 		case 5:
 		{	
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 5: the robot will move 90 to the center of the switch plate");
+				System.out.println("SwitchLeftAndPositionRight Case 5: Move forward until in the middle of the length of the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksLengthOfSwitch/2;
 			if(!AutoState.moving)
@@ -125,10 +126,11 @@ public class SwitchLeftAndPositionRight {
 			}
 			break;
 		}
+		//the robot will turn 90 degrees left to face the switch plate
 		case 6:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 6: Robot will turn to face the switch");
+				System.out.println("SwitchLeftAndPositionRight Case 6: Turn 90 degrees left to face the switch plate");
 			}
 			if(!AutoState.turning){
 				RobotMovementMethods.setUpTurn(-EnvironmentVariables.ticksTo90);
@@ -141,10 +143,11 @@ public class SwitchLeftAndPositionRight {
 			}
 			break;
 		}
+		//the robot will drop the cube
 		case 7:
 		{	
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 7: Robot will drop cube");
+				System.out.println("SwitchLeftAndPositionRight Case 7: Drop the cube onto the switch");
 			}
 			//DROP DAT CUBE 
 			//...no
@@ -154,6 +157,7 @@ public class SwitchLeftAndPositionRight {
 			// r. i. p.
 			break;
 		}
+		//the program is done
 		case 8:
 		{	
 			if(RobotMap.DEBUG){

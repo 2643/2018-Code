@@ -35,12 +35,12 @@ public class SwitchLeftAndPositionMiddle {
 			}
 			break;
 
-			//the robot will move halfway to the switch
+		//the robot will move halfway to the switch
 		case 1:
 		{
 			if(RobotMap.DEBUG)
 			{
-				System.out.println("SwitchLeftAndPositionMiddle Case 1: Robot moving halfway to switch");
+				System.out.println("SwitchLeftAndPositionMiddle Case 1: Move halfway to switch");
 			}
 
 			int encoderGoal = EnvironmentVariables.ticksToBeforeSwitch/2;
@@ -61,7 +61,7 @@ public class SwitchLeftAndPositionMiddle {
 		case 2:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionMiddle Case 2: Robot turning left 90 degrees");
+				System.out.println("SwitchLeftAndPositionMiddle Case 2: Turn 90 degrees left");
 			}
 
 			if(!AutoState.turning)
@@ -82,12 +82,12 @@ public class SwitchLeftAndPositionMiddle {
 			break;
 		}
 
-			//the robot will move until it almost reaches the left end of the switch
+		//the robot will move until it almost reaches the left end of the switch
 		case 3:
 		{
 			if(RobotMap.DEBUG)
 			{
-				System.out.println("SwitchLeftAndPositionMiddle Case 3: Robot will move until it is almost in line with the left end of the switch.");
+				System.out.println("SwitchLeftAndPositionMiddle Case 3: Move forward until in line with the left end of the switch");
 			}
 
 			int encoderGoal = (EnvironmentVariables.ticksWidthOfSwitch)/2;
@@ -108,7 +108,7 @@ public class SwitchLeftAndPositionMiddle {
 		case 4:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionMiddle Case 4: Robot will turn 90 degrees right");
+				System.out.println("SwitchLeftAndPositionMiddle Case 4: Turn 90 degrees right");
 			}
 
 			if(!AutoState.turning)
@@ -130,7 +130,7 @@ public class SwitchLeftAndPositionMiddle {
 		{
 			if(RobotMap.DEBUG)
 			{
-				System.out.println("SwitchLeftAndPositionMiddle Case 5: Robot will move forward until it reaches the switch");
+				System.out.println("SwitchLeftAndPositionMiddle Case 5: Move forward until next to the switch");
 			}	
 
 			int encoderGoal = EnvironmentVariables.ticksToBeforeSwitch/2;
@@ -152,7 +152,7 @@ public class SwitchLeftAndPositionMiddle {
 		case 6:
 		{
 			if(RobotMap.DEBUG){	
-				System.out.println("SwitchLeftAndPositionMiddle Case 6: Robot will drop the cube");
+				System.out.println("SwitchLeftAndPositionMiddle Case 6: Drop the cube onto the switch");
 			}
 			autoProgramState++;
 			//TODO

@@ -11,7 +11,7 @@ public class SwitchRightAndPositionMiddle {
 		case 0:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionMiddle Case 0: Robot turning to release the arms");
+				System.out.println("SwitchRightAndPositionMiddle Case 0: Release the arms");
 			}
 
 			if(!AutoState.armsReleasing)
@@ -32,7 +32,7 @@ public class SwitchRightAndPositionMiddle {
 		case 1:
 		{
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionMiddle Case 1: Robot moving forward until it hits the switch");
+				System.out.println("SwitchRightAndPositionMiddle Case 1: Move forward until you hit the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToBeforeSwitch;
 			if(!AutoState.moving)
@@ -51,7 +51,7 @@ public class SwitchRightAndPositionMiddle {
 		//the robot will drop the cube onto the switch
 		case 2: 
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionMiddle Case 2: the robot will drop the cube onto the switch");
+				System.out.println("SwitchRightAndPositionMiddle Case 2: Drop the cube onto the switch");
 			}
 			autoProgramState = 3;
 			//TODO
