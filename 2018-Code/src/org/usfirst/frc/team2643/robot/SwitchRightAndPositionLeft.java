@@ -56,7 +56,7 @@ public class SwitchRightAndPositionLeft {
 
 			if(!AutoState.turning)
 			{
-				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90+50);
 				AutoState.turning = true;
 			}
 			else if(RobotMovementMethods.executeTurn())
@@ -96,7 +96,7 @@ public class SwitchRightAndPositionLeft {
 
 			if(!AutoState.turning)
 			{
-				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90+50);
 				AutoState.turning = true;
 			}
 			else if(RobotMovementMethods.executeTurn()){
@@ -131,7 +131,7 @@ public class SwitchRightAndPositionLeft {
 				System.out.println("SwitchLeftAndPositionRight Case 6: Robot will turn to face the switch");
 			}
 			if(!AutoState.turning){
-				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+				RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90+50);
 				AutoState.turning = true;
 			}
 			else if(RobotMovementMethods.executeTurn()){
