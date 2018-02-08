@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,10 +32,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<String> chooser = new SendableChooser<>();
 
 	int driveState = 0;
- 
-
-	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
-
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,6 +46,32 @@ public class Robot extends IterativeRobot {
 		chooser.addObject(positionRightOption, positionRightOption);
 
 		SmartDashboard.putData("Auto choices", chooser);
+		
+		int amps = 35;
+		int timeoutMs = 10;
+		RobotMap.l1.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.l1.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.l1.enableCurrentLimit(true);
+		
+		RobotMap.l2.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.l2.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.l2.enableCurrentLimit(true);
+		
+		RobotMap.l3.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.l3.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.l3.enableCurrentLimit(true);
+		
+		RobotMap.r4.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.r4.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.r4.enableCurrentLimit(true);
+		
+		RobotMap.r5.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.r5.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.r5.enableCurrentLimit(true);
+		
+		RobotMap.r6.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.r6.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.r6.enableCurrentLimit(true);
 	}
 
 	/**
@@ -130,10 +153,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-
-		/*
-		 * Drive code
-		 */
+		/*Drive code*/
 		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
 		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
 		//Changes drive state. 
@@ -153,9 +173,11 @@ public class Robot extends IterativeRobot {
 		 */
 		
 		if(RobotMap.opStick.getPOV() == 0){
-			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
+			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } 
+			else {
 				RobotMap.e1.set(RobotMap.slideRaisingSpeed);
 				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
+				
 				if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
 					RobotMap.e1.set(RobotMap.slideHoverSpeed);
 					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
