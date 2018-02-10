@@ -14,7 +14,7 @@ public class RobotMap {
 	//Drive motors
 	public static final WPI_TalonSRX l1 = new WPI_TalonSRX(1);
 	public static final WPI_TalonSRX l2 = new WPI_TalonSRX(2);
-	public static final WPI_TalonSRX l3 = new WPI_TalonSRX(3);
+	public static final WPI_TalonSRX l3 = new WPI_TalonSRX(3); 
 	public static final WPI_TalonSRX r4 = new WPI_TalonSRX(4);
 	public static final WPI_TalonSRX r5 = new WPI_TalonSRX(5);
 	public static final WPI_TalonSRX r6 = new WPI_TalonSRX(6);
