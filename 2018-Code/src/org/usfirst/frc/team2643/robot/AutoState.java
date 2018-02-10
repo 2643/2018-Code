@@ -5,7 +5,7 @@ package org.usfirst.frc.team2643.robot;
  * 
  */
 public class AutoState {
-	public static int robotState;
+	public static int robotState; 
 	
 	//states the robot may be in
 	public static final byte NOTHING = 0;
