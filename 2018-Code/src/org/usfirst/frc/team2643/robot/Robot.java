@@ -72,7 +72,6 @@ public class Robot extends IterativeRobot {
 		while(!RobotMap.slideBottomLimit.get()) {
 			RobotMap.e1.set(-0.3);
 		}
-
 		RobotMap.e1.set(0);
 
 		RobotMap.slideEncoder.reset();
