@@ -49,29 +49,30 @@ public class Robot extends IterativeRobot {
 		
 		int amps = 35;
 		int timeoutMs = 10;
-		RobotMap.l1.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.l1.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.l1.enableCurrentLimit(true);
+		RobotMap.rightBackMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.rightBackMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.rightBackMotor.enableCurrentLimit(true);
 		
-		RobotMap.l2.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.l2.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.l2.enableCurrentLimit(true);
+		RobotMap.rightMiddleMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.rightMiddleMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.rightMiddleMotor.enableCurrentLimit(true);
 		
-		RobotMap.l3.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.l3.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.l3.enableCurrentLimit(true);
+		RobotMap.rightFrontMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.rightFrontMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.rightFrontMotor.enableCurrentLimit(true);
 		
-		RobotMap.r4.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.r4.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.r4.enableCurrentLimit(true);
+		RobotMap.leftBackMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.leftBackMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.leftBackMotor.enableCurrentLimit(true);
 		
-		RobotMap.r5.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.r5.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.r5.enableCurrentLimit(true);
+		RobotMap.leftMiddleMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.leftMiddleMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.leftMiddleMotor.enableCurrentLimit(true);
 		
-		RobotMap.r6.configContinuousCurrentLimit(amps, timeoutMs);
-		RobotMap.r6.configPeakCurrentLimit(amps, timeoutMs);
-		RobotMap.r6.enableCurrentLimit(true);
+		RobotMap.leftFrontMotor.configContinuousCurrentLimit(amps, timeoutMs);
+		RobotMap.leftFrontMotor.configPeakCurrentLimit(amps, timeoutMs);
+		RobotMap.leftFrontMotor.enableCurrentLimit(true);
+
 	}
 
 	/**
@@ -93,17 +94,16 @@ public class Robot extends IterativeRobot {
 		System.out.println("Auto selected: " + autoSelected);
 
 		while(!RobotMap.slideBottomLimit.get()) {
-			RobotMap.e1.set(-0.3);
+			RobotMap.elevator.set(-0.3);
 		}
 
-		RobotMap.e1.set(0);
+		RobotMap.elevator.set(0);
 
 		RobotMap.slideEncoder.reset();
 		RobotMap.leftEncoder.reset();
 		RobotMap.rightEncoder.reset();
 
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if(gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
 		{
 			autoSelected = "SwitchLeftAnd"  + autoSelected;
@@ -228,39 +228,39 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if(RobotMap.driveStick.getRawButton(0) == true){
-			RobotMap.l1.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftFrontMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(1) == true){
-			RobotMap.l2.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftMiddleMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(2) == true){
-			RobotMap.l3.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftBackMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(3) == true){
-			RobotMap.r4.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightFrontMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(4) == true){
-			RobotMap.r5.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightMiddleMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(5) == true){
-			RobotMap.r6.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightBackMotor.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
 		
 		else if(RobotMap.driveStick.getRawButton(6) == true){
-			RobotMap.e1.set(RobotMap.slideRaisingSpeed);
+			RobotMap.elevator.set(RobotMap.slideRaisingSpeed);
 			if(RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit){
-				RobotMap.e1.set(RobotMap.slideHoverSpeed);
+				RobotMap.elevator.set(RobotMap.slideHoverSpeed);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
@@ -268,7 +268,7 @@ public class Robot extends IterativeRobot {
 		else if(RobotMap.driveStick.getRawButton(7) == true){
 			RobotMap.e1.set(RobotMap.slideLoweringSpeed);
 			if(RobotMap.slideBottomLimit.get()){
-				RobotMap.e1.set(0);
+				RobotMap.elevator.set(0);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
@@ -277,18 +277,18 @@ public class Robot extends IterativeRobot {
 			RobotMap.leftEncoder.reset();
 			RobotMap.rightEncoder.reset();
 			RobotMap.slideEncoder.reset();
-			RobotMap.l1.set(0);
-			RobotMap.l2.set(0);
-			RobotMap.l3.set(0);
-			RobotMap.r4.set(0);
-			RobotMap.r5.set(0);
-			RobotMap.r6.set(0);
+			RobotMap.rightFrontMotor.set(0);
+			RobotMap.rightMiddleMotor.set(0);
+			RobotMap.rightBackMotor.set(0);
+			RobotMap.leftFrontMotor.set(0);
+			RobotMap.leftMiddleMotor.set(0);
+			RobotMap.leftBackMotor.set(0);
 			
 			if(RobotMap.slideBottomLimit.get() == false){
-				RobotMap.e1.set(RobotMap.slideLoweringSpeed);
+				RobotMap.elevator.set(RobotMap.slideLoweringSpeed);
 			}
 			else if(RobotMap.slideBottomLimit.get() == true){
-				RobotMap.e1.set(0);
+				RobotMap.elevator.set(0);
 			}
 		}
 	}

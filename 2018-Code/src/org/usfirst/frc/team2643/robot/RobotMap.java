@@ -11,17 +11,25 @@ public class RobotMap {
 	/*
 	 * These are the motors, encoders, joysticks and limit switch
 	 */
-	//Drive motors
-	public static final WPI_TalonSRX l1 = new WPI_TalonSRX(1);
-	public static final WPI_TalonSRX l2 = new WPI_TalonSRX(2);
-	public static final WPI_TalonSRX l3 = new WPI_TalonSRX(3);
-	public static final WPI_TalonSRX r4 = new WPI_TalonSRX(4);
-	public static final WPI_TalonSRX r5 = new WPI_TalonSRX(5);
-	public static final WPI_TalonSRX r6 = new WPI_TalonSRX(6);
+	//Current Numbers
+	static double current0, current1, current2, current5, current6, current8, current9, current10, current13, current14, current15;
+	//Temperature Numbers
+	static double temp0, temp1, temp2, temp3, temp4, temp5, temp6;
+	//Temperature and Current Numbers names are to be equal to which port 
+			
+	//Drive Motors
+	static WPI_TalonSRX rightBackDrive = new WPI_TalonSRX(16);
+	static WPI_TalonSRX rightMiddleDrive = new WPI_TalonSRX(1);
+	static WPI_TalonSRX rightFrontDrive = new WPI_TalonSRX(2);
+	static WPI_TalonSRX leftBackDrive = new WPI_TalonSRX(15);
+	static WPI_TalonSRX leftMiddleDrive = new WPI_TalonSRX(14);
+	static WPI_TalonSRX leftFrontDrive = new WPI_TalonSRX(13);
 	
 	//Motor to move elevator up
-	public static final WPI_TalonSRX e1 = new WPI_TalonSRX(7);
+	public static final WPI_TalonSRX elevator = new WPI_TalonSRX(4);
 	
+	static WPI_TalonSRX leftIntake = new WPI_TalonSRX(9);
+	static WPI_TalonSRX rightIntake = new WPI_TalonSRX(5);
 	
 	//slide limits for elevator
 	public static final int slideBeforeTopLimit = 0; //TODO
