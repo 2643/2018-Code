@@ -3,25 +3,7 @@ package org.usfirst.frc.team2643.robot;
 public class RobotMovementMethods {
 
 
-	public static int getLeftEncoder()
-	{
-		return RobotMap.leftEncoder.get();
-	}
-
-	public static int getRightEncoder()
-	{
-		return RobotMap.rightEncoder.get();
-	}
-
-	public static int getAverageEncoder()
-	{
-		return((getRightEncoder() + getLeftEncoder())/2);
-	}
 	
-	public static int getMaxEncoder()
-	{
-		return Math.max(getRightEncoder(), getLeftEncoder());
-	}
 
 
 	/**
@@ -31,10 +13,8 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.TURNING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
+		Robot.drive.stopAllMotors();
+		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = -ticks;
 		AutoState.rightEncoderGoal = ticks;
 	}
@@ -45,10 +25,10 @@ public class RobotMovementMethods {
 		boolean isFinished = false;
 		
 		//if it hasn't reached its goal yet
-		if(!checkIfReachedGoal(getRightEncoder(), AutoState.rightEncoderGoal))
+		if(!checkIfReachedGoal(Robot.drive.getRightEncoder(), AutoState.rightEncoderGoal))
 		{
 			//set the motor in the correct direction
-			RobotMovementMethods.setRightMotors(
+			Robot.drive.setRightMotors(
 					Utils.getSign(AutoState.rightEncoderGoal)*RobotMap.cruisingSpeed);
 		}
 		else
@@ -56,10 +36,10 @@ public class RobotMovementMethods {
 			isFinished = true;
 		}
 		//if it hasn't reached its goal yet
-		if(!checkIfReachedGoal(getLeftEncoder(), AutoState.leftEncoderGoal))
+		if(!checkIfReachedGoal(Robot.drive.getLeftEncoder(), AutoState.leftEncoderGoal))
 		{
 			//set the motor in the correct direction
-			RobotMovementMethods.setLeftMotors(
+			Robot.drive.setLeftMotors(
 					Utils.getSign(AutoState.leftEncoderGoal)
 					*  RobotMap.cruisingSpeed);
 		}
@@ -75,10 +55,8 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
+		Robot.drive.stopAllMotors();
+		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = 0;
 		AutoState.rightEncoderGoal = 0;
 		
@@ -92,9 +70,8 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
+		Robot.drive.resetAll();
+		Robot.drive.stopAllMotors();
 		
 		AutoState.encoderGoal = ticks;
 	}
@@ -105,10 +82,10 @@ public class RobotMovementMethods {
 		boolean isFinished = false;
 		
 		//if it hasn't reached its goal yet
-		if(!(checkIfReachedGoal(getRightEncoder(), AutoState.encoderGoal) || checkIfReachedGoal(getLeftEncoder(), AutoState.encoderGoal)))
+		if(!(checkIfReachedGoal(Robot.drive.getRightEncoder(), AutoState.encoderGoal) || checkIfReachedGoal(Robot.drive.getLeftEncoder(), AutoState.encoderGoal)))
 		{
 			//set the motor in the correct direction
-			RobotMovementMethods.setRightMotors(
+			Robot.drive.setRightMotors(
 					Utils.getSign(AutoState.encoderGoal)*RobotMap.cruisingSpeed);
 		}
 		else
@@ -123,10 +100,8 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
+		Robot.drive.stopAllMotors();
+		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = 0;
 		AutoState.rightEncoderGoal = 0;
 	}
@@ -137,10 +112,9 @@ public class RobotMovementMethods {
 	public static void setUpReleaseArms() {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
+		Robot.drive.stopAllMotors();
+		Robot.drive.resetAll();
+		
 		AutoState.movingForwardToReleaseArms = true;
 	}
 
@@ -156,29 +130,28 @@ public class RobotMovementMethods {
 		if(AutoState.movingForwardToReleaseArms)
 		{
 			//if it has not already
-			if(!checkIfReachedGoal(getAverageEncoder(), AutoState.armsForwardEncoderGoal))
+			if(!checkIfReachedGoal(Robot.drive.getAverageEncoder(), AutoState.armsForwardEncoderGoal))
 			{
-				setAllMotors(RobotMap.cruisingSpeed);
+				Robot.drive.setAllMotors(RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingForwardToReleaseArms = false;
 				AutoState.movingBackwardToReleaseArms = true;
-				RobotMap.leftEncoder.reset();
-				RobotMap.rightEncoder.reset();
-				stopAllMotors();
+				Robot.drive.stopAllMotors();
+				Robot.drive.resetAll();
 			}
 		}
 		else if(AutoState.movingBackwardToReleaseArms)
 		{
-			if(!checkIfReachedGoal(getAverageEncoder(), -AutoState.armsBackwardEncoderGoal))
+			if(!checkIfReachedGoal(Robot.drive.getAverageEncoder(), -AutoState.armsBackwardEncoderGoal))
 			{
-				setAllMotors(-RobotMap.cruisingSpeed);
+				Robot.drive.setAllMotors(-RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingBackwardToReleaseArms = false;
-				stopAllMotors();
+				Robot.drive.stopAllMotors();
 			}
 		}
 		else
@@ -194,10 +167,8 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		stopAllMotors();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
-
+		Robot.drive.stopAllMotors();
+		Robot.drive.resetAll();
 		AutoState.movingForwardToReleaseArms = false;
 		AutoState.movingBackwardToReleaseArms = false;
 		AutoState.movingForwardToReleaseArms = false;
@@ -242,15 +213,15 @@ public class RobotMovementMethods {
 	//TODO This is broken please fix it
 	public static void SRXarcadeDrive(double x, double y) {
 		if(x<-0.05 || x>0.05) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
-			setRightMotors(x);
-			setLeftMotors(x);
+			Robot.drive.setRightMotors(x);
+			Robot.drive.setLeftMotors(x);
 		}
 		else if(y>0.05||y<0.05) { //If the given axis is pushed up or
-			setRightMotors(y);
-			setLeftMotors(-y);
+			Robot.drive.setRightMotors(y);
+			Robot.drive.setLeftMotors(-y);
 		}
 		else { //If no joystick activity, set all motors to 0.
-			stopAllMotors();
+			Robot.drive.stopAllMotors();
 		}
 	}
 
@@ -260,54 +231,10 @@ public class RobotMovementMethods {
 	 * @param y
 	 */
 	public static void SRXtankDrive(double x, double y) { //Very basic tank drive.
-		setLeftMotors(x);
-		setRightMotors(y);
-	}
-	/**
-	 * Sets all motors on the left side of the robot to the given value
-	 * @param speed The speed to set the motors to
-	 */
-	public static void setLeftMotors(double speed) {
-		if (AutoState.limitMotorOverElevator &&
-				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
-			speed = AutoState.motorPowerLimit;
-		}
-		
-		RobotMap.l1.set(-speed);
-		RobotMap.l2.set(-speed);
-		RobotMap.l3.set(-speed);
-		AutoState.motorPower = speed/2;
-	}
-	/**
-	 * Sets all motors on the right side of the robot to the given value
-	 * @param The speed to set the motors to
-	 */
-	public static void setRightMotors(double speed) {
-		if (AutoState.limitMotorOverElevator &&
-				AutoState.elevatorPower > AutoState.elevatorPowerLimit) {
-			speed = AutoState.motorPowerLimit;
-		}
-		RobotMap.r4.set(speed);
-		RobotMap.r5.set(speed);
-		RobotMap.r6.set(speed);
-		AutoState.motorPower = speed/2;
+		Robot.drive.setLeftMotors(x);
+		Robot.drive.setRightMotors(y);
 	}
 
-	/**
-	 * Sets the robot to a certain speed
-	 * @param speed The speed to set the motor to. Make sure it is not too fast or you will consume too much voltage
-	 */
-	public static void setAllMotors(double speed) { //Set all of the motors to the given value. 
-		setLeftMotors(speed);
-		setRightMotors(speed);
-		AutoState.motorPower = speed;
-	}
-	/**
-	 * Stops the robot
-	 */
-	public static void stopAllMotors()
-	{
-		setAllMotors(0);
-	}	
+	
 
 }

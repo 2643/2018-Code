@@ -31,10 +31,11 @@ public class Robot extends IterativeRobot {
 	SendableChooser<String> chooser = new SendableChooser<>();
 
 	int driveState = 0;
- 
+
 
 	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 
+	public static Drive drive;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,6 +50,16 @@ public class Robot extends IterativeRobot {
 		chooser.addObject(positionRightOption, positionRightOption);
 
 		SmartDashboard.putData("Auto choices", chooser);
+
+		drive = new Drive(
+				RobotMap.leftDrive1,
+				RobotMap.leftDrive2,
+				RobotMap.leftDrive3,
+				RobotMap.rightDrive1,
+				RobotMap.rightDrive2,
+				RobotMap.rightDrive3,
+				RobotMap.leftEncoder,
+				RobotMap.rightEncoder);
 	}
 
 	/**
@@ -69,10 +80,11 @@ public class Robot extends IterativeRobot {
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 
+
 		while(!RobotMap.slideBottomLimit.get()) {
-			RobotMap.e1.set(-0.3);
+			RobotMap.elevator1.set(-0.3);
 		}
-		RobotMap.e1.set(0);
+		RobotMap.elevator1.set(0);
 
 		RobotMap.slideEncoder.reset();
 		RobotMap.leftEncoder.reset();
@@ -99,27 +111,27 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		switch(autoSelected) {
-			case "CrossAutoLineOnly": 
-				CrossAutoLineOnly.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionLeft":
-				SwitchLeftAndPositionLeft.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionMiddle":
-				SwitchLeftAndPositionMiddle.runPeriodic();
-				break;
-			case "SwitchLeftAndPositionRight":
-				SwitchLeftAndPositionRight.runPeriodic();
-				break;
-			case "SwitchRightAndPositionLeft":
-				SwitchRightAndPositionLeft.runPeriodic();
-				break;
-			case "SwitchRightAndPositionMiddle": 
-				SwitchRightAndPositionMiddle.runPeriodic();
-				break;
-			case "SwitchRightAndPositionRight": 
-				SwitchRightAndPositionRight.runPeriodic();
-				break;
+		case "CrossAutoLineOnly": 
+			CrossAutoLineOnly.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionLeft":
+			SwitchLeftAndPositionLeft.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionMiddle":
+			SwitchLeftAndPositionMiddle.runPeriodic();
+			break;
+		case "SwitchLeftAndPositionRight":
+			SwitchLeftAndPositionRight.runPeriodic();
+			break;
+		case "SwitchRightAndPositionLeft":
+			SwitchRightAndPositionLeft.runPeriodic();
+			break;
+		case "SwitchRightAndPositionMiddle": 
+			SwitchRightAndPositionMiddle.runPeriodic();
+			break;
+		case "SwitchRightAndPositionRight": 
+			SwitchRightAndPositionRight.runPeriodic();
+			break;
 		}
 	}
 
@@ -143,40 +155,36 @@ public class Robot extends IterativeRobot {
 			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
 		}
 
-		 /* Elevator code
+		/* Elevator code
 		 * -winding it up moves the elevator up
 		 * -unwinding it will drop the elevator
 		 * -needs power to keep the elevator up
 		 * -encoders
 		 * -limit switch on the bottom
 		 */
-		
+
 		if(RobotMap.opStick.getPOV() == 0){
-			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.e1.set(RobotMap.slideRaisingSpeed);
-				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
-				if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
-					RobotMap.e1.set(RobotMap.slideHoverSpeed);
-					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
-				}
+
+			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
+			if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
+				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
 			}
+
 		}
 		else if(RobotMap.opStick.getPOV() == 180){
-			if (!AutoState.limitMotorOverElevator && AutoState.motorPower > AutoState.motorPowerLimit) { /*JUST IN CASE*/ } else {
-				RobotMap.e1.set(RobotMap.slideRaisingSpeed);
-				AutoState.elevatorPower = RobotMap.slideRaisingSpeed;
-				if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
-					RobotMap.e1.set(RobotMap.slideHoverSpeed);
-					AutoState.elevatorPower = RobotMap.slideHoverSpeed;
-				}
+
+			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
+			if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
+				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
+
 			}
+
 		}
 		else{
-			RobotMap.e1.set(0);
-			AutoState.elevatorPower = 0;
+			RobotMap.elevator1.set(0);
 		}
-		
-		
+
+
 		//Ramp Code
 		if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
 			RobotMap.RightFrontSolenoid.set(true);
@@ -186,7 +194,7 @@ public class Robot extends IterativeRobot {
 			RobotMap.RightFrontSolenoid.set(false);
 			RobotMap.RightBackSolenoid.set(false);
 		}
-		
+
 		if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
 			RobotMap.LeftFrontSolenoid.set(true);
 			RobotMap.LeftBackSolenoid.set(true);
@@ -205,67 +213,67 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if(RobotMap.driveStick.getRawButton(0) == true){
-			RobotMap.l1.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftDrive1.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(1) == true){
-			RobotMap.l2.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftDrive2.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(2) == true){
-			RobotMap.l3.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.leftDrive3.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.leftEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(3) == true){
-			RobotMap.r4.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightDrive1.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(4) == true){
-			RobotMap.r5.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightDrive2.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(5) == true){
-			RobotMap.r6.set(RobotMap.driveStick.getRawAxis(5));
+			RobotMap.rightDrive3.set(RobotMap.driveStick.getRawAxis(5));
 			System.out.println(RobotMap.rightEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(6) == true){
-			RobotMap.e1.set(RobotMap.slideRaisingSpeed);
+			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
 			if(RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit){
-				RobotMap.e1.set(RobotMap.slideHoverSpeed);
+				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
-		
+
 		else if(RobotMap.driveStick.getRawButton(7) == true){
-			RobotMap.e1.set(RobotMap.slideLoweringSpeed);
+			RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
 			if(RobotMap.slideBottomLimit.get()){
-				RobotMap.e1.set(0);
+				RobotMap.elevator1.set(0);
 			}
 			System.out.println(RobotMap.slideEncoder.get());
 		}
-		
+
 		else{
 			RobotMap.leftEncoder.reset();
 			RobotMap.rightEncoder.reset();
 			RobotMap.slideEncoder.reset();
-			RobotMap.l1.set(0);
-			RobotMap.l2.set(0);
-			RobotMap.l3.set(0);
-			RobotMap.r4.set(0);
-			RobotMap.r5.set(0);
-			RobotMap.r6.set(0);
-			
+			RobotMap.leftDrive1.set(0);
+			RobotMap.leftDrive2.set(0);
+			RobotMap.leftDrive3.set(0);
+			RobotMap.rightDrive1.set(0);
+			RobotMap.rightDrive2.set(0);
+			RobotMap.rightDrive3.set(0);
+
 			if(RobotMap.slideBottomLimit.get() == false){
-				RobotMap.e1.set(RobotMap.slideLoweringSpeed);
+				RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
 			}
 			else if(RobotMap.slideBottomLimit.get() == true){
-				RobotMap.e1.set(0);
+				RobotMap.elevator1.set(0);
 			}
 		}
 	}
