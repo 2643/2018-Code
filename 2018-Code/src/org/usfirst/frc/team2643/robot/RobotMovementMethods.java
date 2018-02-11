@@ -210,20 +210,6 @@ public class RobotMovementMethods {
 		
 	}
 
-	//TODO This is broken please fix it
-	public static void SRXarcadeDrive(double x, double y) {
-		if(x<-0.05 || x>0.05) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
-			Robot.drive.setRightMotors(x);
-			Robot.drive.setLeftMotors(x);
-		}
-		else if(y>0.05||y<0.05) { //If the given axis is pushed up or
-			Robot.drive.setRightMotors(y);
-			Robot.drive.setLeftMotors(-y);
-		}
-		else { //If no joystick activity, set all motors to 0.
-			Robot.drive.stopAllMotors();
-		}
-	}
 
 	/**
 	 * Basic tank drive

@@ -151,9 +151,7 @@ public class Robot extends IterativeRobot {
 		if(driveState == 0) { //0 is Tank Drive
 			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
 		}
-		else if(driveState == 1) { //1 is arcade
-			RobotMovementMethods.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0),RobotMap.driveStick.getRawAxis(1));
-		}
+		
 
 		/* Elevator code
 		 * -winding it up moves the elevator up
