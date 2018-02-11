@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive {
 	
+	public static final double MAX_ALLOWABLE_CURRENT = 2;
+	
 	private final WPI_TalonSRX leftDrive1;
 	private final WPI_TalonSRX leftDrive2;
 	private final WPI_TalonSRX leftDrive3; 
@@ -15,6 +17,11 @@ public class Drive {
 	
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;
+	
+	private double multiplier = 1;
+	
+	private double leftCurrent;
+	private double rightCurrent;	
 	
 	public Drive(
 			WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX l3,
@@ -29,6 +36,11 @@ public class Drive {
 		rightDrive3 = r3;
 		leftEncoder = l;
 		rightEncoder = r;
+	}
+	
+	public double getCurrent()
+	{
+		return leftCurrent + rightCurrent;
 	}
 	
 	public int getLeftEncoder()
@@ -73,18 +85,22 @@ public class Drive {
 	}
 	
 	public void setLeftMotors(double speed) {
-		leftDrive1.set(-speed);
-		leftDrive2.set(-speed);
-		leftDrive3.set(-speed);
+		double val = speed*multiplier;
+		leftDrive1.set(-val);
+		leftDrive2.set(-val);
+		leftDrive3.set(-val);
+		leftCurrent = val;
 	}
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * @param The speed to set the motors to
 	 */
 	public void setRightMotors(double speed) {
-		rightDrive1.set(speed);
-		rightDrive2.set(speed);
-		rightDrive3.set(speed);
+		double val = speed*multiplier;
+		rightDrive1.set(val);
+		rightDrive2.set(val);
+		rightDrive3.set(val);
+		rightCurrent = val;
 	}
 	
 	/**
