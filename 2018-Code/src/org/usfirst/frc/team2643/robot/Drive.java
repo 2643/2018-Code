@@ -36,14 +36,16 @@ public class Drive {
 		return leftCurrent + rightCurrent;
 	}
 	
+	//returns left encoder ticks, which is for some reason twice the actual
 	public int getLeftEncoder()
 	{
-		return leftDrive1.getSensorCollection().getQuadraturePosition();
+		return leftDrive1.getSensorCollection().getQuadraturePosition() / 2; 
 	}
 
+	//returns right encoder ticks, which is for some reason twice the actual
 	public int getRightEncoder()
 	{
-		return rightDrive1.getSensorCollection().getQuadraturePosition();
+		return rightDrive1.getSensorCollection().getQuadraturePosition() / 2;
 	}
 
 	public int getAverageEncoder()
@@ -80,8 +82,8 @@ public class Drive {
 	public void setLeftMotors(double speed) {
 		double val = speed*multiplier;
 		leftDrive1.set(-val);
-		leftDrive2.set(-val);
-		leftDrive3.set(-val);
+		leftDrive2.follow(leftDrive1);
+		leftDrive3.follow(leftDrive1);
 		leftCurrent = val;
 	}
 	/**
@@ -91,8 +93,8 @@ public class Drive {
 	public void setRightMotors(double speed) {
 		double val = speed*multiplier;
 		rightDrive1.set(val);
-		rightDrive2.set(val);
-		rightDrive3.set(val);
+		rightDrive2.follow(rightDrive1);
+		rightDrive3.follow(rightDrive1);
 		rightCurrent = val;
 	}
 	
