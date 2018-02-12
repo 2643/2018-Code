@@ -14,11 +14,9 @@ public class RobotMap {
 	//Drive motors
 	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(1);   //TODO change this port
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(2);   //TODO change this port
-	public static final WPI_TalonSRX leftDrive3 = new WPI_TalonSRX(3);   //TODO change this port
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(4);  //TODO change this port
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(5);  //TODO change this port
-	public static final WPI_TalonSRX rightDrive3 = new WPI_TalonSRX(6);  //TODO change this port
-	
+
 	//Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(7);    //TODO change this port
 	

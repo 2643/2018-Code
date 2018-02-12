@@ -53,10 +53,8 @@ public class Robot extends IterativeRobot {
 		drive = new Drive(
 				RobotMap.leftDrive1,
 				RobotMap.leftDrive2,
-				RobotMap.leftDrive3,
 				RobotMap.rightDrive1,
-				RobotMap.rightDrive2,
-				RobotMap.rightDrive3);
+				RobotMap.rightDrive2);
 	}
 
 	/**
