@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2643.robot;
 
 public class EnvironmentVariables {
-	
+	/**
+	 * Divide all encoder values by two for accuracy
+	 */
 	/**
 	 * |----|--|----|
 	 * |    |  |    |
