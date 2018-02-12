@@ -3,7 +3,6 @@ package org.usfirst.frc.team2643.robot;
 //TalonSRX class import
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
@@ -78,13 +77,13 @@ public class Robot extends IterativeRobot {
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 
-
-		while(!RobotMap.slideBottomLimit.get()) {
+	
+		while(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0) {
 			RobotMap.elevator1.set(-0.3);
 		}
 		RobotMap.elevator1.set(0);
 
-		RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
+		RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 10);
 
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -99,6 +98,7 @@ public class Robot extends IterativeRobot {
 
 		System.out.println("Auto selected: " + autoSelected);
 		AutoState.armsReleasing = false;	
+		
 	}
 
 	/**
@@ -163,15 +163,14 @@ public class Robot extends IterativeRobot {
 			}else{
 				RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
 			}
-
 		}
+		
 		else if(RobotMap.opStick.getPOV() == 180){
 			if (RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0) {
 				RobotMap.elevator1.set(0);
 			}else {
 				RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
 			}
-
 		}
 		else if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() != 0){
 			RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
@@ -248,7 +247,7 @@ public class Robot extends IterativeRobot {
 
 		else if(RobotMap.driveStick.getRawButton(7) == true){
 			RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
-			if(RobotMap.slideBottomLimit.get()){
+			if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0){
 				RobotMap.elevator1.set(0);
 			}
 			System.out.println(RobotMap.elevator1.getSensorCollection().getQuadraturePosition());
@@ -265,12 +264,7 @@ public class Robot extends IterativeRobot {
 			RobotMap.rightDrive2.set(0);
 			RobotMap.rightDrive3.set(0);
 
-			if(RobotMap.slideBottomLimit.get() == false){
-				RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
-			}
-			else if(RobotMap.slideBottomLimit.get() == true){
-				RobotMap.elevator1.set(0);
-			}
+			
 		}
 	}
 }

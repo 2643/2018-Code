@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive {
