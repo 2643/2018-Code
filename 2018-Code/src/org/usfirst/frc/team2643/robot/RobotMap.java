@@ -31,11 +31,6 @@ public class RobotMap {
 	public static final Joystick driveStick = new Joystick(0);
 	public static final Joystick opStick = new Joystick(1);
 	
-	//Encoders
-	public static final Encoder leftEncoder = new Encoder(0,1);
-	public static final Encoder rightEncoder = new Encoder(1,0);
-	public static final Encoder slideEncoder = new Encoder(1,1);
-
 	//Solenoids
 	public static Solenoid RightFrontSolenoid = new Solenoid(1);
 	public static Solenoid RightBackSolenoid = new Solenoid(2);

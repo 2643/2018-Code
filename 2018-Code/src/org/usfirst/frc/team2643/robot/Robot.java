@@ -57,9 +57,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.leftDrive3,
 				RobotMap.rightDrive1,
 				RobotMap.rightDrive2,
-				RobotMap.rightDrive3,
-				RobotMap.leftEncoder,
-				RobotMap.rightEncoder);
+				RobotMap.rightDrive3);
 	}
 
 	/**
@@ -86,9 +84,7 @@ public class Robot extends IterativeRobot {
 		}
 		RobotMap.elevator1.set(0);
 
-		RobotMap.slideEncoder.reset();
-		RobotMap.leftEncoder.reset();
-		RobotMap.rightEncoder.reset();
+		RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
 
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -162,23 +158,25 @@ public class Robot extends IterativeRobot {
 		 */
 
 		if(RobotMap.opStick.getPOV() == 0){
-
-			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
-			if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
+			if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == RobotMap.slideBeforeTopLimit){
 				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
+			}else{
+				RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
 			}
 
 		}
 		else if(RobotMap.opStick.getPOV() == 180){
-
-			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
-			if (RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit) {
-				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
-
+			if (RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0) {
+				RobotMap.elevator1.set(0);
+			}else {
+				RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
 			}
 
 		}
-		else{
+		else if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() != 0){
+			RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
+		}
+		else {
 			RobotMap.elevator1.set(0);
 		}
 
@@ -212,40 +210,40 @@ public class Robot extends IterativeRobot {
 		System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if(RobotMap.driveStick.getRawButton(0) == true){
 			RobotMap.leftDrive1.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.leftEncoder.get());
+			System.out.println(drive.getLeftEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(1) == true){
 			RobotMap.leftDrive2.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.leftEncoder.get());
+			System.out.println(drive.getLeftEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(2) == true){
 			RobotMap.leftDrive3.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.leftEncoder.get());
+			System.out.println(drive.getLeftEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(3) == true){
 			RobotMap.rightDrive1.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.rightEncoder.get());
+			System.out.println(drive.getRightEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(4) == true){
 			RobotMap.rightDrive2.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.rightEncoder.get());
+			System.out.println(drive.getRightEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(5) == true){
 			RobotMap.rightDrive3.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(RobotMap.rightEncoder.get());
+			System.out.println(drive.getRightEncoder());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(6) == true){
 			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
-			if(RobotMap.slideEncoder.get() == RobotMap.slideBeforeTopLimit){
+			if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == RobotMap.slideBeforeTopLimit){
 				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
 			}
-			System.out.println(RobotMap.slideEncoder.get());
+			System.out.println(RobotMap.elevator1.getSensorCollection().getQuadraturePosition());
 		}
 
 		else if(RobotMap.driveStick.getRawButton(7) == true){
@@ -253,13 +251,13 @@ public class Robot extends IterativeRobot {
 			if(RobotMap.slideBottomLimit.get()){
 				RobotMap.elevator1.set(0);
 			}
-			System.out.println(RobotMap.slideEncoder.get());
+			System.out.println(RobotMap.elevator1.getSensorCollection().getQuadraturePosition());
 		}
 
 		else{
-			RobotMap.leftEncoder.reset();
-			RobotMap.rightEncoder.reset();
-			RobotMap.slideEncoder.reset();
+			drive.resetLeftEncoder();
+			drive.resetRightEncoder();
+			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
 			RobotMap.leftDrive1.set(0);
 			RobotMap.leftDrive2.set(0);
 			RobotMap.leftDrive3.set(0);

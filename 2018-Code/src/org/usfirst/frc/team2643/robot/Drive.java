@@ -15,9 +15,6 @@ public class Drive {
 	private final WPI_TalonSRX rightDrive2; 
 	private final WPI_TalonSRX rightDrive3; 
 	
-	private final Encoder leftEncoder;
-	private final Encoder rightEncoder;
-	
 	private double multiplier = 1;
 	
 	private double leftCurrent;
@@ -25,8 +22,7 @@ public class Drive {
 	
 	public Drive(
 			WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX l3,
-			WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3,
-			Encoder l, Encoder r)
+			WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3)
 	{
 		leftDrive1 = l1;
 		leftDrive2 = l2;
@@ -34,8 +30,6 @@ public class Drive {
 		rightDrive1 = r1;
 		rightDrive2 = r2;
 		rightDrive3 = r3;
-		leftEncoder = l;
-		rightEncoder = r;
 	}
 	
 	public double getCurrent()
@@ -45,12 +39,12 @@ public class Drive {
 	
 	public int getLeftEncoder()
 	{
-		return leftEncoder.get();
+		return leftDrive1.getSensorCollection().getQuadraturePosition();
 	}
 
 	public int getRightEncoder()
 	{
-		return rightEncoder.get();
+		return rightDrive1.getSensorCollection().getQuadraturePosition();
 	}
 
 	public int getAverageEncoder()
@@ -70,12 +64,12 @@ public class Drive {
 	
 	public void resetLeftEncoder()
 	{
-		leftEncoder.reset();
+		leftDrive1.getSensorCollection().setQuadraturePosition(0,0);
 	}
 	
 	public void resetRightEncoder()
 	{
-		rightEncoder.reset();
+		rightDrive1.getSensorCollection().setQuadraturePosition(0,0);
 	}
 	
 	public void resetAll()

@@ -204,6 +204,7 @@ public class RobotMovementMethods {
 	}
 
 
+	
 
 	public void liftToSwitchHeight() //TODO
 	{
