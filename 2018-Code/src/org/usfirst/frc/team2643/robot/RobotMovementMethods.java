@@ -4,7 +4,7 @@ public class RobotMovementMethods {
 
 
 	
-	public static void setUpTurn()
+	public static void setUpTurn(int ticks)
 	{
 		AutoState.robotState = AutoState.TURNING;
 		Robot.drive.resetAllEncoder();

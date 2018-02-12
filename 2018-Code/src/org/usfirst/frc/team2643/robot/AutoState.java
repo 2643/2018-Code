@@ -21,10 +21,6 @@ public class AutoState {
 	public static final int armsBackwardEncoderGoal = 400;
 	
 	public static boolean turning = false;
-	public static int leftEncoderGoal;
-	public static int rightEncoderGoal;
 
-	
 	public static boolean moving = false;
-	public static int encoderGoal;
 }
