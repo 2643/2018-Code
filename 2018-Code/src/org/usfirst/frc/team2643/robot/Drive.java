@@ -41,7 +41,7 @@ public class Drive {
 		rightDriveMaster.set(ControlMode.Position,255);
 	}
 	
-	public void setToValue()
+	public void setToPercentValue()
 	{
 		leftDriveMaster.set(ControlMode.PercentOutput, 1);
 		rightDriveMaster.set(ControlMode.PercentOutput,1);

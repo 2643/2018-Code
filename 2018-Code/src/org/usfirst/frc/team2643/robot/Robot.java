@@ -70,6 +70,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		drive.setToPositionMode();
 		autoSelected = chooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
@@ -130,6 +131,11 @@ public class Robot extends IterativeRobot {
 	}
 
 
+	@Override
+	public void teleopInit() {
+		drive.setToPercentValue();
+	}
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
@@ -215,10 +221,6 @@ public class Robot extends IterativeRobot {
 			System.out.println(drive.getLeftEncoder());
 		}
 
-		else if(RobotMap.driveStick.getRawButton(2) == true){
-			RobotMap.leftDrive3.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(drive.getLeftEncoder());
-		}
 
 		else if(RobotMap.driveStick.getRawButton(3) == true){
 			RobotMap.rightDrive1.set(RobotMap.driveStick.getRawAxis(5));
@@ -230,10 +232,6 @@ public class Robot extends IterativeRobot {
 			System.out.println(drive.getRightEncoder());
 		}
 
-		else if(RobotMap.driveStick.getRawButton(5) == true){
-			RobotMap.rightDrive3.set(RobotMap.driveStick.getRawAxis(5));
-			System.out.println(drive.getRightEncoder());
-		}
 
 		else if(RobotMap.driveStick.getRawButton(6) == true){
 			RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
@@ -252,17 +250,9 @@ public class Robot extends IterativeRobot {
 		}
 
 		else{
-			drive.resetLeftEncoder();
-			drive.resetRightEncoder();
+			drive.resetAll();
 			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
-			RobotMap.leftDrive1.set(0);
-			RobotMap.leftDrive2.set(0);
-			RobotMap.leftDrive3.set(0);
-			RobotMap.rightDrive1.set(0);
-			RobotMap.rightDrive2.set(0);
-			RobotMap.rightDrive3.set(0);
-
-			
+			drive.stopAllSpeed();
 		}
 	}
 }
