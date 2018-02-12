@@ -4,7 +4,11 @@ public class RobotMovementMethods {
 
 
 	
-	public static void setUp
+	public static void setUpTurn()
+	{
+		AutoState.robotState = AutoState.TURNING;
+		Robot.drive.resetAllEncoder();
+	}
 	
 
 //

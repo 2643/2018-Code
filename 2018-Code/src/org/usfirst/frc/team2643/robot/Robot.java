@@ -250,7 +250,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		else{
-			drive.resetAll();
+			drive.resetAllEncoder();
 			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
 			drive.stopAllSpeed();
 		}

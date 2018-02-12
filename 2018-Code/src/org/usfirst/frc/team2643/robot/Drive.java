@@ -83,7 +83,7 @@ public class Drive {
 		rightDriveMaster.getSensorCollection().setQuadraturePosition(0,0);
 	}
 	
-	public void resetAll()
+	public void resetAllEncoder()
 	{
 		resetLeftEncoder();
 		resetRightEncoder();
