@@ -13,7 +13,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.TURNING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = -ticks;
 		AutoState.rightEncoderGoal = ticks;
@@ -28,7 +28,7 @@ public class RobotMovementMethods {
 		if(!checkIfReachedGoal(Robot.drive.getRightEncoder(), AutoState.rightEncoderGoal))
 		{
 			//set the motor in the correct direction
-			Robot.drive.setRightMotors(
+			Robot.drive.setRightSpeed(
 					Utils.getSign(AutoState.rightEncoderGoal)*RobotMap.cruisingSpeed);
 		}
 		else
@@ -39,7 +39,7 @@ public class RobotMovementMethods {
 		if(!checkIfReachedGoal(Robot.drive.getLeftEncoder(), AutoState.leftEncoderGoal))
 		{
 			//set the motor in the correct direction
-			Robot.drive.setLeftMotors(
+			Robot.drive.setLeftSpeed(
 					Utils.getSign(AutoState.leftEncoderGoal)
 					*  RobotMap.cruisingSpeed);
 		}
@@ -55,7 +55,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = 0;
 		AutoState.rightEncoderGoal = 0;
@@ -71,7 +71,7 @@ public class RobotMovementMethods {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
 		Robot.drive.resetAll();
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		
 		AutoState.encoderGoal = ticks;
 	}
@@ -85,7 +85,7 @@ public class RobotMovementMethods {
 		if(!(checkIfReachedGoal(Robot.drive.getRightEncoder(), AutoState.encoderGoal) || checkIfReachedGoal(Robot.drive.getLeftEncoder(), AutoState.encoderGoal)))
 		{
 			//set the motor in the correct direction
-			Robot.drive.setRightMotors(
+			Robot.drive.setRightSpeed(
 					Utils.getSign(AutoState.encoderGoal)*RobotMap.cruisingSpeed);
 		}
 		else
@@ -100,7 +100,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		Robot.drive.resetAll();
 		AutoState.leftEncoderGoal = 0;
 		AutoState.rightEncoderGoal = 0;
@@ -112,7 +112,7 @@ public class RobotMovementMethods {
 	public static void setUpReleaseArms() {
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		Robot.drive.resetAll();
 		
 		AutoState.movingForwardToReleaseArms = true;
@@ -132,13 +132,13 @@ public class RobotMovementMethods {
 			//if it has not already
 			if(!checkIfReachedGoal(Robot.drive.getAverageEncoder(), AutoState.armsForwardEncoderGoal))
 			{
-				Robot.drive.setAllMotors(RobotMap.cruisingSpeed);
+				Robot.drive.setAllSpeed(RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingForwardToReleaseArms = false;
 				AutoState.movingBackwardToReleaseArms = true;
-				Robot.drive.stopAllMotors();
+				Robot.drive.stopAllSpeed();
 				Robot.drive.resetAll();
 			}
 		}
@@ -146,12 +146,12 @@ public class RobotMovementMethods {
 		{
 			if(!checkIfReachedGoal(Robot.drive.getAverageEncoder(), -AutoState.armsBackwardEncoderGoal))
 			{
-				Robot.drive.setAllMotors(-RobotMap.cruisingSpeed);
+				Robot.drive.setAllSpeed(-RobotMap.cruisingSpeed);
 			}
 			else
 			{
 				AutoState.movingBackwardToReleaseArms = false;
-				Robot.drive.stopAllMotors();
+				Robot.drive.stopAllSpeed();
 			}
 		}
 		else
@@ -167,7 +167,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllMotors();
+		Robot.drive.stopAllSpeed();
 		Robot.drive.resetAll();
 		AutoState.movingForwardToReleaseArms = false;
 		AutoState.movingBackwardToReleaseArms = false;
@@ -218,8 +218,8 @@ public class RobotMovementMethods {
 	 * @param y
 	 */
 	public static void SRXtankDrive(double x, double y) { //Very basic tank drive.
-		Robot.drive.setLeftMotors(x);
-		Robot.drive.setRightMotors(y);
+		Robot.drive.setLeftSpeed(x);
+		Robot.drive.setRightSpeed(y);
 	}
 
 	

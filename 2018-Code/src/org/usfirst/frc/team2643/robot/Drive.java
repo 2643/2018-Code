@@ -1,51 +1,63 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive {
+
+	private final WPI_TalonSRX leftDriveMaster;
+	private final WPI_TalonSRX leftDriveSlave;
+	private final WPI_TalonSRX rightDriveMaster;
+	private final WPI_TalonSRX rightDriveSlave; 
 	
-	public static final double MAX_ALLOWABLE_CURRENT = 2;
-	
-	private final WPI_TalonSRX leftDrive1;
-	private final WPI_TalonSRX leftDrive2;
-	private final WPI_TalonSRX leftDrive3; 
-	private final WPI_TalonSRX rightDrive1;
-	private final WPI_TalonSRX rightDrive2; 
-	private final WPI_TalonSRX rightDrive3; 
-	
-	private double multiplier = 1;
-	
-	private double leftCurrent;
-	private double rightCurrent;	
+	private double currentLeftGoal = 0;
+	private double currentRightGoal = 0;
 	
 	public Drive(
-			WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX l3,
-			WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3)
-	{
-		leftDrive1 = l1;
-		leftDrive2 = l2;
-		leftDrive3 = l3;
-		rightDrive1 = r1;
-		rightDrive2 = r2;
-		rightDrive3 = r3;
+			WPI_TalonSRX l1, WPI_TalonSRX l2,
+			WPI_TalonSRX r1, WPI_TalonSRX r2)
+	{	
+		leftDriveMaster = l1;
+		leftDriveSlave = l2;
+
+		leftDriveSlave.set(ControlMode.Follower, leftDriveMaster.getDeviceID());
+		
+		rightDriveMaster = r1;
+		rightDriveSlave = r2;
+		
+		rightDriveSlave.set(ControlMode.Follower, rightDriveMaster.getDeviceID());
+		
+		
+		leftDriveMaster .configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		leftDriveMaster .setSensorPhase(false);
+		rightDriveMaster.setSensorPhase(false);
 	}
 	
-	public double getCurrent()
+	public void setToPositionMode()
 	{
-		return leftCurrent + rightCurrent;
+		leftDriveMaster.set(ControlMode.Position,255);
+		rightDriveMaster.set(ControlMode.Position,255);
 	}
+	
+	public void setToValue()
+	{
+		leftDriveMaster.set(ControlMode.PercentOutput, 1);
+		rightDriveMaster.set(ControlMode.PercentOutput,1);
+	}
+	
 	
 	public int getLeftEncoder()
 	{
-		return leftDrive1.getSensorCollection().getQuadraturePosition();
+		return leftDriveMaster.getSensorCollection().getQuadraturePosition()/2;
 	}
-
+	
 	public int getRightEncoder()
 	{
-		return rightDrive1.getSensorCollection().getQuadraturePosition();
+		return rightDriveMaster.getSensorCollection().getQuadraturePosition()/2;
 	}
-
+	
 	public int getAverageEncoder()
 	{
 		return((getRightEncoder() + getLeftEncoder())/2);
@@ -63,12 +75,12 @@ public class Drive {
 	
 	public void resetLeftEncoder()
 	{
-		leftDrive1.getSensorCollection().setQuadraturePosition(0,0);
+		leftDriveMaster.getSensorCollection().setQuadraturePosition(0,0);
 	}
 	
 	public void resetRightEncoder()
 	{
-		rightDrive1.getSensorCollection().setQuadraturePosition(0,0);
+		rightDriveMaster.getSensorCollection().setQuadraturePosition(0,0);
 	}
 	
 	public void resetAll()
@@ -77,39 +89,59 @@ public class Drive {
 		resetRightEncoder();
 	}
 	
-	public void setLeftMotors(double speed) {
-		double val = speed*multiplier;
-		leftDrive1.set(-val);
-		leftDrive2.set(-val);
-		leftDrive3.set(-val);
-		leftCurrent = val;
+	public void setLeftMotorPosition(double location)
+	{
+		leftDriveMaster.set(location);
+		currentLeftGoal = location;
+	}
+	
+	public void setRightMotorPosition(double location)
+	{
+		leftDriveMaster.set(location);
+		currentRightGoal = location;
+	}
+	
+	public double getCurrentRightGoal()
+	{
+		return currentRightGoal;
+	}
+	
+	public double getCurrentLeftGoal()
+	{
+		return currentLeftGoal;
+	}
+	
+	public void setAllMotorPosition(double location)
+	{
+		setLeftMotorPosition(location);
+		setRightMotorPosition(location);
+	}
+	
+	public void setLeftSpeed(double speed) {
+		leftDriveMaster.set(-speed);
 	}
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * @param The speed to set the motors to
 	 */
-	public void setRightMotors(double speed) {
-		double val = speed*multiplier;
-		rightDrive1.set(val);
-		rightDrive2.set(val);
-		rightDrive3.set(val);
-		rightCurrent = val;
+	public void setRightSpeed(double speed) {
+		rightDriveMaster.set(speed);
 	}
 	
 	/**
 	 * Sets the robot to a certain speed
 	 * @param speed The speed to set the motor to. Make sure it is not too fast or you will consume too much voltage
 	 */
-	public void setAllMotors(double speed) { //Set all of the motors to the given value. 
-		setLeftMotors(speed);
-		setRightMotors(speed);
+	public void setAllSpeed(double speed) { //Set all of the motors to the given value. 
+		setLeftSpeed(speed);
+		setRightSpeed(speed);
 	}
 	/**
 	 * Stops the robot
 	 */
-	public void stopAllMotors()
+	public void stopAllSpeed()
 	{
-		setAllMotors(0);
+		setAllSpeed(0);
 	}
 	
 }
