@@ -19,8 +19,10 @@ public class RobotMap {
 
 	//Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(7);    //TODO change this port
-	
-	
+
+
+	//Acceptable encoder error
+	public static final int ACCEPTABLE_ENCODER_ERROR = 100;	
 	//slide limits for elevator
 	public static final int slideBeforeTopLimit = 0; //TODO test this out at some point
 	
