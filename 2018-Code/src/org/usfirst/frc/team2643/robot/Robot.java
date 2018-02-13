@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
 		System.out.println("Auto selected: " + autoSelected);
 
 	
-		while(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0) {
+		while(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() != 0) {
 			RobotMap.elevator1.set(-0.3);
 		}
 		RobotMap.elevator1.set(0);
@@ -145,8 +145,8 @@ public class Robot extends IterativeRobot {
 		/*
 		 * Drive code
 		 */
-		if(RobotMap.driveStick.getRawButton(2)) { driveState = 1; }
-		else if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
+		if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
+		
 		//Changes drive state. 
 		if(driveState == 0) { //0 is Tank Drive
 			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
@@ -185,7 +185,7 @@ public class Robot extends IterativeRobot {
 
 
 		//Ramp Code
-		if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
+		if(RobotMap.opStick.getRawButton(RobotMap.RightRampUp)){
 			RobotMap.RightFrontSolenoid.set(true);
 			RobotMap.RightBackSolenoid.set(true);
 		}
