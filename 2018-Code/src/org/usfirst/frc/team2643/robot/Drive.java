@@ -86,6 +86,7 @@ public class Drive {
 		leftDrive3.follow(leftDrive1);
 		leftCurrent = val;
 	}
+	
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * @param The speed to set the motors to

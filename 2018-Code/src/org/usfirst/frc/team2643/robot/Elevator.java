@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 public class Elevator
 {
 	private WPI_TalonSRX lsMotor;
@@ -36,11 +38,11 @@ public class Elevator
 	 */
 	public void defaultPIDLSMotor()
 	{
-		lsMotor.selectProfileSlot(0, 0); 
-		lsMotor.config_kF(0, 0.2, 20); 
-		lsMotor.config_kP(0, 0.2, 20); 
-		lsMotor.config_kI(0, 0, 20); 
-		lsMotor.config_kD(0, 0, 20);
+		lsMotor.selectProfileSlot(EnvironmentVariables.defaultPID, 0); 
+		lsMotor.config_kF(0, EnvironmentVariables.PIDF, 20); 
+		lsMotor.config_kP(0, EnvironmentVariables.PIDP, 20); 
+		lsMotor.config_kI(0, EnvironmentVariables.PIDI, 20); 
+		lsMotor.config_kD(0, EnvironmentVariables.PIDD, 20);
 	}
 	
 	/**
@@ -61,6 +63,15 @@ public class Elevator
 	}
 	
 	/**
+	 * Get encoder value for the elevator
+	 * @return - encoder value for the elevator
+	 */
+	public int getEncoderValues()
+	{
+		return lsMotor.getSensorCollection().getQuadraturePosition() / 2;
+	}
+	
+	/**
 	 * Convert Feet to encoders and move
 	 * @param pos - Movement by feet
 	 */
@@ -72,7 +83,7 @@ public class Elevator
 	
 	/**
 	 * Convert inches to encoder and move
-	 * @param pos
+	 * @param pos - movement in inches
 	 */
 	public void moveElevatorToPosInches(int pos)
 	{
@@ -86,6 +97,26 @@ public class Elevator
 	 */
 	public void moveElevatorWithInput(double value)
 	{
-		lsMotor.set(ControlMode.PercentOutput, value);
+		if(getEncoderValues() > EnvironmentVariables.maxEncoderValue)
+			if(value < 0)
+				lsMotor.set(ControlMode.PercentOutput, value);
+		else
+			lsMotor.set(ControlMode.PercentOutput, value);
+	}
+	
+	/**
+	 * move elevator using POV on controller with a constant speed
+	 * @param stick - joystick controller
+	 */
+	public void moveElevatorUsingPOV(Joystick stick)
+	{
+		if(getEncoderValues() > EnvironmentVariables.maxEncoderValue)
+			if(stick.getPOV() == 180)
+				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+		else
+			if(stick.getPOV() == 0)
+				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
+			else if(stick.getPOV() == 180)
+				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
 	}
 }
