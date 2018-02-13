@@ -47,15 +47,17 @@ public class Drive {
 		rightDriveMaster.set(ControlMode.PercentOutput,1);
 	}
 	
-	
+
+	//returns left encoder ticks, which is for some reason twice the actual
 	public int getLeftEncoder()
 	{
-		return leftDriveMaster.getSensorCollection().getQuadraturePosition()/2;
+		return leftDriveMaster.getSensorCollection().getQuadraturePosition() / 2; 
 	}
-	
+
+	//returns right encoder ticks, which is for some reason twice the actual
 	public int getRightEncoder()
 	{
-		return rightDriveMaster.getSensorCollection().getQuadraturePosition()/2;
+		return rightDriveMaster.getSensorCollection().getQuadraturePosition() / 2;
 	}
 	
 	public int getAverageEncoder()
@@ -120,6 +122,7 @@ public class Drive {
 	public void setLeftSpeed(double speed) {
 		leftDriveMaster.set(-speed);
 	}
+	
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * @param The speed to set the motors to

@@ -156,7 +156,7 @@ public class Robot extends IterativeRobot {
 		/* Elevator code
 		 * -winding it up moves the elevator up
 		 * -unwinding it will drop the elevator
-		 * -needs power to keep the elevator up
+		 * -check brake mode on talons
 		 * -encoders
 		 * -limit switch on the bottom
 		 */
