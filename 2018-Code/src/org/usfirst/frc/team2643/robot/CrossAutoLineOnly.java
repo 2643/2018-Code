@@ -12,12 +12,12 @@ public class CrossAutoLineOnly {
 		{
 			if(!AutoState.moving)
 			{
-				RobotMovementMethods.setUpMove(EnvironmentVariables.autoLineDistance);
+				Robot.drive.setUpMove(EnvironmentVariables.autoLineDistance);
 				AutoState.moving = true;
 			}
-			else if(RobotMovementMethods.executeMove())
+			else if(Robot.drive.executeMove())
 			{
-				RobotMovementMethods.finishMove();
+				Robot.drive.finishMove();
 				AutoState.moving = false;
 				autoProgramState++;
 			}
