@@ -108,7 +108,7 @@ public class RobotMovementMethods {
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		Robot.drive.resetAllEncoder();
-		Robot.drive.setAllMotorPosition(0);
+		Robot.drive.setAllMotorPosition(0); 
 		AutoState.movingForwardToReleaseArms = false;
 		AutoState.movingBackwardToReleaseArms = false;
 	}
