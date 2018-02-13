@@ -40,7 +40,7 @@ public class RobotMap {
 	public static int LeftRampDown = 0; //TODO get the button number
 	public static int LeftRampUp = 0; //TODO get the button number
 	
-	
+	 
 	//the speeds for the robot
 	
 	//please never use this the battery will drain muy rapido
