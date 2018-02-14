@@ -76,12 +76,6 @@ public class Robot extends IterativeRobot {
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 
-	
-		while(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() != 0) {
-			RobotMap.elevator1.set(-0.3);
-		}
-		RobotMap.elevator1.set(0);
-
 		RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 10);
 
 		String gameData;
@@ -142,25 +136,22 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
-		/*
-		 * Drive code
-		 */
-		if(RobotMap.driveStick.getRawButton(1)) { driveState = 0; }
-		
-		//Changes drive state. 
+		/** Drive code*/
+		//TODO TEST!!!
 		if(driveState == 0) { //0 is Tank Drive
 			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
 		}
 		
 
 		/* Elevator code
-		 * -winding it up moves the elevator up
+		 * -winding it up moves the elevator up!!!!!
 		 * -unwinding it will drop the elevator
 		 * -check brake mode on talons
 		 * -encoders
 		 * -limit switch on the bottom
 		 */
-
+		
+		//TODO TEST
 		if(RobotMap.opStick.getPOV() == 0){
 			if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == RobotMap.slideBeforeTopLimit){
 				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
@@ -185,6 +176,7 @@ public class Robot extends IterativeRobot {
 
 
 		//Ramp Code
+		//TODO TEST!!! TEST!!! TEST!!!
 		if(RobotMap.opStick.getRawButton(RobotMap.RightRampUp)){
 			RobotMap.RightFrontSolenoid.set(true);
 			RobotMap.RightBackSolenoid.set(true);
@@ -251,7 +243,7 @@ public class Robot extends IterativeRobot {
 
 		else{
 			drive.resetAllEncoder();
-			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 0);
+			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 10);
 			drive.stopAllSpeed();
 		}
 	}
