@@ -65,4 +65,15 @@ public class RobotMap {
 	
 	//speed for mainting the position of the slide
 	public static final double slideHoverSpeed = 0; //TODO get speed
+	
+	
+	//feet to ticks method and variables
+	static double radius = 0.25;//(feet) 3 inches 
+	static double circumferenceFeet = 2*Math.PI*radius;
+	static double ticksPerRotation = 255;
+	public static int feetToTicks(double feet)
+	{
+		double rotations = feet/circumferenceFeet;
+		return (int)(rotations*ticksPerRotation);
+	}
 }

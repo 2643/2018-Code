@@ -77,7 +77,7 @@ public class Elevator
 	 */
 	public void moveElevatorToPosFeet(int pos)
 	{
-		pos = pos * EnvironmentVariables.lsEncodersToFeet;
+		pos = RobotMap.feetToTicks(pos);
 		lsMotor.set(ControlMode.Position, pos);
 	}
 	
@@ -87,7 +87,7 @@ public class Elevator
 	 */
 	public void moveElevatorToPosInches(int pos)
 	{
-		pos = pos * EnvironmentVariables.lsEncodersToInches;
+		pos = RobotMap.feetToTicks(pos/12);
 		lsMotor.set(ControlMode.Position, pos);
 	}
 	

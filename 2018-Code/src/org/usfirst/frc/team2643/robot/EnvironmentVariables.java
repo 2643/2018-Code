@@ -14,7 +14,7 @@ public class EnvironmentVariables {
 	
 	
 	//distance from the starting position to the auto line in encoder ticks
-	public static final int autoLineDistance = 0; //TODO
+	public static final int autoLineDistance = 1623; //TODO
 
 	//encoder ticks it takes for the robot to turn 90 degrees
 	//to turn right, make this positive
@@ -35,10 +35,10 @@ public class EnvironmentVariables {
 	public static final int ticksToPassSwitch = 0; //TODO
 
 	//encoder ticks for the width of the field switch
-	public static final int ticksWidthOfSwitch = 0; //TODO
+	public static final int ticksWidthOfSwitch = 2076; //TODO
 	
 	//encoder ticks for the length of the field switch
-	public static final int ticksLengthOfSwitch = 0;//TODO
+	public static final int ticksLengthOfSwitch = 756;//TODO
 	
 	public static final int lsEncodersToFeet = 0; //TODO
 	public static final int lsEncodersToInches = 0; //TODO
