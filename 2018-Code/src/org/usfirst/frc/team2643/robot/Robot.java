@@ -139,7 +139,8 @@ public class Robot extends IterativeRobot {
 		/** Drive code*/
 		//TODO TEST!!!
 		if(driveState == 0) { //0 is Tank Drive
-			RobotMovementMethods.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+			Robot.drive.setLeftSpeed(RobotMap.driveStick.getRawAxis(1));
+			Robot.drive.setRightSpeed(RobotMap.driveStick.getRawAxis(5));
 		}
 		
 
