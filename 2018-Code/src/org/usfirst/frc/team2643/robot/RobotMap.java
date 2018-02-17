@@ -3,26 +3,29 @@ package org.usfirst.frc.team2643.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
 	/*
 	 * These are the motors, encoders, joysticks and limit switch
 	 */
 	//Drive motors
-	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(1);   //TODO change this port
-	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(2);   //TODO change this port
-	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(4);  //TODO change this port
-	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(5);  //TODO change this port
+	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(14);   //Front Left
+	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15);   //TODO change this port
+	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1);  //Front Right
+	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16);  //Right Back
 
 	//Motor to move elevator up
-	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(7);    //TODO change this port
-
+	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);    //TODO change this port
+	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(1);
+	//public static final Elevator e1 = new Elevator();
+	
+	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(6);
+	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(9);
 
 	//Acceptable encoder error
-	public static final int ACCEPTABLE_ENCODER_ERROR = 100;	
+	public static final int ACCEPTABLE_ENCODER_ERROR = 100;
+	
 	//slide limits for elevator
 	public static final int slideBeforeTopLimit = 0; //TODO test this out at some point
 	
@@ -31,10 +34,7 @@ public class RobotMap {
 	public static final Joystick opStick = new Joystick(1);
 	
 	//Solenoids
-	public static Solenoid RightFrontSolenoid = new Solenoid(1);          //TODO change this port
-	public static Solenoid RightBackSolenoid = new Solenoid(2);	          //TODO change this port
-	public static Solenoid LeftFrontSolenoid = new Solenoid(3);           //TODO change this port
-	public static Solenoid LeftBackSolenoid = new Solenoid(4);            //TODO change this port
+	//public static Solenoid RightFrontSolenoid = new Solenoid(1);          //TODO change this port
 	
 	//the buttons for the robot
 	public static int RightRampDown = 0; //TODO get the button number
@@ -66,6 +66,9 @@ public class RobotMap {
 	//speed for mainting the position of the slide
 	public static final double slideHoverSpeed = 0; //TODO get speed
 	
+	//Elevator variables
+	static int ticksPerFoot = 3613;
+	static int ticksPerInch = 3613/4;
 	
 	//feet to ticks method and variables
 	static double radius = 0.25;//(feet) 3 inches 

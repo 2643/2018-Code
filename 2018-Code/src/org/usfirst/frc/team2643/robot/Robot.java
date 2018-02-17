@@ -1,14 +1,9 @@
 package org.usfirst.frc.team2643.robot;
 
-//TalonSRX class import
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,9 +27,10 @@ public class Robot extends IterativeRobot {
 	int driveState = 0;
 
 
-	double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
+	//double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 
 	public static Drive drive;
+	public static Elevator elevator;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -55,6 +51,10 @@ public class Robot extends IterativeRobot {
 				RobotMap.leftDrive2,
 				RobotMap.rightDrive1,
 				RobotMap.rightDrive2);
+		
+		elevator = new Elevator();
+		
+		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
 
 	/**
@@ -128,6 +128,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		drive.setToPercentValue();
+		//Elevator.dropElevator();
+		elevator.resetElevatorEncoder();
+		//RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 	
 	/**
@@ -138,47 +141,62 @@ public class Robot extends IterativeRobot {
 
 		/** Drive code*/
 		//TODO TEST!!!
+		
 		if(driveState == 0) { //0 is Tank Drive
-			Robot.drive.setLeftSpeed(RobotMap.driveStick.getRawAxis(1));
-			Robot.drive.setRightSpeed(RobotMap.driveStick.getRawAxis(5));
+			SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+		}
+		else if(driveState==1) {
+			SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
 		}
 		
-
-		/* Elevator code
-		 * -winding it up moves the elevator up!!!!!
-		 * -unwinding it will drop the elevator
-		 * -check brake mode on talons
-		 * -encoders
-		 * -limit switch on the bottom
-		 */
-		
-		//TODO TEST
-		if(RobotMap.opStick.getPOV() == 0){
-			if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == RobotMap.slideBeforeTopLimit){
-				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
-			}else{
-				RobotMap.elevator1.set(RobotMap.slideRaisingSpeed);
-			}
+		if(RobotMap.driveStick.getRawButton(7)) {
+			driveState=0;
+		}
+		else if(RobotMap.driveStick.getRawButton(8)) {
+			driveState=1;
 		}
 		
-		else if(RobotMap.opStick.getPOV() == 180){
-			if (RobotMap.elevator1.getSensorCollection().getQuadraturePosition() == 0) {
-				RobotMap.elevator1.set(0);
-			}else {
-				RobotMap.elevator1.set(RobotMap.slideLoweringSpeed);
-			}
+		//Ramp.deployRamp(RobotMap.driveStick.getRawButton(4), RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
+		
+		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+		
+		//RobotMap.elevator1.set(RobotMap.opStick.getRawAxis(1));
+		elevator.moveElevatorWithInput(RobotMap.opStick);
+		//System.out.println(Elevator.getEncoderValues());
+		
+		//System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values     Left Encoder Values --> " + drive.getLeftEncoder());
+		
+		
+		if(RobotMap.opStick.getRawButton(1))
+		{
+			System.out.println("moving to 2 feet!");
+			elevator.moveElevatorToPosFeet(2);
 		}
-		else if(RobotMap.elevator1.getSensorCollection().getQuadraturePosition() != 0){
-			RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
+		else if(RobotMap.opStick.getRawButton(2))
+		{
+			System.out.println("move to 3.5 feet!");
+			elevator.moveElevatorToPosFeet(3.5);
 		}
-		else {
-			RobotMap.elevator1.set(0);
+		else if(RobotMap.opStick.getRawButton(3))
+		{
+			System.out.println("move to 5 feet!");
+			elevator.moveElevatorToPosFeet(5);
 		}
-
+		else if(RobotMap.opStick.getRawButton(4))
+		{
+			System.out.println("MAX feet 6");
+			elevator.moveElevatorToPosFeet(6);
+		}
+		
+		if(RobotMap.driveStick.getRawButton(1))
+		{
+			elevator.resetElevatorEncoder();
+		}
+	}
 
 		//Ramp Code
-		//TODO TEST!!! TEST!!! TEST!!!
-		if(RobotMap.opStick.getRawButton(RobotMap.RightRampUp)){
+		//Obsolete, but keeping just incase. Use the ramp code in Ramp.java
+		/*if(RobotMap.opStick.getRawButton(RobotMap.RightRampUp)){
 			RobotMap.RightFrontSolenoid.set(true);
 			RobotMap.RightBackSolenoid.set(true);
 		}
@@ -197,7 +215,7 @@ public class Robot extends IterativeRobot {
 		}
 
 	}
-
+*/ //Solenoid Comment
 	/**
 	 * This function is called periodically during test mode
 	 */
@@ -248,4 +266,38 @@ public class Robot extends IterativeRobot {
 			drive.stopAllSpeed();
 		}
 	}
+	
+	public void SRXarcadeDrive(double x, double y) {
+		if(x<-0.03 || x>0.03) { //If the given axis is pushed to the left or right, then set them to the value of that axis. 0.05 is the given dead zone and can be increased or decreased. Currently the deadzone is 5%
+			setRightMotors(x);
+			setLeftMotors(x);
+		}
+		else if(y>0.03||y<0.03) { //If the given axis is pushed up or
+			setRightMotors(y);
+			setLeftMotors(-y);
+		}
+		else { //If no joystick activity, set all motors to 0.
+			setAll(0);
+		}
+	}
+	
+	public void SRXtankDrive(double x, double y) { //Very basic tank drive.
+		setLeftMotors(-x);
+		setRightMotors(y);
+	}
+	public static void setLeftMotors(double x) { //Set all of the motors on the left side to the given value.
+		RobotMap.leftDrive1.set(x);
+		RobotMap.leftDrive2.set(x);
+	}
+	public static void setRightMotors(double x) { //Set all of the motors on the right side to the given value.
+		RobotMap.rightDrive1.set(x);
+		RobotMap.rightDrive2.set(x);
+	}
+	public static void setAll(double x) { //Set all of the motors to the given value. 
+		RobotMap.leftDrive1.set(x);
+		RobotMap.leftDrive2.set(x);
+		RobotMap.rightDrive1.set(x);
+		RobotMap.rightDrive2.set(x);
+	}
+	
 }
