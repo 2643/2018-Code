@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.DriverStation;
