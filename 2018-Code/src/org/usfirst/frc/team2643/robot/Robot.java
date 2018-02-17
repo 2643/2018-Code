@@ -87,7 +87,6 @@ public class Robot extends IterativeRobot
 
 		System.out.println("Auto selected: " + autoSelected);
 		AutoState.armsReleasing = false;
-
 	}
 
 	/**
