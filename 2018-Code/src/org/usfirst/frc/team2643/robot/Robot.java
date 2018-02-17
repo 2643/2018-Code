@@ -137,14 +137,12 @@ public class Robot extends IterativeRobot
 	{
 
 		/** Drive code */
-		// TODO TEST!!!
-
-		if (driveState == 0)
-		{ // 0 is Tank Drive
-			SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+		if (driveState == 0) // 0 is Tank Drive
+		{ 
+			drive.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
 		} else if (driveState == 1)
 		{
-			SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
+			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
 		}
 
 		if (RobotMap.driveStick.getRawButton(7))
@@ -157,57 +155,16 @@ public class Robot extends IterativeRobot
 
 		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
 		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
-
-		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
-
-		// RobotMap.elevator1.set(RobotMap.opStick.getRawAxis(1));
-		elevator.moveElevatorWithInput(RobotMap.opStick);
 		// System.out.println(Elevator.getEncoderValues());
-
 		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
 		// Encoder Values --> " + drive.getLeftEncoder());
 
-		if (RobotMap.opStick.getRawButton(1))
-		{
-			System.out.println("moving to 2 feet!");
-			elevator.moveElevatorToPosFeet(2);
-		} else if (RobotMap.opStick.getRawButton(2))
-		{
-			System.out.println("move to 3.5 feet!");
-			elevator.moveElevatorToPosFeet(3.5);
-		} else if (RobotMap.opStick.getRawButton(3))
-		{
-			System.out.println("move to 5 feet!");
-			elevator.moveElevatorToPosFeet(5);
-		} else if (RobotMap.opStick.getRawButton(4))
-		{
-			System.out.println("MAX feet 6");
-			elevator.moveElevatorToPosFeet(6);
-		}
+		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 
-		if (RobotMap.driveStick.getRawButton(1))
-		{
-			elevator.resetElevatorEncoder();
-		}
+		elevator.moveElevatorWithInput(RobotMap.opStick);
+		elevator.testButtoFunctionalityElevator();
 	}
 
-	// Ramp Code
-	// Obsolete, but keeping just incase. Use the ramp code in Ramp.java
-	/*
-	 * if(RobotMap.opStick.getRawButton(RobotMap.RightRampUp)){
-	 * RobotMap.RightFrontSolenoid.set(true); RobotMap.RightBackSolenoid.set(true);
-	 * } else if(RobotMap.opStick.getRawButton(RobotMap.RightRampDown)){
-	 * RobotMap.RightFrontSolenoid.set(false);
-	 * RobotMap.RightBackSolenoid.set(false); }
-	 * 
-	 * if(RobotMap.opStick.getRawButton(RobotMap.LeftRampUp)){
-	 * RobotMap.LeftFrontSolenoid.set(true); RobotMap.LeftBackSolenoid.set(true); }
-	 * else if(RobotMap.opStick.getRawButton(RobotMap.LeftRampDown)){
-	 * RobotMap.LeftFrontSolenoid.set(false); RobotMap.LeftBackSolenoid.set(false);
-	 * }
-	 * 
-	 * }
-	 */ // Solenoid Comment
 	/**
 	 * This function is called periodically during test mode
 	 */
@@ -266,49 +223,4 @@ public class Robot extends IterativeRobot
 			drive.stopAllSpeed();
 		}
 	}
-
-	public void SRXarcadeDrive(double x, double y)
-	{
-		if (x < -0.03 || x > 0.03)
-		{ // If the given axis is pushed to the left or right, then set them to the value
-			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
-			// Currently the deadzone is 5%
-			setRightMotors(x);
-			setLeftMotors(x);
-		} else if (y > 0.03 || y < 0.03)
-		{ // If the given axis is pushed up or
-			setRightMotors(y);
-			setLeftMotors(-y);
-		} else
-		{ // If no joystick activity, set all motors to 0.
-			setAll(0);
-		}
-	}
-
-	public void SRXtankDrive(double x, double y)
-	{ // Very basic tank drive.
-		setLeftMotors(-x);
-		setRightMotors(y);
-	}
-
-	public static void setLeftMotors(double x)
-	{ // Set all of the motors on the left side to the given value.
-		RobotMap.leftDrive1.set(x);
-		RobotMap.leftDrive2.set(x);
-	}
-
-	public static void setRightMotors(double x)
-	{ // Set all of the motors on the right side to the given value.
-		RobotMap.rightDrive1.set(x);
-		RobotMap.rightDrive2.set(x);
-	}
-
-	public static void setAll(double x)
-	{ // Set all of the motors to the given value.
-		RobotMap.leftDrive1.set(x);
-		RobotMap.leftDrive2.set(x);
-		RobotMap.rightDrive1.set(x);
-		RobotMap.rightDrive2.set(x);
-	}
-
 }

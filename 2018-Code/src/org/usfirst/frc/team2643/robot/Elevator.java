@@ -13,11 +13,11 @@ public class Elevator
 	 * @param lsm
 	 *            - linear slide motor
 	 */
-	/*
-	 * public Elevator() { defaultPIDLSMotor();
-	 * 
-	 * }
-	 */
+
+	public Elevator()
+	{
+		defaultPIDLSMotor();
+	}
 
 	/**
 	 * Initialize Elevator
@@ -27,12 +27,15 @@ public class Elevator
 	 * @param profile
 	 *            - PID profile
 	 */
-	/*
-	 * public Elevator(int profile) { defaultPIDLSMotor();
-	 * RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,
-	 * profile, 20); }
-	 */
+	public Elevator(int profile)
+	{
+		defaultPIDLSMotor();
+		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
+	}
 
+	/**
+	 * Drop elevator before the start of teleop?
+	 */
 	public void dropElevator()
 	{
 		while (!RobotMap.elevatorLimitSwitch.get())
@@ -163,5 +166,31 @@ public class Elevator
 					RobotMap.elevator1.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
 				else
 					RobotMap.elevator1.set(0.0);
+	}
+	
+	public void testButtoFunctionalityElevator()
+	{
+		if (RobotMap.opStick.getRawButton(1))
+		{
+			System.out.println("moving to 2 feet!");
+			moveElevatorToPosFeet(2);
+		} else if (RobotMap.opStick.getRawButton(2))
+		{
+			System.out.println("move to 3.5 feet!");
+			moveElevatorToPosFeet(3.5);
+		} else if (RobotMap.opStick.getRawButton(3))
+		{
+			System.out.println("move to 5 feet!");
+			moveElevatorToPosFeet(5);
+		} else if (RobotMap.opStick.getRawButton(4))
+		{
+			System.out.println("MAX feet 6");
+			moveElevatorToPosFeet(6);
+		}
+
+		if (RobotMap.driveStick.getRawButton(1))
+		{
+			resetElevatorEncoder();
+		}
 	}
 }
