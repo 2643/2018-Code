@@ -55,6 +55,7 @@ public class Elevator
 		RobotMap.elevator1.config_kP(0, EnvironmentVariables.PIDP, 20);
 		RobotMap.elevator1.config_kI(0, EnvironmentVariables.PIDI, 20);
 		RobotMap.elevator1.config_kD(0, EnvironmentVariables.PIDD, 20);
+		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 
 	/**
@@ -78,6 +79,7 @@ public class Elevator
 		RobotMap.elevator1.config_kP(0, pVal, 20);
 		RobotMap.elevator1.config_kI(0, iVal, 20);
 		RobotMap.elevator1.config_kD(0, dVal, 20);
+		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 
 	/**
@@ -104,7 +106,8 @@ public class Elevator
 	public void moveElevatorToPosFeet(double feet)
 	{
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
-		RobotMap.elevator1.set(ControlMode.Position, feetT);
+		System.out.println("Moving to tick: " + feetT);
+		RobotMap.elevator1.set(ControlMode.Position, Math.abs(feetT));
 	}
 
 	/**
@@ -125,21 +128,30 @@ public class Elevator
 	 * @param value
 	 *            - double value (can be used with joystick values)
 	 */
-	public void moveElevatorWithInput(Joystick stick)
+	public void moveElevatorWithInput(double value)
 	{
-		double value = stick.getRawAxis(1);
-		System.out.println(RobotMap.elevatorLimitSwitch.get());
-		if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
+		value = -value;
+		//System.out.println(!RobotMap.elevatorLimitSwitch.get() + "   Value: " + value);
+		
+		if (!RobotMap.elevatorLimitSwitch.get())
+		{
+			if (value > 0)
+			{
+				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
+			}
+			else
+			{
+				RobotMap.elevator1.set(ControlMode.PercentOutput, 0);
+			}
+		} else if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
 		{
 			if (value < 0)
 			{
 				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
 			}
-		} else if (RobotMap.elevatorLimitSwitch.get())
-		{
-			if (value > 0)
+			else
 			{
-				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
+				RobotMap.elevator1.set(ControlMode.PercentOutput, 0);
 			}
 		} else
 		{
@@ -168,7 +180,7 @@ public class Elevator
 				else
 					RobotMap.elevator1.set(0.0);
 	}
-	
+
 	public void testButtoFunctionalityElevator()
 	{
 		if (RobotMap.opStick.getRawButton(1))

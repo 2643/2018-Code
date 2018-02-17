@@ -40,11 +40,11 @@ public class RobotMap {
 	public static int LeftRampUp = 0; //TODO get the button number 
 	
 	//Solenoids
-	public static Solenoid leftRampSolenoid = new Solenoid(0, 1); //TODO get solenoid values
+	/*public static Solenoid leftRampSolenoid = new Solenoid(0, 1); //TODO get solenoid values
 	public static Solenoid rightRampSolenoid = new Solenoid(2, 3); //TODO get solenoid values
 	public static Solenoid rampReleaseSolenoid = new Solenoid (4, 5); //TODO get solenoid values
 	public static Solenoid intakeSolenoid = new Solenoid (6, 7); //TODO check if adding Solenoid ther
-	
+	*/
 	//the speeds for the robot
 	
 	//please never use this the battery will drain muy rapido
@@ -69,8 +69,8 @@ public class RobotMap {
 	public static final double slideHoverSpeed = 0; //TODO get speed
 	
 	//Elevator variables
-	static int ticksPerFoot = 3613;
-	static int ticksPerInch = 3613/12;
+	static int ticksPerFoot = 3530;
+	static int ticksPerInch = 3530/12;
 	
 	//feet to ticks method and variables
 	static double radius = 0.25;//(feet) 3 inches 

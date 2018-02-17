@@ -49,7 +49,7 @@ public class EnvironmentVariables {
 	public static final double PIDI = 0;
 	public static final double PIDD = 0;
 	
-	public static final int maxEncoderValue = Integer.MAX_VALUE; //TODO
+	public static final int maxEncoderValue = 19800; //TODO
 	public static final int moveUpSpeed = 0;
 	public static final int moveDownSpeed = 0;
 }

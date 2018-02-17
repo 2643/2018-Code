@@ -13,7 +13,7 @@ public class Ramp
 	 */
 	public void retractRamps()
 	{
-		RobotMap.rampReleaseSolenoid.set(off);
+		//RobotMap.rampReleaseSolenoid.set(off);
 		releasedRamps = false;
 	}
 	
@@ -22,7 +22,7 @@ public class Ramp
 	 */
 	public void deployRamps()
 	{
-		RobotMap.rampReleaseSolenoid.set(on);
+		//RobotMap.rampReleaseSolenoid.set(on);
 		releasedRamps = true;
 	}
 	
@@ -40,7 +40,7 @@ public class Ramp
 	 */
 	public void deployLeftPistons()
 	{
-		RobotMap.leftRampSolenoid.set(on);
+		//RobotMap.leftRampSolenoid.set(on);
 		extendLeftPistons = true;
 	}
 	
@@ -49,7 +49,7 @@ public class Ramp
 	 */
 	public void deplyRightPistons()
 	{
-		RobotMap.rightRampSolenoid.set(on);
+		//RobotMap.rightRampSolenoid.set(on);
 		extendRightPistons = true;
 	}
 	
@@ -58,7 +58,7 @@ public class Ramp
 	 */
 	public void retractLeftPistons()
 	{
-		RobotMap.leftRampSolenoid.set(off);
+		//RobotMap.leftRampSolenoid.set(off);
 		extendLeftPistons = false;
 	}
 	
@@ -67,7 +67,7 @@ public class Ramp
 	 */
 	public void retractRightPistons()
 	{
-		RobotMap.rightRampSolenoid.set(off);
+		//RobotMap.rightRampSolenoid.set(off);
 		extendRightPistons = false;
 	}
 	

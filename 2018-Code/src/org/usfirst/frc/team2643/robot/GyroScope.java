@@ -26,6 +26,13 @@ public class GyroScope
 		gyro = new ADXRS450_Gyro();
 	}
 
+	public double getAngle()
+	{
+		return gyro.getAngle();
+	}
+	
+	
+	
 	public void PID()
 	{
 		
