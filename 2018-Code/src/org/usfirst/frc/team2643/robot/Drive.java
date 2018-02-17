@@ -14,20 +14,15 @@ public class Drive {
 	private double currentLeftGoal = 0;
 	private double currentRightGoal = 0;
 	
-	public Drive(
-			WPI_TalonSRX l1, WPI_TalonSRX l2,
-			WPI_TalonSRX r1, WPI_TalonSRX r2)
+	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{	
 		leftDriveMaster = l1;
 		leftDriveSlave = l2;
-
-		leftDriveSlave.set(ControlMode.Follower, leftDriveMaster.getDeviceID());
-		
 		rightDriveMaster = r1;
 		rightDriveSlave = r2;
 		
-		rightDriveSlave.set(ControlMode.Follower, rightDriveMaster.getDeviceID());
-		
+		rightDriveSlave.follow(rightDriveMaster);
+		leftDriveSlave.follow(leftDriveMaster);
 		
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
@@ -35,18 +30,23 @@ public class Drive {
 		rightDriveMaster.setSensorPhase(false);
 	}
 	
-	public void setToPositionMode()
+	public void setLeftToPosition(int position)
 	{
-		leftDriveMaster.set(ControlMode.Position,255);
-		rightDriveMaster.set(ControlMode.Position,255);
+		leftDriveMaster.set(ControlMode.Position, position);
+		currentLeftGoal = position;
 	}
 	
-	public void setToPercentValue()
+	public void setRightToPosition(int position)
 	{
-		leftDriveMaster.set(ControlMode.PercentOutput, 1);
-		rightDriveMaster.set(ControlMode.PercentOutput,1);
+		rightDriveMaster.set(ControlMode.Position,position);
+		currentRightGoal = position;
 	}
 	
+	public void setToPercentValue(double value)
+	{
+		leftDriveMaster.set(ControlMode.PercentOutput, value);
+		rightDriveMaster.set(ControlMode.PercentOutput,value);
+	}
 
 	//returns left encoder ticks, which is for some reason twice the actual
 	public int getLeftEncoder()
@@ -91,18 +91,6 @@ public class Drive {
 		resetRightEncoder();
 	}
 	
-	public void setLeftMotorPosition(double location)
-	{
-		leftDriveMaster.set(location);
-		currentLeftGoal = location;
-	}
-	
-	public void setRightMotorPosition(double location)
-	{
-		leftDriveMaster.set(location);
-		currentRightGoal = location;
-	}
-	
 	public double getCurrentRightGoal()
 	{
 		return currentRightGoal;
@@ -113,10 +101,10 @@ public class Drive {
 		return currentLeftGoal;
 	}
 	
-	public void setAllMotorPosition(double location)
+	public void setAllMotorPosition(int location)
 	{
-		setLeftMotorPosition(location);
-		setRightMotorPosition(location);
+		setLeftToPosition(location);
+		setRightToPosition(location);
 	}
 	
 	public void setLeftSpeed(double speed) {
@@ -146,114 +134,4 @@ public class Drive {
 	{
 		setAllSpeed(0);
 	}
-	
-	public void setUpTurn(int ticks)
-	{
-		AutoState.robotState = AutoState.TURNING;
-		resetAllEncoder();
-		setLeftMotorPosition(-ticks);
-		setRightMotorPosition(ticks);
-	}
-
-	public boolean executeTurn()
-	{
-		boolean isFinished = false;
-		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-				Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
-		{
-			isFinished = true;
-		}
-		return isFinished;
-	}
-
-	public void finishTurn()
-	{
-		AutoState.robotState = AutoState.NOTHING;
-		resetAllEncoder();
-		setAllMotorPosition(0);
-	}
-
-	public void setUpMove(int ticks)
-	{
-		AutoState.robotState = AutoState.MOVING;
-		resetAllEncoder();
-		setAllMotorPosition(ticks);
-	}
-
-	public boolean executeMove()
-	{
-		boolean isFinished = false;
-		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-				Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
-		{
-			isFinished = true;
-		}
-		return isFinished;
-	}
-
-	public void finishMove()
-	{
-		AutoState.robotState = AutoState.NOTHING;
-		resetAllEncoder();
-		setAllMotorPosition(0);
-	}
-
-
-	/**
-	 * Sets up release arms
-	 */
-	public void setUpReleaseArms() {
-		AutoState.robotState = AutoState.MOVING;
-		resetAllEncoder();
-		setAllMotorPosition(AutoState.armsForwardEncoderGoal);
-		AutoState.movingForwardToReleaseArms = true;
-	}
-
-	/**
-	 *Releases the arms in the beginning of the match 
-	 * @return Returns if it is finished yet
-	 */
-	public boolean executeReleaseArms(){
-		//whether the method is complete
-		boolean isFinished = false;
-
-		//This means that it moves forward to shake the arm
-		if(AutoState.movingForwardToReleaseArms)
-		{
-			if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-					Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
-			{
-				resetAllEncoder();
-				setAllMotorPosition(-AutoState.armsBackwardEncoderGoal);
-				AutoState.movingForwardToReleaseArms = false;
-				AutoState.movingBackwardToReleaseArms = true;
-			}
-		}
-		else if(AutoState.movingBackwardToReleaseArms)
-		{
-			if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-					Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
-			{
-				AutoState.movingBackwardToReleaseArms = false;
-				isFinished = true;
-			}
-		}
-		else
-		{
-			isFinished = true;
-		}
-		return isFinished;
-	}
-	/**
-	 * Cleans up after robot finishes releasing
-	 */
-	public void finishReleaseArms()
-	{
-		AutoState.robotState = AutoState.NOTHING;
-		resetAllEncoder();
-		setAllMotorPosition(0); 
-		AutoState.movingForwardToReleaseArms = false;
-		AutoState.movingBackwardToReleaseArms = false;
-	}
-	
 }
