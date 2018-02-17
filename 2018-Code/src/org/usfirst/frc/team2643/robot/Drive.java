@@ -27,8 +27,8 @@ public class Drive
 
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
-		leftDriveMaster.setSensorPhase(false);
-		rightDriveMaster.setSensorPhase(false);
+		leftDriveMaster.setSensorPhase(true);
+		rightDriveMaster.setSensorPhase(true);
 	}
 
 	public void setLeftToPosition(int position)
