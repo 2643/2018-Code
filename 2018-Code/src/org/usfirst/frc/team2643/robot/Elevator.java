@@ -17,6 +17,7 @@ public class Elevator
 	public Elevator()
 	{
 		defaultPIDLSMotor();
+		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 
 	/**
