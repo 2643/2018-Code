@@ -50,6 +50,7 @@ public class Elevator
 	 */
 	public void defaultPIDLSMotor()
 	{
+		RobotMap.elevator1.setSensorPhase(true);
 		RobotMap.elevator1.selectProfileSlot(EnvironmentVariables.defaultPID, 0);
 		RobotMap.elevator1.config_kF(0, EnvironmentVariables.PIDF, 20);
 		RobotMap.elevator1.config_kP(0, EnvironmentVariables.PIDP, 20);
@@ -74,6 +75,7 @@ public class Elevator
 	 */
 	public void configPIDProfile(int profile, double fVal, double pVal, double iVal, double dVal)
 	{
+		RobotMap.elevator1.setSensorPhase(true);
 		RobotMap.elevator1.selectProfileSlot(profile, 0);
 		RobotMap.elevator1.config_kF(0, fVal, 20);
 		RobotMap.elevator1.config_kP(0, pVal, 20);
@@ -105,6 +107,7 @@ public class Elevator
 	 */
 	public void moveElevatorToPosFeet(double feet)
 	{
+		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
 		System.out.println("Moving to tick: " + feetT);
 		RobotMap.elevator1.set(ControlMode.Position, Math.abs(feetT));
@@ -135,6 +138,7 @@ public class Elevator
 		
 		if (!RobotMap.elevatorLimitSwitch.get())
 		{
+			resetElevatorEncoder();
 			if (value > 0)
 			{
 				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
