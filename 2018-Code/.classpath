@@ -14,7 +14,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/team/wpilib/java/current/lib/CTRE_Phoenix-javadoc.jar"/>
 	<classpathentry kind="lib" path="/home/team/wpilib/java/current/lib/CTRE_Phoenix-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
