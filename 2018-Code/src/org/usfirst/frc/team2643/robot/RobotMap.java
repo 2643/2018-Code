@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
 	/*
@@ -33,16 +34,18 @@ public class RobotMap {
 	public static final Joystick driveStick = new Joystick(0);
 	public static final Joystick opStick = new Joystick(1);
 	
-	//Solenoids
-	//public static Solenoid RightFrontSolenoid = new Solenoid(1);          //TODO change this port
-	
 	//the buttons for the robot
 	public static int RightRampDown = 0; //TODO get the button number
 	public static int RightRampUp = 0; //TODO get the button number
 	public static int LeftRampDown = 0; //TODO get the button number
-	public static int LeftRampUp = 0; //TODO get the button number
+	public static int LeftRampUp = 0; //TODO get the button number 
 	
-	 
+	//Solenoids
+	public static Solenoid leftRampSolenoid = new Solenoid(0, 1); //TODO get solenoid values
+	public static Solenoid rightRampSolenoid = new Solenoid(2, 3); //TODO get solenoid values
+	public static Solenoid rampReleaseSolenoid = new Solenoid (4, 5); //TODO get solenoid values
+	public static Solenoid intakeSolenoid = new Solenoid (6, 7); //TODO check if adding Solenoid ther
+	
 	//the speeds for the robot
 	
 	//please never use this the battery will drain muy rapido
