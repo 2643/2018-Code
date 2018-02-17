@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 
 	//double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 
-	public static Drive drive;
+	public static AutoDrive drive;
 	public static Elevator elevator;
 
 	/**
@@ -46,14 +46,15 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Auto choices", chooser);
 
-		drive = new Drive(
+		drive = new AutoDrive(
 				RobotMap.leftDrive1,
 				RobotMap.leftDrive2,
 				RobotMap.rightDrive1,
 				RobotMap.rightDrive2);
 		
-		elevator = new Elevator();
 		
+		elevator = new Elevator();
+
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
 
@@ -70,7 +71,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		drive.setToPositionMode();
 		autoSelected = chooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
@@ -127,7 +127,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		drive.setToPercentValue();
 		//Elevator.dropElevator();
 		elevator.resetElevatorEncoder();
 		//RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
