@@ -100,10 +100,17 @@ public class AutoElevator {
 	public boolean executeElevate()
 	{
 		boolean isFinished = false;
-		if(Math.abs(getGoal()-getEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
+		if(Math.abs(getGoal()-getEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
 		{
 			isFinished = true;
 		}
 		return isFinished;
+	}
+	
+	public void finishElevate()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		resetEncoder();
+		setPosition(0);
 	}
 }

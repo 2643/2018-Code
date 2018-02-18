@@ -1,7 +1,10 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class SwitchLeftAndPositionMiddle {
 	public static int autoProgramState = 0;
+	public static Timer outtakeTimer = new Timer();
 
 	/**
 	 * Might change this to just going forward and dropping the cube onto the switch
@@ -158,10 +161,21 @@ public class SwitchLeftAndPositionMiddle {
 			//TODO
 			break;
 		}
-			//the program is done
+		//the robot will outtake the cube
 		case 7:
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionMiddle Case 7: Program is done.");
+				System.out.println("SwitchLeftAndPositionMiddle Case 7: Outtake the cube.");
+			}
+			if(outtakeTimer.get() < 3){
+				Intake.intake(-0.5, -0.5);
+			}else{
+				outtakeTimer.stop();
+				autoProgramState = 8;
+			}
+			break;
+		case 8:
+			if(RobotMap.DEBUG){
+				System.out.println("SwitchLeftAndPositionMiddle Case 8: Program is done");
 			}
 			break;
 		}
