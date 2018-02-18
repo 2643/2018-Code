@@ -25,8 +25,8 @@ public class Drive
 		rightDriveSlave.follow(rightDriveMaster);
 		leftDriveSlave.follow(leftDriveMaster);
 
-		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
-		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
+		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		leftDriveMaster.setSensorPhase(true);
 		rightDriveMaster.setSensorPhase(true);
 	}

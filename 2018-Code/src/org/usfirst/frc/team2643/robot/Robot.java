@@ -74,8 +74,11 @@ public class Robot extends IterativeRobot
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
 
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		String gameData = null;
+		while(gameData == null)
+		{
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		}
 
 		if (gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
 		{
@@ -125,6 +128,7 @@ public class Robot extends IterativeRobot
 	public void teleopInit()
 	{
 		//elevator.dropElevator();
+		drive.resetAllEncoder();
 		elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 	}
@@ -137,13 +141,13 @@ public class Robot extends IterativeRobot
 	{
 
 		/** Drive code */
-		/*if (driveState == 0) // 0 is Tank Drive
+		if (driveState == 0) // 0 is Tank Drive
 		{ 
 			drive.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
 		} else if (driveState == 1)
 		{
 			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
-		}*/
+		}
 
 		if (RobotMap.driveStick.getRawButton(7))
 		{
@@ -159,12 +163,14 @@ public class Robot extends IterativeRobot
 		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
 		// Encoder Values --> " + drive.getLeftEncoder());
 
-		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
-		System.out.println(elevator.getEncoder());
+		//System.out.println(elevator.getEncoder());
 		
 		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
-		elevator.testButtoFunctionalityElevator();
+		//elevator.testButtoFunctionalityElevator();
+		
+		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 	}
 
 	/**

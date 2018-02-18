@@ -120,7 +120,14 @@ public class Elevator
 	public void setPosition(int tick)
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
-		elevator.set(ControlMode.Position, tick);
+		if(tick > EnvironmentVariables.maxEncoderValue)
+		{
+			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
+		}
+		else
+		{
+			elevator.set(ControlMode.Position, tick);
+		}
 	}
 
 	/**
@@ -129,9 +136,8 @@ public class Elevator
 	 * @param pos
 	 *            - movement in inches
 	 */
-	public void moveElevatorToPosInches(int inch)
+	public void setPosInches(int inch)
 	{
-		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int inchT = RobotMap.ticksPerInch * inch;
 		setPosition(inchT);
 	}
