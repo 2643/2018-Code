@@ -20,8 +20,8 @@ public class AutoDrive extends Drive
 	public boolean executeTurn()
 	{
 		boolean isFinished = false;
-		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-				Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
+		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR ||
+				Math.abs(getCurrentRightGoal()-getRightEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
 		{
 			isFinished = true;
 		}
@@ -45,8 +45,8 @@ public class AutoDrive extends Drive
 	public boolean executeMove()
 	{
 		boolean isFinished = false;
-		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-				Math.abs(getCurrentRightGoal()-getRightEncoder()) > RobotMap.ACCEPTABLE_ENCODER_ERROR)
+		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR ||
+				Math.abs(getCurrentRightGoal()-getRightEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
 		{
 			isFinished = true;
 		}
