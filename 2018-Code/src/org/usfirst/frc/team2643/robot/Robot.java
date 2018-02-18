@@ -76,6 +76,7 @@ public class Robot extends IterativeRobot
 
 		String gameData = null;
 		while(gameData == null)
+<<<<<<< HEAD
 		{
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 		}
@@ -84,10 +85,19 @@ public class Robot extends IterativeRobot
 		{
 			autoSelected = "SwitchLeftAnd" + autoSelected;
 		} else if (gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
+=======
+>>>>>>> 00caaf691c35a213029117c86738e63a84536607
 		{
-			autoSelected = "SwitchRightAnd" + autoSelected;
-		}
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
 
+			if (gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
+			{
+				autoSelected = "SwitchLeftAnd" + autoSelected;
+			} else if (gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
+			{
+				autoSelected = "SwitchRightAnd" + autoSelected;
+			}
+		}
 		System.out.println("Auto selected: " + autoSelected);
 		AutoState.armsReleasing = false;
 	}
@@ -163,10 +173,17 @@ public class Robot extends IterativeRobot
 		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
 		// Encoder Values --> " + drive.getLeftEncoder());
 
+<<<<<<< HEAD
 		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
 		//System.out.println(elevator.getEncoder());
 		
+=======
+		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+
+		System.out.println(elevator.getEncoder());
+
+>>>>>>> 00caaf691c35a213029117c86738e63a84536607
 		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
 		//elevator.testButtoFunctionalityElevator();
 		
