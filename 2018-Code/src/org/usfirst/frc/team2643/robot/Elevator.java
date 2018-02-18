@@ -91,12 +91,12 @@ public class Elevator
 	 * 
 	 * @return - encoder value for the elevator
 	 */
-	public int getEncoderValues()
+	public int getEncoder()
 	{
 		return elevator.getSensorCollection().getQuadraturePosition() / 2;
 	}
 
-	public void resetElevatorEncoder()
+	public void resetEncoder()
 	{
 		elevator.getSensorCollection().setQuadraturePosition(0, 20);
 	}
@@ -107,17 +107,17 @@ public class Elevator
 	 * @param pos
 	 *            - Movement by feet
 	 */
-	public void moveElevatorToPosFeet(double feet)
+	public void setPositionFeet(double feet)
 	{
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
 		System.out.println("Moving to tick: " + feetT);
-		moveElevatorToPosTicks(feetT);
+		setPosition(feetT);
 	}
 	
 	/**
 	 * Move elevator to position in ticks
 	 */
-	public void moveElevatorToPosTicks(int tick)
+	public void setPosition(int tick)
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		elevator.set(ControlMode.Position, tick);
@@ -133,7 +133,7 @@ public class Elevator
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int inchT = RobotMap.ticksPerInch * inch;
-		moveElevatorToPosTicks(inchT);
+		setPosition(inchT);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Elevator
 		
 		if (!RobotMap.elevatorLimitSwitch.get())
 		{
-			resetElevatorEncoder();
+			resetEncoder();
 			if (value > 0)
 			{
 				elevator.set(ControlMode.PercentOutput, value);
@@ -157,7 +157,7 @@ public class Elevator
 			{
 				elevator.set(ControlMode.PercentOutput, 0);
 			}
-		} else if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
+		} else if (Math.abs(getEncoder()) > EnvironmentVariables.maxEncoderValue)
 		{
 			if (value < 0)
 			{
@@ -181,7 +181,7 @@ public class Elevator
 	 */
 	public void moveElevatorUsingPOV(Joystick stick)
 	{
-		if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
+		if (Math.abs(getEncoder()) > EnvironmentVariables.maxEncoderValue)
 			if (stick.getPOV() == 180)
 				elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
 			else if (RobotMap.elevatorLimitSwitch.get())
@@ -200,24 +200,24 @@ public class Elevator
 		if (RobotMap.opStick.getRawButton(1))
 		{
 			System.out.println("moving to 2 feet!");
-			moveElevatorToPosFeet(2);
+			setPositionFeet(2);
 		} else if (RobotMap.opStick.getRawButton(2))
 		{
 			System.out.println("move to 3.5 feet!");
-			moveElevatorToPosFeet(3.5);
+			setPositionFeet(3.5);
 		} else if (RobotMap.opStick.getRawButton(3))
 		{
 			System.out.println("move to 5 feet!");
-			moveElevatorToPosFeet(5);
+			setPositionFeet(5);
 		} else if (RobotMap.opStick.getRawButton(4))
 		{
 			System.out.println("MAX feet 6");
-			moveElevatorToPosFeet(6);
+			setPositionFeet(6);
 		}
 
 		if (RobotMap.driveStick.getRawButton(1))
 		{
-			resetElevatorEncoder();
+			resetEncoder();
 		}
 	}
 }

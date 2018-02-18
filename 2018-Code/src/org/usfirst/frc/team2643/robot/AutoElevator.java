@@ -31,20 +31,20 @@ public class AutoElevator extends Elevator{
 	public void setPosition(int ticks)
 	{
 		currentGoal = ticks;
-		super.moveElevatorToPosTicks(ticks);
+		super.setPosition(ticks);
 	}
 	
 	public void setUpElevate(int ticks)
 	{
 		AutoState.robotState = AutoState.ELEVATING;
-		super.resetElevatorEncoder();	
+		super.resetEncoder();	
 		setPosition(ticks);
 	}
 	
 	public boolean executeElevate()
 	{
 		boolean isFinished = false;
-		if(Math.abs(getGoal()-super.getEncoderValues()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
+		if(Math.abs(getGoal()-super.getEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
 		{
 			isFinished = true;
 		}
@@ -54,7 +54,7 @@ public class AutoElevator extends Elevator{
 	public void finishElevate()
 	{
 		AutoState.robotState = AutoState.NOTHING;
-		super.resetElevatorEncoder();
+		super.resetEncoder();
 		setPosition(0);
 	}
 }

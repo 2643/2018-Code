@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
-		elevator.resetElevatorEncoder();
+		elevator.resetEncoder();
 
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -125,7 +125,7 @@ public class Robot extends IterativeRobot
 	public void teleopInit()
 	{
 		//elevator.dropElevator();
-		elevator.resetElevatorEncoder();
+		elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 	}
 
@@ -161,7 +161,7 @@ public class Robot extends IterativeRobot
 
 		Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
-		System.out.println(elevator.getEncoderValues());
+		System.out.println(elevator.getEncoder());
 		
 		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
 		elevator.testButtoFunctionalityElevator();
