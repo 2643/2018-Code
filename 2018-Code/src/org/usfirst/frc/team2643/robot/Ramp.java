@@ -1,91 +1,55 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Servo;
+
 public class Ramp
 {
-	private final boolean on = true;
-	private final boolean off = false;
-	private boolean releasedRamps = false;
-	private boolean extendLeftPistons = false;
-	private boolean extendRightPistons = false;
+	private final Servo rr;
+	private final WPI_TalonSRX rw;
 	
-	/**
-	 * Retracts pistons for deploying ramps
-	 */
-	public void retractRamps()
+	public Ramp(Servo rampRelease, WPI_TalonSRX rampWinch)
 	{
-		//RobotMap.rampReleaseSolenoid.set(off);
-		releasedRamps = false;
+		this(rampRelease, rampWinch, 0, 0.2, 0.2, 0, 0);
 	}
 	
-	/**
-	 * drops the ramps
-	 */
-	public void deployRamps()
+	public Ramp(Servo rampRelease, WPI_TalonSRX rampWinch, int profile, double pidF, double pidP, double pidI, double pidD)
 	{
-		//RobotMap.rampReleaseSolenoid.set(on);
-		releasedRamps = true;
+		rr = rampRelease;
+		rw = rampWinch;
+		configPIDProfile(profile, pidF, pidP, pidI, pidD);
 	}
 	
-	/**
-	 * returns if the ramps are dropped
-	 * @return
-	 */
-	public boolean isRampsReleased()
+	public void configPIDProfile(int profile, double fVal, double pVal, double iVal, double dVal)
 	{
-		return releasedRamps;
+		rw.setSensorPhase(true);
+		rw.selectProfileSlot(profile, 0);
+		rw.config_kF(0, fVal, 20);
+		rw.config_kP(0, pVal, 20);
+		rw.config_kI(0, iVal, 20);
+		rw.config_kD(0, dVal, 20);
+		rw.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 	
-	/**
-	 * deploys left ramp pistons
-	 */
-	public void deployLeftPistons()
+	public double getEncoder()
 	{
-		//RobotMap.leftRampSolenoid.set(on);
-		extendLeftPistons = true;
+		return rw.getSensorCollection().getQuadraturePosition() / 2.0;
 	}
 	
-	/**
-	 * deploys right ramp pistons
-	 */
-	public void deplyRightPistons()
+	public void resetEncoder()
 	{
-		//RobotMap.rightRampSolenoid.set(on);
-		extendRightPistons = true;
+		rw.getSensorCollection().setQuadraturePosition(0, 0);
 	}
 	
-	/**
-	 * retracts left ramp pistons
-	 */
-	public void retractLeftPistons()
+	public void releaseRamp()
 	{
-		//RobotMap.leftRampSolenoid.set(off);
-		extendLeftPistons = false;
+		rr.set(1);
 	}
 	
-	/**
-	 * retracts right ramp pistons
-	 */
-	public void retractRightPistons()
+	public void winchUp()
 	{
-		//RobotMap.rightRampSolenoid.set(off);
-		extendRightPistons = false;
-	}
-	
-	/**
-	 * returns if the left ramp pistons are deployed
-	 * @return
-	 */
-	public boolean isLeftPistonsExtended()
-	{
-		return extendLeftPistons;
-	}
-	
-	/**
-	 * returns if the right ramp pistons are deployed
-	 * @return
-	 */
-	public boolean isRightPistonsExtended() 
-	{
-		return extendRightPistons;
+		rw.set(1);
 	}
 }

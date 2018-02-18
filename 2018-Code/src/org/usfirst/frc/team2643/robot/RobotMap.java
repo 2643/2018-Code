@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
@@ -15,9 +16,9 @@ public class RobotMap {
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15);   //TODO change this port
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1);  //Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16);  //Right Back
-
+	
 	//Motor to move elevator up
-	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);    //TODO change this port
+	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
 	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(0);
 	
 	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(6);
@@ -39,13 +40,12 @@ public class RobotMap {
 	public static int LeftRampDown = 0; //TODO get the button number
 	public static int LeftRampUp = 0; //TODO get the button number 
 	
-	//Solenoids
-	/*public static Solenoid leftRampSolenoid = new Solenoid(0, 1); //TODO get solenoid values
-	public static Solenoid rightRampSolenoid = new Solenoid(2, 3); //TODO get solenoid values
-	public static Solenoid rampReleaseSolenoid = new Solenoid (4, 5); //TODO get solenoid values
-	public static Solenoid intakeSolenoid = new Solenoid (6, 7); //TODO check if adding Solenoid ther
-	*/
-	//the speeds for the robot
+	//ramps
+	public static Servo rampRelease = new Servo(0); //TODO enter ID 
+	public static WPI_TalonSRX rampWinhc = new WPI_TalonSRX(2); // TODO enter ID
+	
+	
+	//***the speeds for the robot***
 	
 	//please never use this the battery will drain muy rapido
 	public static final double fullSpeed = 1;
