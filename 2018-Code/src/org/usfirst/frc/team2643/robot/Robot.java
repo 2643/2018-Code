@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot
 	// double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 
 	public static AutoDrive drive;
-	public static Elevator elevator;
+	public static AutoElevator elevator;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto choices", chooser);
 
 		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2);
-		elevator = new Elevator(RobotMap.elevator1);
+		elevator = new AutoElevator(RobotMap.elevator1);
 
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
