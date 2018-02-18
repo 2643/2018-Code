@@ -157,8 +157,20 @@ public class SwitchLeftAndPositionMiddle {
 			if(RobotMap.DEBUG){	
 				System.out.println("SwitchLeftAndPositionMiddle Case 6: Drop the cube onto the switch");
 			}
-			autoProgramState++;
-			//TODO
+			if(!AutoState.elevating)
+			{
+				Robot.elevator.setUpElevate(500);
+				AutoState.elevating = true;
+			}	
+			else
+			{ 
+				if(Robot.elevator.executeElevate())
+				{
+					Robot.elevator.finishElevate();
+					AutoState.elevating = false;
+					autoProgramState++;
+				}
+			}
 			break;
 		}
 		//the robot will outtake the cube

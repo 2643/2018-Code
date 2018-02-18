@@ -86,17 +86,17 @@ public class SwitchLeftAndPositionLeft {
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 3: Robot will drop the cube onto the switch.");
 				}
-				if(!AutoState.turning)
+				if(!AutoState.elevating)
 				{
-					Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
-					AutoState.turning = true;
+					Robot.elevator.setUpElevate(500);
+					AutoState.elevating = true;
 				}	
 				else
 				{ 
-					if(Robot.drive.executeTurn())
+					if(Robot.elevator.executeElevate())
 					{
-						Robot.drive.finishTurn();
-						AutoState.turning = false;
+						Robot.elevator.finishElevate();
+						AutoState.elevating = false;
 						autoProgramState++;
 					}
 				}

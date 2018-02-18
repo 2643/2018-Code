@@ -56,8 +56,20 @@ public class SwitchRightAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionMiddle Case 2: Drop the cube onto the switch");
 			}
-			autoProgramState = 3;
-			//TODO
+			if(!AutoState.elevating)
+			{
+				Robot.elevator.setUpElevate(500);
+				AutoState.elevating = true;
+			}	
+			else
+			{ 
+				if(Robot.elevator.executeElevate())
+				{
+					Robot.elevator.finishElevate();
+					AutoState.elevating = false;
+					autoProgramState++;
+				}
+			}
 			break;
 		//the robot will outtake the cube
 		case 3:
@@ -68,7 +80,7 @@ public class SwitchRightAndPositionMiddle {
 				Intake.intake(-0.5, -0.5);
 			}else{
 				outtakeTimer.stop();
-				autoProgramState = 4;
+				autoProgramState++;
 			}
 			break;
 		case 4:

@@ -74,7 +74,20 @@ public class SwitchRightAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 3: Drop the cube");
 			}
-			autoProgramState = 4;
+			if(!AutoState.elevating)
+			{
+				Robot.elevator.setUpElevate(500);
+				AutoState.elevating = true;
+			}	
+			else
+			{ 
+				if(Robot.elevator.executeElevate())
+				{
+					Robot.elevator.finishElevate();
+					AutoState.elevating = false;
+					autoProgramState++;
+				}
+			}
 			break;
 		//the robot will outtake the cube
 		case 4:
