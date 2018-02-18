@@ -109,10 +109,9 @@ public class Elevator
 	 */
 	public void moveElevatorToPosFeet(double feet)
 	{
-		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
 		System.out.println("Moving to tick: " + feetT);
-		elevator.set(ControlMode.Position, Math.abs(feetT));
+		moveElevatorToPosTicks(feetT);
 	}
 	
 	/**
@@ -120,6 +119,7 @@ public class Elevator
 	 */
 	public void moveElevatorToPosTicks(int tick)
 	{
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		elevator.set(ControlMode.Position, tick);
 	}
 
@@ -131,8 +131,9 @@ public class Elevator
 	 */
 	public void moveElevatorToPosInches(int inch)
 	{
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int inchT = RobotMap.ticksPerInch * inch;
-		elevator.set(ControlMode.Position, inchT);
+		moveElevatorToPosTicks(inchT);
 	}
 
 	/**
@@ -144,7 +145,6 @@ public class Elevator
 	public void moveElevatorWithInput(double value)
 	{
 		value = -value;
-		//System.out.println(!RobotMap.elevatorLimitSwitch.get() + "   Value: " + value);
 		
 		if (!RobotMap.elevatorLimitSwitch.get())
 		{
