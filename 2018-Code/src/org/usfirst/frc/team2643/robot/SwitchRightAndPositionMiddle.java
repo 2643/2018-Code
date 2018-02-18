@@ -1,8 +1,11 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class SwitchRightAndPositionMiddle {
 
 	public static int autoProgramState = 0;
+	public static Timer outtakeTimer = new Timer();
 
 	public static void runPeriodic(){
 		switch(autoProgramState){
@@ -56,10 +59,21 @@ public class SwitchRightAndPositionMiddle {
 			autoProgramState = 3;
 			//TODO
 			break;
-
+		//the robot will outtake the cube
 		case 3:
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchRightAndPositionMiddle Case 3: Program is done");
+				System.out.println("SwitchRightAndPositionMiddle Case 3: Outtake the cube");
+			}
+			if(outtakeTimer.get() < 3){
+				Intake.intake(-0.5, -0.5);
+			}else{
+				outtakeTimer.stop();
+				autoProgramState = 4;
+			}
+			break;
+		case 4:
+			if(RobotMap.DEBUG){
+				System.out.println("SwitchRightAndPositionMiddle Case 4: Program is done");
 			}
 			break;
 		}

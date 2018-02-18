@@ -1,7 +1,10 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class SwitchRightAndPositionLeft {
 	public static int autoProgramState = 0;
+	public static Timer outtakeTimer = new Timer();
 	public static void runPeriodic(){
 		switch(autoProgramState){
 
@@ -156,7 +159,20 @@ public class SwitchRightAndPositionLeft {
 		case 8:
 		{	
 			if(RobotMap.DEBUG){
-				System.out.println("SwitchLeftAndPositionRight Case 8: Program is done");
+				System.out.println("SwitchLeftAndPositionRight Case 8: Outtake the cube");
+			}
+			if(outtakeTimer.get() < 3){
+				Intake.intake(-0.5, -0.5);
+			}else{
+				outtakeTimer.stop();
+				autoProgramState = 9;
+			}
+			break;
+		}
+		case 9:
+		{
+			if(RobotMap.DEBUG){
+				System.out.println("SwitchLeftAndPositionRight Case 9: Program is done");
 			}
 			break;
 		}

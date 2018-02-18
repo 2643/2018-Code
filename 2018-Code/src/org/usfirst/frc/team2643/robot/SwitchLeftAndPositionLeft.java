@@ -1,10 +1,15 @@
 package org.usfirst.frc.team2643.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class SwitchLeftAndPositionLeft {
 
 
 	//state variable for switch statement 
 	public static int autoProgramState = 0;
+	
+	//timer for out taking the cube
+	public static Timer outtakeTimer = new Timer();
 
 	/**
 	 * This is the auto routine that runs when our robot is on the left and our switch is on the left. 
@@ -93,7 +98,18 @@ public class SwitchLeftAndPositionLeft {
 			
 			case 4:
 				if(RobotMap.DEBUG){
-					System.out.println("SwitchLeftAndPositionLeft Case 4: Program is done");
+					System.out.println("SwitchLeftAndPositionLeft Case 4: Outtake the cube");
+				}
+				if(outtakeTimer.get() < 3){
+					Intake.intake(-0.5, -0.5);
+				}else{
+					outtakeTimer.stop();
+					autoProgramState = 5;
+				}
+				break;
+			case 5:
+				if(RobotMap.DEBUG){
+					System.out.println("SwitchLeftAndPositionLeft Case 5: Program is done");
 				}
 				break;
 		}
