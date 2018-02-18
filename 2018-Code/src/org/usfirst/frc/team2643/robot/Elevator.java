@@ -18,9 +18,7 @@ public class Elevator
 	 */
 	public Elevator(WPI_TalonSRX liftMotor)
 	{
-		elevator = liftMotor;
-		defaultPIDLSMotor();
-		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		this(liftMotor, 0);
 	}
 
 	/**
@@ -115,6 +113,14 @@ public class Elevator
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
 		System.out.println("Moving to tick: " + feetT);
 		elevator.set(ControlMode.Position, Math.abs(feetT));
+	}
+	
+	/**
+	 * Move elevator to position in ticks
+	 */
+	public void moveElevatorToPosTicks(int tick)
+	{
+		elevator.set(ControlMode.Position, tick);
 	}
 
 	/**
