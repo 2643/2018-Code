@@ -49,8 +49,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto choices", chooser);
 
 		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2);
-
-		elevator = new Elevator();
+		elevator = new Elevator(RobotMap.elevator1);
 
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
