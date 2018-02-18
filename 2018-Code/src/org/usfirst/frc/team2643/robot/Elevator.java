@@ -2,22 +2,25 @@ package org.usfirst.frc.team2643.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Elevator
 {
+	private WPI_TalonSRX elevator;
+	
 	/**
 	 * Initialize Elevator
 	 * 
 	 * @param lsm
 	 *            - linear slide motor
 	 */
-
-	public Elevator()
+	public Elevator(WPI_TalonSRX liftMotor)
 	{
+		elevator = liftMotor;
 		defaultPIDLSMotor();
-		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 
 	/**
@@ -28,10 +31,11 @@ public class Elevator
 	 * @param profile
 	 *            - PID profile
 	 */
-	public Elevator(int profile)
+	public Elevator(WPI_TalonSRX liftMotor, int profile)
 	{
+		elevator = liftMotor;
 		defaultPIDLSMotor();
-		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 
 	/**
@@ -41,7 +45,7 @@ public class Elevator
 	{
 		while (!RobotMap.elevatorLimitSwitch.get())
 		{
-			RobotMap.elevator1.set(-0.55);
+			elevator.set(-0.55);
 		}
 	}
 
@@ -50,13 +54,13 @@ public class Elevator
 	 */
 	public void defaultPIDLSMotor()
 	{
-		RobotMap.elevator1.setSensorPhase(true);
-		RobotMap.elevator1.selectProfileSlot(EnvironmentVariables.defaultPID, 0);
-		RobotMap.elevator1.config_kF(0, EnvironmentVariables.PIDF, 20);
-		RobotMap.elevator1.config_kP(0, EnvironmentVariables.PIDP, 20);
-		RobotMap.elevator1.config_kI(0, EnvironmentVariables.PIDI, 20);
-		RobotMap.elevator1.config_kD(0, EnvironmentVariables.PIDD, 20);
-		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		elevator.setSensorPhase(true);
+		elevator.selectProfileSlot(EnvironmentVariables.defaultPID, 0);
+		elevator.config_kF(0, EnvironmentVariables.PIDF, 20);
+		elevator.config_kP(0, EnvironmentVariables.PIDP, 20);
+		elevator.config_kI(0, EnvironmentVariables.PIDI, 20);
+		elevator.config_kD(0, EnvironmentVariables.PIDD, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 
 	/**
@@ -75,13 +79,13 @@ public class Elevator
 	 */
 	public void configPIDProfile(int profile, double fVal, double pVal, double iVal, double dVal)
 	{
-		RobotMap.elevator1.setSensorPhase(true);
-		RobotMap.elevator1.selectProfileSlot(profile, 0);
-		RobotMap.elevator1.config_kF(0, fVal, 20);
-		RobotMap.elevator1.config_kP(0, pVal, 20);
-		RobotMap.elevator1.config_kI(0, iVal, 20);
-		RobotMap.elevator1.config_kD(0, dVal, 20);
-		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
+		elevator.setSensorPhase(true);
+		elevator.selectProfileSlot(profile, 0);
+		elevator.config_kF(0, fVal, 20);
+		elevator.config_kP(0, pVal, 20);
+		elevator.config_kI(0, iVal, 20);
+		elevator.config_kD(0, dVal, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 
 	/**
@@ -91,12 +95,12 @@ public class Elevator
 	 */
 	public int getEncoderValues()
 	{
-		return RobotMap.elevator1.getSensorCollection().getQuadraturePosition() / 2;
+		return elevator.getSensorCollection().getQuadraturePosition() / 2;
 	}
 
 	public void resetElevatorEncoder()
 	{
-		RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 20);
+		elevator.getSensorCollection().setQuadraturePosition(0, 20);
 	}
 
 	/**
@@ -107,10 +111,10 @@ public class Elevator
 	 */
 	public void moveElevatorToPosFeet(double feet)
 	{
-		RobotMap.elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		int feetT = (int) (RobotMap.ticksPerFoot * feet);
 		System.out.println("Moving to tick: " + feetT);
-		RobotMap.elevator1.set(ControlMode.Position, Math.abs(feetT));
+		elevator.set(ControlMode.Position, Math.abs(feetT));
 	}
 
 	/**
@@ -122,7 +126,7 @@ public class Elevator
 	public void moveElevatorToPosInches(int inch)
 	{
 		int inchT = RobotMap.ticksPerInch * inch;
-		RobotMap.elevator1.set(ControlMode.Position, inchT);
+		elevator.set(ControlMode.Position, inchT);
 	}
 
 	/**
@@ -141,25 +145,25 @@ public class Elevator
 			resetElevatorEncoder();
 			if (value > 0)
 			{
-				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
+				elevator.set(ControlMode.PercentOutput, value);
 			}
 			else
 			{
-				RobotMap.elevator1.set(ControlMode.PercentOutput, 0);
+				elevator.set(ControlMode.PercentOutput, 0);
 			}
 		} else if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
 		{
 			if (value < 0)
 			{
-				RobotMap.elevator1.set(ControlMode.PercentOutput, value);
+				elevator.set(ControlMode.PercentOutput, value);
 			}
 			else
 			{
-				RobotMap.elevator1.set(ControlMode.PercentOutput, 0);
+				elevator.set(ControlMode.PercentOutput, 0);
 			}
 		} else
 		{
-			RobotMap.elevator1.set(ControlMode.PercentOutput, value);
+			elevator.set(ControlMode.PercentOutput, value);
 		}
 	}
 
@@ -173,16 +177,16 @@ public class Elevator
 	{
 		if (Math.abs(getEncoderValues()) > EnvironmentVariables.maxEncoderValue)
 			if (stick.getPOV() == 180)
-				RobotMap.elevator1.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+				elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
 			else if (RobotMap.elevatorLimitSwitch.get())
 				if (stick.getPOV() == 0)
-					RobotMap.elevator1.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
+					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
 				else if (stick.getPOV() == 0)
-					RobotMap.elevator1.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
+					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
 				else if (stick.getPOV() == 180)
-					RobotMap.elevator1.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
 				else
-					RobotMap.elevator1.set(0.0);
+					elevator.set(0.0);
 	}
 
 	public void testButtoFunctionalityElevator()
