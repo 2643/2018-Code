@@ -42,8 +42,6 @@ public class SwitchLeftAndPositionLeft {
 					}
 				}
 				break;
-
-			//the robot will move forward until right next to the switch
 			case 1:
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 1: Robot go forward until next to the switch");
@@ -63,8 +61,6 @@ public class SwitchLeftAndPositionLeft {
 					autoProgramState++;
 				}
 				break;
-
-			//the robot will turn ninety degrees right to face the switch
 			case 2:
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 2: Turn right to face the switch");
@@ -86,14 +82,24 @@ public class SwitchLeftAndPositionLeft {
 					}
 				}
 				break;
-
-			//the robot will drop the cube on the switch
 			case 3: 
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 3: Robot will drop the cube onto the switch.");
 				}
-				//TODO drop the cube onto the switch
-				autoProgramState++;
+				if(!AutoState.turning)
+				{
+					Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
+					AutoState.turning = true;
+				}	
+				else
+				{ 
+					if(Robot.drive.executeTurn())
+					{
+						Robot.drive.finishTurn();
+						AutoState.turning = false;
+						autoProgramState++;
+					}
+				}
 				break;
 			
 			case 4:
