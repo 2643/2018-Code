@@ -12,9 +12,6 @@ public class Drive
 	private final WPI_TalonSRX rightDriveMaster;
 	private final WPI_TalonSRX rightDriveSlave;
 
-	private double currentLeftGoal = 0;
-	private double currentRightGoal = 0;
-
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
 		leftDriveMaster = l1;
