@@ -31,35 +31,45 @@ public class Intake {
 	{
 		if(board.getRawButton(RobotMap.intakeLeftButton))
 		{
-			moveLeftIntake(-1);
+			setSpeedLeft(-1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeLeftButton))
 		{
-			moveLeftIntake(1);
+			setSpeedLeft(1);
 		}
 		else if(board.getRawButton(RobotMap.bothIntakeButton))
 		{
-			moveBothIntake(1);
+			setSpeed(1);
 		}
 		else if(board.getRawButton(RobotMap.intakeRightButton))
 		{
-			moveRightIntake(1);
+			setSpeedRight(1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeRightButton))
 		{
-			moveRightIntake(-1);
+			setSpeedRight(-1);
 		}
 		else if(board.getRawButton(RobotMap.bothOuttakeButton))
 		{
-			moveBothIntake(-1);
+			setSpeed(-1);
 		}
+	}
+	
+	public void setSpeedLeft(double value)
+	{
+		leftIntake.set(-value);
+	}
+	
+	public void setSpeedRight(double value)
+	{
+		rightIntake.set(value);
 	}
 	
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
-		leftIntake.set(-speed);
-		rightIntake.set(speed);
+		setSpeedLeft(speed);
+		setSpeedRight(speed);
 	}
 	
 	public void stop()
@@ -94,22 +104,6 @@ public class Intake {
 		timeGoal = 0;
 		timer.stop();
 		timer.reset();
-	}
-	
-	public void moveLeftIntake(double value)
-	{
-		leftIntake.set(value);
-	}
-	
-	public void moveRightIntake(double value)
-	{
-		rightIntake.set(value);
-	}
-	
-	public void moveBothIntake(double value)
-	{
-		moveLeftIntake(-value);
-		moveRightIntake(value);
 	}
 	
 	/**
