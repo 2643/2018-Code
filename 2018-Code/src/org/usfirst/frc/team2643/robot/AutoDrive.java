@@ -47,14 +47,15 @@ public class AutoDrive extends Drive
 	{
 		AutoState.robotState = AutoState.TURNING;
 		resetAllEncoder();
+		gyro.reset();
 		degreesGoal = degrees;
 		setLeftSpeed(Utils.getSign(degrees)*RobotMap.cruisingSpeed);
-		setRightSpeed(Utils.getSign(degrees)*RobotMap.cruisingSpeed);
+		setRightSpeed(-Utils.getSign(degrees)*RobotMap.cruisingSpeed);
 	}
 	
 	public boolean executeGyroTurn()
 	{
-		if(Utils.checkIfReachedGoal(gyro.getAngle(),degreesGoal))
+		if(Utils.checkIfReachedGoal(EnvironmentVariables.gyroToDegrees(gyro.getAngle()),degreesGoal))
 		{
 			return true;
 		}

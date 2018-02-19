@@ -55,7 +55,7 @@ public class RobotMap {
 	public static final double fullSpeed = 1;
 	
 	//Set all motors to cruising speed! Aye aye cap'n!
-	public static final double cruisingSpeed = 0.6;
+	public static final double cruisingSpeed = 0.4;
 	
 	//A reduced speed for careful stuff 
 	public static final double reducedSpeed = 0.3;

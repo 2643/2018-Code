@@ -25,16 +25,16 @@ public class EnvironmentVariables {
 
 	public static double gyroToDegrees(double gyro)
 	{
-		return (gyro/38.0)*90;
+		return (gyro/18.0)*90;
 	}
 	
 	public static double degreesTogyro(double degrees)
 	{
-		return (degrees/90)*38.0;
+		return (degrees/18)*19.0;
 	}
 	
 	//the distance in encoder ticks from the starting position to the middle of the field switch
-	public static final int ticksToMiddleOfSwitch = 2000; //TODO
+	public static final int ticksToMiddleOfSwitch = 3000; //TODO
 	
 	//the distance in encoder ticks from the starting position to the fence facing the driver station
 	public static final int ticksToBeforeSwitch = 0; //TODO

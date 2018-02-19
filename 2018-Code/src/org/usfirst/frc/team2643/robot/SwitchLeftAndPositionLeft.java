@@ -17,6 +17,10 @@ public class SwitchLeftAndPositionLeft {
 	 */
 	public static void runPeriodic(){
 
+		System.out.println("Left Encoder: " + Robot.drive.getLeftEncoder() + "    Right Encoder: "
+				+ Robot.drive.getRightEncoder() + "    Elevator: " + Robot.elevator.getEncoder());
+				
+		
 		switch(autoProgramState){
 		
 			case 0:
@@ -27,7 +31,7 @@ public class SwitchLeftAndPositionLeft {
 
 				if(!AutoState.inttaking)
 				{
-					Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
+					Robot.intake.setUpIntake(0.5, RobotMap.inputCubeSpeed);
 					AutoState.inttaking = true;
 				}
 				else
@@ -71,14 +75,15 @@ public class SwitchLeftAndPositionLeft {
 				
 				if(!AutoState.turning)
 				{
-					Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
+					//Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
+					Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesTogyro(90));
 					AutoState.turning = true;
 				}	
 				else
 				{ 
-					if(Robot.drive.executeTurn())
+					if(Robot.drive.executeGyroTurn())
 					{
-						Robot.drive.finishTurn();
+						Robot.drive.finishGyroTurn();
 						AutoState.turning = false;
 						autoProgramState++;
 					}

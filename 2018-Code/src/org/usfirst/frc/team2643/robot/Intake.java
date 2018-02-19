@@ -64,18 +64,20 @@ public class Intake {
 		timer.reset();
 	}
 	
-	public static void intake(double x, double y) {
+	
+	
+	public void intake(double x, double y) {
 		if(x>0.05) {
-			RobotMap.leftIntake.set(-x);
-			RobotMap.rightIntake.set(x);
+			leftIntake.set(-x);
+			rightIntake.set(x);
 		}
 		else if(y>0.05) {
-			RobotMap.leftIntake.set(y);
-			RobotMap.rightIntake.set(-y);
+			leftIntake.set(y);
+			rightIntake.set(-y);
 		}
 		else {
-			RobotMap.leftIntake.set(0);
-			RobotMap.rightIntake.set(0);
+			leftIntake.set(0);
+			rightIntake.set(0);
 		}
 	}
 }
