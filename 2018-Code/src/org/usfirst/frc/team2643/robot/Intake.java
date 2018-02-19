@@ -2,6 +2,7 @@ package org.usfirst.frc.team2643.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Intake {
@@ -21,6 +22,37 @@ public class Intake {
 	public double getSpeed()
 	{
 		return speed;
+	}
+	
+	/**
+	 * use this for buttons
+	 */
+	public void intake(Joystick board)
+	{
+		if(board.getRawButton(RobotMap.intakeLeftButton))
+		{
+			moveLeftIntake(-1);
+		}
+		else if(board.getRawButton(RobotMap.outtakeLeftButton))
+		{
+			moveLeftIntake(1);
+		}
+		else if(board.getRawButton(RobotMap.bothIntakeButton))
+		{
+			moveBothIntake(1);
+		}
+		else if(board.getRawButton(RobotMap.intakeRightButton))
+		{
+			moveRightIntake(1);
+		}
+		else if(board.getRawButton(RobotMap.outtakeRightButton))
+		{
+			moveRightIntake(-1);
+		}
+		else if(board.getRawButton(RobotMap.bothOuttakeButton))
+		{
+			moveBothIntake(-1);
+		}
 	}
 	
 	public void setSpeed(double speed)
@@ -64,8 +96,27 @@ public class Intake {
 		timer.reset();
 	}
 	
+	public void moveLeftIntake(double value)
+	{
+		leftIntake.set(value);
+	}
 	
+	public void moveRightIntake(double value)
+	{
+		rightIntake.set(value);
+	}
 	
+	public void moveBothIntake(double value)
+	{
+		moveLeftIntake(-value);
+		moveRightIntake(value);
+	}
+	
+	/**
+	 * use if using joysticks
+	 * @param x
+	 * @param y
+	 */
 	public void intake(double x, double y) {
 		if(x>0.05) {
 			leftIntake.set(-x);

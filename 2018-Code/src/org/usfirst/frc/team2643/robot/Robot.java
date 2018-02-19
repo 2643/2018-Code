@@ -172,8 +172,9 @@ public class Robot extends IterativeRobot
 		
 		//System.out.println(elevator.getEncoder());
 		
-		intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
-
+		//intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+		
+		
 		System.out.println(elevator.getEncoder());
 		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
 		elevator.presetLocations();

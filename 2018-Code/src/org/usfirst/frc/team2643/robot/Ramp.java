@@ -3,6 +3,7 @@ package org.usfirst.frc.team2643.robot;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
 
 public class Ramp
@@ -43,13 +44,19 @@ public class Ramp
 		rw.getSensorCollection().setQuadraturePosition(0, 0);
 	}
 	
-	public void releaseRamp()
+	public void releaseRamp(Joystick board)
 	{
-		rr.set(1);
+		if(board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampReleaseButton))
+		{
+			rr.set(1);
+		}
 	}
 	
-	public void winchUp()
+	public void winchUp(Joystick board)
 	{
-		rw.set(1);
+		if(board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.reampUpButton))
+		{
+			rw.set(1);
+		}
 	}
 }
