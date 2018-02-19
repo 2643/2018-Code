@@ -4,10 +4,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class AutoDrive extends Drive
 {
+	private GyroScope gyro;
+	private double degreesGoal;
 	
-	public AutoDrive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
+	
+	public AutoDrive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2, GyroScope gyroscope)
 	{
 		super(l1, l2, r1, r2);
+		gyro = gyroscope;
 	}
 	public void setUpTurn(int ticks)
 	{
@@ -35,6 +39,35 @@ public class AutoDrive extends Drive
 		setAllMotorPosition(0);
 	}
 
+	public void setUpGyroTurn(double degrees)
+	{
+		AutoState.robotState = AutoState.TURNING;
+		resetAllEncoder();
+		degreesGoal = degrees;
+		setLeftSpeed(Utils.getSign(degrees)*RobotMap.cruisingSpeed);
+		setRightSpeed(Utils.getSign(degrees)*RobotMap.cruisingSpeed);
+	}
+	
+	public boolean executeGyroTurn()
+	{
+		if(Utils.checkIfReachedGoal(gyro.getAngle(),degreesGoal))
+		{
+			return true;
+		}
+		else
+		{	
+			return false;
+		}
+	}
+	
+	public void finishGyroTurn()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		resetAllEncoder();
+		gyro.reset();
+		stopAllSpeed();
+	}
+	
 	public void setUpMove(int ticks)
 	{
 		AutoState.robotState = AutoState.MOVING;

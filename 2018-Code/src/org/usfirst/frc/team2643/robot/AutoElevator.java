@@ -46,7 +46,7 @@ public class AutoElevator extends Elevator{
 		boolean isFinished = false;
 		if(Math.abs(getGoal()-super.getEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
 		{
-			isFinished = true;
+			isFinished = true; 
 		}
 		return isFinished;
 	}
