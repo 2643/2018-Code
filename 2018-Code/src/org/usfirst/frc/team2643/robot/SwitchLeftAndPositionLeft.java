@@ -24,14 +24,14 @@ public class SwitchLeftAndPositionLeft {
 
 				if(!AutoState.armsReleasing)
 				{
-					RobotMovementMethods.setUpReleaseArms();
+					Robot.drive.setUpReleaseArms();
 					AutoState.armsReleasing = true;
 				}
 				else
 				{
-					if(RobotMovementMethods.executeReleaseArms())
+					if(Robot.drive.executeReleaseArms())
 					{
-						RobotMovementMethods.finishReleaseArms();
+						Robot.drive.finishReleaseArms();
 						AutoState.armsReleasing = false;
 						autoProgramState++;
 					}
@@ -48,12 +48,12 @@ public class SwitchLeftAndPositionLeft {
 				int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
 				if(!AutoState.moving)
 				{
-					RobotMovementMethods.setUpMove(encoderGoal);
+					Robot.drive.setUpMove(encoderGoal);
 					AutoState.moving = true;
 				}
-				else if(RobotMovementMethods.executeMove())
+				else if(Robot.drive.executeMove())
 				{
-					RobotMovementMethods.finishMove();
+					Robot.drive.finishMove();
 					AutoState.moving = false;
 					autoProgramState++;
 				}
@@ -68,14 +68,14 @@ public class SwitchLeftAndPositionLeft {
 				
 				if(!AutoState.turning)
 				{
-					RobotMovementMethods.setUpTurn(EnvironmentVariables.ticksTo90);
+					Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
 					AutoState.turning = true;
 				}	
 				else
 				{ 
-					if(RobotMovementMethods.executeTurn())
+					if(Robot.drive.executeTurn())
 					{
-						RobotMovementMethods.finishTurn();
+						Robot.drive.finishTurn();
 						AutoState.turning = false;
 						autoProgramState++;
 					}
