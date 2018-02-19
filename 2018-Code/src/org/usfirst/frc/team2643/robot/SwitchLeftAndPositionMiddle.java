@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SwitchLeftAndPositionMiddle {
 	public static int autoProgramState = 0;
-	public static Timer outtakeTimer = new Timer();
-	public static boolean resetTimer = false;
 
 	/**
 	 * Might change this to just going forward and dropping the cube onto the switch

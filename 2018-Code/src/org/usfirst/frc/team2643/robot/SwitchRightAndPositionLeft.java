@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SwitchRightAndPositionLeft {
 	public static int autoProgramState = 0;
-	public static Timer outtakeTimer = new Timer();
-	public static boolean resetTimer = false;
+
+
 	public static void runPeriodic(){
 		switch(autoProgramState){
 

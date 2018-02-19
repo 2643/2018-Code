@@ -8,10 +8,6 @@ public class SwitchLeftAndPositionLeft {
 	//state variable for switch statement 
 	public static int autoProgramState = 0;
 	
-	//timer for out taking the cube
-	public static Timer outtakeTimer = new Timer();
-	
-	public static boolean resetTimer = false; 
 
 	/**
 	 * This is the auto routine that runs when our robot is on the left and our switch is on the left. 
