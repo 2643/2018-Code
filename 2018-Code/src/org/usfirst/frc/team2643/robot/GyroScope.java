@@ -31,7 +31,10 @@ public class GyroScope
 		return gyro.getAngle();
 	}
 	
-	
+	public void reset()
+	{
+		gyro.reset();
+	}
 	
 	public void PID()
 	{
