@@ -33,6 +33,7 @@ public class RobotMap {
 	//joystick
 	public static final Joystick driveStick = new Joystick(0);
 	public static final Joystick opStick = new Joystick(1);
+	public static final Joystick opBoard = new Joystick(2);
 	
 	//the buttons for the robot
 	public static int RightRampDown = 0; //TODO get the button number
