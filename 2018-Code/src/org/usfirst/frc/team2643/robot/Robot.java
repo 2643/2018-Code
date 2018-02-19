@@ -73,7 +73,9 @@ public class Robot extends IterativeRobot
 		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
-
+		
+		
+		
 		String gameData = null;
 		while (gameData == null)
 		{
@@ -88,7 +90,7 @@ public class Robot extends IterativeRobot
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		System.out.println("Auto selected: " + autoSelected);
-		AutoState.armsReleasing = false;
+		
 	}
 
 	/**
