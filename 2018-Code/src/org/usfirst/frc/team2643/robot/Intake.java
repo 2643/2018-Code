@@ -53,6 +53,10 @@ public class Intake {
 		{
 			setSpeed(-1);
 		}
+		else
+		{
+			setSpeed(0);
+		}
 	}
 	
 	public void setSpeedLeft(double value)

@@ -180,12 +180,36 @@ public class Elevator
 		}
 	}
 
+	public void moveDownToLimit()
+	{
+		if(RobotMap.elevatorLimitSwitch.get())
+		{
+			elevator.set(-0.75);
+		}
+		else
+		{
+			elevator.set(0);
+			resetEncoder();
+		}
+	}
+	
 	public void moveUsingPot(double value)
 	{
 		value += 1;
+		//System.out.println("New Pot Value: " + value);
 		value = (int) (value*(EnvironmentVariables.maxEncoderValue / 2.0));
+		//System.out.println("Value of encoder: " + value);
+		
 		setPosition(value);
 		
+		/*if(value == 0)
+		{
+			moveDownToLimit();
+		}
+		else 
+		{
+			setPosition(value);
+		}*/
 	}
 	
 	public void getElevatorCurrent() {
