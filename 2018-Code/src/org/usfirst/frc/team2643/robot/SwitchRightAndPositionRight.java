@@ -16,16 +16,19 @@ public class SwitchRightAndPositionRight {
 				System.out.println("SwitchRightAndPositionRight Case 0: Robot will release arms");
 			}
 
-			if(!AutoState.armsReleasing)
+			if(!AutoState.inttaking)
 			{
-				Robot.drive.setUpReleaseArms();
-				AutoState.armsReleasing = true;
+				Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
+				AutoState.inttaking = true;
 			}
-			else if(Robot.drive.executeReleaseArms())
+			else
 			{
-					Robot.drive.finishReleaseArms();
-					AutoState.armsReleasing = false;
-					autoProgramState++;
+				if(Robot.intake.executeIntake()) 
+				{
+					Robot.intake.finishIntake();
+					AutoState.inttaking = false; 
+					autoProgramState++; 
+				}
 			}
 			break;
 

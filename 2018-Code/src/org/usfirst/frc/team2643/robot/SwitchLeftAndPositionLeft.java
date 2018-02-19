@@ -23,28 +23,30 @@ public class SwitchLeftAndPositionLeft {
 
 		switch(autoProgramState){
 		
-			//the robot will attempt to release arms
 			case 0:
+			{
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionMiddle Case 0: Robot will release arms");
 				}
 
-				if(!AutoState.armsReleasing)
+				if(!AutoState.inttaking)
 				{
-					Robot.drive.setUpReleaseArms();
-					AutoState.armsReleasing = true;
+					Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
+					AutoState.inttaking = true;
 				}
 				else
 				{
-					if(Robot.drive.executeReleaseArms())
+					if(Robot.intake.executeIntake()) 
 					{
-						Robot.drive.finishReleaseArms();
-						AutoState.armsReleasing = false;
-						autoProgramState++;
+						Robot.intake.finishIntake();
+						AutoState.inttaking = false; 
+						autoProgramState++; 
 					}
 				}
 				break;
+			}
 			case 1:
+			{
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 1: Robot go forward until next to the switch");
 				}
@@ -63,7 +65,9 @@ public class SwitchLeftAndPositionLeft {
 					autoProgramState++;
 				}
 				break;
+			}
 			case 2:
+			{
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 2: Turn right to face the switch");
 				}
@@ -84,6 +88,7 @@ public class SwitchLeftAndPositionLeft {
 					}
 				}
 				break;
+			}
 			case 3: 
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 3: Robot will drop the cube onto the switch.");

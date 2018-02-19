@@ -22,19 +22,18 @@ public class SwitchLeftAndPositionMiddle {
 				System.out.println("SwitchLeftAndPositionMiddle Case 0: Robot will attempt to release arms");
 			}
 
-			if(!AutoState.armsReleasing)
+			if(!AutoState.inttaking)
 			{
-				Robot.drive.setUpReleaseArms();
-				AutoState.armsReleasing = true;
+				Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
+				AutoState.inttaking = true;
 			}
 			else
 			{
-				if(Robot.drive.executeReleaseArms())
+				if(Robot.intake.executeIntake()) 
 				{
-					Robot.drive.finishReleaseArms();
-					autoProgramState++;
-					AutoState.armsReleasing = false;
-
+					Robot.intake.finishIntake();
+					AutoState.inttaking = false; 
+					autoProgramState++; 
 				}
 			}
 			break;
