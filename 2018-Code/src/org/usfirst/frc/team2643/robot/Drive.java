@@ -112,7 +112,7 @@ public class Drive
 
 	public void setLeftSpeed(double speed)
 	{
-		leftDriveMaster.set(-speed);
+		leftDriveMaster.set(speed);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class Drive
 	 */
 	public void setRightSpeed(double speed)
 	{
-		rightDriveMaster.set(speed);
+		rightDriveMaster.set(-speed);
 	}
 
 	/**

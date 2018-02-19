@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMap {
 	/*
@@ -45,6 +46,8 @@ public class RobotMap {
 	public static Servo rampRelease = new Servo(0); //TODO enter ID 
 	public static WPI_TalonSRX rampWinhc = new WPI_TalonSRX(2); // TODO enter ID
 	
+	//Timer
+	public static Timer time = new Timer();
 	
 	//***the speeds for the robot***
 	

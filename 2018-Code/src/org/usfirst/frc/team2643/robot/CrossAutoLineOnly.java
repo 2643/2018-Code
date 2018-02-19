@@ -18,9 +18,10 @@ public class CrossAutoLineOnly {
 				timer.reset();
 				timer.start();
 				resetTimer = true;
-			}else if(timer.get() < 1.5){
+			}else if(timer.get() < 1){
 				Robot.drive.setAllSpeed(0.5);
 			}else{
+				Robot.drive.stopAllSpeed();
 				autoProgramState = 1;
 			}
 			break;

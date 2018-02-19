@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
 		drive.resetAllEncoder();
-		
+		RobotMap.time.start();
 		
 		String gameData = null;
 		while (gameData == null)
