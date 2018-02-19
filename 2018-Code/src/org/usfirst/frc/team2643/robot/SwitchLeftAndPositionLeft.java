@@ -110,20 +110,27 @@ public class SwitchLeftAndPositionLeft {
 				break;
 			
 			case 4:
+			{	
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 4: Outtake the cube");
 				}
-				if(resetTimer == false){
-					outtakeTimer.reset();
-					outtakeTimer.start();
-					resetTimer = true;
-				}else if(outtakeTimer.get() < 3){
-					Intake.intake(-0.5, -0.5);
-				}else{
-					outtakeTimer.stop();
-					autoProgramState++;
+				
+				if(!AutoState.inttaking)
+				{
+					Robot.intake.setUpIntake(1, RobotMap.outputCubeSpeed);
+					AutoState.inttaking = true;
+				}
+				else
+				{
+					if(Robot.intake.executeIntake()) 
+					{
+						Robot.intake.finishIntake();
+						AutoState.inttaking = false; 
+						autoProgramState++; 
+					}
 				}
 				break;
+			}
 			case 5:
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 5: Program is done");

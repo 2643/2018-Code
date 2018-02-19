@@ -98,16 +98,19 @@ public class SwitchRightAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 4: Outtake the cube");
 			}
-			if(resetTimer == false){
-				outtakeTimer.reset();
-				outtakeTimer.start();
-				resetTimer = true;
+			if(!AutoState.inttaking)
+			{
+				Robot.intake.setUpIntake(1, RobotMap.outputCubeSpeed);
+				AutoState.inttaking = true;
 			}
-			else if(outtakeTimer.get() < 3){
-				Intake.intake(-0.5, -0.5);
-			}else{
-				outtakeTimer.stop();
-				autoProgramState = 5;
+			else
+			{
+				if(Robot.intake.executeIntake()) 
+				{
+					Robot.intake.finishIntake();
+					AutoState.inttaking = false; 
+					autoProgramState++; 
+				}
 			}
 			break;
 		case 5:
