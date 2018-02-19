@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class SwitchLeftAndPositionMiddle {
 	public static int autoProgramState = 0;
 	public static Timer outtakeTimer = new Timer();
+	public static boolean resetTimer = false;
 
 	/**
 	 * Might change this to just going forward and dropping the cube onto the switch
@@ -178,11 +179,15 @@ public class SwitchLeftAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionMiddle Case 7: Outtake the cube.");
 			}
-			if(outtakeTimer.get() < 3){
+			if(resetTimer == false){
+				outtakeTimer.reset();
+				outtakeTimer.start();
+				resetTimer = true;
+			}else if(outtakeTimer.get() < 3){
 				Intake.intake(-0.5, -0.5);
 			}else{
 				outtakeTimer.stop();
-				autoProgramState = 8;
+				autoProgramState++;
 			}
 			break;
 		case 8:

@@ -10,6 +10,8 @@ public class SwitchLeftAndPositionLeft {
 	
 	//timer for out taking the cube
 	public static Timer outtakeTimer = new Timer();
+	
+	public static boolean resetTimer = false; 
 
 	/**
 	 * This is the auto routine that runs when our robot is on the left and our switch is on the left. 
@@ -106,11 +108,15 @@ public class SwitchLeftAndPositionLeft {
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 4: Outtake the cube");
 				}
-				if(outtakeTimer.get() < 3){
+				if(resetTimer == false){
+					outtakeTimer.reset();
+					outtakeTimer.start();
+					resetTimer = true;
+				}else if(outtakeTimer.get() < 3){
 					Intake.intake(-0.5, -0.5);
 				}else{
 					outtakeTimer.stop();
-					autoProgramState = 5;
+					autoProgramState++;
 				}
 				break;
 			case 5:
