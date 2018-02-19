@@ -32,6 +32,7 @@ public class Robot extends IterativeRobot
 
 	public static AutoDrive drive;
 	public static AutoElevator elevator;
+	public static GyroScope gyro;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -50,7 +51,8 @@ public class Robot extends IterativeRobot
 
 		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2);
 		elevator = new AutoElevator(RobotMap.elevator1);
-
+		gyro = new GyroScope();
+		
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
 
@@ -176,6 +178,8 @@ public class Robot extends IterativeRobot
 		
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
+		
+		System.out.println(gyro.getAngle());
 	}
 
 	/**
