@@ -180,6 +180,12 @@ public class Elevator
 		}
 	}
 
+	public void moveUsingPot(double value)
+	{
+		value += 1;
+		value = (int) (value*(EnvironmentVariables.maxEncoderValue / 2.0));
+		
+	}
 	
 	public void getElevatorCurrent() {
 		System.out.println("Elevator Current: " + elevator.getOutputCurrent());

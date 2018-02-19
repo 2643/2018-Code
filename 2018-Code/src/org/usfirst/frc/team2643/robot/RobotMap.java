@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMap {
@@ -37,10 +36,18 @@ public class RobotMap {
 	public static final Joystick opBoard = new Joystick(2);
 	
 	//the buttons for the robot
-	public static int RightRampDown = 0; //TODO get the button number
-	public static int RightRampUp = 0; //TODO get the button number
-	public static int LeftRampDown = 0; //TODO get the button number
-	public static int LeftRampUp = 0; //TODO get the button number 
+	public static int rampReleaseButton = 10;
+	public static int reampUpButton = 3;
+	public static int bothIntakeButton = 11;
+	public static int bothOuttakeButton = 4;
+	public static int intakeLeftButton = 12;
+	public static int intakeRightButton = 9;
+	public static int safetyButton = 7;
+	public static int outtakeLeftButton = 5;
+	public static int outtakeRightButton = 2;
+	public static int extraCenterMiddleButton = 8; //TODO extra button number
+	public static int extraCenterBottomButton = 6; //TODO extra button number
+	public static int extraRightButton = 1; //TODO extra button number
 	
 	//ramps
 	public static Servo rampRelease = new Servo(0); //TODO enter ID 
