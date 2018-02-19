@@ -69,6 +69,11 @@ public class RobotMap {
 	//speed for mainting the position of the slide
 	public static final double slideHoverSpeed = 0; //TODO get speed
 	
+	//speed for output cube
+	public static final double outputCubeSpeed = 0.7;
+	//speed for input cube
+	public static final double inputCubeSpeed = -0.7;
+	
 	//Elevator variables
 	static int ticksPerFoot = 3530;
 	static int ticksPerInch = 3530/12;
