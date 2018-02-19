@@ -49,9 +49,9 @@ public class Robot extends IterativeRobot
 
 		SmartDashboard.putData("Auto choices", chooser);
 
-		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2);
-		elevator = new AutoElevator(RobotMap.elevator1);
 		gyro = new GyroScope();
+		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2, gyro);
+		elevator = new AutoElevator(RobotMap.elevator1);
 		
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 	}
@@ -130,10 +130,11 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		elevator.dropElevator();
+		//elevator.dropElevator();
 		drive.resetAllEncoder();
 		elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
+		gyro.reset();
 	}
 
 	/**
