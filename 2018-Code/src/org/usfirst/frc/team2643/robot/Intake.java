@@ -106,6 +106,25 @@ public class Intake {
 		timer.reset();
 	}
 	
+	public int autoIntake(int currentcase, double speed, double time)
+	{
+		if(!AutoState.inttaking)
+		{
+			Robot.intake.setUpIntake(time, speed);
+			AutoState.inttaking = true;
+		}
+		else
+		{
+			if(Robot.intake.executeIntake()) 
+			{
+				Robot.intake.finishIntake();
+				AutoState.inttaking = false; 
+				currentcase++;
+			}
+		}
+		return currentcase;
+	}
+	
 	/**
 	 * use if using joysticks
 	 * @param x

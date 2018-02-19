@@ -145,7 +145,7 @@ public class AutoDrive extends Drive
 		rightEncoderGoal = 0;
 	}
 	
-	public int move(int currentcase, int ticks)
+	public int autoMove(int currentcase, int ticks)
 	{
 		if(!AutoState.moving)
 		{
@@ -161,7 +161,7 @@ public class AutoDrive extends Drive
 		return currentcase;
 	}
 	
-	public int turn(int currentcase, double degrees)
+	public int autoTurn(int currentcase, double degrees)
 	{
 		if(!AutoState.turning)
 		{
