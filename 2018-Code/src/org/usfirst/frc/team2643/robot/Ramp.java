@@ -44,11 +44,16 @@ public class Ramp
 		rw.getSensorCollection().setQuadraturePosition(0, 0);
 	}
 	
+	public void keepRampUp()
+	{
+		rr.setAngle(0);
+	}
+	
 	public void releaseRamp(Joystick board)
 	{
 		if(board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampReleaseButton))
 		{
-			rr.set(1);
+			rr.setAngle(180);
 		}
 	}
 	

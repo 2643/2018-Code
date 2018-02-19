@@ -33,9 +33,9 @@ public class RobotMap
 
 	// joystick
 	public static final Joystick driveStick = new Joystick(0);
-	public static final Joystick opStick = new Joystick(2);
-	public static final Joystick opBoard = new Joystick(4);
-	public static final Joystick arduinoPot = new Joystick(3);
+	public static final Joystick opStick = new Joystick(3);
+	public static final Joystick opBoard = new Joystick(1);
+	public static final Joystick arduinoPot = new Joystick(2);
 
 	// the buttons for the robot
 	public static int rampReleaseButton = 10;
@@ -52,7 +52,7 @@ public class RobotMap
 	public static int extraRightButton = 1; // TODO extra button number
 
 	// ramps
-	public static Servo rampRelease = new Servo(0); // TODO enter ID
+	public static Servo rampRelease = new Servo(9);
 	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(2); // TODO enter ID
 
 	// Timer

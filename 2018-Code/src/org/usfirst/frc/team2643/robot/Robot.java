@@ -34,6 +34,7 @@ public class Robot extends IterativeRobot
 	public static AutoElevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
+	public static Ramp ramp;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -53,8 +54,11 @@ public class Robot extends IterativeRobot
 		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2, gyro);
 		elevator = new AutoElevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
+		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
 
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
+		
+		ramp.keepRampUp();
 	}
 
 	/**
@@ -176,13 +180,15 @@ public class Robot extends IterativeRobot
 		
 		
 		System.out.println(elevator.getEncoder());
-		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
-		elevator.presetLocations();
+		//elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
+		//elevator.presetLocations();
+		intake.intake(RobotMap.opBoard);
+		elevator.moveUsingPot(RobotMap.arduinoPot.getRawAxis(3));
 		
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
 		
-		System.out.println(gyro.getAngle());
+		//System.out.println(gyro.getAngle());
 	}
 
 	/**
