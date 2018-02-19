@@ -41,6 +41,7 @@ public class SwitchLeftAndPositionLeft {
 						Robot.intake.finishIntake();
 						AutoState.inttaking = false; 
 						autoProgramState++; 
+						System.out.println("Did finishIntake");
 					}
 				}
 				break;
