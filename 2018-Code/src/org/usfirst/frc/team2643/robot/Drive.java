@@ -147,11 +147,16 @@ public class Drive
 	
 	public void SRXarcadeDrive(double x, double y)
 	{
+		if(RobotMap.DEBUG) {
+			RobotMap.leftDrive1.getOutputCurrent();
+			RobotMap.rightDrive1.getOutputCurrent();
+		}
+		
 		if (x < -0.03 || x > 0.03)
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
 			// Currently the deadzone is 5%
-			setRightSpeed(x);
+			setRightSpeed(-x);
 			setLeftSpeed(x);
 		} else if (y > 0.03 || y < 0.03)
 		{ // If the given axis is pushed up or
@@ -165,6 +170,10 @@ public class Drive
 
 	public void SRXtankDrive(double x, double y)
 	{ // Very basic tank drive.
+		if(RobotMap.DEBUG) {
+			RobotMap.leftDrive1.getOutputCurrent();
+			RobotMap.rightDrive1.getOutputCurrent();
+		}
 		setLeftSpeed(x);
 		setRightSpeed(y);
 	}
