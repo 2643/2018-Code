@@ -55,7 +55,7 @@ public class Intake {
 		}
 		else
 		{
-			moveBothIntake(0);
+			setSpeed(0);
 		}
 	}
 	
