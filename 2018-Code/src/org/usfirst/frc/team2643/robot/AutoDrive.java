@@ -43,14 +43,14 @@ public class AutoDrive extends Drive
 		setAllMotorPosition(0);
 	}
 
-	public void setUpGyroTurn(double degrees)
+	public void setUpGyroTurn(double gyrodegrees)
 	{
 		AutoState.robotState = AutoState.TURNING;
 		resetAllEncoder();
 		gyro.reset();
-		degreesGoal = degrees;
-		setLeftSpeed(Utils.getSign(degrees)*RobotMap.cruisingSpeed);
-		setRightSpeed(-Utils.getSign(degrees)*RobotMap.cruisingSpeed);
+		degreesGoal = EnvironmentVariables.gyroToDegrees(gyrodegrees);
+		setLeftSpeed(Utils.getSign(degreesGoal)*RobotMap.cruisingSpeed);
+		setRightSpeed(-Utils.getSign(degreesGoal)*RobotMap.cruisingSpeed);
 	}
 	
 	public boolean executeGyroTurn()
@@ -145,4 +145,38 @@ public class AutoDrive extends Drive
 		rightEncoderGoal = 0;
 	}
 	
+	public int move(int currentcase, int ticks)
+	{
+		if(!AutoState.moving)
+		{
+			setUpMove(ticks);
+			AutoState.moving = true;
+		}
+		else if(executeMove())
+		{
+			finishMove();
+			AutoState.moving = false;
+			currentcase++;
+		}
+		return currentcase;
+	}
+	
+	public int turn(int currentcase, double degrees)
+	{
+		if(!AutoState.turning)
+		{
+			Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesToGyro(degrees));
+			AutoState.turning = true;
+		}	
+		else
+		{ 
+			if(Robot.drive.executeGyroTurn())
+			{
+				Robot.drive.finishGyroTurn();
+				AutoState.turning = false;
+				currentcase++;
+			}
+		}
+		return currentcase;
+	}
 }

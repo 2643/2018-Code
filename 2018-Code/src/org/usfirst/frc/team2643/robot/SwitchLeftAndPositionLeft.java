@@ -77,7 +77,7 @@ public class SwitchLeftAndPositionLeft {
 				if(!AutoState.turning)
 				{
 					//Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
-					Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesTogyro(90));
+					Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesToGyro(90));
 					AutoState.turning = true;
 				}	
 				else
