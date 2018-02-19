@@ -38,8 +38,8 @@ public class SwitchLeftAndPositionLeft {
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 1: Robot go forward until next to the switch");
 				}
-				int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
-				autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
+				int moveGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
+				autoProgramState = Robot.drive.autoMove(autoProgramState, moveGoal);
 				break;
 			}
 			case 2:

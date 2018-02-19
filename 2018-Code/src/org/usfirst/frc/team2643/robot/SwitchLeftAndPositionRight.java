@@ -58,15 +58,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 4: Turn 90 degrees right");
 			}
 
-			if(!AutoState.turning){
-				Robot.drive.setUpTurn(-EnvironmentVariables.ticksTo90);
-				AutoState.turning = true;
-			}
-			else if(Robot.drive.executeTurn()){
-				Robot.drive.finishTurn();
-				AutoState.turning = false;
-				autoProgramState++;
-			}
+			autoProgramState = Robot.drive.autoTurn(autoProgramState, 90);
 			break;
 		}
 		//the robot will move forward so that it is next to the switch
@@ -75,18 +67,8 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 5: Move forward until in the middle of the length of the switch");
 			}
-			int encoderGoal = EnvironmentVariables.ticksLengthOfSwitch/2;
-			if(!AutoState.moving)
-			{
-				Robot.drive.setUpMove(encoderGoal);
-				AutoState.moving = true;
-			}
-			else if(Robot.drive.executeMove())
-			{
-				Robot.drive.finishMove();
-				AutoState.moving = false;
-				autoProgramState++;
-			}
+			int moveGoal = EnvironmentVariables.ticksLengthOfSwitch/2;
+			autoProgramState = Robot.drive.autoMove(autoProgramState, moveGoal);
 			break;
 		}
 		//the robot will turn 90 degrees left to face the switch plate
@@ -95,15 +77,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 6: Turn 90 degrees left to face the switch plate");
 			}
-			if(!AutoState.turning){
-				Robot.drive.setUpTurn(-EnvironmentVariables.ticksTo90);
-				AutoState.turning = true;
-			}
-			else if(Robot.drive.executeTurn()){
-				Robot.drive.finishTurn();
-				AutoState.turning = false;
-				autoProgramState++;
-			}
+			autoProgramState = Robot.drive.autoTurn(autoProgramState, -90);
 			break;
 		}
 		//the robot will drop the cube
@@ -112,20 +86,8 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 7: Drop the cube onto the switch");
 			}
-			if(!AutoState.elevating)
-			{
-				Robot.elevator.setUpElevate(500);
-				AutoState.elevating = true;
-			}	
-			else
-			{ 
-				if(Robot.elevator.executeElevate())
-				{
-					Robot.elevator.finishElevate();
-					AutoState.elevating = false;
-					autoProgramState++;
-				}
-			}
+			int elevateGoal = 500;
+			autoProgramState = Robot.elevator.autoElevate(autoProgramState, elevateGoal);
 			break;
 		}
 		//the robot will outtake the cube
@@ -134,20 +96,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 8: Outtake the cube");
 			}
-			if(!AutoState.inttaking)
-			{
-				Robot.intake.setUpIntake(1, RobotMap.outputCubeSpeed);
-				AutoState.inttaking = true;
-			}
-			else
-			{
-				if(Robot.intake.executeIntake()) 
-				{
-					Robot.intake.finishIntake();
-					AutoState.inttaking = false; 
-					autoProgramState++; 
-				}
-			}
+			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 1);
 			break;
 		}
 		//program is done
