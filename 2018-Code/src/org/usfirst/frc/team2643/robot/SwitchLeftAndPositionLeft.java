@@ -40,8 +40,8 @@ public class SwitchLeftAndPositionLeft {
 					if(Robot.drive.executeReleaseArms())
 					{
 						Robot.drive.finishReleaseArms();
-						AutoState.armsReleasing = false;
-						autoProgramState++;
+						AutoState.armsReleasing = false; 
+						autoProgramState++; 
 					}
 				}
 				break;
