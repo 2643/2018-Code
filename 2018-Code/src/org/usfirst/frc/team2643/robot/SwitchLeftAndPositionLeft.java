@@ -37,7 +37,7 @@ public class SwitchLeftAndPositionLeft {
 				}
 				else
 				{
-					if(Robot.drive.executeReleaseArms())
+					if(Robot.drive.executeReleaseArms()) 
 					{
 						Robot.drive.finishReleaseArms();
 						AutoState.armsReleasing = false; 
