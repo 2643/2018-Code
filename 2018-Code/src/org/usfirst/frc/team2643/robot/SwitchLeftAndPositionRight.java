@@ -8,28 +8,15 @@ public class SwitchLeftAndPositionRight {
 
 	public static void runPeriodic(){
 		switch(autoProgramState){
-
+		
 		//this will release the arms
 		case 0:
 		{
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 0: Robot will release arms");
 			}
-
-			if(!AutoState.inttaking)
-			{
-				Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
-				AutoState.inttaking = true;
-			}
-			else
-			{
-				if(Robot.intake.executeIntake()) 
-				{
-					Robot.intake.finishIntake();
-					AutoState.inttaking = false; 
-					autoProgramState++; 
-				}
-			}
+			autoProgramState = Robot.intake.autoIntake(
+					autoProgramState, RobotMap.inputCubeSpeed, 0.5);
 			break;
 		}
 		//the robot will go forward until the it goes a little bit past the switch
@@ -39,17 +26,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 1: Move forward until past the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToPassSwitch;
-			if(!AutoState.moving)
-			{
-				Robot.drive.setUpMove(encoderGoal);
-				AutoState.moving = true;
-			}
-			else if(Robot.drive.executeMove())
-			{
-				Robot.drive.finishMove();
-				AutoState.moving = false;
-				autoProgramState++;
-			}
+			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
 			break;
 		}
 		//the robot will turn left 90 degrees
@@ -58,17 +35,8 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 2: Turn left 90 degrees");
 			}
-
-			if(!AutoState.turning){
-				Robot.drive.setUpTurn(-EnvironmentVariables.ticksTo90);
-				AutoState.turning = true;
-			}
-			else if(Robot.drive.executeTurn())
-			{
-				Robot.drive.finishTurn();
-				AutoState.turning = false;
-				autoProgramState++;
-			}
+			double turnGoal = 90;
+			autoProgramState = Robot.drive.autoTurn(autoProgramState, turnGoal);
 			break;
 		}
 
@@ -80,17 +48,7 @@ public class SwitchLeftAndPositionRight {
 			}
 			
 			int encoderGoal = EnvironmentVariables.ticksWidthOfSwitch;
-			if(!AutoState.moving)
-			{
-				Robot.drive.setUpMove(encoderGoal);
-				AutoState.moving = true;
-			}
-			else if(Robot.drive.executeMove())
-			{
-				Robot.drive.finishMove();
-				AutoState.moving = false;
-				autoProgramState++;
-			}
+			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
 			break;
 		}
 		//the robot will turn 90 degrees right
