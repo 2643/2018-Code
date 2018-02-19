@@ -41,7 +41,7 @@ public class Elevator
 	 */
 	public void dropElevator()
 	{
-		while (!RobotMap.elevatorLimitSwitch.get())
+		while (RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(-0.55);
 		}
@@ -212,15 +212,15 @@ public class Elevator
 		if (RobotMap.opStick.getRawButton(1))
 		{
 			System.out.println("moving to 2 feet!");
-			setPosInches(2);
+			setPosInches(1);
 		} else if (RobotMap.opStick.getRawButton(2))
 		{
 			System.out.println("move to 3.5 feet!");
-			setPosInches(5);
+			setPosInches(7);
 		} else if (RobotMap.opStick.getRawButton(3))
 		{
 			System.out.println("move to 5 feet!");
-			setPosInches(12);
+			setPosInches(15);
 		}
 	}
 
