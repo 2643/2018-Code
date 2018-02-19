@@ -46,7 +46,7 @@ public class SwitchRightAndPositionRight {
 
 			autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
 			break;
-		 //the robot will outtake the cube
+		 //the robot will outtake the  cube
 		case 4:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 4: Outtake the cube");
