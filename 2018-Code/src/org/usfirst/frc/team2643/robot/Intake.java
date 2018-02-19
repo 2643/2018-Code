@@ -6,13 +6,18 @@ public class Intake {
 	private WPI_TalonSRX leftIntake;
 	private WPI_TalonSRX rightIntake;
 	
-	public Intake(WPI_TalonSRX left, WPI_TalonSRX, right)
+	public Intake(WPI_TalonSRX left, WPI_TalonSRX right)
 	{
 		leftIntake = left;
 		rightIntake = right;
 	}
 	
-	public static void intake(double x, double y) {
+	public void setUpIntake()
+	{
+		AutoState.robotState = AutoState.INTAKING;
+	}
+	
+	public void intake(double x, double y) {
 		if(x>0.05) {
 			RobotMap.leftIntake.set(-x);
 			RobotMap.rightIntake.set(x);

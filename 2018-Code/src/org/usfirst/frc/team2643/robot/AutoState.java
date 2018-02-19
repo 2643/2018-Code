@@ -12,6 +12,7 @@ public class AutoState {
 	public static final byte TURNING = 1;
 	public static final byte MOVING = 2;
 	public static final byte ELEVATING = 3;
+	public static final byte INTAKING = 4;
 	
 	//if the arms have been released
 	public static boolean armsReleasing = false;
