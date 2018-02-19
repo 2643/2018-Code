@@ -23,7 +23,6 @@ public class SwitchLeftAndPositionLeft {
 
 		switch(autoProgramState){
 		
-			//the robot will attempt to release arms
 			case 0:
 			{
 				if(RobotMap.DEBUG){
@@ -32,15 +31,15 @@ public class SwitchLeftAndPositionLeft {
 
 				if(!AutoState.inttaking)
 				{
-					Robot.intake.setUpReleaseArms();
-					AutoState.armsReleasing = true;
+					Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
+					AutoState.inttaking = true;
 				}
 				else
 				{
-					if(Robot.drive.executeReleaseArms()) 
+					if(Robot.intake.executeIntake()) 
 					{
-						Robot.drive.finishReleaseArms();
-						AutoState.armsReleasing = false; 
+						Robot.intake.finishIntake();
+						AutoState.inttaking = false; 
 						autoProgramState++; 
 					}
 				}
