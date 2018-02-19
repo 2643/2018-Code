@@ -112,7 +112,7 @@ public class AutoDrive extends Drive
 
 
 	public boolean executeMove()
-	{
+	{ 
 		//if it has reached its goal yet
 		if(Utils.checkIfReachedGoal(Robot.drive.getRightEncoder(), currentRightGoal) 
 				|| Utils.checkIfReachedGoal(Robot.drive.getLeftEncoder(), currentLeftGoal))
