@@ -17,7 +17,7 @@ public class Intake {
 		AutoState.robotState = AutoState.INTAKING;
 	}
 	
-	public void intake(double x, double y) {
+	public static void intake(double x, double y) {
 		if(x>0.05) {
 			RobotMap.leftIntake.set(-x);
 			RobotMap.rightIntake.set(x);
