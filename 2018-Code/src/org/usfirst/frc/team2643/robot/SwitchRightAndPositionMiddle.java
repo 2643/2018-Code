@@ -6,6 +6,7 @@ public class SwitchRightAndPositionMiddle {
 
 	public static int autoProgramState = 0;
 	public static Timer outtakeTimer = new Timer();
+	public static boolean resetTimer = false;
 
 	public static void runPeriodic(){
 		switch(autoProgramState){
@@ -76,7 +77,12 @@ public class SwitchRightAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionMiddle Case 3: Outtake the cube");
 			}
-			if(outtakeTimer.get() < 3){
+			if(resetTimer == false){
+				outtakeTimer.reset();
+				outtakeTimer.start();
+				resetTimer = true;
+			}
+			else if(outtakeTimer.get() < 3){
 				Intake.intake(-0.5, -0.5);
 			}else{
 				outtakeTimer.stop();
