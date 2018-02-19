@@ -57,4 +57,23 @@ public class AutoElevator extends Elevator{
 		super.resetEncoder();
 		setPosition(0);
 	}
+	
+	public int autoElevate(int currentcase, int ticks)
+	{
+		if(!AutoState.elevating)
+		{
+			setUpElevate(ticks);
+			AutoState.elevating = true;
+		}	
+		else
+		{ 
+			if(executeElevate())
+			{
+				finishElevate();
+				AutoState.elevating = false;
+				currentcase++;
+			}
+		}
+		return currentcase;
+	}
 }

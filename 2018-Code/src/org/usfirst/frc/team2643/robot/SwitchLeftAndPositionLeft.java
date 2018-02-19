@@ -28,22 +28,9 @@ public class SwitchLeftAndPositionLeft {
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionMiddle Case 0: Robot will release arms");
 				}
-
-				if(!AutoState.inttaking)
-				{
-					Robot.intake.setUpIntake(0.5, RobotMap.inputCubeSpeed);
-					AutoState.inttaking = true;
-				}
-				else
-				{
-					if(Robot.intake.executeIntake()) 
-					{
-						Robot.intake.finishIntake();
-						AutoState.inttaking = false; 
-						autoProgramState++; 
-						System.out.println("Did finishIntake");
-					}
-				}
+				
+				Robot.intake.autoIntake(autoProgramState, RobotMap.inputCubeSpeed, 0.5);
+				
 				break;
 			}
 			case 1:
@@ -51,44 +38,18 @@ public class SwitchLeftAndPositionLeft {
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 1: Robot go forward until next to the switch");
 				}
-
-				
 				int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
-				if(!AutoState.moving)
-				{
-					Robot.drive.setUpMove(encoderGoal);
-					AutoState.moving = true;
-				}
-				else if(Robot.drive.executeMove())
-				{
-					Robot.drive.finishMove();
-					AutoState.moving = false;
-					autoProgramState++;
-				}
-				break;
+				Robot.drive.autoMove(autoProgramState, encoderGoal);
+
 			}
 			case 2:
 			{
 				if(RobotMap.DEBUG){
 					System.out.println("SwitchLeftAndPositionLeft Case 2: Turn right to face the switch");
 				}
-
 				
-				if(!AutoState.turning)
-				{
-					//Robot.drive.setUpTurn(EnvironmentVariables.ticksTo90);
-					Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesToGyro(90));
-					AutoState.turning = true;
-				}	
-				else
-				{ 
-					if(Robot.drive.executeGyroTurn())
-					{
-						Robot.drive.finishGyroTurn();
-						AutoState.turning = false;
-						autoProgramState++;
-					}
-				}
+				Robot.drive.autoTurn(autoProgramState, 90);
+				
 				break;
 			}
 			case 3: 

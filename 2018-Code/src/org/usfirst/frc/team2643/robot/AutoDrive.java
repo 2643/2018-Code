@@ -108,8 +108,8 @@ public class AutoDrive extends Drive
 	{
 		AutoState.robotState = AutoState.MOVING;
 		//stop all drive motors and reset everything
-		Robot.drive.resetAllEncoder();
-		Robot.drive.stopAllSpeed();
+		resetAllEncoder();
+		stopAllSpeed();
 
 		leftEncoderGoal = ticks;
 		rightEncoderGoal = ticks;
@@ -119,17 +119,17 @@ public class AutoDrive extends Drive
 	public boolean executeMove()
 	{ 
 		//if it has reached its goal yet
-		if(Utils.checkIfReachedGoal(Robot.drive.getRightEncoder(), leftEncoderGoal) 
-				|| Utils.checkIfReachedGoal(Robot.drive.getLeftEncoder(), rightEncoderGoal))
+		if(Utils.checkIfReachedGoal(getRightEncoder(), leftEncoderGoal) 
+				|| Utils.checkIfReachedGoal(getLeftEncoder(), rightEncoderGoal))
 		{
 			return true;
 		}
 		else
 		{
 			//set the motor in the correct direction
-			Robot.drive.setLeftSpeed(
+			setLeftSpeed(
 					Utils.getSign(leftEncoderGoal)*RobotMap.cruisingSpeed);
-			Robot.drive.setRightSpeed(
+			setRightSpeed(
 					Utils.getSign(rightEncoderGoal)*RobotMap.cruisingSpeed);
 			return false;
 		}
@@ -139,8 +139,8 @@ public class AutoDrive extends Drive
 	{
 		AutoState.robotState = AutoState.NOTHING;
 		//stop all drive motors and reset everything
-		Robot.drive.stopAllSpeed();
-		Robot.drive.resetAllEncoder();
+		stopAllSpeed();
+		resetAllEncoder();
 		leftEncoderGoal = 0;
 		rightEncoderGoal = 0;
 	}
@@ -165,14 +165,14 @@ public class AutoDrive extends Drive
 	{
 		if(!AutoState.turning)
 		{
-			Robot.drive.setUpGyroTurn(EnvironmentVariables.degreesToGyro(degrees));
+			setUpGyroTurn(EnvironmentVariables.degreesToGyro(degrees));
 			AutoState.turning = true;
 		}	
 		else
 		{ 
-			if(Robot.drive.executeGyroTurn())
+			if(executeGyroTurn())
 			{
-				Robot.drive.finishGyroTurn();
+				finishGyroTurn();
 				AutoState.turning = false;
 				currentcase++;
 			}

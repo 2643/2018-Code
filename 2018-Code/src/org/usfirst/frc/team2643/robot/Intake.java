@@ -110,14 +110,14 @@ public class Intake {
 	{
 		if(!AutoState.inttaking)
 		{
-			Robot.intake.setUpIntake(time, speed);
+			setUpIntake(time, speed);
 			AutoState.inttaking = true;
 		}
 		else
 		{
-			if(Robot.intake.executeIntake()) 
+			if(executeIntake()) 
 			{
-				Robot.intake.finishIntake();
+				finishIntake();
 				AutoState.inttaking = false; 
 				currentcase++;
 			}
