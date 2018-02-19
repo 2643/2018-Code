@@ -16,20 +16,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 0: Release the arms");
 			}
 
-			if(!AutoState.inttaking)
-			{
-				Robot.intake.setUpIntake(0.5, RobotMap.outputCubeSpeed);
-				AutoState.inttaking = true;
-			}
-			else
-			{
-				if(Robot.intake.executeIntake()) 
-				{
-					Robot.intake.finishIntake();
-					AutoState.inttaking = false; 
-					autoProgramState++; 
-				}
-			}
+			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.inputCubeSpeed, 0.5);
 			break;
 		}
 		//the robot will move forward until it hits the switch
@@ -39,17 +26,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 1: Move forward until you hit the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToBeforeSwitch;
-			if(!AutoState.moving)
-			{
-				Robot.drive.setUpMove(encoderGoal);
-				AutoState.moving = true;
-			}
-			else if(Robot.drive.executeMove())
-			{
-				Robot.drive.finishMove();
-				AutoState.moving = false;
-				autoProgramState++;
-			}
+			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
 			break;
 		}
 		//the robot will drop the cube onto the switch
@@ -57,40 +34,16 @@ public class SwitchRightAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionMiddle Case 2: Drop the cube onto the switch");
 			}
-			if(!AutoState.elevating)
-			{
-				Robot.elevator.setUpElevate(500);
-				AutoState.elevating = true;
-			}	
-			else
-			{ 
-				if(Robot.elevator.executeElevate())
-				{
-					Robot.elevator.finishElevate();
-					AutoState.elevating = false;
-					autoProgramState++;
-				}
-			}
+
+			autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
 			break;
 		//the robot will outtake the cube
 		case 3:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionMiddle Case 3: Outtake the cube");
 			}
-			if(!AutoState.inttaking)
-			{
-				Robot.intake.setUpIntake(1, RobotMap.outputCubeSpeed);
-				AutoState.inttaking = true;
-			}
-			else
-			{
-				if(Robot.intake.executeIntake()) 
-				{
-					Robot.intake.finishIntake();
-					AutoState.inttaking = false; 
-					autoProgramState++; 
-				}
-			}
+
+			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 2);
 			break;
 		case 4:
 			if(RobotMap.DEBUG){
