@@ -16,7 +16,7 @@ public class SwitchLeftAndPositionLeft {
 	 * Case 3: the robot will drop the cube on the switch
 	 */
 	public static void runPeriodic(){
-
+ 
 		System.out.println("Left Encoder: " + Robot.drive.getLeftEncoder() + "    Right Encoder: "
 				+ Robot.drive.getRightEncoder() + "    Elevator: " + Robot.elevator.getEncoder());
 				

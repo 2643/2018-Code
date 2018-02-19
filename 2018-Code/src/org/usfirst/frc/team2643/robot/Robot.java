@@ -148,7 +148,7 @@ public class Robot extends IterativeRobot
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
 		{ 
-			drive.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+			drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		} else if (driveState == 1)
 		{
 			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
