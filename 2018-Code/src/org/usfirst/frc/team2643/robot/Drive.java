@@ -156,7 +156,7 @@ public class Drive
 		} else if (y > 0.03 || y < 0.03)
 		{ // If the given axis is pushed up or
 			setRightSpeed(y);
-			setLeftSpeed(-y);
+			setLeftSpeed(y);
 		} else
 		{ // If no joystick activity, set all motors to 0.
 			setAllSpeed(0);

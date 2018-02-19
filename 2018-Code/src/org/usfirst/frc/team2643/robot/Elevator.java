@@ -206,6 +206,23 @@ public class Elevator
 				else
 					elevator.set(0.0);
 	}
+	
+	public void presetLocations()
+	{
+		if (RobotMap.opStick.getRawButton(1))
+		{
+			System.out.println("moving to 2 feet!");
+			setPosInches(2);
+		} else if (RobotMap.opStick.getRawButton(2))
+		{
+			System.out.println("move to 3.5 feet!");
+			setPosInches(5);
+		} else if (RobotMap.opStick.getRawButton(3))
+		{
+			System.out.println("move to 5 feet!");
+			setPosInches(12);
+		}
+	}
 
 	public void testButtoFunctionalityElevator()
 	{
