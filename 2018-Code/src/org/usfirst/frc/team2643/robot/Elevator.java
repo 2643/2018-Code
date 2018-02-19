@@ -117,7 +117,7 @@ public class Elevator
 	/**
 	 * Move elevator to position in ticks
 	 */
-	public void setPosition(int tick)
+	public void setPosition(double tick)
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 		if(tick > EnvironmentVariables.maxEncoderValue)
@@ -184,6 +184,7 @@ public class Elevator
 	{
 		value += 1;
 		value = (int) (value*(EnvironmentVariables.maxEncoderValue / 2.0));
+		setPosition(value);
 		
 	}
 	
