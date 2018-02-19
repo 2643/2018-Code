@@ -152,13 +152,14 @@ public class Elevator
 	{
 		value = -value;
 		
+		//System.out.println(!RobotMap.elevatorLimitSwitch.get());
 		if (!RobotMap.elevatorLimitSwitch.get())
 		{
 			resetEncoder();
 			if (value > 0)
 			{
-				elevator.set(ControlMode.PercentOutput, value);
-			}
+				elevator.set(ControlMode.PercentOutput, value * 1.5);
+			}  
 			else
 			{
 				elevator.set(ControlMode.PercentOutput, 0);
@@ -167,7 +168,7 @@ public class Elevator
 		{
 			if (value < 0)
 			{
-				elevator.set(ControlMode.PercentOutput, value);
+				elevator.set(ControlMode.PercentOutput, value * 1.5);
 			}
 			else
 			{
@@ -175,10 +176,15 @@ public class Elevator
 			}
 		} else
 		{
-			elevator.set(ControlMode.PercentOutput, value);
+			elevator.set(ControlMode.PercentOutput, value * 1.5);
 		}
 	}
 
+	
+	public void getElevatorCurrent() {
+		System.out.println("Elevator Current: " + elevator.getOutputCurrent());
+	}
+	
 	/**
 	 * move elevator using POV on controller with a constant speed
 	 * 
@@ -221,9 +227,9 @@ public class Elevator
 			setPositionFeet(6);
 		}
 
-		if (RobotMap.driveStick.getRawButton(1))
+		/*if (RobotMap.driveStick.getRawButton(1))
 		{
 			resetEncoder();
-		}
+		}*/
 	}
 }

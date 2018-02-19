@@ -144,10 +144,10 @@ public class Robot extends IterativeRobot
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
 		{ 
-			drive.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
+			//drive.SRXtankDrive(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(5));
 		} else if (driveState == 1)
 		{
-			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
+			//drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
 		}
 
 		if (RobotMap.driveStick.getRawButton(7))
@@ -172,9 +172,10 @@ public class Robot extends IterativeRobot
 
 		System.out.println(elevator.getEncoder());
 		elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
-		//elevator.testButtoFunctionalityElevator();
+		elevator.testButtoFunctionalityElevator();
 		
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
+		elevator.getElevatorCurrent();
 	}
 
 	/**

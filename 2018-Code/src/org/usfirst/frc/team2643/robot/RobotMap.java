@@ -19,7 +19,7 @@ public class RobotMap {
 	
 	//Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
-	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(0);
+	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(9);
 	
 	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(6);
 	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(9);
@@ -72,6 +72,10 @@ public class RobotMap {
 	//Elevator variables
 	static int ticksPerFoot = 3530;
 	static int ticksPerInch = 3530/12;
+	
+	//Drive encoder rotation
+	static int ticksPerRotationleft = 714;
+	static int ticksPerRotationRight = 0;
 	
 	//feet to ticks method and variables
 	static double radius = 0.25;//(feet) 3 inches 

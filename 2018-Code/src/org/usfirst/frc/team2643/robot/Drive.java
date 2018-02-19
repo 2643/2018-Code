@@ -165,7 +165,7 @@ public class Drive
 
 	public void SRXtankDrive(double x, double y)
 	{ // Very basic tank drive.
-		setLeftSpeed(-x);
+		setLeftSpeed(x);
 		setRightSpeed(y);
 	}
 }
