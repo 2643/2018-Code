@@ -34,8 +34,8 @@ public class RobotMap
 	// joystick
 	public static final Joystick driveStick = new Joystick(0);
 	public static final Joystick opStick = new Joystick(3);
-	public static final Joystick opBoard = new Joystick(1);
-	public static final Joystick arduinoPot = new Joystick(2);
+	public static final Joystick opBoard = new Joystick(2);
+	public static final Joystick arduinoPot = new Joystick(1);
 
 	// the buttons for the robot
 	public static int rampReleaseButton = 10;

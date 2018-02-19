@@ -53,6 +53,10 @@ public class Intake {
 		{
 			moveBothIntake(-1);
 		}
+		else
+		{
+			moveBothIntake(0);
+		}
 	}
 	
 	public void setSpeed(double speed)

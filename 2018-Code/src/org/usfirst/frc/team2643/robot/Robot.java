@@ -140,6 +140,7 @@ public class Robot extends IterativeRobot
 		elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 		gyro.reset();
+		ramp.keepRampUp();
 	}
 
 	/**
@@ -179,11 +180,13 @@ public class Robot extends IterativeRobot
 		//intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
 		
-		System.out.println(elevator.getEncoder());
+		//System.out.println(elevator.getEncoder());
 		//elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
 		//elevator.presetLocations();
 		intake.intake(RobotMap.opBoard);
-		elevator.moveUsingPot(RobotMap.arduinoPot.getRawAxis(3));
+		//System.out.println("Arduino Pot Val: " + RobotMap.arduinoPot.getThrottle());
+		elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
+		ramp.releaseRamp(RobotMap.opBoard);
 		
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
