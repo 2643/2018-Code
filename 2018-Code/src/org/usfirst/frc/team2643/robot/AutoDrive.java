@@ -6,6 +6,8 @@ public class AutoDrive extends Drive
 {
 	private GyroScope gyro;
 	private double degreesGoal;
+	private int leftEncoderGoal;
+	private int rightEncoderGoal;
 	
 	
 	public AutoDrive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2, GyroScope gyroscope)
@@ -13,6 +15,8 @@ public class AutoDrive extends Drive
 		super(l1, l2, r1, r2);
 		gyro = gyroscope;
 	}
+	
+	
 	public void setUpTurn(int ticks)
 	{
 		AutoState.robotState = AutoState.TURNING;
@@ -68,14 +72,14 @@ public class AutoDrive extends Drive
 		stopAllSpeed();
 	}
 	
-	public void setUpMove(int ticks)
+	public void setUpPositionMove(int ticks)
 	{
 		AutoState.robotState = AutoState.MOVING;
 		resetAllEncoder();
 		setAllMotorPosition(ticks);
 	}
 
-	public boolean executeMove()
+	public boolean executePositionMove()
 	{
 		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR ||
 				Math.abs(getCurrentRightGoal()-getRightEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
@@ -84,6 +88,48 @@ public class AutoDrive extends Drive
 		}
 		else 
 		{
+			System.out.println(getLeftEncoder());
+			return false;
+		}
+	}
+
+	public void finishPositionMove()
+	{
+		AutoState.robotState = AutoState.NOTHING;
+		resetAllEncoder();
+		setAllMotorPosition(0);
+	}
+	
+	/**
+	 * Prepares the robot for a move
+	 */
+	public void setUpMove(int ticks)
+	{
+		AutoState.robotState = AutoState.MOVING;
+		//stop all drive motors and reset everything
+		Robot.drive.resetAllEncoder();
+		Robot.drive.stopAllSpeed();
+
+		leftEncoderGoal = ticks;
+		rightEncoderGoal = ticks;
+	}
+
+
+	public boolean executeMove()
+	{ 
+		//if it has reached its goal yet
+		if(Utils.checkIfReachedGoal(Robot.drive.getRightEncoder(), leftEncoderGoal) 
+				|| Utils.checkIfReachedGoal(Robot.drive.getLeftEncoder(), rightEncoderGoal))
+		{
+			return true;
+		}
+		else
+		{
+			//set the motor in the correct direction
+			Robot.drive.setLeftSpeed(
+					Utils.getSign(leftEncoderGoal)*RobotMap.cruisingSpeed);
+			Robot.drive.setRightSpeed(
+					Utils.getSign(rightEncoderGoal)*RobotMap.cruisingSpeed);
 			return false;
 		}
 	}
@@ -91,8 +137,11 @@ public class AutoDrive extends Drive
 	public void finishMove()
 	{
 		AutoState.robotState = AutoState.NOTHING;
-		resetAllEncoder();
-		setAllMotorPosition(0);
+		//stop all drive motors and reset everything
+		Robot.drive.stopAllSpeed();
+		Robot.drive.resetAllEncoder();
+		leftEncoderGoal = 0;
+		rightEncoderGoal = 0;
 	}
 	
 }

@@ -12,9 +12,9 @@ public class Drive
 	private final WPI_TalonSRX rightDriveMaster;
 	private final WPI_TalonSRX rightDriveSlave;
 
-	private double currentLeftGoal = 0;
-	private double currentRightGoal = 0;
-
+	private double currentLeftGoal;
+	private double currentRightGoal;
+	
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
 		leftDriveMaster = l1;
@@ -31,6 +31,8 @@ public class Drive
 		rightDriveMaster.setSensorPhase(true);
 	}
 
+	
+	
 	public void setLeftToPosition(int position)
 	{
 		leftDriveMaster.set(ControlMode.Position, position);
