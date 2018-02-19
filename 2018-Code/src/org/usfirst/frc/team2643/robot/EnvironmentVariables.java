@@ -28,9 +28,9 @@ public class EnvironmentVariables {
 		return (gyro/18.0)*90;
 	}
 	
-	public static double degreesTogyro(double degrees)
+	public static double degreesToGyro(double degrees)
 	{
-		return (degrees/18)*19.0;
+		return (degrees/90)*18.0;
 	}
 	
 	//the distance in encoder ticks from the starting position to the middle of the field switch

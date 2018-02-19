@@ -31,27 +31,27 @@ public class Intake {
 	{
 		if(board.getRawButton(RobotMap.intakeLeftButton))
 		{
-			moveLeftIntake(-1);
+			setSpeedLeft(-1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeLeftButton))
 		{
-			moveLeftIntake(1);
+			setSpeedLeft(1);
 		}
 		else if(board.getRawButton(RobotMap.bothIntakeButton))
 		{
-			moveBothIntake(1);
+			setSpeed(1);
 		}
 		else if(board.getRawButton(RobotMap.intakeRightButton))
 		{
-			moveRightIntake(1);
+			setSpeedRight(1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeRightButton))
 		{
-			moveRightIntake(-1);
+			setSpeedRight(-1);
 		}
 		else if(board.getRawButton(RobotMap.bothOuttakeButton))
 		{
-			moveBothIntake(-1);
+			setSpeed(-1);
 		}
 		else
 		{
@@ -59,11 +59,21 @@ public class Intake {
 		}
 	}
 	
+	public void setSpeedLeft(double value)
+	{
+		leftIntake.set(-value);
+	}
+	
+	public void setSpeedRight(double value)
+	{
+		rightIntake.set(value);
+	}
+	
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
-		leftIntake.set(-speed);
-		rightIntake.set(speed);
+		setSpeedLeft(speed);
+		setSpeedRight(speed);
 	}
 	
 	public void stop()
@@ -100,20 +110,23 @@ public class Intake {
 		timer.reset();
 	}
 	
-	public void moveLeftIntake(double value)
+	public int autoIntake(int currentcase, double speed, double time)
 	{
-		leftIntake.set(value);
-	}
-	
-	public void moveRightIntake(double value)
-	{
-		rightIntake.set(value);
-	}
-	
-	public void moveBothIntake(double value)
-	{
-		moveLeftIntake(-value);
-		moveRightIntake(value);
+		if(!AutoState.inttaking)
+		{
+			setUpIntake(time, speed);
+			AutoState.inttaking = true;
+		}
+		else
+		{
+			if(executeIntake()) 
+			{
+				finishIntake();
+				AutoState.inttaking = false; 
+				currentcase++;
+			}
+		}
+		return currentcase;
 	}
 	
 	/**
