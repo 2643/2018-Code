@@ -149,7 +149,9 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		System.out.println(drive.getRightEncoder());
+		
+		System.out.print(drive.getRightEncoder()+ "   ");
+		System.out.println(drive.getLeftEncoder());
 		
 		/** Drive code */
 //		if (driveState == 0) // 0 is Tank Drive
@@ -196,6 +198,12 @@ public class Robot extends IterativeRobot
 		//System.out.println(gyro.getAngle());
 	}
 
+	@Override
+	public void disabledInit()
+	{
+		AutoState.state = 0;
+	}
+	
 	/**
 	 * This function is called periodically during test mode
 	 */

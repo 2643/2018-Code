@@ -15,8 +15,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 0: Robot will release arms");
 			}
-			autoProgramState = Robot.intake.autoIntake(
-					autoProgramState, RobotMap.inputCubeSpeed, 0.5);
+			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.inputCubeSpeed, 0.5);
 			break;
 		}
 		//the robot will go forward until the it goes a little bit past the switch

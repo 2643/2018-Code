@@ -23,7 +23,7 @@ public class EnvironmentVariables {
 	public static final int ticksTo90 = 670; //TODO
 
 	//the distance in encoder ticks from the starting position to the middle of the field switch
-	public static final int ticksToMiddleOfSwitch = 3360; //TODO
+	public static final int ticksToMiddleOfSwitch = 2480; //TODO
 	
 	//the distance in encoder ticks from the starting position to the fence facing the driver station
 	public static final int ticksToBeforeSwitch = 2000; //TODO
