@@ -82,7 +82,7 @@ public class RobotMap
 	public static final double slideHoverSpeed = 0; // TODO get speed
 
 	// speed for output cube
-	public static final double outputCubeSpeed = 0.7;
+	public static final double outputCubeSpeed = 1;
 	// speed for input cube
 	public static final double inputCubeSpeed = -0.7;
 
