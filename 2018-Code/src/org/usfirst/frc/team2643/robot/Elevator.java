@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Elevator
 {
 	private WPI_TalonSRX elevator;
-	
+
 	/**
 	 * Initialize Elevator
 	 * 
@@ -113,18 +113,17 @@ public class Elevator
 		System.out.println("Moving to tick: " + feetT);
 		setPosition(feetT);
 	}
-	
+
 	/**
 	 * Move elevator to position in ticks
 	 */
 	public void setPosition(double tick)
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
-		if(tick > EnvironmentVariables.maxEncoderValue)
+		if (tick > EnvironmentVariables.maxEncoderValue)
 		{
 			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
-		}
-		else
+		} else
 		{
 			elevator.set(ControlMode.Position, tick);
 		}
@@ -151,16 +150,15 @@ public class Elevator
 	public void moveElevatorWithInput(double value)
 	{
 		value = -value;
-		
-		//System.out.println(!RobotMap.elevatorLimitSwitch.get());
+
+		// System.out.println(!RobotMap.elevatorLimitSwitch.get());
 		if (!RobotMap.elevatorLimitSwitch.get())
 		{
 			resetEncoder();
 			if (value > 0)
 			{
 				elevator.set(ControlMode.PercentOutput, value * 1.5);
-			}  
-			else
+			} else
 			{
 				elevator.set(ControlMode.PercentOutput, 0);
 			}
@@ -169,8 +167,7 @@ public class Elevator
 			if (value < 0)
 			{
 				elevator.set(ControlMode.PercentOutput, value * 1.5);
-			}
-			else
+			} else
 			{
 				elevator.set(ControlMode.PercentOutput, 0);
 			}
@@ -182,40 +179,39 @@ public class Elevator
 
 	public void moveDownToLimit()
 	{
-		if(RobotMap.elevatorLimitSwitch.get())
+		if (RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(0.75);
-		}
-		else
+		} else
 		{
 			elevator.set(0);
 			resetEncoder();
 		}
 	}
-	
+
 	public void moveUsingPot(double value)
 	{
 		value += 1;
-		//System.out.println("New Pot Value: " + value);
-		value = (int) (value*(EnvironmentVariables.maxEncoderValue / 2.0));
-		//System.out.println("Value of encoder: " + value);
-		
+		// System.out.println("New Pot Value: " + value);
+		value = (int) (value * (EnvironmentVariables.maxEncoderValue / 2.0));
+		// System.out.println("Value of encoder: " + value);
+
 		setPosition(value);
-		
-		if(value == 0)
+
+		if (value == 0)
 		{
 			moveDownToLimit();
-		}
-		else 
+		} else
 		{
 			setPosition(value);
 		}
 	}
-	
-	public void getElevatorCurrent() {
-		System.out.println("Elevator Current: " + elevator.getOutputCurrent());
+
+	public String getElevatorCurrent()
+	{
+		return "Elevator Current: " + elevator.getOutputCurrent();
 	}
-	
+
 	/**
 	 * move elevator using POV on controller with a constant speed
 	 * 
@@ -237,7 +233,7 @@ public class Elevator
 				else
 					elevator.set(0.0);
 	}
-	
+
 	public void presetLocations()
 	{
 		if (RobotMap.opStick.getRawButton(1))
@@ -275,9 +271,8 @@ public class Elevator
 			setPositionFeet(6);
 		}
 
-		/*if (RobotMap.driveStick.getRawButton(1))
-		{
-			resetEncoder();
-		}*/
+		/*
+		 * if (RobotMap.driveStick.getRawButton(1)) { resetEncoder(); }
+		 */
 	}
 }

@@ -97,7 +97,7 @@ public class Robot extends IterativeRobot
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		System.out.println("Auto selected: " + autoSelected);
-		
+		AutoState.state = 0;
 	}
 
 	/**
@@ -135,10 +135,10 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		elevator.dropElevator();
+//		elevator.dropElevator();
 		drive.resetAllEncoder();
-		elevator.resetEncoder();
-		elevator.defaultPIDLSMotor();
+//		elevator.resetEncoder();
+//		elevator.defaultPIDLSMotor();
 		gyro.reset();
 		ramp.keepRampUp();
 	}
@@ -150,6 +150,8 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic()
 	{
 		
+		System.out.print(drive.getRightEncoder()+ "   ");
+		System.out.println(drive.getLeftEncoder());
 		
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
@@ -167,7 +169,7 @@ public class Robot extends IterativeRobot
 		{
 			driveState = 1;
 		}
-
+			
 		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
 		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
 		// System.out.println(Elevator.getEncoderValues());
@@ -176,26 +178,21 @@ public class Robot extends IterativeRobot
 
 		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
-		//System.out.println(elevator.getEncoder());
-		
-		//intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
-		
-		
-		//System.out.println(elevator.getEncoder());
-		//elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
-		//elevator.presetLocations();
 		intake.intake(RobotMap.opBoard);
-		//System.out.println("Arduino Pot Val: " + RobotMap.arduinoPot.getThrottle());
 		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
 		
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
-		
-		//System.out.println(gyro.getAngle());
 	}
 
+	@Override
+	public void disabledInit()
+	{
+		AutoState.state = 0;
+	}
+	
 	/**
 	 * This function is called periodically during test mode
 	 */

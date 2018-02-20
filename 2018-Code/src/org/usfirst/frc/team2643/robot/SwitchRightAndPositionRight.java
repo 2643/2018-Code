@@ -4,17 +4,15 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SwitchRightAndPositionRight {
 	
-	public static int autoProgramState = 0;
-
 	public static void runPeriodic(){
-		switch(autoProgramState){
+		switch(AutoState.state){
 		//the robot will release the arms
 		case 0:
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchRightAndPositionRight Case 0: Robot will release arms");
 			}
 
-			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.inputCubeSpeed, 0.5);
+			AutoState.state = Robot.intake.autoIntake(AutoState.state, RobotMap.inputCubeSpeed, 0.5);
 			break;
 
 		//the robot will move forward until right next to the switch
@@ -24,7 +22,7 @@ public class SwitchRightAndPositionRight {
 				System.out.println("SwitchRightAndPositionRight Case 1: Move forward until next to the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToMiddleOfSwitch;
-			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, encoderGoal);
 			break;
 		}
 		//the robot will turn ninety degrees left to face the switch
@@ -34,7 +32,7 @@ public class SwitchRightAndPositionRight {
 				System.out.println("SwitchRightAndPositionRight Case 2: Turn 90 degrees left");
 			}
 
-			autoProgramState = Robot.drive.autoTurn(autoProgramState, -90);
+			AutoState.state = Robot.drive.autoTurn(AutoState.state, -90);
 			break;
 		}
 		//the robot will drop the cube on the switch
@@ -44,7 +42,7 @@ public class SwitchRightAndPositionRight {
 				System.out.println("SwitchRightAndPositionRight Case 3: Drop the cube");
 			}
 
-			autoProgramState++;// = Robot.elevator.autoElevate(autoProgramState, 500);
+			AutoState.state++;// = Robot.elevator.autoElevate(AutoState.state, 500);
 			break;
 		 //the robot will outtake the  cube
 		case 4:
@@ -52,7 +50,7 @@ public class SwitchRightAndPositionRight {
 				System.out.println("SwitchRightAndPositionRight Case 4: Outtake the cube");
 			}
 
-			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 2);
+			AutoState.state = Robot.intake.autoIntake(AutoState.state, RobotMap.outputCubeSpeed, 2);
 			break;
 		case 5:
 			if(RobotMap.DEBUG){

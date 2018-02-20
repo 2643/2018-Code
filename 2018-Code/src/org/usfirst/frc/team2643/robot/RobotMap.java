@@ -64,7 +64,7 @@ public class RobotMap
 	public static final double fullSpeed = 1;
 
 	// Set all motors to cruising speed! Aye aye cap'n!
-	public static final double cruisingSpeed = 0.4;
+	public static final double cruisingSpeed = 0.3;
 
 	// A reduced speed for careful stuff
 	public static final double reducedSpeed = 0.3;
@@ -82,7 +82,7 @@ public class RobotMap
 	public static final double slideHoverSpeed = 0; // TODO get speed
 
 	// speed for output cube
-	public static final double outputCubeSpeed = 0.7;
+	public static final double outputCubeSpeed = 1;
 	// speed for input cube
 	public static final double inputCubeSpeed = -0.7;
 

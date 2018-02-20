@@ -5,6 +5,9 @@ package org.usfirst.frc.team2643.robot;
  * 
  */
 public class AutoState {
+	
+	public static int state = 0;
+	
 	public static int robotState;
 	
 	//states the robot may be in
