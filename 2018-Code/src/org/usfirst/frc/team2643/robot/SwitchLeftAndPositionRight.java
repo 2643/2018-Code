@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SwitchLeftAndPositionRight {
 
-	public static int autoProgramState = 0;
-
 	public static void runPeriodic(){
-		switch(autoProgramState){
+		switch(AutoState.state){
 		
 		//this will release the arms
 		case 0:
@@ -15,8 +13,8 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 0: Robot will release arms");
 			}
-			autoProgramState = Robot.intake.autoIntake(
-					autoProgramState, RobotMap.inputCubeSpeed, 0.5);
+			AutoState.state = Robot.intake.autoIntake(
+					AutoState.state, RobotMap.inputCubeSpeed, 0.5);
 			break;
 		}
 		//the robot will go forward until the it goes a little bit past the switch
@@ -26,7 +24,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 1: Move forward until past the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToPassSwitch;
-			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, encoderGoal);
 			break;
 		}
 		//the robot will turn left 90 degrees
@@ -36,7 +34,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 2: Turn left 90 degrees");
 			}
 			double turnGoal = -90;
-			autoProgramState = Robot.drive.autoTurn(autoProgramState, turnGoal);
+			AutoState.state = Robot.drive.autoTurn(AutoState.state, turnGoal);
 			break;
 		}
 
@@ -48,7 +46,7 @@ public class SwitchLeftAndPositionRight {
 			}
 			
 			int encoderGoal = EnvironmentVariables.ticksWidthOfSwitch;
-			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, encoderGoal);
 			break;
 		}
 		//the robot will turn 90 degrees right
@@ -58,7 +56,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 4: Turn 90 degrees right");
 			}
 
-			autoProgramState = Robot.drive.autoTurn(autoProgramState, 90);
+			AutoState.state = Robot.drive.autoTurn(AutoState.state, 90);
 			break;
 		}
 		//the robot will move forward so that it is next to the switch
@@ -68,7 +66,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 5: Move forward until in the middle of the length of the switch");
 			}
 			int moveGoal = EnvironmentVariables.ticksLengthOfSwitch/2;
-			autoProgramState = Robot.drive.autoMove(autoProgramState, moveGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, moveGoal);
 			break;
 		}
 		//the robot will turn 90 degrees left to face the switch plate
@@ -77,7 +75,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 6: Turn 90 degrees left to face the switch plate");
 			}
-			autoProgramState = Robot.drive.autoTurn(autoProgramState, -90);
+			AutoState.state = Robot.drive.autoTurn(AutoState.state, -90);
 			break;
 		}
 		//the robot will drop the cube
@@ -87,7 +85,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 7: Drop the cube onto the switch");
 			}
 			int elevateGoal = 500;
-			autoProgramState++;// = Robot.elevator.autoElevate(autoProgramState, elevateGoal);
+			AutoState.state++;// = Robot.elevator.autoElevate(AutoState.state, elevateGoal);
 			break;
 		}
 		//the robot will outtake the cube
@@ -96,7 +94,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 8: Outtake the cube");
 			}
-			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 1);
+			AutoState.state = Robot.intake.autoIntake(AutoState.state, RobotMap.outputCubeSpeed, 1);
 			break;
 		}
 		//program is done

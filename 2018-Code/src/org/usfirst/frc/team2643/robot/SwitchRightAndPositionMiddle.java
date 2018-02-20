@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SwitchRightAndPositionMiddle {
 
-	public static int autoProgramState = 0;
-
 	public static void runPeriodic(){
-		switch(autoProgramState){
+		switch(AutoState.state){
 
 		//the robot will release the arms
 		case 0:
@@ -16,7 +14,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 0: Release the arms");
 			}
 
-			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.inputCubeSpeed, 0.5);
+			AutoState.state = Robot.intake.autoIntake(AutoState.state, RobotMap.inputCubeSpeed, 0.5);
 			break;
 		}
 		//the robot will move forward until it hits the switch
@@ -26,7 +24,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 1: Move forward until you hit the switch");
 			}
 			int encoderGoal = EnvironmentVariables.ticksToBeforeSwitch;
-			autoProgramState = Robot.drive.autoMove(autoProgramState, encoderGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, encoderGoal);
 			break;
 		}
 		//the robot will drop the cube onto the switch
@@ -35,7 +33,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 2: Drop the cube onto the switch");
 			}
 
-			autoProgramState++;// = Robot.elevator.autoElevate(autoProgramState, 500);
+			AutoState.state++;// = Robot.elevator.autoElevate(AutoState.state, 500);
 			break;
 		//the robot will outtake the cube
 		case 3:
@@ -43,7 +41,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 3: Outtake the cube");
 			}
 
-			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 2);
+			AutoState.state = Robot.intake.autoIntake(AutoState.state, RobotMap.outputCubeSpeed, 2);
 			break;
 		case 4:
 			if(RobotMap.DEBUG){
