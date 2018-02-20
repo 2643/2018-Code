@@ -74,6 +74,6 @@ public class AutoElevator extends Elevator{
 				currentcase++;
 			}
 		}
-		return currentcase;
+		return (1+currentcase);
 	}
 }

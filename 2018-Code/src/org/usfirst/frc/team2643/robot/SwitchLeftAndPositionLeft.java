@@ -57,8 +57,8 @@ public class SwitchLeftAndPositionLeft {
 					System.out.println("SwitchLeftAndPositionLeft Case 3: Robot will drop the cube onto the switch.");
 				}
 				
-				autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
-
+			//	autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
+				autoProgramState++;
 				break;
 			
 			case 4:

@@ -135,7 +135,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		//elevator.dropElevator();
+		elevator.dropElevator();
 		drive.resetAllEncoder();
 		elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
@@ -149,7 +149,8 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-
+		
+		
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
 		{ 

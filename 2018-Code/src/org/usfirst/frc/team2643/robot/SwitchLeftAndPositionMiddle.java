@@ -87,7 +87,7 @@ public class SwitchLeftAndPositionMiddle {
 				System.out.println("SwitchLeftAndPositionMiddle Case 6: Drop the cube onto the switch");
 			}
 
-			Robot.elevator.autoElevate(autoProgramState, 500);
+			autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
 			
 			break;
 		}
@@ -97,7 +97,7 @@ public class SwitchLeftAndPositionMiddle {
 				System.out.println("SwitchLeftAndPositionMiddle Case 7: Outtake the cube.");
 			}
 
-			Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 1);
+			autoProgramState = Robot.intake.autoIntake(autoProgramState, RobotMap.outputCubeSpeed, 1);
 			break;
 		case 8:
 			if(RobotMap.DEBUG){
