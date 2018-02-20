@@ -97,7 +97,7 @@ public class Robot extends IterativeRobot
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		System.out.println("Auto selected: " + autoSelected);
-		
+		AutoState.state = 0;
 	}
 
 	/**
@@ -135,10 +135,10 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		elevator.dropElevator();
+//		elevator.dropElevator();
 		drive.resetAllEncoder();
-		elevator.resetEncoder();
-		elevator.defaultPIDLSMotor();
+//		elevator.resetEncoder();
+//		elevator.defaultPIDLSMotor();
 		gyro.reset();
 		ramp.keepRampUp();
 	}
@@ -149,49 +149,49 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		
+		System.out.println(drive.getRightEncoder());
 		
 		/** Drive code */
-		if (driveState == 0) // 0 is Tank Drive
-		{ 
-			drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
-		} else if (driveState == 1)
-		{
-			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
-		}
-
-		if (RobotMap.driveStick.getRawButton(7))
-		{
-			driveState = 0;
-		} else if (RobotMap.driveStick.getRawButton(8))
-		{
-			driveState = 1;
-		}
-
-		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
-		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
-		// System.out.println(Elevator.getEncoderValues());
-		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
-		// Encoder Values --> " + drive.getLeftEncoder());
-
-		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
-		
-		//System.out.println(elevator.getEncoder());
-		
-		//intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
-		
-		
-		//System.out.println(elevator.getEncoder());
-		//elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
-		//elevator.presetLocations();
-		intake.intake(RobotMap.opBoard);
-		//System.out.println("Arduino Pot Val: " + RobotMap.arduinoPot.getThrottle());
-		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
-		elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
-		ramp.releaseRamp(RobotMap.opBoard);
-		
-		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
-		elevator.getElevatorCurrent();
+//		if (driveState == 0) // 0 is Tank Drive
+//		{ 
+//			drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
+//		} else if (driveState == 1)
+//		{
+//			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
+//		}
+//
+//		if (RobotMap.driveStick.getRawButton(7))
+//		{
+//			driveState = 0;
+//		} else if (RobotMap.driveStick.getRawButton(8))
+//		{
+//			driveState = 1;
+//		}
+//
+//		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
+//		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
+//		// System.out.println(Elevator.getEncoderValues());
+//		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
+//		// Encoder Values --> " + drive.getLeftEncoder());
+//
+//		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+//		
+//		//System.out.println(elevator.getEncoder());
+//		
+//		//intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
+//		
+//		
+//		//System.out.println(elevator.getEncoder());
+//		//elevator.moveElevatorWithInput(RobotMap.opStick.getRawAxis(1));
+//		//elevator.presetLocations();
+//		intake.intake(RobotMap.opBoard);
+//		//System.out.println("Arduino Pot Val: " + RobotMap.arduinoPot.getThrottle());
+//		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
+//	//	elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
+//		ramp.releaseRamp(RobotMap.opBoard);
+//		
+//		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
+//		elevator.getElevatorCurrent();
 		
 		//System.out.println(gyro.getAngle());
 	}

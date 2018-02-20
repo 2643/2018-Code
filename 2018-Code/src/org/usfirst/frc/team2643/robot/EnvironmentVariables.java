@@ -22,28 +22,17 @@ public class EnvironmentVariables {
 	
 	public static final int ticksTo90 = 670; //TODO
 
-
-	public static double gyroToDegrees(double gyro)
-	{
-		return (gyro/18.0)*90;
-	}
-	
-	public static double degreesToGyro(double degrees)
-	{
-		return (degrees/90)*18.0;
-	}
-	
 	//the distance in encoder ticks from the starting position to the middle of the field switch
-	public static final int ticksToMiddleOfSwitch = 3000; //TODO
+	public static final int ticksToMiddleOfSwitch = 3360; //TODO
 	
 	//the distance in encoder ticks from the starting position to the fence facing the driver station
-	public static final int ticksToBeforeSwitch = 0; //TODO
+	public static final int ticksToBeforeSwitch = 2000; //TODO
 	
 	//encoder ticks for the switch elevator height from bottom limit switch
 	public static final int ticksToSwitchHeight = 0; //TODO	
 	
 	//encoder ticks for length of the switch the switch
-	public static final int ticksToPassSwitch = 0; //TODO
+	public static final int ticksToPassSwitch = 3500; //TODO
 
 	//encoder ticks for the width of the field switch
 	public static final int ticksWidthOfSwitch = 2076; //TODO

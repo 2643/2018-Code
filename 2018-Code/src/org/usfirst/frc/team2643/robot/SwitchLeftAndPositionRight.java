@@ -56,7 +56,7 @@ public class SwitchLeftAndPositionRight {
 				System.out.println("SwitchLeftAndPositionRight Case 4: Turn 90 degrees right");
 			}
 
-			AutoState.state = Robot.drive.autoTurn(AutoState.state, 90);
+			AutoState.state = Robot.drive.autoTurn(AutoState.state, -90);
 			break;
 		}
 		//the robot will move forward so that it is next to the switch

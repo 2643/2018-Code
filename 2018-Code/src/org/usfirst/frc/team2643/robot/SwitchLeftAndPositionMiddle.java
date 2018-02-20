@@ -38,6 +38,7 @@ public class SwitchLeftAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionMiddle Case 2: Turn 90 degrees left");
 			}
+			
 			AutoState.state = Robot.drive.autoTurn(AutoState.state, -90);
 			break;
 		}
@@ -51,7 +52,7 @@ public class SwitchLeftAndPositionMiddle {
 			}
 
 			int encoderGoal = (EnvironmentVariables.ticksWidthOfSwitch)/2;
-			AutoState.state = Robot.drive.autoTurn(AutoState.state, encoderGoal);
+			AutoState.state = Robot.drive.autoMove(AutoState.state, encoderGoal);
 			break; 
 		}
 		//the robot will turn 90 degrees right

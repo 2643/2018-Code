@@ -28,7 +28,8 @@ public class GyroScope
 
 	public double getAngle()
 	{
-		return gyro.getAngle();
+		double g = gyro.getAngle();
+		return (g/36.0)*90;
 	}
 	
 	public void reset()
