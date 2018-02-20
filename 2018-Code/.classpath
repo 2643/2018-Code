@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="build/jars/WPILib.jar"/>
 	<classpathentry kind="lib" path="build/jars/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
