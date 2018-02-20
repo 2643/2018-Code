@@ -35,7 +35,7 @@ public class SwitchLeftAndPositionRight {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionRight Case 2: Turn left 90 degrees");
 			}
-			double turnGoal = 90;
+			double turnGoal = -90;
 			autoProgramState = Robot.drive.autoTurn(autoProgramState, turnGoal);
 			break;
 		}

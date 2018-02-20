@@ -40,7 +40,7 @@ public class SwitchLeftAndPositionMiddle {
 			if(RobotMap.DEBUG){
 				System.out.println("SwitchLeftAndPositionMiddle Case 2: Turn 90 degrees left");
 			}
-			autoProgramState = Robot.drive.autoTurn(autoProgramState, 90);
+			autoProgramState = Robot.drive.autoTurn(autoProgramState, -90);
 			break;
 		}
 
