@@ -185,6 +185,7 @@ public class Robot extends IterativeRobot
 		//elevator.presetLocations();
 		intake.intake(RobotMap.opBoard);
 		//System.out.println("Arduino Pot Val: " + RobotMap.arduinoPot.getThrottle());
+		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
 		

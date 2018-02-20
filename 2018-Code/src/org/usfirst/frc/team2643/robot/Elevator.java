@@ -182,7 +182,7 @@ public class Elevator
 
 	public void moveDownToLimit()
 	{
-		if(RobotMap.elevatorLimitSwitch.get())
+		if(!RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(-0.75);
 		}
@@ -202,14 +202,14 @@ public class Elevator
 		
 		setPosition(value);
 		
-		/*if(value == 0)
+		if(value == 0)
 		{
 			moveDownToLimit();
 		}
 		else 
 		{
 			setPosition(value);
-		}*/
+		}
 	}
 	
 	public void getElevatorCurrent() {
