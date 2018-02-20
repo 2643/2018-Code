@@ -35,7 +35,7 @@ public class SwitchRightAndPositionMiddle {
 				System.out.println("SwitchRightAndPositionMiddle Case 2: Drop the cube onto the switch");
 			}
 
-			autoProgramState = Robot.elevator.autoElevate(autoProgramState, 500);
+			autoProgramState++;// = Robot.elevator.autoElevate(autoProgramState, 500);
 			break;
 		//the robot will outtake the cube
 		case 3:
