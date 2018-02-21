@@ -45,7 +45,7 @@ public class RobotMap
 	public static final Joystick opStick = new Joystick(2);
 
 	// the buttons for the robot
-	public static int rampReleaseButton = 12;
+	public static int rampReleaseButton = 11;
 	public static int rampUpButton = 10;
 	public static int bothIntakeButton = 8;
 	public static int bothOuttakeButton = 6;
@@ -55,7 +55,7 @@ public class RobotMap
 	public static int outtakeLeftButton = 3;
 	public static int outtakeRightButton = 2;
 	public static int extraCenterMiddleButton = 7; // TODO extra button number
-	public static int rampDownButton= 11;
+	public static int rampDownButton= 12;
 	public static int extraRightButton = 9; // TODO extra button number
 
 	// ramps

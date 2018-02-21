@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -51,6 +52,11 @@ public class Ramp
 		rr.setAngle(0);
 	}
 
+	public double currentDraw()
+	{
+		return RobotMap.rampWinch.getOutputCurrent();
+	}
+	
 	public void releaseRamp(Joystick board)
 	{
 		if (board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampReleaseButton))
@@ -73,12 +79,13 @@ public class Ramp
 		{
 			if(RobotMap.inTestStage)
 			{
-				rw.set(-1);
+				rw.set(ControlMode.Current, -35.0);
 			}
 			else if (ableToRelease)
 			{
-				rw.set(-1);
+				rw.set(ControlMode.Current, -35.0);
 			}
+			System.out.println(currentDraw());
 		}
 		else
 		{

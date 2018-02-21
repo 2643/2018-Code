@@ -148,7 +148,30 @@ public class Robot extends IterativeRobot
 	 */
 	@Override
 	public void teleopPeriodic()
-	{
+	{	
+		/*RobotMap.leftDrive1.set(RobotMap.driveStick.getRawAxis(1));
+		
+		if(RobotMap.leftDrive1.configPeakCurrentLimit(35, 10) != null)
+		{
+			if(RobotMap.leftDrive1.configPeakCurrentDuration(200, 10) != null)
+			{
+				RobotMap.leftDrive1.configContinuousCurrentLimit(35, 20);
+				RobotMap.leftDrive1.enableCurrentLimit(true);
+			}
+		}
+		
+		RobotMap.leftDrive2.follow(RobotMap.leftDrive1);
+		
+		RobotMap.rightDrive1.set(-RobotMap.driveStick.getRawAxis(5));
+		if(RobotMap.rightDrive1.configPeakCurrentLimit(35, 10) != null)
+		{
+			if(RobotMap.rightDrive1.configPeakCurrentDuration(200, 10) != null)
+			{
+				RobotMap.rightDrive1.configContinuousCurrentLimit(35, 20);
+				RobotMap.rightDrive1.enableCurrentLimit(true);
+			}
+		}
+		RobotMap.rightDrive2.follow(RobotMap.rightDrive1);*/
 		
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
@@ -176,12 +199,12 @@ public class Robot extends IterativeRobot
 		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
 		intake.intake(RobotMap.opBoard);
-		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
+		//System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
 		ramp.winchDown(RobotMap.opBoard);
 		ramp.winchUp(RobotMap.opBoard);
-		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
+		//System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
 	}
 
