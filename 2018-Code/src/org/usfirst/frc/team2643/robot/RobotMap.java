@@ -95,7 +95,7 @@ public class RobotMap
 
 	// Elevator variables
 	static int ticksPerFoot = 3530;
-	static int ticksPerInch = 3530 / 12;
+	static int ticksPerInch = ticksPerFoot / 12;
 
 	// Drive encoder rotation
 	static int ticksPerRotationleft = 714;
