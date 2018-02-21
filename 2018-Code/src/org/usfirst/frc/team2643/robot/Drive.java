@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
@@ -21,17 +23,31 @@ public class Drive
 		leftDriveSlave = l2;
 		rightDriveMaster = r1;
 		rightDriveSlave = r2;
-
+		
+		
 		rightDriveSlave.follow(rightDriveMaster);
 		leftDriveSlave.follow(leftDriveMaster);
-
+		
+		WPI_TalonSRX[] masters = {leftDriveMaster, rightDriveMaster}; 
+		
+		for(WPI_TalonSRX motor : masters)
+		{
+			currentLimit(motor);
+		}
+		
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		leftDriveMaster.setSensorPhase(true);
 		rightDriveMaster.setSensorPhase(true);
 	}
 
-	
+	public void currentLimit(WPI_TalonSRX motor)
+	{
+		motor.configPeakOutputForward(1, 10);
+		motor.configPeakOutputReverse(-1, 10);
+		motor.configNominalOutputForward(0, 10);
+		motor.configNominalOutputReverse(0, 10);
+	}
 	
 	public void setLeftToPosition(int position)
 	{
@@ -117,6 +133,7 @@ public class Drive
 	
 	public void setLeftCurrent(double value)
 	{
+		System.out.println(value * RobotMap.currentLimit);
 		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
 	}
 
