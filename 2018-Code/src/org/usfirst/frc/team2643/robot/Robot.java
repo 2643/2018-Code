@@ -180,9 +180,9 @@ public class Robot extends IterativeRobot
 		
 		intake.intake(RobotMap.opBoard);
 		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
-		elevator.moveUsingPot(RobotMap.arduinoPot.getThrottle());
+		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
-		
+		ramp.winchUp(RobotMap.opBoard);
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();
 	}

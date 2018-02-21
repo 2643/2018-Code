@@ -5,11 +5,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Ramp
 {
 	private final Servo rr;
 	private final WPI_TalonSRX rw;
+	boolean ableToRelease = false;
+	Timer time = new Timer();
 	
 	public Ramp(Servo rampRelease, WPI_TalonSRX rampWinch)
 	{
@@ -53,15 +56,34 @@ public class Ramp
 	{
 		if(board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampReleaseButton))
 		{
-			rr.setAngle(180);
+			if(RobotMap.inTestStage)
+			{
+				rr.setAngle(180);
+				ableToRelease = true;
+			}
+			else if(!RobotMap.inTestStage && time.getMatchTime() < 30)
+			{
+				rr.setAngle(180);
+				ableToRelease = true;
+			}
 		}
 	}
 	
 	public void winchUp(Joystick board)
-	{
+	{	
+		if(ableToRelease)
+		{
+			time.start();
+			ableToRelease = false;
+		}
+		
 		if(board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.reampUpButton))
 		{
-			rw.set(1);
+			while(time.get() < 10)
+			{
+				rw.set(1);
+			}
+			time.reset();
 		}
 	}
 }

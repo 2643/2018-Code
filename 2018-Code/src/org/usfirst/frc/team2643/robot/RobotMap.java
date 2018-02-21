@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMap
 {
+	/* ------------------- REMEMBER TO CHANGE!!!!!!!!!!!! ------------------------ */
+	//test mode
+	static boolean inTestStage = true; 
+	/* --------------------------------------------------------------------------- */
+	
 	/*
 	 * These are the motors, encoders, joysticks and limit switch
 	 */
@@ -18,6 +23,9 @@ public class RobotMap
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1); // Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16); // Right Back
 
+	//Current limit
+	public static final double currentLimit = 35.0;
+	
 	// Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
 	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(9);
@@ -33,23 +41,22 @@ public class RobotMap
 
 	// joystick
 	public static final Joystick driveStick = new Joystick(0);
-	public static final Joystick opStick = new Joystick(3);
-	public static final Joystick opBoard = new Joystick(2);
-	public static final Joystick arduinoPot = new Joystick(1);
+	public static final Joystick opBoard = new Joystick(1);
+	public static final Joystick opStick = new Joystick(2);
 
 	// the buttons for the robot
-	public static int rampReleaseButton = 10;
-	public static int reampUpButton = 3;
-	public static int bothIntakeButton = 11;
-	public static int bothOuttakeButton = 4;
-	public static int intakeLeftButton = 12;
-	public static int intakeRightButton = 9;
-	public static int safetyButton = 7;
-	public static int outtakeLeftButton = 5;
-	public static int outtakeRightButton = 2;
-	public static int extraCenterMiddleButton = 8; // TODO extra button number
-	public static int extraCenterBottomButton = 6; // TODO extra button number
-	public static int extraRightButton = 1; // TODO extra button number
+	public static int rampReleaseButton = 12;
+	public static int reampUpButton = 10;
+	public static int bothIntakeButton = 8;
+	public static int bothOuttakeButton = 6;
+	public static int intakeLeftButton = 5;
+	public static int intakeRightButton = 4;
+	public static int safetyButton = 3;
+	public static int outtakeLeftButton = 2;
+	public static int outtakeRightButton = 1;
+	public static int extraCenterMiddleButton = 7; // TODO extra button number
+	public static int extraCenterBottomButton = 11; // TODO extra button number
+	public static int extraRightButton = 9; // TODO extra button number
 
 	// ramps
 	public static Servo rampRelease = new Servo(9);
@@ -93,7 +100,7 @@ public class RobotMap
 	// Drive encoder rotation
 	static int ticksPerRotationleft = 714;
 	static int ticksPerRotationRight = 0;
-
+	
 	// feet to ticks method and variables
 	static double radius = 0.25;// (feet) 3 inches
 	static double circumferenceFeet = 2 * Math.PI * radius;

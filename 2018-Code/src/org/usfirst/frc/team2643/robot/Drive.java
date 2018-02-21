@@ -114,7 +114,17 @@ public class Drive
 	{
 		leftDriveMaster.set(speed);
 	}
+	
+	public void setLeftCurrent(double value)
+	{
+		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
+	}
 
+	public void setRightCurrent(double value)
+	{
+		rightDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
+	}
+	
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * 
@@ -138,6 +148,12 @@ public class Drive
 		setLeftSpeed(speed);
 		setRightSpeed(speed);
 	}
+	
+	public void setAllCurrent(double speed)
+	{ // Set all of the motors to the given value.
+		setLeftCurrent(speed);
+		setRightCurrent(speed);
+	}
 
 	/**
 	 * Stops the robot
@@ -158,12 +174,12 @@ public class Drive
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
 			// Currently the deadzone is 5%
-			setRightSpeed(-x);
-			setLeftSpeed(x);
+			setRightCurrent(-x);
+			setLeftCurrent(x);
 		} else if (y > 0.03 || y < 0.03)
 		{ // If the given axis is pushed up or
-			setRightSpeed(y);
-			setLeftSpeed(y);
+			setRightCurrent(y);
+			setLeftCurrent(y);
 		} else
 		{ // If no joystick activity, set all motors to 0.
 			setAllSpeed(0);
@@ -176,7 +192,7 @@ public class Drive
 			RobotMap.leftDrive1.getOutputCurrent();
 			RobotMap.rightDrive1.getOutputCurrent();
 		}
-		setLeftSpeed(x);
-		setRightSpeed(y);
+		setLeftCurrent(x);
+		setRightCurrent(y);
 	}
 }
