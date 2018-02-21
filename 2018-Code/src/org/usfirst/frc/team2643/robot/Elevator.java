@@ -181,7 +181,7 @@ public class Elevator
 	{
 		if (RobotMap.elevatorLimitSwitch.get())
 		{
-			elevator.set(-0.75);
+			elevator.set(-0.25);
 		} else
 		{
 			elevator.set(0);

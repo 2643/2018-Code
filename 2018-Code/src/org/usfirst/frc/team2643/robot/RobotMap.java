@@ -46,21 +46,21 @@ public class RobotMap
 
 	// the buttons for the robot
 	public static int rampReleaseButton = 12;
-	public static int reampUpButton = 10;
+	public static int rampUpButton = 10;
 	public static int bothIntakeButton = 8;
 	public static int bothOuttakeButton = 6;
 	public static int intakeLeftButton = 5;
 	public static int intakeRightButton = 4;
-	public static int safetyButton = 3;
-	public static int outtakeLeftButton = 2;
-	public static int outtakeRightButton = 1;
+	public static int safetyButton = 1;
+	public static int outtakeLeftButton = 3;
+	public static int outtakeRightButton = 2;
 	public static int extraCenterMiddleButton = 7; // TODO extra button number
-	public static int extraCenterBottomButton = 11; // TODO extra button number
+	public static int rampDownButton= 11;
 	public static int extraRightButton = 9; // TODO extra button number
 
 	// ramps
 	public static Servo rampRelease = new Servo(9);
-	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(2); // TODO enter ID
+	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(13); // TODO enter ID
 
 	// Timer
 	public static Timer time = new Timer();

@@ -135,10 +135,10 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-//		elevator.dropElevator();
+		elevator.dropElevator();
 		drive.resetAllEncoder();
-//		elevator.resetEncoder();
-//		elevator.defaultPIDLSMotor();
+		elevator.resetEncoder();
+		elevator.defaultPIDLSMotor();
 		gyro.reset();
 		ramp.keepRampUp();
 	}
@@ -149,9 +149,6 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		
-		System.out.print(drive.getRightEncoder()+ "   ");
-		System.out.println(drive.getLeftEncoder());
 		
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
@@ -182,6 +179,7 @@ public class Robot extends IterativeRobot
 		System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
+		ramp.winchDown(RobotMap.opBoard);
 		ramp.winchUp(RobotMap.opBoard);
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		elevator.getElevatorCurrent();

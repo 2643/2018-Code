@@ -44,8 +44,8 @@ public class EnvironmentVariables {
 	public static final int lsEncodersToInches = 0; //TODO
 	
 	public static final int defaultPID = 0;
-	public static final double PIDF = 0.5;
-	public static final double PIDP = 0.5;
+	public static final double PIDF = 0.35;
+	public static final double PIDP = 0.35;
 	public static final double PIDI = 0;
 	public static final double PIDD = 0;
 	
