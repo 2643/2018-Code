@@ -48,7 +48,7 @@ public class Drive
 		motor.configNominalOutputForward(0, 10);
 		motor.configNominalOutputReverse(0, 10);
 	}
-	
+	 
 	public void setLeftToPosition(int position)
 	{
 		leftDriveMaster.set(ControlMode.Position, position);
