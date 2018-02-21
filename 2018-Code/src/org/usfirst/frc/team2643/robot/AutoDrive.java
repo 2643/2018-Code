@@ -73,33 +73,6 @@ public class AutoDrive extends Drive
 		stopAllSpeed();
 	}
 	
-	public void setUpPositionMove(int ticks)
-	{
-		AutoState.robotState = AutoState.MOVING;
-		resetAllEncoder();
-		setAllMotorPosition(ticks);
-	}
-
-	public boolean executePositionMove()
-	{
-		if(Math.abs(getCurrentLeftGoal() -getLeftEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR ||
-				Math.abs(getCurrentRightGoal()-getRightEncoder()) < RobotMap.ACCEPTABLE_ENCODER_ERROR)
-		{
-			return true;
-		}
-		else 
-		{
-			System.out.println(getLeftEncoder());
-			return false;
-		}
-	}
-
-	public void finishPositionMove()
-	{
-		AutoState.robotState = AutoState.NOTHING;
-		resetAllEncoder();
-		setAllMotorPosition(0);
-	}
 	
 	/**
 	 * Prepares the robot for a move
