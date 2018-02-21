@@ -85,7 +85,7 @@ public class AutoDrive extends Drive
 		stopAllSpeed();
 
 		leftEncoderGoal = ticks;
-		rightEncoderGoal = ticks;
+		rightEncoderGoal = ticks; 
 	}
 
 
