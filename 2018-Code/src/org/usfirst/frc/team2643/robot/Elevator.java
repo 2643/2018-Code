@@ -43,8 +43,9 @@ public class Elevator
 	{
 		while (RobotMap.elevatorLimitSwitch.get())
 		{
-			elevator.set(-0.55);
+			elevator.set(-0.65);
 		}
+		resetEncoder();
 	}
 
 	/**
@@ -179,13 +180,14 @@ public class Elevator
 
 	public void moveDownToLimit()
 	{
-		if (RobotMap.elevatorLimitSwitch.get())
+		if(getEncoder() > 0 && !RobotMap.elevatorLimitSwitch.get())
 		{
-			elevator.set(-0.25);
-		} else
-		{
-			elevator.set(0);
-			resetEncoder();
+			elevator.set(-0.20);
+			if(RobotMap.elevatorLimitSwitch.get())
+			{
+				elevator.set(0);
+				resetEncoder();
+			}
 		}
 	}
 
@@ -194,17 +196,15 @@ public class Elevator
 		value += 1;
 		// System.out.println("New Pot Value: " + value);
 		value = (int) (value * (EnvironmentVariables.maxEncoderValue / 2.0));
-		// System.out.println("Value of encoder: " + value);
+		//System.out.println(getEncoder());
 
+		
 		setPosition(value);
-
-		if (value == 0)
+		
+		/*if(RobotMap.elevatorLimitSwitch.get())
 		{
-			moveDownToLimit();
-		} else
-		{
-			setPosition(value);
-		}
+			resetEncoder();
+		}*/
 	}
 
 	public String getElevatorCurrent()

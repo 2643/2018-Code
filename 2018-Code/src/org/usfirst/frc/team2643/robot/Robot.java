@@ -204,8 +204,8 @@ public class Robot extends IterativeRobot
 		ramp.releaseRamp(RobotMap.opBoard);
 		ramp.winchDown(RobotMap.opBoard);
 		ramp.winchUp(RobotMap.opBoard);
-		//System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
-		elevator.getElevatorCurrent();
+		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
+		//elevator.getElevatorCurrent();
 	}
 
 	@Override

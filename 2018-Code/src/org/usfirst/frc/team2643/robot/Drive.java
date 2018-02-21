@@ -28,12 +28,10 @@ public class Drive
 		rightDriveSlave.follow(rightDriveMaster);
 		leftDriveSlave.follow(leftDriveMaster);
 		
-		WPI_TalonSRX[] masters = {leftDriveMaster, rightDriveMaster}; 
-		
-		for(WPI_TalonSRX motor : masters)
-		{
-			currentLimit(motor);
-		}
+		currentLimit(leftDriveMaster);
+		currentLimit(leftDriveSlave);
+		currentLimit(rightDriveMaster);
+		currentLimit(rightDriveSlave);
 		
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
@@ -133,12 +131,13 @@ public class Drive
 	
 	public void setLeftCurrent(double value)
 	{
-		System.out.println(value * RobotMap.currentLimit);
+		System.out.println("LEFT CURRENT: " + value * RobotMap.currentLimit);
 		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
 	}
 
 	public void setRightCurrent(double value)
 	{
+		System.out.println("RIGHT CURRENT: " + value * RobotMap.currentLimit);
 		rightDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
 	}
 	
@@ -191,12 +190,12 @@ public class Drive
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
 			// Currently the deadzone is 5%
-			setRightCurrent(-x);
-			setLeftCurrent(x);
+			setRightSpeed(-x);
+			setLeftSpeed(x);
 		} else if (y > 0.03 || y < 0.03)
 		{ // If the given axis is pushed up or
-			setRightCurrent(y);
-			setLeftCurrent(y);
+			setRightSpeed(y);
+			setLeftSpeed(y);
 		} else
 		{ // If no joystick activity, set all motors to 0.
 			setAllSpeed(0);
@@ -209,7 +208,7 @@ public class Drive
 			RobotMap.leftDrive1.getOutputCurrent();
 			RobotMap.rightDrive1.getOutputCurrent();
 		}
-		setLeftCurrent(x);
-		setRightCurrent(y);
+		setLeftSpeed(x);
+		setRightSpeed(y);
 	}
 }
