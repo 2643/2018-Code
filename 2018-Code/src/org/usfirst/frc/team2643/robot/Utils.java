@@ -6,6 +6,11 @@ public class Utils {
 		return (int)Math.signum(num);
 	}
 	
+	public static double clamp(double val, double min, double max)
+	{
+		return Math.max(min, Math.min(val,max));
+	}
+	
 	/**
 	 * Checks if the current encoder value has reached its goal
 	 * @param val the current value of the encoder
