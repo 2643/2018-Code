@@ -1,8 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -36,6 +33,7 @@ public class Robot extends IterativeRobot
 	public static Intake intake;
 	public static Ramp ramp;
 	public static IntakeAngle angleIntake;
+	public static AutoRoutines autoRoutines;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -56,6 +54,7 @@ public class Robot extends IterativeRobot
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
 		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
+		autoRoutines = new AutoRoutines();
 
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 		
@@ -113,16 +112,19 @@ public class Robot extends IterativeRobot
 			CrossAutoLineOnly.runPeriodic();
 			break;
 		case "SwitchLeftAndPositionLeft":
-			SwitchLeftAndPositionLeft.runPeriodic();
+			//SwitchLeftAndPositionLeft.runPeriodic();
+			autoRoutines.botLeftSwitchLeft();
 			break;
 		case "SwitchLeftAndPositionMiddle":
 			SwitchLeftAndPositionMiddle.runPeriodic();
 			break;
 		case "SwitchLeftAndPositionRight":
-			SwitchLeftAndPositionRight.runPeriodic();
+			//SwitchLeftAndPositionRight.runPeriodic();
+			autoRoutines.botRightSwitchLeft();
 			break;
 		case "SwitchRightAndPositionLeft":
-			SwitchRightAndPositionLeft.runPeriodic();
+			//SwitchRightAndPositionLeft.runPeriodic();
+			autoRoutines.botLeftSwitchRight();
 			break;
 		case "SwitchRightAndPositionMiddle":
 			SwitchRightAndPositionMiddle.runPeriodic();
