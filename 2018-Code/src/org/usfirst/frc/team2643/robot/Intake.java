@@ -87,7 +87,7 @@ public class Intake {
 		timer.reset();
 		timer.start();
 		timeGoal = timeSec;
-		setSpeed(speed);
+		
 	}	
 	
 	public boolean executeIntake()

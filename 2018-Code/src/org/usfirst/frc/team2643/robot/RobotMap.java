@@ -62,9 +62,13 @@ public class RobotMap
 	// ramps
 	public static Servo rampRelease = new Servo(9);
 	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(13); // TODO enter ID
-
-	// Timer
+	
+	//Autonomous state value
+	public static int autoState = 0;
+	
+	// Timers
 	public static Timer time = new Timer();
+	//public static Timer failTimer = new Timer();
 
 	// ***the speeds for the robot***
 

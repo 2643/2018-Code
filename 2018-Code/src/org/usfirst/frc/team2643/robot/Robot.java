@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot
 	public static GyroScope gyro;
 	public static Intake intake;
 	public static Ramp ramp;
+	public static IntakeAngle angleIntake;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -43,7 +44,6 @@ public class Robot extends IterativeRobot
 	public void robotInit()
 	{
 		chooser.addDefault(crossAutoLineOnlyOption, crossAutoLineOnlyOption);
-
 		chooser.addObject(positionLeftOption, positionLeftOption);
 		chooser.addObject(positionMiddleOption, positionMiddleOption);
 		chooser.addObject(positionRightOption, positionRightOption);
@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot
 		elevator = new AutoElevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
+		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 
 		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
 		
@@ -148,31 +149,7 @@ public class Robot extends IterativeRobot
 	 */
 	@Override
 	public void teleopPeriodic()
-	{	
-		/*RobotMap.leftDrive1.set(RobotMap.driveStick.getRawAxis(1));
-		
-		if(RobotMap.leftDrive1.configPeakCurrentLimit(35, 10) != null)
-		{
-			if(RobotMap.leftDrive1.configPeakCurrentDuration(200, 10) != null)
-			{
-				RobotMap.leftDrive1.configContinuousCurrentLimit(35, 20);
-				RobotMap.leftDrive1.enableCurrentLimit(true);
-			}
-		}
-		
-		RobotMap.leftDrive2.follow(RobotMap.leftDrive1);
-		
-		RobotMap.rightDrive1.set(-RobotMap.driveStick.getRawAxis(5));
-		if(RobotMap.rightDrive1.configPeakCurrentLimit(35, 10) != null)
-		{
-			if(RobotMap.rightDrive1.configPeakCurrentDuration(200, 10) != null)
-			{
-				RobotMap.rightDrive1.configContinuousCurrentLimit(35, 20);
-				RobotMap.rightDrive1.enableCurrentLimit(true);
-			}
-		}
-		RobotMap.rightDrive2.follow(RobotMap.rightDrive1);*/
-		
+	{		
 		/** Drive code */
 		if (driveState == 0) // 0 is Tank Drive
 		{ 
@@ -202,8 +179,6 @@ public class Robot extends IterativeRobot
 		//System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
 		ramp.releaseRamp(RobotMap.opBoard);
-		ramp.winchDown(RobotMap.opBoard);
-		ramp.winchUp(RobotMap.opBoard);
 		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
 		//elevator.getElevatorCurrent();
 	}
