@@ -57,6 +57,9 @@ public class Ramp
 		return RobotMap.rampWinch.getOutputCurrent();
 	}
 	
+	/**
+	 * @param board - operator board
+	 */
 	public void releaseRamp(Joystick board)
 	{
 		if (board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampReleaseButton))
@@ -72,7 +75,8 @@ public class Ramp
 			}
 		}
 	}
-
+	
+	@Deprecated
 	public void winchDown(Joystick board)
 	{
 		if (board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampDownButton))
@@ -93,6 +97,7 @@ public class Ramp
 		}
 	}
 	
+	@Deprecated
 	public void winchUp(Joystick board)
 	{
 		if (board.getRawButton(RobotMap.safetyButton) && board.getRawButton(RobotMap.rampUpButton))
