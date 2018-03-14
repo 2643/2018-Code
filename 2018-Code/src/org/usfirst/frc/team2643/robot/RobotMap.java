@@ -23,15 +23,16 @@ public class RobotMap
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1); // Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16); // Right Back
 
-	//Current limit
-	public static final double currentLimit = 35.0;
-	
 	// Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
 	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(9);
-
+	
+	//Intake motors
 	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(6);
 	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(9);
+	
+	//Intake Bag/Angle Motor
+	public static final WPI_TalonSRX inclineMotor = new WPI_TalonSRX(12);
 
 	// Acceptable encoder error
 	public static final int ACCEPTABLE_ENCODER_ERROR = 100;

@@ -13,7 +13,7 @@ public class Drive
 	private final WPI_TalonSRX leftDriveSlave;
 	private final WPI_TalonSRX rightDriveMaster;
 	private final WPI_TalonSRX rightDriveSlave;
-
+	
 	private double currentLeftGoal;
 	private double currentRightGoal;
 	
@@ -24,14 +24,11 @@ public class Drive
 		rightDriveMaster = r1;
 		rightDriveSlave = r2;
 		
-		
+		currentLimit(leftDriveMaster);
+		currentLimit(rightDriveMaster);
+				
 		rightDriveSlave.follow(rightDriveMaster);
 		leftDriveSlave.follow(leftDriveMaster);
-		
-		currentLimit(leftDriveMaster);
-		currentLimit(leftDriveSlave);
-		currentLimit(rightDriveMaster);
-		currentLimit(rightDriveSlave);
 		
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
@@ -41,10 +38,10 @@ public class Drive
 
 	public void currentLimit(WPI_TalonSRX motor)
 	{
-		motor.configPeakOutputForward(1, 10);
-		motor.configPeakOutputReverse(-1, 10);
-		motor.configNominalOutputForward(0, 10);
-		motor.configNominalOutputReverse(0, 10);
+		motor.configContinuousCurrentLimit(40, 0);
+		motor.configPeakCurrentLimit(45, 0);
+		motor.configPeakCurrentDuration(250, 0);
+		motor.enableCurrentLimit(true);
 	}
 	 
 	public void setLeftToPosition(int position)
@@ -124,22 +121,18 @@ public class Drive
 		setRightToPosition(location);
 	}
 
-	public void setLeftSpeed(double speed)
-	{
-		leftDriveMaster.set(speed);
-	}
 	
-	public void setLeftCurrent(double value)
-	{
-		System.out.println("LEFT CURRENT: " + value * RobotMap.currentLimit);
-		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
-	}
-
-	public void setRightCurrent(double value)
-	{
-		System.out.println("RIGHT CURRENT: " + value * RobotMap.currentLimit);
-		rightDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
-	}
+//	public void setLeftCurrent(double value)
+//	{
+//		System.out.println("LEFT CURRENT: " + value * RobotMap.currentLimit);
+//		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
+//	}
+//
+//	public void setRightCurrent(double value)
+//	{
+//		System.out.println("RIGHT CURRENT: " + value * RobotMap.currentLimit);
+//		rightDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
+//	}
 	
 	/**
 	 * Sets all motors on the right side of the robot to the given value
@@ -147,6 +140,11 @@ public class Drive
 	 * @param The
 	 *            speed to set the motors to
 	 */
+	public void setLeftSpeed(double speed)
+	{
+		leftDriveMaster.set(speed);
+	}
+		
 	public void setRightSpeed(double speed)
 	{
 		rightDriveMaster.set(-speed);
@@ -165,11 +163,11 @@ public class Drive
 		setRightSpeed(speed);
 	}
 	
-	public void setAllCurrent(double speed)
-	{ // Set all of the motors to the given value.
-		setLeftCurrent(speed);
-		setRightCurrent(speed);
-	}
+//	public void setAllCurrent(double speed)
+//	{ // Set all of the motors to the given value.
+//		setLeftCurrent(speed);
+//		setRightCurrent(speed);
+//	}
 
 	/**
 	 * Stops the robot
