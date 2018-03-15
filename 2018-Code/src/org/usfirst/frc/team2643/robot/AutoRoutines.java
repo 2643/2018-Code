@@ -51,7 +51,7 @@ public class AutoRoutines {
 				timer.start();
 				Robot.drive.setLeftSpeed(motorSpeed);
 				Robot.drive.setRightSpeed(motorSpeed);
-				//Robot.angleIntake.angleIntake(0.4);
+				//Robot.angleIntake.angleIntake(motorSpeed);
 				Robot.intake.setSpeedLeft(motorSpeed);
 				RobotMap.autoState = endMove;
 			break;
@@ -73,8 +73,8 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(-motorSpeed);
 				RobotMap.autoState = endTurn;
 			break;
 			}
@@ -91,8 +91,8 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(-0.4);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
@@ -136,8 +136,8 @@ public class AutoRoutines {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				Robot.intake.setSpeedLeft(0.5);
 				//Robot.angleIntake.angleIntake(0.8);
 				RobotMap.autoState = endMove;
@@ -160,8 +160,8 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(-0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(-motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endTurn;
 			break;
 			}
@@ -178,8 +178,8 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
@@ -264,7 +264,7 @@ public class AutoRoutines {
 					if(otherSide) {
 						Robot.drive.resetAllEncoder();
 						Robot.drive.setLeftSpeed(motorSpeed);
-						Robot.drive.setRightSpeed(-motorSpeed);
+						Robot.drive.setRightSpeed(motorSpeed);
 						RobotMap.autoState = stopAtSwitch;
 					}
 					else {
@@ -330,16 +330,17 @@ public class AutoRoutines {
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------------------------------
+	
 	public void botRightSwitchLeft() {
 		switch(RobotMap.autoState) {
 			case startMove:
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(0.4);
-				Robot.angleIntake.angleIntake(0.5);
-				Robot.intake.setSpeedLeft(0.5);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
+				//Robot.angleIntake.angleIntake(0.5);
+				Robot.intake.setSpeedLeft(motorSpeed);
 				if(otherSide) {
 					RobotMap.autoState = stopAtSwitch;
 				}
@@ -364,8 +365,8 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(-0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(-motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				Robot.gyro.reset();
 				RobotMap.autoState = endTurn;
 			break;
@@ -377,8 +378,8 @@ public class AutoRoutines {
 					Robot.drive.setAllSpeed(0);
 					if(otherSide) {
 						Robot.drive.resetAllEncoder();
-						Robot.drive.setLeftSpeed(0.5);
-						Robot.drive.setRightSpeed(0.5);
+						Robot.drive.setLeftSpeed(motorSpeed);
+						Robot.drive.setRightSpeed(motorSpeed);
 						RobotMap.autoState = stopAtSwitch;
 					}
 					else {
@@ -391,8 +392,8 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.4);
-				Robot.drive.setRightSpeed(0.4);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
