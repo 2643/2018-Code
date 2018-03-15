@@ -10,25 +10,36 @@ public class Drive
 {
 
 	private final WPI_TalonSRX leftDriveMaster;
-	private final WPI_TalonSRX leftDriveSlave;
+	private final WPI_TalonSRX leftDriveSlave1;
+	private final WPI_TalonSRX leftDriveSlave2;
 	private final WPI_TalonSRX rightDriveMaster;
-	private final WPI_TalonSRX rightDriveSlave;
+	private final WPI_TalonSRX rightDriveSlave1;
+	private final WPI_TalonSRX rightDriveSlave2;
 	
 	private double currentLeftGoal;
 	private double currentRightGoal;
 	
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
+		this(l1, l2, null, r1, r2, null);
+	}
+	
+	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2,  WPI_TalonSRX l3, WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3)
+	{
 		leftDriveMaster = l1;
-		leftDriveSlave = l2;
+		leftDriveSlave1 = l2;
+		leftDriveSlave2 = l3;
 		rightDriveMaster = r1;
-		rightDriveSlave = r2;
+		rightDriveSlave1 = r2;
+		rightDriveSlave2 = r3;
 		
 		currentLimit(leftDriveMaster);
 		currentLimit(rightDriveMaster);
 				
-		rightDriveSlave.follow(rightDriveMaster);
-		leftDriveSlave.follow(leftDriveMaster);
+		rightDriveSlave1.follow(rightDriveMaster);
+		leftDriveSlave1.follow(leftDriveMaster);
+		rightDriveSlave2.follow(rightDriveMaster);
+		leftDriveSlave2.follow(leftDriveMaster);
 		
 		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
