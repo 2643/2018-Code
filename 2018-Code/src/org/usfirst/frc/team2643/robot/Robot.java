@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot
 	public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
 	
-	public boolean elevatorStat = false;
+	public static boolean elevatorStat = false;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -119,7 +119,8 @@ public class Robot extends IterativeRobot
 			break;
 		case "SwitchLeftAndPositionLeft":
 			//SwitchLeftAndPositionLeft.runPeriodic();
-			autoRoutines.botLeftSwitchLeft();
+			//autoRoutines.testCrossAuto();
+			
 			System.out.println("SLPL");
 			break;
 		case "SwitchLeftAndPositionMiddle":
@@ -182,9 +183,9 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		//elevator.dropElevator();
+		elevator.dropElevator();
 		drive.resetAllEncoder();
-		elevator.resetEncoder();
+		//elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 		gyro.reset();
 		elevator.currentLimit();
@@ -226,32 +227,38 @@ public class Robot extends IterativeRobot
 			angleIntake.angleIntake(0);
 		}
 		
-		if(RobotMap.opBoard.getRawButton(11)) {
-			if(elevatorStat == true) {
-				elevatorStat = false;
-				System.out.println("false");
-			}
-			else {
-				elevatorStat = true;
-				System.out.println("true");
-			}
-		}
+//		if(RobotMap.opBoard.getRawButton(11)) {
+//			if(elevatorStat == true) {
+//				elevatorStat = false;
+//				System.out.println("false");
+//			}
+//			else {
+//				elevatorStat = true;
+//				System.out.println("true");
+//			}
+//		}
+//		
+		//System.out.println(gyro.getAngle());
 		
-		if(elevatorStat) {
+		/*if(elevatorStat) {
 			if(RobotMap.opBoard.getRawButton(2)) {
-				RobotMap.elevator1.set(1);
+				RobotMap.elevator1.set(-1);
 			}
 			else if(RobotMap.opBoard.getRawButton(3)) {
-				RobotMap.elevator1.set(-1);
+				RobotMap.elevator1.set(0.5);
 			}
 			else {
 				RobotMap.elevator1.set(0);
 			}
-		}
-		else {
-			elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-		}
+		}*/
+		
+		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+		System.out.println(elevator.getEncoder());
 			
+//		if(RobotMap.driveStick.getRawButton(1)) {
+//			drive.resetAllEncoder();
+//		}
+//		
 		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
 		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
 		// System.out.println(Elevator.getEncoderValues());
@@ -270,17 +277,16 @@ public class Robot extends IterativeRobot
 		if(RobotMap.opBoard.getRawButton(7))
 		{
 			elevator.dropElevator();
-			elevator.resetEncoder();
 		}
-		System.out.println("Left Encoder: " + drive.getLeftEncoder() + "    Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
-		System.out.println(elevator.getElevatorCurrent());
+		//System.out.println("Left Encoder: " + "  Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
+		//System.out.println(elevator.getElevatorCurrent());
 		
 	}
 
 	@Override
 	public void disabledInit()
 	{
-		AutoState.state = 0;
+		//AutoState.state = 0;
 	}
 	
 	/**
@@ -289,7 +295,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void testPeriodic()
 	{
-		System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
+		/*System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if (RobotMap.driveStick.getRawButton(0) == true)
 		{
 			RobotMap.leftDrive1.set(RobotMap.driveStick.getRawAxis(5));
@@ -339,6 +345,6 @@ public class Robot extends IterativeRobot
 			drive.resetAllEncoder();
 			RobotMap.elevator1.getSensorCollection().setQuadraturePosition(0, 10);
 			drive.stopAllSpeed();
-		}
+		}*/
 	}
 }

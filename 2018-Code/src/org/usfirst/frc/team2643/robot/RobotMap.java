@@ -70,7 +70,6 @@ public class RobotMap
 	
 	// Timers
 	public static Timer time = new Timer();
-	//public static Timer failTimer = new Timer();
 
 	// ***the speeds for the robot***
 

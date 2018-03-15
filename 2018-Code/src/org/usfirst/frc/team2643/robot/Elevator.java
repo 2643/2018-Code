@@ -51,6 +51,7 @@ public class Elevator
 		while (RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(-0.3);
+			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
 		}
 		resetEncoder();
 	}

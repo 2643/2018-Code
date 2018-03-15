@@ -13,14 +13,15 @@ public class AutoRoutines extends Robot {
 			releaseCube = 6,
 			stopRelease = 7,
 			stopAtSwitch = 8,
-			finishedAuto = 9;
+			finishedAuto = 9,
+			dropIntake = 10;
 			
 	private final int //Auto Constants under some random encoder ticks (457)
-			encoderTicksToSwitch = 3900, //168 Inches (4073)
+			encoderTicksToSwitch = 3208, //168 Inches (4073)
 			ninetyDegreeTurn = 38, 
-			encoderTicksToMidField = 5200, //5400
-			encoderTicksFromSideToSide = 4850, //211 inches (5115)
-			encoderTicksFromMidFieldToSwitch = 765; //32 inches (775)
+			encoderTicksToMidField = 4358, //5400
+			encoderTicksFromSideToSide = 3915, //211 inches (5115)
+			encoderTicksFromMidFieldToSwitch = 401; //32 inches (775)
 
 	/*private final int //Auto Constants Under 360 conditions
 			encoderTicksToSwitch = 3208,
@@ -41,14 +42,15 @@ public class AutoRoutines extends Robot {
 	 */
 	
 	
-	private Timer timer = new Timer();
+	private static Timer timer = new Timer();
+	private Timer failTimer = new Timer();
 	
 	public void crossAutoLine() {
 		switch(RobotMap.autoState) {
 		case startMove:
 		{
 			timer.start();
-			drive.setLeftSpeed(0.7);
+			drive.setLeftSpeed(0.56);
 			drive.setRightSpeed(0.5);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
@@ -56,10 +58,46 @@ public class AutoRoutines extends Robot {
 		}
 		case endMove:
 		{
-			if(timer.get()>2.5) {
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
+			if(timer.get()>1.7) {
 				drive.setAllSpeed(0);
 				System.out.println("Finished Cross Auto Line");
+				break;
 			}
+			break;
+		}
+		}
+	}
+	
+	
+	public void testCrossAuto() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			timer.start();
+			drive.setLeftSpeed(0.68);
+			drive.setRightSpeed(0.5);
+			intake.setSpeedLeft(0.28);
+			System.out.println("Finished Start");
+			RobotMap.autoState = dropIntake;
+		break;
+		}
+		case dropIntake:
+		{
+			if(timer.get()>0.4) {
+				intake.setSpeedLeft(0);
+			}
+			if(timer.get()>2) {
+				drive.setAllSpeed(0);
+				timer.stop();
+				RobotMap.autoState = endMove;
+			}
+		}
+		case endMove:
+		{
+			intake.setSpeed(-0.8);
 			break;
 		}
 		}
@@ -71,7 +109,8 @@ public class AutoRoutines extends Robot {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(motorSpeed);
+				failTimer.start();
+				Robot.drive.setLeftSpeed(motorSpeed+0.1);
 				Robot.drive.setRightSpeed(motorSpeed);
 				//Robot.angleIntake.angleIntake(motorSpeed);
 				Robot.intake.setSpeedLeft(motorSpeed);
@@ -80,7 +119,7 @@ public class AutoRoutines extends Robot {
 			}
 			case endMove:
 			{
-				System.out.println("Testing End move" + "\t" + Robot.drive.getLeftEncoder() + "\t" + Robot.drive.getRightEncoder());
+				System.out.println("Testing End move" + "\t" + Robot.drive.getRightEncoder());
 				if(Math.abs(Robot.drive.getLeftEncoder())>encoderTicksToSwitch||Math.abs(Robot.drive.getRightEncoder())>encoderTicksToSwitch) {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startTurn;
@@ -90,13 +129,17 @@ public class AutoRoutines extends Robot {
 					Robot.intake.setSpeed(0);
 					timer.stop();
 				}
+				if(failTimer.get()>5) {
+					RobotMap.autoState = releaseCube;
+				}
 			break;
 			}
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setLeftSpeed(motorSpeed+0.1);
 				Robot.drive.setRightSpeed(-motorSpeed);
+				failTimer.start();
 				RobotMap.autoState = endTurn;
 			break;
 			}
@@ -107,24 +150,30 @@ public class AutoRoutines extends Robot {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startToSwitch;
 				}
+				if(failTimer.get()>5) {
+					RobotMap.autoState = releaseCube;
+				}
 			break;
 			}
 			case startToSwitch:
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setLeftSpeed(motorSpeed+0.1);
 				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
 			case endToSwitch:
 			{
-				System.out.println("Testing end To Switch" + "\t" + Robot.drive.getLeftEncoder() + "\t" + Robot.drive.getRightEncoder());
+				System.out.println("Testing end To Switch" + "\t"  + Robot.drive.getRightEncoder());
 				if(Math.abs(Robot.drive.getLeftEncoder()) > 500||Math.abs(Robot.drive.getRightEncoder()) > 500) {
 					Robot.drive.setAllSpeed(0);
 					Robot.drive.resetAllEncoder();
 					timer.start();
+					RobotMap.autoState = releaseCube;
+				}
+				if(failTimer.get()>5) {
 					RobotMap.autoState = releaseCube;
 				}
 			break;
@@ -461,6 +510,33 @@ public class AutoRoutines extends Robot {
 				System.out.println("Finished Auto!!");
 			}
 			
+		}
+	}
+	
+	public void crossAutoLineCorrect() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			timer.start();
+			drive.setLeftSpeed(0.56);
+			drive.setRightSpeed(0.5);
+			System.out.println("Finished Start");
+			RobotMap.autoState = endMove;
+		break;
+		}
+		case endMove:
+		{
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
+			if(timer.get()>1.7) {
+				drive.setAllSpeed(0);
+				System.out.println("Finished Cross Auto Line");
+				
+				break;
+			}
+			break;
+		}
 		}
 	}
 	

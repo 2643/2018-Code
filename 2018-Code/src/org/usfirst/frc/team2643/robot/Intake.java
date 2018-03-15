@@ -31,11 +31,11 @@ public class Intake {
 	{
 		if(board.getRawButton(RobotMap.intakeLeftButton))
 		{
-			setSpeedLeft(-1);
+			//setSpeedLeft(-1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeLeftButton))
 		{
-			setSpeedLeft(1);
+			//setSpeedLeft(1);
 		}
 		else if(board.getRawButton(RobotMap.bothIntakeButton))
 		{
@@ -43,11 +43,11 @@ public class Intake {
 		}
 		else if(board.getRawButton(RobotMap.intakeRightButton))
 		{
-			setSpeedRight(1);
+			//setSpeedRight(1);
 		}
 		else if(board.getRawButton(RobotMap.outtakeRightButton))
 		{
-			setSpeedRight(-1);
+			//setSpeedRight(-1);
 		}
 		else if(board.getRawButton(RobotMap.bothOuttakeButton))
 		{
