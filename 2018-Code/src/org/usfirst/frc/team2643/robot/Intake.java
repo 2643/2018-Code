@@ -136,7 +136,7 @@ public class Intake {
 	 */
 	public void intake(double x, double y) {
 		if(x>0.05) {
-			leftIntake.set(-x);
+			leftIntake.set(x);
 			rightIntake.set(x);
 		}
 		else if(y>0.05) {

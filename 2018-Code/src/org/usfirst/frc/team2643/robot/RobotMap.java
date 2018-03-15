@@ -11,7 +11,7 @@ public class RobotMap
 {
 	/* ------------------- REMEMBER TO CHANGE!!!!!!!!!!!! ------------------------ */
 	//test mode
-	static boolean inTestStage = true; 
+	static boolean inTestStage = !true; 
 	/* --------------------------------------------------------------------------- */
 	
 	/*
@@ -19,7 +19,7 @@ public class RobotMap
 	 */
 	// Drive motors
 	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(14); // Front Left
-	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // TODO change this port
+	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // Back left
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1); // Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16); // Right Back
 
@@ -28,11 +28,11 @@ public class RobotMap
 	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(9);
 	
 	//Intake motors
-	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(6);
-	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(9);
+	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(9);
+	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(6);
 	
 	//Intake Bag/Angle Motor
-	public static final WPI_TalonSRX inclineMotor = new WPI_TalonSRX(12);
+	public static final WPI_TalonSRX inclineMotor = new WPI_TalonSRX(4);
 
 	// Acceptable encoder error
 	public static final int ACCEPTABLE_ENCODER_ERROR = 100;

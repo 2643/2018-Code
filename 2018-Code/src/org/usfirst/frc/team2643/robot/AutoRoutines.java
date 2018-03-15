@@ -15,12 +15,23 @@ public class AutoRoutines {
 			stopAtSwitch = 8,
 			finishedAuto = 9;
 			
-	private final int //Auto Constants
+	private final int //Auto Constants under some fucking shit (457)
+			encoderTicksToSwitch = 1000, //168 Inches (4073)
+			ninetyDegreeTurn = 38, 
+			encoderTicksToMidField = 1000, //5400
+			encoderTicksFromSideToSide = 1000, //211 inches (5115)
+			encoderTicksFromMidFieldToSwitch = 500; //32 inches (775)
+
+	/*private final int //Auto Constants Under 360 conditions
 			encoderTicksToSwitch = 3208,
 			gyroTicksToSwitch = 38,
 			encoderTicksToMidField = 4354,
 			encoderTicksFromSideToSide = 3915,
 			encoderTicksFromMidFieldToSwitch = 401;
+			*/
+	private double
+			outTakeSpeed = -0.5,
+			motorSpeed = 0.3;
 	
 	private boolean otherSide = false;
 	
@@ -38,9 +49,10 @@ public class AutoRoutines {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
-				Robot.angleIntake.angleIntake(0.8);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
+				//Robot.angleIntake.angleIntake(0.4);
+				Robot.intake.setSpeedLeft(motorSpeed);
 				RobotMap.autoState = endMove;
 			break;
 			}
@@ -53,6 +65,7 @@ public class AutoRoutines {
 				}
 				if(timer.get()>0.5) {
 					RobotMap.inclineMotor.set(0);
+					Robot.intake.setSpeed(0);
 					timer.stop();
 				}
 			break;
@@ -60,15 +73,15 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(0.6);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(0.4);
 				RobotMap.autoState = endTurn;
 			break;
 			}
 			case endTurn:
 			{
 				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
-				if(Math.abs(Robot.gyro.getAngle())>gyroTicksToSwitch) {
+				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startToSwitch;
 				}
@@ -78,15 +91,15 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(-0.4);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
 			case endToSwitch:
 			{
 				System.out.println("Testing end To Switch" + "\t" + Robot.drive.getLeftEncoder() + "\t" + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder()) > 250||Math.abs(Robot.drive.getRightEncoder()) > 250) {
+				if(Math.abs(Robot.drive.getLeftEncoder()) > 500||Math.abs(Robot.drive.getRightEncoder()) > 500) {
 					Robot.drive.setAllSpeed(0);
 					Robot.drive.resetAllEncoder();
 					timer.start();
@@ -97,8 +110,8 @@ public class AutoRoutines {
 			case releaseCube:
 			{
 				System.out.println("Releasing cube");
-				Robot.intake.setSpeedLeft(-1);
-				Robot.intake.setSpeedRight(1);
+				Robot.intake.setSpeedLeft(outTakeSpeed);
+				Robot.intake.setSpeedRight(outTakeSpeed);
 				RobotMap.autoState = stopRelease;
 			break;
 			}
@@ -123,9 +136,10 @@ public class AutoRoutines {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
-				Robot.angleIntake.angleIntake(0.8);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(0.4);
+				Robot.intake.setSpeedLeft(0.5);
+				//Robot.angleIntake.angleIntake(0.8);
 				RobotMap.autoState = endMove;
 			break;
 			}
@@ -146,15 +160,15 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(-0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(-0.4);
+				Robot.drive.setRightSpeed(0.4);
 				RobotMap.autoState = endTurn;
 			break;
 			}
 			case endTurn:
 			{
 				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
-				if(Math.abs(Robot.gyro.getAngle())>38) {
+				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startToSwitch;
 				}
@@ -164,17 +178,16 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(0.4);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
 			case endToSwitch:
 			{
 				System.out.println("Testing end To Switch" + "\t" + Robot.drive.getLeftEncoder() + "\t" + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder()) > 250||Math.abs(Robot.drive.getRightEncoder()) > 250) {
+				if(Math.abs(Robot.drive.getLeftEncoder()) > 500||Math.abs(Robot.drive.getRightEncoder()) > 500) {
 					Robot.drive.setAllSpeed(0);
-					timer.start();
 					RobotMap.autoState = releaseCube;
 				}
 			break;
@@ -182,8 +195,9 @@ public class AutoRoutines {
 			case releaseCube:
 			{
 				System.out.println("Releasing cube");
-				Robot.intake.setSpeedLeft(-1);
-				Robot.intake.setSpeedRight(1);
+				Robot.intake.setSpeedLeft(outTakeSpeed);
+				Robot.intake.setSpeedRight(outTakeSpeed);
+				timer.start();
 				RobotMap.autoState = stopRelease;
 			break;
 			}
@@ -209,9 +223,9 @@ public class AutoRoutines {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
-				Robot.angleIntake.angleIntake(0.8);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
+				//Robot.angleIntake.angleIntake(0.8);
 				if(otherSide) {
 					RobotMap.autoState = stopAtSwitch;
 				}
@@ -236,8 +250,8 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(0.6);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(-motorSpeed);
 				Robot.gyro.reset();
 				RobotMap.autoState = endTurn;
 			break;
@@ -245,12 +259,12 @@ public class AutoRoutines {
 			case endTurn:
 			{
 				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
-				if(Math.abs(Robot.gyro.getAngle())>gyroTicksToSwitch) {
+				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
 					Robot.drive.setAllSpeed(0);
 					if(otherSide) {
 						Robot.drive.resetAllEncoder();
-						Robot.drive.setLeftSpeed(0.5);
-						Robot.drive.setRightSpeed(-0.5);
+						Robot.drive.setLeftSpeed(motorSpeed);
+						Robot.drive.setRightSpeed(-motorSpeed);
 						RobotMap.autoState = stopAtSwitch;
 					}
 					else {
@@ -263,8 +277,8 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(motorSpeed);
+				Robot.drive.setRightSpeed(motorSpeed);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
@@ -291,8 +305,8 @@ public class AutoRoutines {
 			case releaseCube:
 			{
 				System.out.println("Releasing cube");
-				Robot.intake.setSpeedLeft(-1);
-				Robot.intake.setSpeedRight(1);
+				Robot.intake.setSpeedLeft(outTakeSpeed);
+				Robot.intake.setSpeedRight(outTakeSpeed);
 				RobotMap.autoState = stopRelease;
 			break;
 			}
@@ -322,9 +336,10 @@ public class AutoRoutines {
 			{	
 				System.out.println("started move");
 				timer.start();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
-				Robot.angleIntake.angleIntake(0.8);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(0.4);
+				Robot.angleIntake.angleIntake(0.5);
+				Robot.intake.setSpeedLeft(0.5);
 				if(otherSide) {
 					RobotMap.autoState = stopAtSwitch;
 				}
@@ -349,8 +364,8 @@ public class AutoRoutines {
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(-0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(-0.4);
+				Robot.drive.setRightSpeed(0.4);
 				Robot.gyro.reset();
 				RobotMap.autoState = endTurn;
 			break;
@@ -358,12 +373,12 @@ public class AutoRoutines {
 			case endTurn:
 			{
 				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
-				if(Math.abs(Robot.gyro.getAngle())>gyroTicksToSwitch) {
+				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
 					Robot.drive.setAllSpeed(0);
 					if(otherSide) {
 						Robot.drive.resetAllEncoder();
 						Robot.drive.setLeftSpeed(0.5);
-						Robot.drive.setRightSpeed(-0.5);
+						Robot.drive.setRightSpeed(0.5);
 						RobotMap.autoState = stopAtSwitch;
 					}
 					else {
@@ -376,8 +391,8 @@ public class AutoRoutines {
 			{
 				System.out.println("Started to switch");
 				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(0.6);
-				Robot.drive.setRightSpeed(-0.6);
+				Robot.drive.setLeftSpeed(0.4);
+				Robot.drive.setRightSpeed(0.4);
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
@@ -404,8 +419,8 @@ public class AutoRoutines {
 			case releaseCube:
 			{
 				System.out.println("Releasing cube");
-				Robot.intake.setSpeedLeft(-1);
-				Robot.intake.setSpeedRight(1);
+				Robot.intake.setSpeedLeft(outTakeSpeed);
+				Robot.intake.setSpeedRight(outTakeSpeed);
 				RobotMap.autoState = stopRelease;
 			break;
 			}

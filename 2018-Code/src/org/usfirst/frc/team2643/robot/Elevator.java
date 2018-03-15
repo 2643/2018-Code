@@ -35,7 +35,14 @@ public class Elevator
 		defaultPIDLSMotor();
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
-
+	
+	public void currentLimit() {
+		elevator.configContinuousCurrentLimit(40, 0);
+		elevator.configPeakCurrentLimit(45, 0);
+		elevator.configPeakCurrentDuration(250, 0);
+		elevator.enableCurrentLimit(true);
+	}
+	
 	/**
 	 * Drop elevator before the start of teleop?
 	 */
@@ -43,7 +50,7 @@ public class Elevator
 	{
 		while (RobotMap.elevatorLimitSwitch.get())
 		{
-			elevator.set(-0.65);
+			elevator.set(-0.3);
 		}
 		resetEncoder();
 	}
