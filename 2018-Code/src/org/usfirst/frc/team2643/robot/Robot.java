@@ -216,15 +216,15 @@ public class Robot extends IterativeRobot
 			driveState = 1;
 		}
 		
-		/*if(RobotMap.opBoard.getRawButton(9)) {
+		if(RobotMap.opBoard.getRawButton(9)) {
 			angleIntake.angleIntake(-0.5);
 		}
-		else if(RobotMap.opBoard.getRawButton(11)) {
+		else if(RobotMap.opBoard.getRawButton(10)) {
 			angleIntake.angleIntake(0.5);
 		}
 		else {
 			angleIntake.angleIntake(0);
-		}*/
+		}
 		
 		if(RobotMap.opBoard.getRawButton(11)) {
 			if(elevatorStat == true) {
