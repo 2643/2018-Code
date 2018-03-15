@@ -2,7 +2,7 @@ package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutoRoutines {
+public class AutoRoutines extends Robot {
 	private final int //Drive States
 			startMove = 0,
 			endMove = 1,
@@ -15,12 +15,12 @@ public class AutoRoutines {
 			stopAtSwitch = 8,
 			finishedAuto = 9;
 			
-	private final int //Auto Constants under some fucking shit (457)
-			encoderTicksToSwitch = 1000, //168 Inches (4073)
+	private final int //Auto Constants under some random encoder ticks (457)
+			encoderTicksToSwitch = 3900, //168 Inches (4073)
 			ninetyDegreeTurn = 38, 
-			encoderTicksToMidField = 1000, //5400
-			encoderTicksFromSideToSide = 1000, //211 inches (5115)
-			encoderTicksFromMidFieldToSwitch = 500; //32 inches (775)
+			encoderTicksToMidField = 5200, //5400
+			encoderTicksFromSideToSide = 4850, //211 inches (5115)
+			encoderTicksFromMidFieldToSwitch = 765; //32 inches (775)
 
 	/*private final int //Auto Constants Under 360 conditions
 			encoderTicksToSwitch = 3208,
@@ -30,8 +30,8 @@ public class AutoRoutines {
 			encoderTicksFromMidFieldToSwitch = 401;
 			*/
 	private double
-			outTakeSpeed = -0.5,
-			motorSpeed = 0.3;
+			outTakeSpeed = -1,
+			motorSpeed = 0.5;
 	
 	private boolean otherSide = false;
 	
@@ -42,6 +42,28 @@ public class AutoRoutines {
 	
 	
 	private Timer timer = new Timer();
+	
+	public void crossAutoLine() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			timer.start();
+			drive.setLeftSpeed(0.7);
+			drive.setRightSpeed(0.5);
+			System.out.println("Finished Start");
+			RobotMap.autoState = endMove;
+		break;
+		}
+		case endMove:
+		{
+			if(timer.get()>2.5) {
+				drive.setAllSpeed(0);
+				System.out.println("Finished Cross Auto Line");
+			}
+			break;
+		}
+		}
+	}
 
 	public void botLeftSwitchLeft() {
 		switch(RobotMap.autoState) {

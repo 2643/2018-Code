@@ -108,10 +108,13 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousPeriodic()
 	{
+		
+		System.out.println(RobotMap.rightDrive1.getSensorCollection().getQuadraturePosition());
 		switch (autoSelected)
 		{
 		case "CrossAutoLineOnly":
-			CrossAutoLineOnly.runPeriodic();
+			//CrossAutoLineOnly.runPeriodic();
+			autoRoutines.crossAutoLine();
 			System.out.println("Cross AutoLine");
 			break;
 		case "SwitchLeftAndPositionLeft":
@@ -213,7 +216,7 @@ public class Robot extends IterativeRobot
 			driveState = 1;
 		}
 		
-		if(RobotMap.opBoard.getRawButton(9)) {
+		/*if(RobotMap.opBoard.getRawButton(9)) {
 			angleIntake.angleIntake(-0.5);
 		}
 		else if(RobotMap.opBoard.getRawButton(11)) {
@@ -221,23 +224,25 @@ public class Robot extends IterativeRobot
 		}
 		else {
 			angleIntake.angleIntake(0);
-		}
+		}*/
 		
-		if(RobotMap.opBoard.getRawButton(8)) {
+		if(RobotMap.opBoard.getRawButton(11)) {
 			if(elevatorStat == true) {
 				elevatorStat = false;
+				System.out.println("false");
 			}
 			else {
 				elevatorStat = true;
+				System.out.println("true");
 			}
 		}
 		
 		if(elevatorStat) {
-			if(RobotMap.driveStick.getRawAxis(2)>0.03) {
-				RobotMap.elevator1.set(RobotMap.driveStick.getRawAxis(2));
+			if(RobotMap.opBoard.getRawButton(2)) {
+				RobotMap.elevator1.set(1);
 			}
-			else if(RobotMap.driveStick.getRawAxis(3) > 0.03) {
-				RobotMap.elevator1.set(RobotMap.driveStick.getRawAxis(3));
+			else if(RobotMap.opBoard.getRawButton(3)) {
+				RobotMap.elevator1.set(-1);
 			}
 			else {
 				RobotMap.elevator1.set(0);
