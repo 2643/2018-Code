@@ -56,6 +56,16 @@ public class Elevator
 		resetEncoder();
 	}
 
+	public void dropElevator(double speed)
+	{
+		while (RobotMap.elevatorLimitSwitch.get())
+		{
+			elevator.set(-speed);
+			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
+		}
+		resetEncoder();
+	}
+	
 	/**
 	 * Default PID profile (0)
 	 */
@@ -136,6 +146,11 @@ public class Elevator
 		{
 			elevator.set(ControlMode.Position, tick);
 		}
+		
+		if(tick == 0 && getEncoder() >= 0)
+		{
+			dropElevator();
+		}
 	}
 
 	/**
@@ -208,11 +223,6 @@ public class Elevator
 
 		
 		setPosition(value);
-		
-		/*if(RobotMap.elevatorLimitSwitch.get())
-		{
-			resetEncoder();
-		}*/
 	}
 
 	public String getElevatorCurrent()
