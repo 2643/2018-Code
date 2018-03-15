@@ -10,9 +10,9 @@ public class AutoDrive extends Drive
 	private int rightEncoderGoal;
 	
 	
-	public AutoDrive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2, GyroScope gyroscope)
+	public AutoDrive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX l3, WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3, GyroScope gyroscope)
 	{
-		super(l1, l2, r1, r2);
+		super(l1, l2, l3, r1, r2, r3);
 		gyro = gyroscope;
 	}
 	
