@@ -22,7 +22,9 @@ public class RobotMap
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // Back left
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1); // Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16); // Right Back
-
+	public static final WPI_TalonSRX leftDrive3 = new WPI_TalonSRX(40); //Middle Left
+	public static final WPI_TalonSRX rightDrive3 = new WPI_TalonSRX(38); //Middle Left
+	
 	// Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
 	public static final DigitalInput elevatorLimitSwitch = new DigitalInput(9);

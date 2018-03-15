@@ -51,7 +51,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto choices", chooser);
 
 		gyro = new GyroScope();
-		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.rightDrive1, RobotMap.rightDrive2, gyro);
+		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
 		elevator = new AutoElevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
