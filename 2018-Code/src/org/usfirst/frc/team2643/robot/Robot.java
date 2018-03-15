@@ -119,7 +119,7 @@ public class Robot extends IterativeRobot
 			break;
 		case "SwitchLeftAndPositionLeft":
 			//SwitchLeftAndPositionLeft.runPeriodic();
-			//autoRoutines.testCrossAuto();
+			autoRoutines.testCrossAuto();
 			
 			System.out.println("SLPL");
 			break;

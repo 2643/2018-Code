@@ -520,6 +520,7 @@ public class AutoRoutines extends Robot {
 			timer.start();
 			drive.setLeftSpeed(0.56);
 			drive.setRightSpeed(0.5);
+			RobotMap.elevator1.set(0.15);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
 		break;
@@ -531,10 +532,27 @@ public class AutoRoutines extends Robot {
 			}
 			if(timer.get()>1.7) {
 				drive.setAllSpeed(0);
+				RobotMap.elevator1.set(0);
+				intake.setSpeedLeft(0.3);
+				failTimer.start();
 				System.out.println("Finished Cross Auto Line");
-				
+				RobotMap.autoState = releaseCube;
 				break;
 			}
+			break;
+		}
+		case releaseCube:
+		{
+			if(failTimer.get()>1) {
+				intake.setSpeed(0.6);
+				RobotMap.autoState = stopRelease;
+				break;
+			}
+			break;
+		}
+		case stopRelease:
+		{
+			intake.setSpeed(0);
 			break;
 		}
 		}
