@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Elevator
 {
 	private WPI_TalonSRX elevator;
-
+	private boolean atBot = false;
 	/**
 	 * Initialize Elevator
 	 * 
@@ -53,6 +53,7 @@ public class Elevator
 			elevator.set(-0.3);
 			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
 		}
+		atBot = true;
 		resetEncoder();
 	}
 
@@ -63,6 +64,7 @@ public class Elevator
 			elevator.set(-speed);
 			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
 		}
+		atBot = true;
 		resetEncoder();
 	}
 	
@@ -142,14 +144,26 @@ public class Elevator
 		if (tick > EnvironmentVariables.maxEncoderValue)
 		{
 			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
-		} else
+		}
+		else if(!atBot && RobotMap.elevatorLimitSwitch.get())
+		{
+			elevator.set(0);
+			atBot = true;
+			resetEncoder();
+		}
+		else
 		{
 			elevator.set(ControlMode.Position, tick);
 		}
 		
-		if(tick == 0 && getEncoder() >= 0)
+		if(!RobotMap.elevatorLimitSwitch.get())
 		{
-			dropElevator();
+			atBot = false;
+		}
+		
+		if(tick == 0 && getEncoder() <= -40)
+		{
+			dropElevator(0.15);
 		}
 	}
 

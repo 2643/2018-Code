@@ -108,7 +108,10 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousPeriodic()
 	{
-		
+		//System.out.println(autoRoutines.timer.get());
+		//autoRoutines.botRightScaleRight();
+		//System.out.println(gyro.getAngle());
+		/*
 		System.out.println(RobotMap.rightDrive1.getSensorCollection().getQuadraturePosition());
 		switch (autoSelected)
 		{
@@ -146,7 +149,7 @@ public class Robot extends IterativeRobot
 			autoRoutines.botRightSwitchRight();
 			System.out.println("SRPR");
 			break;
-		}
+		}*/
 //		switch (autoSelected)
 //		{
 //		case "CrossAutoLineOnly":
