@@ -17,7 +17,8 @@ public class Robot extends IterativeRobot
 	// The V is to prevent it from conflicting with a class name
 	final String crossAutoLineOnlyOption = "CrossAutoLineOnly";
 	final String positionLeftOption = "PositionLeft";
-	final String positionMiddleOption = "PositionMiddle";
+	final String positionMiddleLeftOption = "PositionMiddleLeft";
+	final String positionMiddleRightOption = "PositionMiddleRight";
 	final String positionRightOption = "PositionRight";
 
 	String autoSelected;
@@ -35,7 +36,17 @@ public class Robot extends IterativeRobot
 	public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
 	
-	public static boolean elevatorStat = false;
+	//public static boolean elevatorStat = false;
+	
+	final int doLeftScale = 0,
+			doRightScale = 1,
+			doLeftSwitch = 2,
+			doRightSwitch = 3,
+			doMiddleSwitch = 4,
+			crossAuto = 5;
+	
+	int autoSelection;
+	
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -45,7 +56,8 @@ public class Robot extends IterativeRobot
 	{
 		chooser.addDefault(crossAutoLineOnlyOption, crossAutoLineOnlyOption);
 		chooser.addObject(positionLeftOption, positionLeftOption);
-		chooser.addObject(positionMiddleOption, positionMiddleOption);
+		chooser.addObject(positionMiddleLeftOption, positionMiddleLeftOption);
+		chooser.addObject(positionMiddleRightOption, positionMiddleRightOption);
 		chooser.addObject(positionRightOption, positionRightOption);
 
 		SmartDashboard.putData("Auto choices", chooser);
@@ -58,9 +70,6 @@ public class Robot extends IterativeRobot
 		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
 
-		System.out.println("ElevatorEncoder, LeftDriveVoltage, LeftDriveCurrent, RightDriveVoltage, RightDriveCurrent");
-		
-		ramp.keepRampUp();
 	}
 
 	/**
@@ -90,7 +99,7 @@ public class Robot extends IterativeRobot
 		{
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 		}
-
+		/*
 		if (gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
 		{
 			autoSelected = "SwitchLeftAnd" + autoSelected;
@@ -99,7 +108,38 @@ public class Robot extends IterativeRobot
 			autoSelected = "SwitchRightAnd" + autoSelected;
 		}
 		System.out.println("Auto selected: " + autoSelected);
-		AutoState.state = 0;
+		AutoState.state = 0;*/
+		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doLeftScale;
+		}
+		else if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doLeftSwitch;
+		}
+		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doRightScale;
+		}
+		else if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doRightSwitch;
+		}
+		else if(autoSelected.equals(positionMiddleLeftOption)) {
+			if(gameData.charAt(0) == 'L') {
+				autoSelection = doMiddleSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
+		}
+		else if(autoSelected.equals(positionMiddleRightOption)) {
+			if(gameData.charAt(0) == 'R') {
+				autoSelection = doMiddleSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
+		}
+		else {
+			autoSelection = crossAuto;
+		}
 	}
 
 	/**
@@ -107,7 +147,44 @@ public class Robot extends IterativeRobot
 	 */
 	@Override
 	public void autonomousPeriodic()
-	{
+	{	
+		switch(autoSelection) {
+		case doLeftScale:
+			{
+				autoRoutines.botLeftScaleLeft();
+				System.out.println("BotLeftScaleLeft");
+			break;
+			}
+		case doRightScale:
+			{
+				autoRoutines.botRightScaleRight();
+				System.out.println("BotRightScaleRight");
+			break;
+			}
+		case doLeftSwitch:
+			{
+				autoRoutines.botLeftSwitchLeft();
+				System.out.println("BotLeftSwitchLeft");
+			break;
+			}
+		case doRightSwitch:
+			{
+				autoRoutines.botRightSwitchRight();
+				System.out.println("BotRightSwitchRight");
+			break;
+			}
+		case doMiddleSwitch:
+			{
+				autoRoutines.correctCubeSwitch();
+				System.out.println("Middle Do Switch");
+			}
+		case crossAuto:
+			{
+				autoRoutines.crossAutoLine();
+				System.out.println("CrossAuto");
+			break;
+			}
+		}
 		//System.out.println(autoRoutines.timer.get());
 		//autoRoutines.botRightScaleRight();
 		//System.out.println(gyro.getAngle());
