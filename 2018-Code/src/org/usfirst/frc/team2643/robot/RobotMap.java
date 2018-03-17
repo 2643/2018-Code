@@ -34,7 +34,7 @@ public class RobotMap
 	public static final WPI_TalonSRX rightIntake = new WPI_TalonSRX(6);
 	
 	//Intake Bag/Angle Motor
-	public static final WPI_TalonSRX inclineMotor = new WPI_TalonSRX(4);
+	//public static final WPI_TalonSRX inclineMotor = new WPI_TalonSRX(4);
 
 	// Acceptable encoder error
 	public static final int ACCEPTABLE_ENCODER_ERROR = 100;
@@ -83,7 +83,7 @@ public class RobotMap
 	public static final double reducedSpeed = 0.3;
 
 	// makes it so that it only prints statements when debug is true
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	// speed for lowering the slide
 	public static final double slideLoweringSpeed = -0.3; // TODO get speed
