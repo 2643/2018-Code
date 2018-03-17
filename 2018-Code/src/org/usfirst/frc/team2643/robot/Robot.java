@@ -2,6 +2,7 @@ package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,7 +34,7 @@ public class Robot extends IterativeRobot
 	public static GyroScope gyro;
 	public static Intake intake;
 	public static Ramp ramp;
-	public static IntakeAngle angleIntake;
+	//public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
 	
 	//public static boolean elevatorStat = false;
@@ -67,7 +68,7 @@ public class Robot extends IterativeRobot
 		elevator = new AutoElevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
-		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
+		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
 
 	}
@@ -109,34 +110,34 @@ public class Robot extends IterativeRobot
 		}
 		System.out.println("Auto selected: " + autoSelected);
 		AutoState.state = 0;*/
-		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-			autoSelection = doLeftScale;
-		}
-		else if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-			autoSelection = doLeftSwitch;
-		}
-		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-			autoSelection = doRightScale;
-		}
-		else if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+//		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+//			autoSelection = doLeftScale;
+//		}
+//		if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+//			autoSelection = doLeftSwitch;
+//		}
+//		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+//			autoSelection = doRightScale;
+//		}
+		if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doRightSwitch;
 		}
-		else if(autoSelected.equals(positionMiddleLeftOption)) {
-			if(gameData.charAt(0) == 'L') {
-				autoSelection = doMiddleSwitch;
-			}
-			else {
-				autoSelection = crossAuto;
-			}
-		}
-		else if(autoSelected.equals(positionMiddleRightOption)) {
-			if(gameData.charAt(0) == 'R') {
-				autoSelection = doMiddleSwitch;
-			}
-			else {
-				autoSelection = crossAuto;
-			}
-		}
+//		else if(autoSelected.equals(positionMiddleLeftOption)) {
+//			if(gameData.charAt(0) == 'L') {
+//				autoSelection = doMiddleSwitch;
+//			}
+//			else {
+//				autoSelection = crossAuto;
+//			}
+//		}
+//		else if(autoSelected.equals(positionMiddleRightOption)) {
+//			if(gameData.charAt(0) == 'R') {
+//				autoSelection = doMiddleSwitch;
+//			}
+//			else {
+//				autoSelection = crossAuto;
+//			}
+//		}
 		else {
 			autoSelection = crossAuto;
 		}
@@ -148,36 +149,39 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousPeriodic()
 	{	
+		if(!isOperatorControl()) {
+			System.out.println(autoRoutines.timer.get());
 		switch(autoSelection) {
-		case doLeftScale:
+		/*case doLeftScale:
 			{
-				autoRoutines.botLeftScaleLeft();
-				System.out.println("BotLeftScaleLeft");
+				//autoRoutines.botLeftScaleLeft();
+				//System.out.println("BotLeftScaleLeft");
 			break;
 			}
 		case doRightScale:
 			{
-				autoRoutines.botRightScaleRight();
-				System.out.println("BotRightScaleRight");
+				//autoRoutines.botRightScaleRight();
+				//System.out.println("BotRightScaleRight");
 			break;
 			}
 		case doLeftSwitch:
 			{
 				autoRoutines.botLeftSwitchLeft();
-				System.out.println("BotLeftSwitchLeft");
+				//System.out.println("BotLeftSwitchLeft");
 			break;
-			}
+			}*/
 		case doRightSwitch:
 			{
 				autoRoutines.botRightSwitchRight();
 				System.out.println("BotRightSwitchRight");
 			break;
 			}
-		case doMiddleSwitch:
-			{
-				autoRoutines.correctCubeSwitch();
-				System.out.println("Middle Do Switch");
-			}
+//		case doMiddleSwitch:
+//			{
+//				autoRoutines.correctCubeSwitch();
+//				System.out.println("Middle Do Switch");
+//			break;
+//			}
 		case crossAuto:
 			{
 				autoRoutines.crossAutoLine();
@@ -185,6 +189,7 @@ public class Robot extends IterativeRobot
 			break;
 			}
 		}
+	}
 		//System.out.println(autoRoutines.timer.get());
 		//autoRoutines.botRightScaleRight();
 		//System.out.println(gyro.getAngle());
@@ -263,8 +268,8 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
-		elevator.dropElevator();
-		drive.resetAllEncoder();
+		//elevator.dropElevator();
+		//drive.resetAllEncoder();
 		//elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 		gyro.reset();
@@ -297,15 +302,15 @@ public class Robot extends IterativeRobot
 			driveState = 1;
 		}
 		
-		if(RobotMap.opBoard.getRawButton(9)) {
-			angleIntake.angleIntake(-0.5);
-		}
-		else if(RobotMap.opBoard.getRawButton(10)) {
-			angleIntake.angleIntake(0.5);
-		}
-		else {
-			angleIntake.angleIntake(0);
-		}
+//		if(RobotMap.opBoard.getRawButton(9)) {
+//			angleIntake.angleIntake(-0.5);
+//		}
+//		else if(RobotMap.opBoard.getRawButton(10)) {
+//			angleIntake.angleIntake(0.5);
+//		}
+//		else {
+//			angleIntake.angleIntake(0);
+//		}
 		
 //		if(RobotMap.opBoard.getRawButton(11)) {
 //			if(elevatorStat == true) {
@@ -333,7 +338,7 @@ public class Robot extends IterativeRobot
 		}*/
 		
 		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-		System.out.println(elevator.getEncoder());
+		//System.out.println(elevator.getEncoder());
 			
 //		if(RobotMap.driveStick.getRawButton(1)) {
 //			drive.resetAllEncoder();

@@ -49,9 +49,9 @@ public class Drive
 
 	public void currentLimit(WPI_TalonSRX motor)
 	{
-		motor.configContinuousCurrentLimit(40, 0);
-		motor.configPeakCurrentLimit(45, 0);
-		motor.configPeakCurrentDuration(250, 0);
+		motor.configContinuousCurrentLimit(36, 0);
+		motor.configPeakCurrentLimit(40, 0);
+		motor.configPeakCurrentDuration(150, 0);
 		motor.enableCurrentLimit(true);
 	}
 	 

@@ -37,9 +37,9 @@ public class Elevator
 	}
 	
 	public void currentLimit() {
-		elevator.configContinuousCurrentLimit(40, 0);
-		elevator.configPeakCurrentLimit(45, 0);
-		elevator.configPeakCurrentDuration(250, 0);
+		elevator.configContinuousCurrentLimit(35, 0);
+		elevator.configPeakCurrentLimit(39, 0);
+		elevator.configPeakCurrentDuration(150, 0);
 		elevator.enableCurrentLimit(true);
 	}
 	
@@ -51,7 +51,7 @@ public class Elevator
 		while (RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(-0.3);
-			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
+			//System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
 		}
 		atBot = true;
 		resetEncoder();
@@ -62,7 +62,7 @@ public class Elevator
 		while (RobotMap.elevatorLimitSwitch.get())
 		{
 			elevator.set(-speed);
-			System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
+			//System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
 		}
 		atBot = true;
 		resetEncoder();
@@ -145,26 +145,26 @@ public class Elevator
 		{
 			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
 		}
-		else if(!atBot && RobotMap.elevatorLimitSwitch.get())
-		{
-			elevator.set(0);
-			atBot = true;
-			resetEncoder();
-		}
+//		else if(!atBot && RobotMap.elevatorLimitSwitch.get())
+//		{
+//			elevator.set(0);
+//			atBot = true;
+//			resetEncoder();
+//		}
 		else
 		{
 			elevator.set(ControlMode.Position, tick);
 		}
 		
-		if(!RobotMap.elevatorLimitSwitch.get())
+		/*if(!RobotMap.elevatorLimitSwitch.get())
 		{
 			atBot = false;
 		}
 		
-		if(tick == 0 && getEncoder() <= -40)
+		if(tick == 0 && getEncoder() <= -50)
 		{
 			dropElevator(0.15);
-		}
+		}*/
 	}
 
 	/**

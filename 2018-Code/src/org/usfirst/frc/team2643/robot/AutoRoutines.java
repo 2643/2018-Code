@@ -18,11 +18,13 @@ public class AutoRoutines extends Robot {
 			stopDrop = 14,
 			raiseElevator = 11,
 			stopElevator = 12,
-			endCase = 13;
+			endCase = 13,
+			moveBack = 15,
+			stopBack = 16;
 			
 	private final int //Auto Constants under some random encoder ticks (457)
 			encoderTicksToSwitch = 3208, //168 Inches (4073)
-			ninetyDegreeTurn = 200, 
+			ninetyDegreeTurn = 185, 
 			encoderTicksToMidField = 4358, //5400
 			encoderTicksFromSideToSide = 3915, //211 inches (5115)
 			encoderTicksFromMidFieldToSwitch = 401; //32 inches (775)
@@ -65,7 +67,7 @@ public class AutoRoutines extends Robot {
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
-			if(timer.get()>1.7) {
+			if(timer.get()>1.23) {
 				drive.setAllSpeed(0);
 				System.out.println("Finished Cross Auto Line");
 				break;
@@ -76,7 +78,7 @@ public class AutoRoutines extends Robot {
 	}
 	
 	
-	public void testCrossAuto() {
+	/*public void testCrossAuto() {
 		switch(RobotMap.autoState) {
 		case startMove:
 		{
@@ -105,17 +107,17 @@ public class AutoRoutines extends Robot {
 			break;
 		}
 		}
-	}
+	}*/
 
-	public void botLeftSwitchLeft() {
+	/*public void botLeftSwitchLeft() {
 		switch(RobotMap.autoState) {
 			case startMove:
 			{	
 				System.out.println("started move");
 				timer.start();
 				failTimer.start();
-				Robot.drive.setLeftSpeed(motorSpeed+0.1);
-				Robot.drive.setRightSpeed(motorSpeed);
+				drive.setLeftSpeed(0.68);
+				drive.setRightSpeed(0.5);
 				//Robot.angleIntake.angleIntake(motorSpeed);
 				Robot.intake.setSpeedLeft(motorSpeed);
 				RobotMap.autoState = endMove;
@@ -124,25 +126,18 @@ public class AutoRoutines extends Robot {
 			case endMove:
 			{
 				System.out.println("Testing End move" + "\t" + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder())>encoderTicksToSwitch||Math.abs(Robot.drive.getRightEncoder())>encoderTicksToSwitch) {
+				if(timer.get()>1.6) {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startTurn;
-				}
-				if(timer.get()>0.5) {
-					RobotMap.inclineMotor.set(0);
-					Robot.intake.setSpeed(0);
-					timer.stop();
-				}
-				if(failTimer.get()>5) {
-					RobotMap.autoState = releaseCube;
+				break;
 				}
 			break;
 			}
 			case startTurn:
 			{
 				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(motorSpeed+0.1);
-				Robot.drive.setRightSpeed(-motorSpeed);
+				Robot.drive.setLeftSpeed(0.45);
+				Robot.drive.setRightSpeed(-0.45);
 				failTimer.start();
 				RobotMap.autoState = endTurn;
 			break;
@@ -152,32 +147,47 @@ public class AutoRoutines extends Robot {
 				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
 				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
 					Robot.drive.setAllSpeed(0);
-					RobotMap.autoState = startToSwitch;
+					RobotMap.autoState = raiseElevator;
+				break;
 				}
-				if(failTimer.get()>5) {
-					RobotMap.autoState = releaseCube;
+//				if(failTimer.get()>5) {
+//					failTimer.reset();
+//					RobotMap.autoState = releaseCube;
+//				break;
+//				}
+			break;
+			}
+			case raiseElevator:
+			{
+				RobotMap.elevator1.set(0.5);
+				timer.start();
+				RobotMap.autoState = stopElevator;
+			break;
+			}
+			case stopElevator:
+			{
+				if(timer.get()>3 || elevator.getEncoder() > 5000) {
+					RobotMap.elevator1.set(0.15);
+					RobotMap.autoState = startToSwitch;
+				break;
 				}
 			break;
 			}
 			case startToSwitch:
 			{
 				System.out.println("Started to switch");
-				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(motorSpeed+0.1);
-				Robot.drive.setRightSpeed(motorSpeed);
+				Robot.drive.setLeftSpeed(0.38);
+				Robot.drive.setRightSpeed(0.33);
+				timer.start();
 				RobotMap.autoState = endToSwitch;
 			break;
 			}
 			case endToSwitch:
 			{
-				System.out.println("Testing end To Switch" + "\t"  + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder()) > 500||Math.abs(Robot.drive.getRightEncoder()) > 500) {
+				System.out.println("Testing end To Switch");
+				if(timer.get() > 0.8) {
 					Robot.drive.setAllSpeed(0);
-					Robot.drive.resetAllEncoder();
 					timer.start();
-					RobotMap.autoState = releaseCube;
-				}
-				if(failTimer.get()>5) {
 					RobotMap.autoState = releaseCube;
 				}
 			break;
@@ -193,97 +203,133 @@ public class AutoRoutines extends Robot {
 			case stopRelease:
 			{
 				System.out.println("Testing stopRelease");
-				if(timer.get()>0.3) {
+				if(timer.get()>1) {
 					Robot.intake.setSpeed(0);
 				}
 			break;
 			}
 		}
 	}
-	
+	*/
 	//----------------------------------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------------------------------
 	
 	public void botRightSwitchRight() {
 		switch(RobotMap.autoState) {
-			case startMove:
-			{	
-				System.out.println("started move");
-				timer.start();
-				Robot.drive.setLeftSpeed(motorSpeed);
-				Robot.drive.setRightSpeed(motorSpeed);
-				Robot.intake.setSpeedLeft(0.5);
-				RobotMap.autoState = endMove;
-			break;
-			}
-			case endMove:
-			{
-				System.out.println("Testing End move" + "\t" + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder())>encoderTicksToSwitch||Math.abs(Robot.drive.getRightEncoder())>encoderTicksToSwitch) {
-					Robot.drive.setAllSpeed(0);
-					RobotMap.autoState = startTurn;
-				}
-				if(timer.get()>0.5) {
-					RobotMap.inclineMotor.set(0);
-					timer.stop();
-					timer.reset();
-				}
-			break;
-			}
-			case startTurn:
-			{
-				System.out.println("Started Turn");
-				Robot.drive.setLeftSpeed(-motorSpeed);
-				Robot.drive.setRightSpeed(motorSpeed);
-				RobotMap.autoState = endTurn;
-			break;
-			}
-			case endTurn:
-			{
-				System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
-				if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
-					Robot.drive.setAllSpeed(0);
-					RobotMap.autoState = startToSwitch;
-				}
-			break;
-			}
-			case startToSwitch:
-			{
-				System.out.println("Started to switch");
-				Robot.drive.resetAllEncoder();
-				Robot.drive.setLeftSpeed(motorSpeed);
-				Robot.drive.setRightSpeed(motorSpeed);
-				RobotMap.autoState = endToSwitch;
-			break;
-			}
-			case endToSwitch:
-			{
-				System.out.println("Testing end To Switch" + "\t" + Robot.drive.getLeftEncoder() + "\t" + Robot.drive.getRightEncoder());
-				if(Math.abs(Robot.drive.getLeftEncoder()) > 500||Math.abs(Robot.drive.getRightEncoder()) > 500) {
-					Robot.drive.setAllSpeed(0);
-					RobotMap.autoState = releaseCube;
-				}
-			break;
-			}
-			case releaseCube:
-			{
-				System.out.println("Releasing cube");
-				Robot.intake.setSpeedLeft(outTakeSpeed);
-				Robot.intake.setSpeedRight(outTakeSpeed);
-				timer.start();
-				RobotMap.autoState = stopRelease;
-			break;
-			}
-			case stopRelease:
-			{
-				System.out.println("Testing stopRelease");
-				if(timer.get()>0.3) {
-					Robot.intake.setSpeed(0);
-				}
-			break;
-			}
+		case startMove:
+		{
+			System.out.println("startedMove");
+			timer.start();
+			drive.setLeftSpeed(0.552);
+			drive.setRightSpeed(0.515);
+			intake.setSpeedLeft(0.25);
+			System.out.println("Finished Start");
+			RobotMap.autoState = endMove;
+		break;
 		}
+		case endMove:
+		{
+			System.out.println("Testing End move");
+			if(timer.get()>1.5) {
+				Robot.drive.setAllSpeed(0);
+				RobotMap.autoState = startTurn;
+			break;
+			}
+		break;
+		}
+		case startTurn:
+		{
+			System.out.println("Started Turn");
+			Robot.drive.setLeftSpeed(-0.45);
+			Robot.drive.setRightSpeed(0.45);
+			RobotMap.autoState = endTurn;
+		break;
+		}
+		case endTurn:
+		{
+			System.out.println("Testing End Turn" + "\t" + Math.abs(Robot.gyro.getAngle()));
+			if(Math.abs(Robot.gyro.getAngle())>ninetyDegreeTurn) {
+				Robot.drive.setAllSpeed(0);
+				RobotMap.autoState = raiseElevator;
+			break;
+			}
+		break;
+		}
+		case raiseElevator:
+		{
+			RobotMap.elevator1.set(0.5);
+			timer.start();
+			RobotMap.autoState = stopElevator;
+		break;
+		}
+		case stopElevator:
+		{
+			if(timer.get() > 3 || elevator.getEncoder() > 5000) {
+				RobotMap.elevator1.set(0.15);
+				RobotMap.autoState = startToSwitch;
+			break;
+			}
+		break;
+		}
+		case startToSwitch:
+		{
+			System.out.println("Started to switch");
+			Robot.drive.setLeftSpeed(0.28);
+			Robot.drive.setRightSpeed(0.23);
+			timer.start();
+			RobotMap.autoState = endToSwitch;
+		break;
+		}
+		case endToSwitch:
+		{
+			System.out.println("Testing end To Switch");
+			if(timer.get() > 0.8) {
+				Robot.drive.setAllSpeed(0);
+				timer.reset();
+				RobotMap.autoState = releaseCube;
+			break;
+			}
+		break;
+		}
+		case releaseCube:
+		{
+			System.out.println("Releasing cube");
+			Robot.intake.setSpeedLeft(-0.6);
+			Robot.intake.setSpeedRight(-0.6);
+			RobotMap.autoState = stopRelease;
+		break;
+		}
+		case stopRelease:
+		{
+			System.out.println("Testing stopRelease");
+			if(timer.get()>1) {
+				Robot.intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				//RobotMap.autoState = moveBack;
+			break;
+			}
+		break;
+		}
+		case moveBack:
+		{
+			drive.setLeftSpeed(-0.35);
+			drive.setRightSpeed(-0.35);
+			timer.start();
+			RobotMap.autoState = stopBack;
+		break;
+		}
+		case stopBack:
+		{
+			if(timer.get()>1.5) {
+				drive.setAllSpeed(0);
+				timer.stop();
+				System.out.println("finished auto!!");
+			break;
+			}
+		break;
+		}
+	}
 	}
 	
 	//---------------------------------------------------------------------------------------------------------
@@ -291,7 +337,7 @@ public class AutoRoutines extends Robot {
 	//---------------------------------------------------------------------------------------------------------
 	
 	
-	public void botLeftSwitchRight() {
+/*	public void botLeftSwitchRight() {
 		switch(RobotMap.autoState) {
 			case startMove:
 			{	
@@ -315,10 +361,10 @@ public class AutoRoutines extends Robot {
 					Robot.drive.setAllSpeed(0);
 					RobotMap.autoState = startTurn;
 				}
-				if(timer.get()>0.5) {
-					RobotMap.inclineMotor.set(0);
-					timer.stop();
-				}
+//				if(timer.get()>0.5) {
+//					RobotMap.inclineMotor.set(0);
+//					timer.stop();
+//				}
 			break;
 			}
 			case startTurn:
@@ -399,13 +445,13 @@ public class AutoRoutines extends Robot {
 			}
 			
 		}
-	}
+	}*/
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------------------------------
 	
-	public void botRightSwitchLeft() {
+	/*public void botRightSwitchLeft() {
 		switch(RobotMap.autoState) {
 			case startMove:
 			{	
@@ -583,7 +629,7 @@ public class AutoRoutines extends Robot {
 		case endMove:
 		{
 			System.out.println("In endMove");
-			if(timer.get()>3.2) {
+			if(timer.get()>3.8) {
 				drive.setAllSpeed(0);
 				timer.stop();
 				RobotMap.autoState = startTurn;
@@ -594,8 +640,8 @@ public class AutoRoutines extends Robot {
 		case startTurn:
 		{
 			System.out.println("Starting Turn");
-			drive.setLeftSpeed(-0.35);
-			drive.setRightSpeed(0.3);
+			drive.setLeftSpeed(-0.45);
+			drive.setRightSpeed(0.45);
 			gyro.reset();
 			RobotMap.autoState = endTurn;
 		break;
@@ -603,7 +649,7 @@ public class AutoRoutines extends Robot {
 		case endTurn:
 		{
 			System.out.println("In endTurn");
-			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
+			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn/2.0) {
 				drive.setAllSpeed(0);
 				RobotMap.autoState = raiseElevator;
 			break;
@@ -613,7 +659,7 @@ public class AutoRoutines extends Robot {
 		case raiseElevator:
 		{
 			System.out.println("Started raiseElevator");
-			RobotMap.elevator1.set(0.5);
+			RobotMap.elevator1.set(0.7);
 			timer.start();
 			RobotMap.autoState = stopElevator;
 		break;
@@ -621,115 +667,8 @@ public class AutoRoutines extends Robot {
 		case stopElevator:
 		{
 			System.out.println("In stopElevator");
-			if(timer.get()>2) {
-				RobotMap.elevator1.set(0);
-				RobotMap.autoState = dropIntake;
-			break;
-			}
-		break;
-		}
-		case dropIntake:
-		{
-			System.out.println("Start dropIntake");
-			intake.setSpeedLeft(0.24);
-			timer.start();
-			RobotMap.autoState = stopDrop;
-		break;
-		}
-		case stopDrop:
-		{	
-			System.out.println("In stopDrop");
-			if(timer.get()>0.35) {
-				intake.setSpeedLeft(0);
-				System.out.println("Stopped drop");
-				timer.reset();
-				RobotMap.autoState = releaseCube;
-			break;			
-			}
-		break;
-		}
-		case releaseCube:
-		{
-			intake.setSpeedLeft(-0.4);
-			intake.setSpeedRight(0.4);
-			timer.reset();
-			System.out.println("Starting Release Cube");
-			RobotMap.autoState = stopRelease;
-		break;
-		}
-		case stopRelease:
-		{
-			System.out.println("In stopRelease");
-			if(timer.get()>0.5) {
-				intake.setSpeed(0);
-				RobotMap.autoState = endCase;
-			break;
-			}
-		break;
-		}
-		case endCase:
-		{
-			System.out.println("Finished Auto!!");
-			timer.stop();
-			break;
-		}
-		}
-	}
-	
-	public void botLeftScaleLeft() {
-		switch(RobotMap.autoState) {
-		case startMove:
-		{
-			System.out.println("Starting Move");
-			timer.start();
-			drive.setLeftSpeed(0.51);
-			drive.setRightSpeed(0.46);
-			RobotMap.autoState = endMove;
-		break;
-		}
-		case endMove:
-		{
-			System.out.println("In endMove");
-			if(timer.get()>3.2) {
-				drive.setAllSpeed(0);
-				timer.stop();
-				RobotMap.autoState = startTurn;
-				break;
-			}
-		break;
-		}
-		case startTurn:
-		{
-			System.out.println("Starting Turn");
-			drive.setLeftSpeed(0.3);
-			drive.setRightSpeed(-0.3);
-			gyro.reset();
-			RobotMap.autoState = endTurn;
-		break;
-		}
-		case endTurn:
-		{
-			System.out.println("In endTurn");
-			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
-				drive.setAllSpeed(0);
-				RobotMap.autoState = raiseElevator;
-			break;
-			}
-		break;
-		}
-		case raiseElevator:
-		{
-			System.out.println("Started raiseElevator");
-			RobotMap.elevator1.set(0.6);
-			timer.start();
-			RobotMap.autoState = stopElevator;
-		break;
-		}
-		case stopElevator:
-		{
-			System.out.println("In stopElevator");
-			if(timer.get()>2 || elevator.getEncoder()>10000) {
-				RobotMap.elevator1.set(0);
+			if(timer.get()> 5.2 || elevator.getEncoder()>10000) {
+				RobotMap.elevator1.set(0.1);
 				RobotMap.autoState = dropIntake;
 			break;
 			}
@@ -758,7 +697,7 @@ public class AutoRoutines extends Robot {
 		case releaseCube:
 		{
 			intake.setSpeedLeft(-0.55);
-			intake.setSpeedRight(0.55);
+			intake.setSpeedRight(-0.55);
 			timer.reset();
 			System.out.println("Starting Release Cube");
 			RobotMap.autoState = stopRelease;
@@ -767,8 +706,26 @@ public class AutoRoutines extends Robot {
 		case stopRelease:
 		{
 			System.out.println("In stopRelease");
-			if(timer.get()>0.5) {
+			if(timer.get()>1) {
 				intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				RobotMap.autoState = moveBack;
+			break;
+			}
+		break;
+		}
+		case moveBack:
+		{
+			drive.setLeftSpeed(-0.1);
+			drive.setRightSpeed(-0.1);
+			timer.start();
+			RobotMap.autoState = stopBack;
+		break;
+		}
+		case stopBack:
+		{
+			if(timer.get()>0.3) {
+				drive.setAllSpeed(0);
 				RobotMap.autoState = endCase;
 			break;
 			}
@@ -783,4 +740,129 @@ public class AutoRoutines extends Robot {
 		}
 	}
 	
+	public void botLeftScaleLeft() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			System.out.println("Starting Move");
+			timer.start();
+			drive.setLeftSpeed(0.51);
+			drive.setRightSpeed(0.46);
+			RobotMap.autoState = endMove;
+		break;
+		}
+		case endMove:
+		{
+			System.out.println("In endMove");
+			if(timer.get()>3.8) {
+				drive.setAllSpeed(0);
+				timer.stop();
+				RobotMap.autoState = startTurn;
+				break;
+			}
+		break;
+		}
+		case startTurn:
+		{
+			System.out.println("Starting Turn");
+			drive.setLeftSpeed(-0.45);				//TODO Flip Polarity!!
+			drive.setRightSpeed(0.45);
+			gyro.reset();
+			RobotMap.autoState = endTurn;
+		break;
+		}
+		case endTurn:
+		{
+			System.out.println("In endTurn");
+			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
+				drive.setAllSpeed(0);
+				RobotMap.autoState = raiseElevator;
+			break;
+			}
+		break;
+		}
+		case raiseElevator:
+		{
+			System.out.println("Started raiseElevator");
+			RobotMap.elevator1.set(0.7);
+			timer.start();
+			RobotMap.autoState = stopElevator;
+		break;
+		}
+		case stopElevator:
+		{
+			System.out.println("In stopElevator");
+			if(timer.get()> 5.2 || elevator.getEncoder()>10000) {
+				RobotMap.elevator1.set(0.1);
+				RobotMap.autoState = dropIntake;
+			break;
+			}
+		break;
+		}
+		case dropIntake:
+		{
+			System.out.println("Start dropIntake");
+			intake.setSpeedLeft(-0.24);
+			timer.start();
+			RobotMap.autoState = stopDrop;
+		break;
+		}
+		case stopDrop:
+		{	
+			System.out.println("In stopDrop");
+			if(timer.get()>0.35) {
+				intake.setSpeedLeft(0);
+				System.out.println("Stopped drop");
+				timer.reset();
+				RobotMap.autoState = releaseCube;
+			break;			
+			}
+		break;
+		}
+		case releaseCube:
+		{
+			intake.setSpeedLeft(0.55);
+			intake.setSpeedRight(-0.55);
+			timer.reset();
+			System.out.println("Starting Release Cube");
+			RobotMap.autoState = stopRelease;
+		break;
+		}
+		case stopRelease:
+		{
+			System.out.println("In stopRelease");
+			if(timer.get()>1) {
+				intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				RobotMap.autoState = moveBack;
+			break;
+			}
+		break;
+		}
+		case moveBack:
+		{
+			drive.setLeftSpeed(-0.15);
+			drive.setRightSpeed(-0.15);
+			timer.start();
+			RobotMap.autoState = stopBack;
+		break;
+		}
+		case stopBack:
+		{
+			if(timer.get()>0.3) {
+				drive.setAllSpeed(0);
+				RobotMap.autoState = endCase;
+			break;
+			}
+		break;
+		}
+		case endCase:
+		{
+			System.out.println("Finished Auto!!");
+			timer.stop();
+			break;
+		}
+		}
+	}
+	*/
 }
