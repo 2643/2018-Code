@@ -1,10 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
-import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive
 {

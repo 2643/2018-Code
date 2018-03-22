@@ -2,7 +2,6 @@ package org.usfirst.frc.team2643.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,7 +32,6 @@ public class Robot extends IterativeRobot
 	public static AutoElevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
-	public static Ramp ramp;
 	//public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
 	
@@ -67,7 +65,6 @@ public class Robot extends IterativeRobot
 		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
 		elevator = new AutoElevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
-		ramp = new Ramp(RobotMap.rampRelease, RobotMap.rampWinch);
 		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
 
@@ -88,8 +85,6 @@ public class Robot extends IterativeRobot
 	public void autonomousInit()
 	{
 		autoSelected = chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
 		drive.resetAllEncoder();
@@ -99,17 +94,8 @@ public class Robot extends IterativeRobot
 		while (gameData == null)
 		{
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
-		}
-		/*
-		if (gameData.charAt(0) == 'L' && !autoSelected.equals(crossAutoLineOnlyOption))
-		{
-			autoSelected = "SwitchLeftAnd" + autoSelected;
-		} else if (gameData.charAt(0) == 'R' && !autoSelected.equals(crossAutoLineOnlyOption))
-		{
-			autoSelected = "SwitchRightAnd" + autoSelected;
-		}
-		System.out.println("Auto selected: " + autoSelected);
-		AutoState.state = 0;*/
+		}		
+		
 //		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 //			autoSelection = doLeftScale;
 //		}
@@ -190,91 +176,17 @@ public class Robot extends IterativeRobot
 			}
 		}
 	}
-		//System.out.println(autoRoutines.timer.get());
-		//autoRoutines.botRightScaleRight();
-		//System.out.println(gyro.getAngle());
-		/*
-		System.out.println(RobotMap.rightDrive1.getSensorCollection().getQuadraturePosition());
-		switch (autoSelected)
-		{
-		case "CrossAutoLineOnly":
-			//CrossAutoLineOnly.runPeriodic();
-			autoRoutines.crossAutoLine();
-			System.out.println("Cross AutoLine");
-			break;
-		case "SwitchLeftAndPositionLeft":
-			//SwitchLeftAndPositionLeft.runPeriodic();
-			autoRoutines.testCrossAuto();
-			
-			System.out.println("SLPL");
-			break;
-		case "SwitchLeftAndPositionMiddle":
-			SwitchLeftAndPositionMiddle.runPeriodic();
-			System.out.println("SLPM");
-			break;
-		case "SwitchLeftAndPositionRight":
-			//SwitchLeftAndPositionRight.runPeriodic();
-			System.out.println("SLPR");
-			autoRoutines.botRightSwitchLeft();
-			break;
-		case "SwitchRightAndPositionLeft":
-			//SwitchRightAndPositionLeft.runPeriodic();
-			autoRoutines.botLeftSwitchRight();
-			System.out.println("SRPL");
-			break;
-		case "SwitchRightAndPositionMiddle":
-			SwitchRightAndPositionMiddle.runPeriodic();
-			System.out.println("SRPM");
-			break;
-		case "SwitchRightAndPositionRight":
-			//SwitchRightAndPositionRight.runPeriodic();
-			autoRoutines.botRightSwitchRight();
-			System.out.println("SRPR");
-			break;
-		}*/
-//		switch (autoSelected)
-//		{
-//		case "CrossAutoLineOnly":
-//			System.out.println("Cross");
-//			break;
-//		case "SwitchLeftAndPositionLeft":
-//			//SwitchLeftAndPositionLeft.runPeriodic();
-//			//autoRoutines.botLeftSwitchLeft();
-//			System.out.println("SwitchLeftBotLeft");
-//			break;
-//		case "SwitchLeftAndPositionMiddle":
-//			SwitchLeftAndPositionMiddle.runPeriodic();
-//			break;
-//		case "SwitchLeftAndPositionRight":
-//			//SwitchLeftAndPositionRight.runPeriodic();
-//			//autoRoutines.botRightSwitchLeft();
-//			System.out.println("SwitchLeftBotRight");
-//			break;
-//		case "SwitchRightAndPositionLeft":
-//			//SwitchRightAndPositionLeft.runPeriodic();
-//			//autoRoutines.botLeftSwitchRight();
-//			System.out.println("SwithRightBotLeft");
-//			break;
-//		case "SwitchRightAndPositionMiddle":
-//			//SwitchRightAndPositionMiddle.runPeriodic();
-//			break;
-//		case "SwitchRightAndPositionRight":
-//			//SwitchRightAndPositionRight.runPeriodic();
-//			System.out.println("switchRightBotRight");
-//			break;
-//		}
-	}
+		
+}
 
 	@Override
 	public void teleopInit()
 	{
 		//elevator.dropElevator();
-		//drive.resetAllEncoder();
 		//elevator.resetEncoder();
 		elevator.defaultPIDLSMotor();
 		gyro.reset();
 		elevator.currentLimit();
-		//ramp.keepRampUp();
 	}
 
 	/**
@@ -285,95 +197,18 @@ public class Robot extends IterativeRobot
 	{		
 		/** Drive code */
 
-		
-		if (driveState == 0) // 0 is Tank Drive
-		{ 
-			drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
-		} else if (driveState == 1)
-		{
-			drive.SRXarcadeDrive(RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(1));
-		}
-
-		if (RobotMap.driveStick.getRawButton(7))
-		{
-			driveState = 0;
-		} else if (RobotMap.driveStick.getRawButton(8))
-		{
-			driveState = 1;
-		}
-		
-//		if(RobotMap.opBoard.getRawButton(9)) {
-//			angleIntake.angleIntake(-0.5);
-//		}
-//		else if(RobotMap.opBoard.getRawButton(10)) {
-//			angleIntake.angleIntake(0.5);
-//		}
-//		else {
-//			angleIntake.angleIntake(0);
-//		}
-		
-//		if(RobotMap.opBoard.getRawButton(11)) {
-//			if(elevatorStat == true) {
-//				elevatorStat = false;
-//				System.out.println("false");
-//			}
-//			else {
-//				elevatorStat = true;
-//				System.out.println("true");
-//			}
-//		}
-//		
-		//System.out.println(gyro.getAngle());
-		
-		/*if(elevatorStat) {
-			if(RobotMap.opBoard.getRawButton(2)) {
-				RobotMap.elevator1.set(-1);
-			}
-			else if(RobotMap.opBoard.getRawButton(3)) {
-				RobotMap.elevator1.set(0.5);
-			}
-			else {
-				RobotMap.elevator1.set(0);
-			}
-		}*/
+		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
 		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-		//System.out.println(elevator.getEncoder());
-			
-//		if(RobotMap.driveStick.getRawButton(1)) {
-//			drive.resetAllEncoder();
-//		}
-//		
-		// Ramp.deployRamp(RobotMap.driveStick.getRawButton(4),
-		// RobotMap.opStick.getRawButton(4), RobotMap.opStick.getRawButton(6));
-		// System.out.println(Elevator.getEncoderValues());
-		// System.out.println(drive.getRightEncoder() + " <-- Right Encoder Values Left
-		// Encoder Values --> " + drive.getLeftEncoder());
-		
-		//Intake.intake(RobotMap.opStick.getRawAxis(2), RobotMap.opStick.getRawAxis(3));
 		
 		intake.intake(RobotMap.opBoard);
-		//System.out.println("Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		
-		//ramp.releaseRamp(RobotMap.opBoard);
-		/*if(RobotMap.driveStick.getRawButton(1)) {
-			drive.resetAllEncoder();
-		}*/
 		if(RobotMap.opBoard.getRawButton(7))
 		{
 			elevator.dropElevator();
 		}
-		//System.out.println("Left Encoder: " + "  Right Encoder: " + drive.getRightEncoder() + "    Elevator: " + elevator.getEncoder());
-		//System.out.println(elevator.getElevatorCurrent());
-		
 	}
 
-	@Override
-	public void disabledInit()
-	{
-		//AutoState.state = 0;
-	}
-	
 	/**
 	 * This function is called periodically during test mode
 	 */

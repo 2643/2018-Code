@@ -17,6 +17,8 @@ public class Intake {
 		leftIntake = left;
 		rightIntake = right;
 		timer = new Timer();
+		limitCurrent(leftIntake);
+		limitCurrent(rightIntake);
 	}
 	
 	public double getSpeed()
@@ -24,30 +26,21 @@ public class Intake {
 		return speed;
 	}
 	
+	public void limitCurrent(WPI_TalonSRX motor) {
+		motor.configContinuousCurrentLimit(38, 0);
+		motor.configPeakCurrentLimit(40, 0);
+		motor.configPeakCurrentDuration(100, 0);
+		motor.enableCurrentLimit(true);
+	}
+	
 	/**
 	 * use this for buttons
 	 */
 	public void intake(Joystick board)
 	{
-		if(board.getRawButton(RobotMap.intakeLeftButton))
-		{
-			//setSpeedLeft(-1);
-		}
-		else if(board.getRawButton(RobotMap.outtakeLeftButton))
-		{
-			//setSpeedLeft(1);
-		}
-		else if(board.getRawButton(RobotMap.bothIntakeButton))
+		if(board.getRawButton(RobotMap.bothIntakeButton))
 		{
 			setSpeed(1);
-		}
-		else if(board.getRawButton(RobotMap.intakeRightButton))
-		{
-			//setSpeedRight(1);
-		}
-		else if(board.getRawButton(RobotMap.outtakeRightButton))
-		{
-			//setSpeedRight(-1);
 		}
 		else if(board.getRawButton(RobotMap.bothOuttakeButton))
 		{
