@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive
