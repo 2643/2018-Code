@@ -136,7 +136,7 @@ public class Robot extends IterativeRobot
 	public void autonomousPeriodic()
 	{	
 		if(!isOperatorControl()) {
-			System.out.println(autoRoutines.timer.get());
+			System.out.println(autoRoutines.timer.get());  //TODO Remove this print when it becomes unnessecary.
 		switch(autoSelection) {
 		/*case doLeftScale:
 			{
@@ -152,13 +152,13 @@ public class Robot extends IterativeRobot
 			}
 		case doLeftSwitch:
 			{
-				autoRoutines.botLeftSwitchLeft();
+				autoRoutines.doSwitch(false);
 				//System.out.println("BotLeftSwitchLeft");
 			break;
 			}*/
 		case doRightSwitch:
 			{
-				autoRoutines.botRightSwitchRight();
+				autoRoutines.doSwitch(true);
 				System.out.println("BotRightSwitchRight");
 			break;
 			}
