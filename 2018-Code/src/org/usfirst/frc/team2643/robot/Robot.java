@@ -28,8 +28,8 @@ public class Robot extends IterativeRobot
 
 	// double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
 
-	public static AutoDrive drive;
-	public static AutoElevator elevator;
+	public static Drive drive;
+	public static Elevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
 	//public static IntakeAngle angleIntake;
@@ -62,8 +62,8 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto choices", chooser);
 
 		gyro = new GyroScope();
-		drive = new AutoDrive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
-		elevator = new AutoElevator(RobotMap.elevator1);
+		drive = new Drive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
+		elevator = new Elevator(RobotMap.elevator1);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();

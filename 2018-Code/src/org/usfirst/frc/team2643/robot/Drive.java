@@ -18,10 +18,10 @@ public class Drive
 	
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
-		this(l1, l2, null, r1, r2, null);
+		this(l1, l2, null, r1, r2, null, null);
 	}
 	
-	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2,  WPI_TalonSRX l3, WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3)
+	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2,  WPI_TalonSRX l3, WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3, GyroScope gyro)
 	{
 		leftDriveMaster = l1;
 		leftDriveSlave1 = l2;
@@ -51,25 +51,7 @@ public class Drive
 		motor.configPeakCurrentDuration(150, 0);
 		motor.enableCurrentLimit(true);
 	}
-	 
-	public void setLeftToPosition(int position)
-	{
-		leftDriveMaster.set(ControlMode.Position, position);
-		currentLeftGoal = position;
-	}
-
-	public void setRightToPosition(int position)
-	{
-		rightDriveMaster.set(ControlMode.Position, position);
-		currentRightGoal = position;
-	}
-
-	public void setToPercentValue(double value)
-	{
-		leftDriveMaster.set(ControlMode.PercentOutput, value);
-		rightDriveMaster.set(ControlMode.PercentOutput, value);
-	}
-
+	
 	// returns left encoder ticks, which is for some reason twice the actual
 	public int getLeftEncoder()
 	{
@@ -122,26 +104,8 @@ public class Drive
 	{
 		return currentLeftGoal;
 	}
-
-	public void setAllMotorPosition(int location)
-	{
-		setLeftToPosition(location);
-		setRightToPosition(location);
-	}
-
 	
-//	public void setLeftCurrent(double value)
-//	{
-//		System.out.println("LEFT CURRENT: " + value * RobotMap.currentLimit);
-//		leftDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
-//	}
-//
-//	public void setRightCurrent(double value)
-//	{
-//		System.out.println("RIGHT CURRENT: " + value * RobotMap.currentLimit);
-//		rightDriveMaster.set(ControlMode.Current, value * RobotMap.currentLimit);
-//	}
-	
+
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * 
