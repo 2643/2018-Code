@@ -203,10 +203,214 @@ public class AutoRoutines extends Robot {
 				System.out.println("finished auto!!");
 			break;
 			}
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
 		break;
 		}
 	}
 	}
+	
+	public void doScale(boolean isRight) {
+		
+		switch(RobotMap.autoState) {
+		
+		case startMove:
+		{
+			System.out.println("Starting Move");
+			timer.start();
+			drive.setLeftSpeed(0.51);
+			drive.setRightSpeed(0.46);
+			RobotMap.autoState = endMove;
+		break;
+		}
+		case endMove:
+		{
+			System.out.println("In endMove");
+			if(timer.get()>3.8) {
+				drive.setAllSpeed(0);
+				timer.stop();
+				RobotMap.autoState = startTurn;
+				break;
+			}
+		break;
+		}
+		case startTurn:
+		{
+			if(isRight) {
+				System.out.println("Starting Turn");
+				drive.setLeftSpeed(0.45);	
+				drive.setRightSpeed(-0.45);
+				gyro.reset();
+				RobotMap.autoState = endTurn;
+			break;
+			}
+			else {
+				System.out.println("Starting Turn");
+				drive.setLeftSpeed(-0.45);	
+				drive.setRightSpeed(0.45);
+				gyro.reset();
+				RobotMap.autoState = endTurn;
+			break;
+			}
+		}
+		case endTurn:
+		{
+			System.out.println("In endTurn");
+			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
+				drive.setAllSpeed(0);
+				RobotMap.autoState = raiseElevator;
+			break;
+			}
+		break;
+		}
+		case raiseElevator:
+		{
+			System.out.println("Started raiseElevator");
+			RobotMap.elevator1.set(0.7);
+			timer.start();
+			RobotMap.autoState = stopElevator;
+		break;
+		}
+		case stopElevator:
+		{
+			System.out.println("In stopElevator");
+			if(timer.get()> 5 || elevator.getEncoder()>10000) {
+				RobotMap.elevator1.set(0.12);
+				RobotMap.autoState = dropIntake;
+			break;
+			}
+		break;
+		}
+		case dropIntake:
+		{
+			System.out.println("Start dropIntake");
+			intake.setSpeedLeft(-0.24);
+			timer.start();
+			RobotMap.autoState = stopDrop;
+		break;
+		}
+		case stopDrop:
+		{	
+			System.out.println("In stopDrop");
+			if(timer.get()>0.35) {
+				intake.setSpeedLeft(0);
+				System.out.println("Stopped drop");
+				timer.reset();
+				RobotMap.autoState = releaseCube;
+			break;			
+			}
+		break;
+		}
+		case releaseCube:
+		{
+			intake.setSpeed(-0.7);
+			timer.reset();
+			System.out.println("Starting Release Cube");
+			RobotMap.autoState = stopRelease;
+		break;
+		}
+		case stopRelease:
+		{
+			System.out.println("In stopRelease");
+			if(timer.get()>1) {
+				intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				RobotMap.autoState = moveBack;
+			break;
+			}
+		break;
+		}
+		case moveBack:
+		{
+			drive.setLeftSpeed(-0.12);
+			drive.setRightSpeed(-0.12);
+			timer.start();
+			RobotMap.autoState = stopBack;
+		break;
+		}
+		case stopBack:
+		{
+			if(timer.get()>0.5) {
+				drive.setAllSpeed(0);
+				RobotMap.autoState = endCase;
+			break;
+			}
+		break;
+		}
+		case endCase:
+		{
+			System.out.println("Finished Auto!!");
+			timer.stop();
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
+			break;
+		}
+		}
+	}
+	
+	public void middleCube() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			timer.start();
+			drive.setLeftSpeed(leftMotorSpeed);
+			drive.setRightSpeed(rightMotorSpeed);
+			RobotMap.elevator1.set(0.15);
+			intake.setSpeedLeft(0.25);
+			System.out.println("Finished Start");
+			RobotMap.autoState = endMove;
+		break;
+		}
+		case endMove:
+		{
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
+			if(timer.get()>0.8) {
+				drive.setAllSpeed(0);
+				intake.setSpeed(0);
+				RobotMap.elevator1.set(0.13);
+				System.out.println("Finished Cross Auto Line");
+				RobotMap.autoState = releaseCube;
+				break;
+			}
+			break;
+		}
+		case releaseCube:
+		{
+			intake.setSpeed(-0.6);
+			System.out.println("Started ReleaseCube");
+			timer.start();
+			RobotMap.autoState = stopRelease;
+			break;
+		}
+		case stopRelease:
+		{	
+			if(timer.get()>0.5) {
+				intake.setSpeed(0);
+				timer.stop();
+				System.out.println("Dropped Cube");
+				RobotMap.autoState = endCase;
+				break;
+			}
+		break;
+		}
+		case endCase:
+		{
+			intake.setSpeed(0);
+			RobotMap.elevator1.set(0);
+			drive.setAllSpeed(0);
+			System.out.println("Finished auto!!");
+			if(Timer.getMatchTime()>15) {
+				break;
+			}
+		break;
+		}
+		}
+	}
+	
 	
 	/*public void testCrossAuto() {
 		switch(RobotMap.autoState) {

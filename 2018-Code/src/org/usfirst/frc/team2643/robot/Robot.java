@@ -96,34 +96,34 @@ public class Robot extends IterativeRobot
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 		}		
 		
-//		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-//			autoSelection = doLeftScale;
-//		}
-//		if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-//			autoSelection = doLeftSwitch;
-//		}
-//		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-//			autoSelection = doRightScale;
-//		}
-		if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doLeftScale;
+		}
+		else if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doLeftSwitch;
+		}
+		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+			autoSelection = doRightScale;
+		}
+		else if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doRightSwitch;
 		}
-//		else if(autoSelected.equals(positionMiddleLeftOption)) {
-//			if(gameData.charAt(0) == 'L') {
-//				autoSelection = doMiddleSwitch;
-//			}
-//			else {
-//				autoSelection = crossAuto;
-//			}
-//		}
-//		else if(autoSelected.equals(positionMiddleRightOption)) {
-//			if(gameData.charAt(0) == 'R') {
-//				autoSelection = doMiddleSwitch;
-//			}
-//			else {
-//				autoSelection = crossAuto;
-//			}
-//		}
+		else if(autoSelected.equals(positionMiddleLeftOption)) {
+			if(gameData.charAt(0) == 'L') {
+				autoSelection = doMiddleSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
+		}
+		else if(autoSelected.equals(positionMiddleRightOption)) {
+			if(gameData.charAt(0) == 'R') {
+				autoSelection = doMiddleSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
+		}
 		else {
 			autoSelection = crossAuto;
 		}
@@ -138,41 +138,47 @@ public class Robot extends IterativeRobot
 		if(!isOperatorControl()) {
 			System.out.println(autoRoutines.timer.get());  //TODO Remove this print when it becomes unnessecary.
 		switch(autoSelection) {
-		/*case doLeftScale:
+		case doLeftScale:
 			{
-				//autoRoutines.botLeftScaleLeft();
-				//System.out.println("BotLeftScaleLeft");
+				autoRoutines.doSwitch(false);
+				System.out.println("BotLeftScaleLeft");
 			break;
 			}
 		case doRightScale:
 			{
-				//autoRoutines.botRightScaleRight();
-				//System.out.println("BotRightScaleRight");
+				autoRoutines.doScale(true);
+				System.out.println("BotRightScaleRight");
 			break;
 			}
 		case doLeftSwitch:
 			{
 				autoRoutines.doSwitch(false);
-				//System.out.println("BotLeftSwitchLeft");
+				System.out.println("BotLeftSwitchLeft");
 			break;
-			}*/
+			}
 		case doRightSwitch:
 			{
 				autoRoutines.doSwitch(true);
 				System.out.println("BotRightSwitchRight");
 			break;
 			}
-//		case doMiddleSwitch:
-//			{
-//				autoRoutines.correctCubeSwitch();
-//				System.out.println("Middle Do Switch");
-//			break;
-//			}
+		case doMiddleSwitch:
+			{
+				autoRoutines.middleCube();
+				System.out.println("Middle Do Switch");
+			break;
+			}
 		case crossAuto:
 			{
 				autoRoutines.crossAutoLine();
 				System.out.println("CrossAuto");
 			break;
+			}
+		default:
+			{
+				autoRoutines.crossAutoLine();
+				System.out.println("CrossAuto");
+				break;
 			}
 		}
 	}
