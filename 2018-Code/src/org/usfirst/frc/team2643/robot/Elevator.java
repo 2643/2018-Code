@@ -145,26 +145,10 @@ public class Elevator
 		{
 			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
 		}
-//		else if(!atBot && RobotMap.elevatorLimitSwitch.get())
-//		{
-//			elevator.set(0);
-//			atBot = true;
-//			resetEncoder();
-//		}
 		else
 		{
 			elevator.set(ControlMode.Position, tick);
 		}
-		
-		/*if(!RobotMap.elevatorLimitSwitch.get())
-		{
-			atBot = false;
-		}
-		
-		if(tick == 0 && getEncoder() <= -50)
-		{
-			dropElevator(0.15);
-		}*/
 	}
 
 	/**

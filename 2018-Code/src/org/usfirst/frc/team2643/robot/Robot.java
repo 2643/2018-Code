@@ -26,16 +26,12 @@ public class Robot extends IterativeRobot
 
 	int driveState = 0;
 
-	// double batteryVoltage = DriverStation.getInstance().getBatteryVoltage();
-
 	public static Drive drive;
 	public static Elevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
 	//public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
-	
-	//public static boolean elevatorStat = false;
 	
 	final int doLeftScale = 0,
 			doRightScale = 1,
