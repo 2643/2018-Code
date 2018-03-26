@@ -111,6 +111,19 @@ public class RobotMap
 	static double circumferenceFeet = 2 * Math.PI * radius;
 	static double ticksPerRotation = 255;
 
+	static final int lsEncodersToFeet = 0; //TODO
+	static final int lsEncodersToInches = 0; //TODO
+	
+	static final int defaultPID = 0;
+	static final double PIDF = 0.5;
+	static final double PIDP = 0.5;
+	static final double PIDI = 0;
+	static final double PIDD = 0;
+	
+	static final int maxEncoderValue = 12750; //TODO //From 15000
+	static final int moveUpSpeed = 0;
+	static final int moveDownSpeed = 0;
+	
 	public static int feetToTicks(double feet)
 	{
 		double rotations = feet / circumferenceFeet;

@@ -74,11 +74,11 @@ public class Elevator
 	public void defaultPIDLSMotor()
 	{
 		elevator.setSensorPhase(true);
-		elevator.selectProfileSlot(EnvironmentVariables.defaultPID, 0);
-		elevator.config_kF(0, EnvironmentVariables.PIDF, 20);
-		elevator.config_kP(0, EnvironmentVariables.PIDP, 20);
-		elevator.config_kI(0, EnvironmentVariables.PIDI, 20);
-		elevator.config_kD(0, EnvironmentVariables.PIDD, 20);
+		elevator.selectProfileSlot(RobotMap.defaultPID, 0);
+		elevator.config_kF(0, RobotMap.PIDF, 20);
+		elevator.config_kP(0, RobotMap.PIDP, 20);
+		elevator.config_kI(0, RobotMap.PIDI, 20);
+		elevator.config_kD(0, RobotMap.PIDD, 20);
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 
@@ -141,9 +141,9 @@ public class Elevator
 	public void setPosition(double tick)
 	{
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
-		if (tick > EnvironmentVariables.maxEncoderValue)
+		if (tick > RobotMap.maxEncoderValue)
 		{
-			elevator.set(ControlMode.Position, EnvironmentVariables.maxEncoderValue);
+			elevator.set(ControlMode.Position, RobotMap.maxEncoderValue);
 		}
 		else
 		{
@@ -184,7 +184,7 @@ public class Elevator
 			{
 				elevator.set(ControlMode.PercentOutput, 0);
 			}
-		} else if (Math.abs(getEncoder()) > EnvironmentVariables.maxEncoderValue)
+		} else if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
 		{
 			if (value < 0)
 			{
@@ -216,7 +216,7 @@ public class Elevator
 	{
 		value += 1;
 		// System.out.println("New Pot Value: " + value);
-		value = (int) (value * (EnvironmentVariables.maxEncoderValue / 2.0));
+		value = (int) (value * (RobotMap.maxEncoderValue / 2.0));
 		//System.out.println(getEncoder());
 
 		
@@ -236,16 +236,16 @@ public class Elevator
 	 */
 	public void moveElevatorUsingPOV(Joystick stick)
 	{
-		if (Math.abs(getEncoder()) > EnvironmentVariables.maxEncoderValue)
+		if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
 			if (stick.getPOV() == 180)
-				elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+				elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
 			else if (RobotMap.elevatorLimitSwitch.get())
 				if (stick.getPOV() == 0)
-					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
+					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
 				else if (stick.getPOV() == 0)
-					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
+					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
 				else if (stick.getPOV() == 180)
-					elevator.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+					elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
 				else
 					elevator.set(0.0);
 	}
