@@ -33,13 +33,19 @@ public class Intake {
 	 */
 	public void intake(Joystick board)
 	{
-		if(board.getRawButton(RobotMap.bothIntakeButton))
+		if(board.getRawButton(RobotMap.fastIntakeButton))
 		{
 			setSpeed(1);
 		}
-		else if(board.getRawButton(RobotMap.bothOuttakeButton))
+		else if(board.getRawButton(RobotMap.fastOuttakeButton))
 		{
 			setSpeed(-1);
+		}
+		else if(board.getRawButton(RobotMap.slowIntakeButton)) {
+			setSpeed(0.5);
+		}
+		else if(board.getRawButton(RobotMap.slowOuttakeButton)) {
+			setSpeed(-0.5);
 		}
 		else
 		{

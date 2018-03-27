@@ -121,7 +121,19 @@ public class Elevator
 	{
 		elevator.getSensorCollection().setQuadraturePosition(0, 20);
 	}
-
+	
+	public void usingButtons(Joystick buttons) {
+		if(buttons.getRawButton(RobotMap.elevatorUp)) {
+			elevator.set(0.6);
+		}
+		else if(buttons.getRawButton(RobotMap.elevatorDown)) {
+			elevator.set(-0.3);
+		}
+		else {
+			elevator.set(0);
+		}
+	}
+	
 	/**
 	 * Convert Feet to encoders and move
 	 * 

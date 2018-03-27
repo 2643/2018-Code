@@ -47,19 +47,16 @@ public class RobotMap
 	public static final Joystick opStick = new Joystick(2);
 
 	// the buttons for the robot
-	public static int rampReleaseButton = 11;
-	public static int rampUpButton = 10;
-	public static int bothIntakeButton = 8;
-	public static int bothOuttakeButton = 6;
-	public static int intakeLeftButton = 5;
-	public static int intakeRightButton = 4;
-	public static int safetyButton = 1;
-	public static int outtakeLeftButton = 3;
-	public static int outtakeRightButton = 2;
-	public static int extraCenterMiddleButton = 7; // TODO extra button number
-	public static int rampDownButton= 12;
-	public static int extraRightButton = 9; // TODO extra button number
-
+	public static final int fastIntakeButton = 5,
+			fastOuttakeButton = 4,
+			safetyButton = 1,
+			slowIntakeButton = 3,
+			slowOuttakeButton = 2,
+			elevatorUp = 12,
+			elevatorDown = 11,
+			switchStates = 9;
+			
+	
 	// ramps
 	public static Servo rampRelease = new Servo(9);
 	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(13); // TODO enter ID

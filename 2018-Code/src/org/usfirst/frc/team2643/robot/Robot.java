@@ -42,6 +42,13 @@ public class Robot extends IterativeRobot
 	
 	int autoSelection;
 	
+	int elevatorState = 1,
+			nextState;
+	
+	final int usingPot = 1,
+			transition = 2,
+			usingButtons = 3;
+	
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -63,6 +70,8 @@ public class Robot extends IterativeRobot
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
+		
+		nextState = 0;
 
 	}
 
@@ -201,13 +210,37 @@ public class Robot extends IterativeRobot
 
 		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
-		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-		
 		intake.intake(RobotMap.opBoard);
 		
 		if(RobotMap.opBoard.getRawButton(7))
 		{
 			elevator.dropElevator();
+		}
+		
+		switch(elevatorState) {
+			case usingPot:
+			{
+				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+					nextState = usingButtons;
+					elevatorState = transition;
+					System.out.println("Changed to Buttons");
+				}
+			}
+			case usingButtons:
+			{
+				elevator.usingButtons(RobotMap.opBoard);
+				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+					nextState = usingPot;
+					elevatorState = transition;
+					System.out.println("Changed to Pot");
+				}
+			}
+			case transition:
+			{
+				RobotMap.elevator1.set(0);
+				elevatorState = nextState;
+			}
 		}
 	}
 
