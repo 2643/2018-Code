@@ -3,14 +3,13 @@ package org.usfirst.frc.team2643.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
 
 public class RobotMap
 {
 	/* ------------------- REMEMBER TO CHANGE!!!!!!!!!!!! ------------------------ */
 	//test mode
-	static boolean inTestStage = !true; 
+	static boolean inTestStage = false; 
 	/* --------------------------------------------------------------------------- */
 	
 	/*
@@ -47,19 +46,16 @@ public class RobotMap
 	public static final Joystick opStick = new Joystick(2);
 
 	// the buttons for the robot
-	public static final int fastIntakeButton = 5,
-			fastOuttakeButton = 4,
+	public static final int fastIntakeButton = 8,
+			fastOuttakeButton = 7,
 			safetyButton = 1,
 			slowIntakeButton = 3,
 			slowOuttakeButton = 2,
-			elevatorUp = 12,
-			elevatorDown = 11,
-			switchStates = 9;
-			
-	
-	// ramps
-	public static Servo rampRelease = new Servo(9);
-	public static WPI_TalonSRX rampWinch = new WPI_TalonSRX(13); // TODO enter ID
+			elevatorUp = 5,
+			elevatorDown = 4,
+			switchStates = 9,
+			winchUp = 12,
+			winchDown = 11;
 	
 	//Autonomous state value
 	public static int autoState = 0;

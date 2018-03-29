@@ -12,9 +12,6 @@ public class Drive
 	private final WPI_TalonSRX rightDriveSlave1;
 	private final WPI_TalonSRX rightDriveSlave2;
 	
-	private double currentLeftGoal;
-	private double currentRightGoal;
-	
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
 		this(l1, l2, null, r1, r2, null, null);
@@ -51,60 +48,49 @@ public class Drive
 		motor.enableCurrentLimit(true);
 	}
 	
-	// returns left encoder ticks, which is for some reason twice the actual
-	public int getLeftEncoder()
-	{
-		return leftDriveMaster.getSensorCollection().getQuadraturePosition() / 2;
-	}
-
-	// returns right encoder ticks, which is for some reason twice the actual
-	public int getRightEncoder()
-	{
-		return rightDriveMaster.getSensorCollection().getQuadraturePosition() / 2;
-	}
-
-	public int getAverageEncoder()
-	{
-		return ((getRightEncoder() + getLeftEncoder()) / 2);
-	}
-
-	public int getMaxEncoder()
-	{
-		return Math.max(getRightEncoder(), getLeftEncoder());
-	}
-
-	public int getMinEncoder()
-	{
-		return Math.min(getRightEncoder(), getLeftEncoder());
-	}
-
-	public void resetLeftEncoder()
-	{
-		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 0);
-	}
-
-	public void resetRightEncoder()
-	{
-		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 0);
-	}
-
-	public void resetAllEncoder()
-	{
-		resetLeftEncoder();
-		resetRightEncoder();
-	}
-
-	public double getCurrentRightGoal()
-	{
-		return currentRightGoal;
-	}
-
-	public double getCurrentLeftGoal()
-	{
-		return currentLeftGoal;
-	}
+//	// returns left encoder ticks, which is for some reason twice the actual
+//	public int getLeftEncoder()
+//	{
+//		return leftDriveMaster.getSensorCollection().getQuadraturePosition() / 2;
+//	}
+//
+//	// returns right encoder ticks, which is for some reason twice the actual
+//	public int getRightEncoder()
+//	{
+//		return rightDriveMaster.getSensorCollection().getQuadraturePosition() / 2;
+//	}
+//
+//	public int getAverageEncoder()
+//	{
+//		return ((getRightEncoder() + getLeftEncoder()) / 2);
+//	}
+//
+//	public int getMaxEncoder()
+//	{
+//		return Math.max(getRightEncoder(), getLeftEncoder());
+//	}
+//
+//	public int getMinEncoder()
+//	{
+//		return Math.min(getRightEncoder(), getLeftEncoder());
+//	}
+//
+//	public void resetLeftEncoder()
+//	{
+//		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 0);
+//	}
+//
+//	public void resetRightEncoder()
+//	{
+//		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 0);
+//	}
+//
+//	public void resetAllEncoder()
+//	{
+//		resetLeftEncoder();
+//		resetRightEncoder();
+//	}
 	
-
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * 
@@ -133,12 +119,6 @@ public class Drive
 		setLeftSpeed(speed);
 		setRightSpeed(speed);
 	}
-	
-//	public void setAllCurrent(double speed)
-//	{ // Set all of the motors to the given value.
-//		setLeftCurrent(speed);
-//		setRightCurrent(speed);
-//	}
 
 	/**
 	 * Stops the robot
@@ -150,11 +130,6 @@ public class Drive
 	
 	public void SRXarcadeDrive(double x, double y)
 	{
-		if(RobotMap.DEBUG) {
-			RobotMap.leftDrive1.getOutputCurrent();
-			RobotMap.rightDrive1.getOutputCurrent();
-		}
-		
 		if (x < -0.03 || x > 0.03)
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
@@ -172,11 +147,7 @@ public class Drive
 	}
 
 	public void SRXtankDrive(double x, double y)
-	{ // Very basic tank drive.
-		if(RobotMap.DEBUG) {
-			RobotMap.leftDrive1.getOutputCurrent();
-			RobotMap.rightDrive1.getOutputCurrent();
-		}
+	{
 		setLeftSpeed(x);
 		setRightSpeed(y);
 	}

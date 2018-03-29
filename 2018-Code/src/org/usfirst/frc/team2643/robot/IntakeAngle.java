@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class IntakeAngle {
@@ -8,6 +9,7 @@ public class IntakeAngle {
 	
 	public IntakeAngle(WPI_TalonSRX a) {
 		angleMotor = a;
+		angleMotor.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	/**

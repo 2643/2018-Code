@@ -38,7 +38,9 @@ public class Robot extends IterativeRobot
 			doLeftSwitch = 2,
 			doRightSwitch = 3,
 			doMiddleSwitch = 4,
-			crossAuto = 5;
+			crossAuto = 5,
+			doOppositeMiddleRPos = 6,
+			doOppositeMiddleLPos = 7;
 	
 	int autoSelection;
 	
@@ -70,9 +72,6 @@ public class Robot extends IterativeRobot
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
-		
-		nextState = 0;
-
 	}
 
 	/**
@@ -92,7 +91,6 @@ public class Robot extends IterativeRobot
 		autoSelected = chooser.getSelected();
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
-		drive.resetAllEncoder();
 		RobotMap.time.start();
 		
 		String gameData = null;
@@ -118,7 +116,7 @@ public class Robot extends IterativeRobot
 				autoSelection = doMiddleSwitch;
 			}
 			else {
-				autoSelection = crossAuto;
+				autoSelection = doOppositeMiddleLPos;
 			}
 		}
 		else if(autoSelected.equals(positionMiddleRightOption)) {
@@ -126,7 +124,7 @@ public class Robot extends IterativeRobot
 				autoSelection = doMiddleSwitch;
 			}
 			else {
-				autoSelection = crossAuto;
+				autoSelection = doOppositeMiddleRPos;
 			}
 		}
 		else {
@@ -171,6 +169,18 @@ public class Robot extends IterativeRobot
 			{
 				autoRoutines.middleCube();
 				System.out.println("Middle Do Switch");
+			break;
+			}
+		case doOppositeMiddleLPos:
+			{
+				autoRoutines.doOppositeMiddle(false);
+				System.out.println("Middle Opposite Switch Left");
+			break;
+			}
+		case doOppositeMiddleRPos:
+			{
+				autoRoutines.doOppositeMiddle(true);
+				System.out.println("Middle Opposite Switch Right");
 			break;
 			}
 		case crossAuto:
