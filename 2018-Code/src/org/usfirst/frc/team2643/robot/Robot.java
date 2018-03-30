@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot
 	public static Elevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
-	//public static IntakeAngle angleIntake;
+	public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
 	
 	final int doLeftScale = 0,
@@ -68,9 +68,9 @@ public class Robot extends IterativeRobot
 
 		gyro = new GyroScope();
 		drive = new Drive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
-		elevator = new Elevator(RobotMap.elevator1);
+		elevator = new Elevator(RobotMap.elevator1, RobotMap.elevator2, 0);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
-		//angleIntake = new IntakeAngle(RobotMap.inclineMotor);
+		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
 	}
 
@@ -99,15 +99,15 @@ public class Robot extends IterativeRobot
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 		}		
 		
-		if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+		/*if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doLeftScale;
-		}
-		else if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+		}*/
+		if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doLeftSwitch;
 		}
-		else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
+		/*else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doRightScale;
-		}
+		}*/
 		else if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doRightSwitch;
 		}
@@ -141,7 +141,7 @@ public class Robot extends IterativeRobot
 		if(!isOperatorControl()) {
 			System.out.println(autoRoutines.timer.get());  //TODO Remove this print when it becomes unnessecary.
 		switch(autoSelection) {
-		case doLeftScale:
+		/*case doLeftScale:
 			{
 				autoRoutines.doSwitch(false);
 				System.out.println("BotLeftScaleLeft");
@@ -152,7 +152,7 @@ public class Robot extends IterativeRobot
 				autoRoutines.doScale(true);
 				System.out.println("BotRightScaleRight");
 			break;
-			}
+			}*/
 		case doLeftSwitch:
 			{
 				autoRoutines.doSwitch(false);
@@ -205,7 +205,8 @@ public class Robot extends IterativeRobot
 	{
 		//elevator.dropElevator();
 		//elevator.resetEncoder();
-		elevator.defaultPIDLSMotor();
+		//elevator.defaultPIDLSMotor();
+		elevator.resetEncoder();
 		gyro.reset();
 		elevator.currentLimit();
 	}
@@ -220,38 +221,50 @@ public class Robot extends IterativeRobot
 
 		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
-		intake.intake(RobotMap.opBoard);
-		
-		if(RobotMap.opBoard.getRawButton(7))
+//		intake.intake(RobotMap.opBoard);
+//		
+//		if(RobotMap.opBoard.getRawButton(10))
+//		{
+//			elevator.dropElevator();
+//		}
+//		
+//		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+//		
+//		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+//		
+		if(RobotMap.DEBUG)
 		{
-			elevator.dropElevator();
+			System.out.println("Total EMotor draw: " + elevator.getTotalCurrent() + " | Total LMotor draw: " + drive.totalCurrentDraw("left") + " | Total RMotor draw: " + drive.totalCurrentDraw("right"));
 		}
+		//elevator.usingButtons(RobotMap.opBoard);
+		//l System.out.println(elevator.getEncoder());
 		
-		switch(elevatorState) {
-			case usingPot:
-			{
-				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-					nextState = usingButtons;
-					elevatorState = transition;
-					System.out.println("Changed to Buttons");
-				}
-			}
-			case usingButtons:
-			{
-				elevator.usingButtons(RobotMap.opBoard);
-				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-					nextState = usingPot;
-					elevatorState = transition;
-					System.out.println("Changed to Pot");
-				}
-			}
-			case transition:
-			{
-				RobotMap.elevator1.set(0);
-				elevatorState = nextState;
-			}
-		}
+		//System.out.println(RobotMap.opBoard.getThrottle());
+//		switch(elevatorState) {
+//			case usingPot:
+//			{
+//				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+//				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+//					nextState = usingButtons;
+//					elevatorState = transition;
+//					System.out.println("Changed to Buttons");
+//				}
+//			}
+//			case usingButtons:
+//			{
+//				elevator.usingButtons(RobotMap.opBoard);
+//				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+//					nextState = usingPot;
+//					elevatorState = transition;
+//					System.out.println("Changed to Pot");
+//				}
+//			}
+//			case transition:
+//			{
+//				RobotMap.elevator1.set(0);
+//				elevatorState = nextState;
+//			}
+//		}
 	}
 
 	/**

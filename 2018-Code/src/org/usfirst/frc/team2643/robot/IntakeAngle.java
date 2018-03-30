@@ -18,4 +18,17 @@ public class IntakeAngle {
 	public void angleIntake(double speed) {
 		angleMotor.set(speed);
 	}
+	
+	public void angleUsingButtons(int buttonUp, int buttonDown) {
+		if(RobotMap.opBoard.getRawButton(buttonUp)) {
+			RobotMap.inclineMotor.set(0.3);
+		}
+		else if(RobotMap.opBoard.getRawButton(buttonDown)) {
+			RobotMap.inclineMotor.set(-0.3);
+		}
+		else {
+			RobotMap.inclineMotor.set(0);
+		}
+	}
+	
 }

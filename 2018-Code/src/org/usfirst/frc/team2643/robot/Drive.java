@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.Logger;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive
@@ -28,7 +29,10 @@ public class Drive
 		
 		currentLimit(leftDriveMaster);
 		currentLimit(rightDriveMaster);
-				
+		
+		rampRate(leftDriveMaster);
+		rampRate(rightDriveMaster);
+		
 		rightDriveSlave1.follow(rightDriveMaster);
 		leftDriveSlave1.follow(leftDriveMaster);
 		rightDriveSlave2.follow(rightDriveMaster);
@@ -42,10 +46,14 @@ public class Drive
 
 	public void currentLimit(WPI_TalonSRX motor)
 	{
-		motor.configContinuousCurrentLimit(36, 0);
-		motor.configPeakCurrentLimit(40, 0);
-		motor.configPeakCurrentDuration(150, 0);
+		motor.configContinuousCurrentLimit(25, 0);
+		motor.configPeakCurrentLimit(30, 0);
+		motor.configPeakCurrentDuration(100, 0);
 		motor.enableCurrentLimit(true);
+	}
+	
+	public void rampRate(WPI_TalonSRX motor) {
+		motor.configOpenloopRamp(0.8, 0);
 	}
 	
 //	// returns left encoder ticks, which is for some reason twice the actual
@@ -145,10 +153,40 @@ public class Drive
 			setAllSpeed(0);
 		}
 	}
-
-	public void SRXtankDrive(double x, double y)
+	
+	public double getCurrent(WPI_TalonSRX motor)
 	{
-		setLeftSpeed(x);
-		setRightSpeed(y);
+		return motor.getOutputCurrent();
+	}
+	
+	public double totalCurrentDraw(String side)
+	{
+		double totalCurrent = 0;
+		if(side.equals("left"))
+		{
+			totalCurrent = getCurrent(leftDriveMaster) + getCurrent(leftDriveSlave1) + getCurrent(leftDriveSlave2);
+		}
+		else if(side.equals("right"))
+		{
+			totalCurrent = getCurrent(rightDriveMaster) + getCurrent(rightDriveSlave1) + getCurrent(rightDriveSlave2);
+		}
+		
+		return totalCurrent;
+	}
+	
+	public void SRXtankDrive(double x, double y)
+	{	
+		if(RobotMap.driveStick.getRawAxis(1)>0.03 || RobotMap.driveStick.getRawAxis(1)<-0.03) {
+			setLeftSpeed(x);
+		}
+		else {
+			setLeftSpeed(0);
+		}
+		if(RobotMap.driveStick.getRawAxis(5)>0.03 || RobotMap.driveStick.getRawAxis(5)<-0.03) {
+			setRightSpeed(y);
+		}
+		else {
+			setRightSpeed(0);
+		}
 	}
 }

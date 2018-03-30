@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.Timer;
 
 public class AutoRoutines extends Robot {
@@ -259,16 +261,16 @@ private final int //Auto Constants under some random encoder ticks (457)
 		{
 			if(isRight) {
 				System.out.println("Starting Turn");
-				drive.setLeftSpeed(0.45);	
-				drive.setRightSpeed(-0.45);
+				drive.setLeftSpeed(0.55);	
+				drive.setRightSpeed(-0.55);
 				gyro.reset();
 				RobotMap.autoState = endTurn;
 			break;
 			}
 			else {
 				System.out.println("Starting Turn");
-				drive.setLeftSpeed(-0.45);	
-				drive.setRightSpeed(0.45);
+				drive.setLeftSpeed(-0.55);	
+				drive.setRightSpeed(0.55);
 				gyro.reset();
 				RobotMap.autoState = endTurn;
 			break;
@@ -287,15 +289,16 @@ private final int //Auto Constants under some random encoder ticks (457)
 		case raiseElevator:
 		{
 			System.out.println("Started raiseElevator");
-			RobotMap.elevator1.set(0.7);
-			timer.start();
+			RobotMap.elevator1.set(ControlMode.Position, 10000);
+			timer.stop();
+			timer.reset();
 			RobotMap.autoState = stopElevator;
 		break;
 		}
 		case stopElevator:
 		{
 			System.out.println("In stopElevator");
-			if(timer.get()> 5 || elevator.getEncoder()>10000) {
+			if(elevator.getEncoder()>=10000) {
 				RobotMap.elevator1.set(0.12);
 				RobotMap.autoState = dropIntake;
 			break;
@@ -316,7 +319,6 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(timer.get()>0.35) {
 				intake.setSpeedLeft(0);
 				System.out.println("Stopped drop");
-				timer.reset();
 				RobotMap.autoState = releaseCube;
 			break;			
 			}
@@ -336,7 +338,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(timer.get()>1) {
 				intake.setSpeed(0);
 				RobotMap.elevator1.set(0);
-				RobotMap.autoState = moveBack;
+				RobotMap.autoState = endCase;
 			break;
 			}
 		break;
@@ -384,7 +386,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			timer.start();
 			drive.setLeftSpeed(leftMotorSpeed);
 			drive.setRightSpeed(rightMotorSpeed);
-			RobotMap.elevator1.set(0.15);
+			RobotMap.elevator1.set(ControlMode.Position, 2800);
 			intake.setSpeedLeft(0.25);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
@@ -465,6 +467,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				if(!turnTwo) {
 					if(timer.get()>0.5) {
 						drive.setAllSpeed(0);
+						gyro.reset();
 						System.out.println("Stopped Move");
 						RobotMap.autoState = startTurn;
 					break;
@@ -473,6 +476,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				else {
 					if(timer.get()>0.5) {
 						drive.stopAllSpeed();
+						gyro.reset();
 						System.out.println("Stopped Move");
 						RobotMap.autoState = secondTurn;
 					break;
@@ -493,7 +497,6 @@ private final int //Auto Constants under some random encoder ticks (457)
 				if(isRight) {
 					drive.setLeftSpeed(-0.5);
 					drive.setRightSpeed(0.5);
-					gyro.reset();
 					RobotMap.elevator1.set(0.4);
 					intake.setSpeedLeft(0.25);
 					timer.start();
@@ -522,6 +525,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				}
 				if(elevator.getEncoder()>5000) {
 					RobotMap.elevator1.set(0.1);
+					timer.stop();
 				}
 				if(gyro.getAngle()>ninetyDegreeTurn) {
 					drive.stopAllSpeed();
@@ -529,11 +533,14 @@ private final int //Auto Constants under some random encoder ticks (457)
 					System.out.println("Ended Turn");
 					if(doneTurning) {
 						RobotMap.autoState = releaseCube;
+					break;
 					}
 					else {
 						RobotMap.autoState = startMove;
+					break;
 					}
-					}
+				}
+				break;
 			}
 			
 			
@@ -543,6 +550,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 					drive.setLeftSpeed(0.5);
 					drive.setRightSpeed(-0.5);
 					gyro.reset();
+					doneTurning = true;
 					System.out.println("Started Second Turn");
 					RobotMap.autoState = endTurn;
 				break;

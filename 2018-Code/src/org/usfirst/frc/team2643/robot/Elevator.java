@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Elevator
 {
 	private WPI_TalonSRX elevator;
+	private WPI_TalonSRX elevatorSlave;
 	private boolean atBot = false;
 	/**
 	 * Initialize Elevator
@@ -16,9 +17,9 @@ public class Elevator
 	 * @param lsm
 	 *            - linear slide motor
 	 */
-	public Elevator(WPI_TalonSRX liftMotor)
+	public Elevator(WPI_TalonSRX liftMotor, WPI_TalonSRX slaveMotor)
 	{
-		this(liftMotor, 0);
+		this(liftMotor, slaveMotor, 0);
 	}
 
 	/**
@@ -29,10 +30,12 @@ public class Elevator
 	 * @param profile
 	 *            - PID profile
 	 */
-	public Elevator(WPI_TalonSRX liftMotor, int profile)
+	public Elevator(WPI_TalonSRX liftMotor, WPI_TalonSRX slaveMotor, int profile)
 	{
 		elevator = liftMotor;
+		elevatorSlave = slaveMotor;
 		defaultPIDLSMotor();
+		elevatorSlave.follow(elevator);
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
 	}
 	
@@ -227,17 +230,28 @@ public class Elevator
 	public void moveUsingPot(double value)
 	{
 		value += 1;
-		// System.out.println("New Pot Value: " + value);
+		//System.out.println("New Pot Value: " + value);
 		value = (int) (value * (RobotMap.maxEncoderValue / 2.0));
-		//System.out.println(getEncoder());
+		//System.out.println("New New Pot Value: " + value);
+		//System.out.println("Ze Stupid Encoder Vals: " + getEncoder());
 
 		
 		setPosition(value);
 	}
-
+	
+	public double getCurrent(WPI_TalonSRX motor)
+	{
+		return motor.getOutputCurrent();
+	}
+	
+	public double getTotalCurrent()
+	{
+		return getCurrent(elevator) + getCurrent(elevatorSlave);
+	}
+	
 	public String getElevatorCurrent()
 	{
-		return "Elevator Current: " + elevator.getOutputCurrent();
+		return "Elevator Current: " + (elevator.getOutputCurrent() + elevatorSlave.getOutputCurrent());
 	}
 
 	/**
