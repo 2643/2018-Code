@@ -112,7 +112,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 		case endMove:
 		{
 			System.out.println("Testing End move");
-			if(timer.get()>1.5) {
+			if(timer.get()>1.3) {
 				Robot.drive.setAllSpeed(0);
 				RobotMap.autoState = startTurn;
 			break;
@@ -212,8 +212,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 		{
 			if(timer.get()>1) {
 				drive.setAllSpeed(0);
-				timer.stop();
-				System.out.println("finished auto!!");
+				timer.stop();				System.out.println("finished auto!!");
 			break;
 			}
 			if(Timer.getMatchTime()>15) {
