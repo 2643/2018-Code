@@ -43,8 +43,8 @@ private final int //Auto Constants under some random encoder ticks (457)
 			outTakeSpeed = -0.8,
 			leftMotorSpeed = 0.56,
 			rightMotorSpeed = 0.5,
-			leftTurningSpeed = 0.45,
-			rightTurningSpeed = 0.45,
+			leftTurningSpeed = 0.55,
+			rightTurningSpeed = 0.55,
 			dropIntakeSpeed = 0.25,
 			holdElevatorSpeed = 0.15,
 			raiseElevatorSpeed = 0.5;
@@ -65,8 +65,8 @@ private final int //Auto Constants under some random encoder ticks (457)
 		case startMove:
 		{
 			timer.start();
-			drive.setLeftSpeed(leftMotorSpeed);
-			drive.setRightSpeed(rightMotorSpeed);
+			drive.setLeftSpeed(0.5);
+			drive.setRightSpeed(0.5);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
 		break;
@@ -76,7 +76,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
-			if(timer.get()>1.2) {
+			if(timer.get()>1.4) {
 				drive.setAllSpeed(0);
 				System.out.println("Finished Cross Auto Line");
 				break;
@@ -102,8 +102,8 @@ private final int //Auto Constants under some random encoder ticks (457)
 		{	//Start move case will have the robot to start moving forward toward its goal.
 			System.out.println("startedMove");
 			timer.start();
-			drive.setLeftSpeed(leftMotorSpeed);
-			drive.setRightSpeed(rightMotorSpeed);
+			drive.setLeftSpeed(0.5);
+			drive.setRightSpeed(0.5);
 			intake.setSpeedLeft(dropIntakeSpeed);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
@@ -155,7 +155,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 		}
 		case stopElevator:
 		{
-			if(timer.get() > 3 || elevator.getEncoder() > 5000) {
+			if(timer.get() > 3 || elevator.getEncoder() > 3000) {
 				RobotMap.elevator1.set(holdElevatorSpeed);
 				RobotMap.autoState = startToSwitch;
 			break;
@@ -384,10 +384,10 @@ private final int //Auto Constants under some random encoder ticks (457)
 		case startMove:
 		{
 			timer.start();
-			drive.setLeftSpeed(leftMotorSpeed);
-			drive.setRightSpeed(rightMotorSpeed);
-			RobotMap.elevator1.set(ControlMode.Position, 2800);
-			intake.setSpeedLeft(0.25);
+			drive.setLeftSpeed(0.44);
+			drive.setRightSpeed(0.4);
+			RobotMap.elevator1.set(ControlMode.Position, 2650);
+			intake.setSpeedLeft(-0.25);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
 		break;
@@ -397,7 +397,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
-			if(timer.get()>0.8) {
+			if(timer.get()>1.75) {
 				drive.setAllSpeed(0);
 				intake.setSpeed(0);
 				RobotMap.elevator1.set(0.13);
@@ -452,7 +452,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			{
 				timer.start();
 				drive.setLeftSpeed(0.5);
-				drive.setRightSpeed(0.55);
+				drive.setRightSpeed(0.5);
 				System.out.println("Finished Start");
 				RobotMap.autoState = endMove;
 			break;
@@ -465,7 +465,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 					break;
 				}
 				if(!turnTwo) {
-					if(timer.get()>0.5) {
+					if(timer.get()>0.7) {
 						drive.setAllSpeed(0);
 						gyro.reset();
 						System.out.println("Stopped Move");
@@ -474,7 +474,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 					}
 				}
 				else {
-					if(timer.get()>0.5) {
+					if(timer.get()>0.7) {
 						drive.stopAllSpeed();
 						gyro.reset();
 						System.out.println("Stopped Move");
@@ -484,7 +484,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 					if(timer.get()>0.4) {
 						intake.setSpeed(0);
 					}
-					if(elevator.getEncoder()>5000) {
+					if(elevator.getEncoder()>2900) {
 						RobotMap.elevator1.set(0.1);
 					}
 				}
@@ -523,7 +523,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				if(timer.get()>0.4) {
 					intake.setSpeed(0);
 				}
-				if(elevator.getEncoder()>5000) {
+				if(elevator.getEncoder()>5300) {
 					RobotMap.elevator1.set(0.1);
 					timer.stop();
 				}

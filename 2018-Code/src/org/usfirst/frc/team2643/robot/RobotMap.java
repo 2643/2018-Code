@@ -18,10 +18,10 @@ public class RobotMap
 	// Drive motors
 	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(14); // Front Left
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // Back left
-	public static final WPI_TalonSRX leftDrive3 = new WPI_TalonSRX(13); //Middle Left
+	//public static final WPI_TalonSRX leftDrive3 = new WPI_TalonSRX(13); //Middle Left
 	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(1); // Front Right
 	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(16); // Right Back
-	public static final WPI_TalonSRX rightDrive3 = new WPI_TalonSRX(12); //Middle Right
+	//public static final WPI_TalonSRX rightDrive3 = new WPI_TalonSRX(12); //Middle Right
 	
 	// Motor to move elevator up
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
@@ -76,7 +76,7 @@ public class RobotMap
 	public static final double reducedSpeed = 0.3;
 
 	// makes it so that it only prints statements when debug is true
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	// speed for lowering the slide
 	public static final double slideLoweringSpeed = -0.15; // TODO get speed
@@ -114,7 +114,7 @@ public class RobotMap
 	static final double PIDI = 0;
 	static final double PIDD = 0;
 	
-	static final int maxEncoderValue = 8000; //TODO //From 12750
+	static final int maxEncoderValue = 9200; //TODO //From 12750
 	static final int moveUpSpeed = 0;
 	static final int moveDownSpeed = 0;
 	

@@ -51,13 +51,19 @@ public class Elevator
 	 */
 	public void dropElevator()
 	{
-		while (RobotMap.elevatorLimitSwitch.get())
-		{
-			elevator.set(-0.3);
-			//System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
+		if(RobotMap.elevatorLimitSwitch.get()) {
+			elevator.set(0);
+			resetEncoder();
 		}
-		atBot = true;
-		resetEncoder();
+		else{
+			
+			elevator.set(-0.3);
+		}
+		
+		if(RobotMap.DEBUG)
+		{
+			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
+		}
 	}
 
 	public void dropElevator(double speed)

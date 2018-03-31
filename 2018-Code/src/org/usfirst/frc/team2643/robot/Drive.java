@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2643.robot;
 
-import com.ctre.phoenix.Logger;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive
@@ -35,13 +34,13 @@ public class Drive
 		
 		rightDriveSlave1.follow(rightDriveMaster);
 		leftDriveSlave1.follow(leftDriveMaster);
-		rightDriveSlave2.follow(rightDriveMaster);
-		leftDriveSlave2.follow(leftDriveMaster);
+		//rightDriveSlave2.follow(rightDriveMaster);
+		//leftDriveSlave2.follow(leftDriveMaster);
 		
-		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
-		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
-		leftDriveMaster.setSensorPhase(true);
-		rightDriveMaster.setSensorPhase(true);
+//		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
+//		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
+//		leftDriveMaster.setSensorPhase(true);
+//		rightDriveMaster.setSensorPhase(true);
 	}
 
 	public void currentLimit(WPI_TalonSRX motor)
@@ -53,7 +52,7 @@ public class Drive
 	}
 	
 	public void rampRate(WPI_TalonSRX motor) {
-		motor.configOpenloopRamp(0.8, 0);
+		motor.configOpenloopRamp(0.3, 0);
 	}
 	
 //	// returns left encoder ticks, which is for some reason twice the actual

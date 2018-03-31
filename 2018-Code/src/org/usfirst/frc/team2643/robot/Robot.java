@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto choices", chooser);
 
 		gyro = new GyroScope();
-		drive = new Drive(RobotMap.leftDrive1, RobotMap.leftDrive2, RobotMap.leftDrive3, RobotMap.rightDrive1, RobotMap.rightDrive2, RobotMap.rightDrive3, gyro);
+		drive = new Drive(RobotMap.leftDrive1, RobotMap.leftDrive2, /*RobotMap.leftDrive3,*/ RobotMap.rightDrive1, RobotMap.rightDrive2);
 		elevator = new Elevator(RobotMap.elevator1, RobotMap.elevator2, 0);
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot
 				autoSelection = doMiddleSwitch;
 			}
 			else {
-				autoSelection = doOppositeMiddleLPos;
+				autoSelection = crossAuto;
 			}
 		}
 		else if(autoSelected.equals(positionMiddleRightOption)) {
@@ -124,7 +124,7 @@ public class Robot extends IterativeRobot
 				autoSelection = doMiddleSwitch;
 			}
 			else {
-				autoSelection = doOppositeMiddleRPos;
+				autoSelection = crossAuto;
 			}
 		}
 		else {
@@ -198,7 +198,7 @@ public class Robot extends IterativeRobot
 		}
 	}
 		
-}
+}	
 
 	@Override
 	public void teleopInit()
@@ -206,7 +206,7 @@ public class Robot extends IterativeRobot
 		//elevator.dropElevator();
 		//elevator.resetEncoder();
 		//elevator.defaultPIDLSMotor();
-		elevator.resetEncoder();
+		//elevator.resetEncoder();
 		gyro.reset();
 		elevator.currentLimit();
 	}
@@ -221,20 +221,25 @@ public class Robot extends IterativeRobot
 
 		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
-//		intake.intake(RobotMap.opBoard);
-//		
-//		if(RobotMap.opBoard.getRawButton(10))
-//		{
-//			elevator.dropElevator();
-//		}
-//		
-//		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
-//		
-//		elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-//		
+		intake.intake(RobotMap.opBoard);
+		
+		if(RobotMap.opBoard.getRawButton(10))
+		{
+			elevator.dropElevator();
+		}
+		else
+		{
+			elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+		}
+		
+		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+		
+		
+		
 		if(RobotMap.DEBUG)
 		{
-			System.out.println("Total EMotor draw: " + elevator.getTotalCurrent() + " | Total LMotor draw: " + drive.totalCurrentDraw("left") + " | Total RMotor draw: " + drive.totalCurrentDraw("right"));
+			System.out.println(elevator.getEncoder() + "\t" + elevator.getElevatorCurrent());
+			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		}
 		//elevator.usingButtons(RobotMap.opBoard);
 		//l System.out.println(elevator.getEncoder());
