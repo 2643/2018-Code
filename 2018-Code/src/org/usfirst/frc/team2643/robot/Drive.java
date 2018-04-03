@@ -45,14 +45,14 @@ public class Drive
 
 	public void currentLimit(WPI_TalonSRX motor)
 	{
-		motor.configContinuousCurrentLimit(25, 0);
-		motor.configPeakCurrentLimit(30, 0);
-		motor.configPeakCurrentDuration(100, 0);
+		motor.configContinuousCurrentLimit(30, 0);
+		motor.configPeakCurrentLimit(36, 0);
+		motor.configPeakCurrentDuration(80, 0);
 		motor.enableCurrentLimit(true);
 	}
 	
 	public void rampRate(WPI_TalonSRX motor) {
-		motor.configOpenloopRamp(0.3, 0);
+		motor.configOpenloopRamp(0.2, 0);
 	}
 	
 //	// returns left encoder ticks, which is for some reason twice the actual
