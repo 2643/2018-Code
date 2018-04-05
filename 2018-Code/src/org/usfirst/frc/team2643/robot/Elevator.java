@@ -51,7 +51,7 @@ public class Elevator
 	 */
 	public void dropElevator()
 	{
-		if(RobotMap.elevatorLimitSwitch.get()) {
+		if(!RobotMap.elevatorLimitSwitch.get()) {
 			elevator.set(0);
 			resetEncoder();
 		}

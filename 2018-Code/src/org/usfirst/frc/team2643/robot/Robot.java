@@ -124,7 +124,7 @@ public class Robot extends IterativeRobot
 				autoSelection = doMiddleSwitch;
 			}
 			else {
-				autoSelection = crossAuto;
+				autoSelection = doOppositeMiddleRPos;
 			}
 		}
 		else {
@@ -278,6 +278,11 @@ public class Robot extends IterativeRobot
 	@Override
 	public void testPeriodic()
 	{
+		if(RobotMap.opBoard.getRawButton(1)) {
+			gyro.reset();
+		}
+		System.out.println(gyro.getAngle());
+		
 		/*System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if (RobotMap.driveStick.getRawButton(0) == true)
 		{
