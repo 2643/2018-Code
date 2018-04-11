@@ -2,6 +2,8 @@ package org.usfirst.frc.team2643.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 public class Drive
 {
 
@@ -188,4 +190,29 @@ public class Drive
 			setRightSpeed(0);
 		}
 	}
+	
+	public void SRXmodifiedDrive(Joystick stick) {
+		double yAxis = stick.getRawAxis(1);
+		double turnModifier = stick.getRawAxis(4);
+		if(yAxis>0.03 || yAxis < -0.03) {
+			setLeftSpeed(yAxis);
+			setRightSpeed(yAxis);
+		}
+		else if(yAxis>0.03||yAxis<-0.03 && turnModifier > 0.03) {
+			setLeftSpeed(yAxis);
+			setRightSpeed(yAxis+turnModifier);
+		}
+		else if(yAxis>0.03||yAxis<-.03 && turnModifier<-0.03) {
+			setLeftSpeed(yAxis+turnModifier);
+			setRightSpeed(yAxis);
+		}
+		else if(yAxis<0.03||yAxis>-.03 && turnModifier < -0.03 || turnModifier > 0.03) {
+			setLeftSpeed(turnModifier);
+			setRightSpeed(-turnModifier);
+		}
+		else {
+			stopAllSpeed();
+		}
+	}
+	
 }
