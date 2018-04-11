@@ -173,13 +173,13 @@ public class Robot extends IterativeRobot
 			}
 		case doOppositeMiddleLPos:
 			{
-				autoRoutines.doOppositeMiddle(false);
+				autoRoutines.doOppositeMiddle();
 				System.out.println("Middle Opposite Switch Left");
 			break;
 			}
 		case doOppositeMiddleRPos:
 			{
-				autoRoutines.doOppositeMiddle(true);
+				autoRoutines.doOppositeMiddle();
 				System.out.println("Middle Opposite Switch Right");
 			break;
 			}
