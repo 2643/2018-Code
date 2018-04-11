@@ -21,7 +21,7 @@ public class IntakeAngle {
 	
 	public void angleUsingButtons(int buttonUp, int buttonDown) {
 		if(RobotMap.opBoard.getRawButton(buttonUp)) {
-			RobotMap.inclineMotor.set(0.3);
+			RobotMap.inclineMotor.set(0.5);
 		}
 		else if(RobotMap.opBoard.getRawButton(buttonDown)) {
 			RobotMap.inclineMotor.set(-0.3);

@@ -11,6 +11,8 @@ public class Elevator
 	private WPI_TalonSRX elevator;
 	private WPI_TalonSRX elevatorSlave;
 	private boolean atBot = false;
+	
+	double elevatorIncrease;
 	/**
 	 * Initialize Elevator
 	 * 
@@ -57,7 +59,7 @@ public class Elevator
 		}
 		else{
 			
-			elevator.set(-0.3);
+			elevator.set(-0.4);
 		}
 		
 		if(RobotMap.DEBUG)
@@ -258,6 +260,30 @@ public class Elevator
 	public String getElevatorCurrent()
 	{
 		return "Elevator Current: " + (elevator.getOutputCurrent() + elevatorSlave.getOutputCurrent());
+	}
+	
+	
+	public void buttonPosControl(int buttonUp, int buttonDown) {
+		elevator.set(ControlMode.Position, RobotMap.encoderTick);
+		
+		elevatorIncrease = (RobotMap.opBoard.getThrottle() + 1)/2;
+		
+		if(RobotMap.opBoard.getRawButton(buttonDown)) {
+			if(RobotMap.encoderTick<0) {
+				RobotMap.encoderTick = 0;
+			}
+			else {
+				RobotMap.encoderTick -= 46 + (46*elevatorIncrease);
+			}
+		}
+		else if(RobotMap.opBoard.getRawButton(buttonUp)) {
+			if(RobotMap.encoderTick>RobotMap.maxEncoderValue) {
+				RobotMap.encoderTick = RobotMap.maxEncoderValue;
+			}
+			else {
+				RobotMap.encoderTick += 46 + (46*elevatorIncrease);
+			}
+		}
 	}
 
 	/**

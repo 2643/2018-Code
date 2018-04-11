@@ -51,6 +51,8 @@ public class Robot extends IterativeRobot
 			transition = 2,
 			usingButtons = 3;
 	
+	static boolean elevatorToggle = true;
+	
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -72,6 +74,8 @@ public class Robot extends IterativeRobot
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
+		
+		//gyro.calibrate();
 	}
 
 	/**
@@ -102,14 +106,25 @@ public class Robot extends IterativeRobot
 		/*if(gameData.charAt(1) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doLeftScale;
 		}*/
-		if(gameData.charAt(0) == 'L' && autoSelected.equals(positionLeftOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-			autoSelection = doLeftSwitch;
+		if(autoSelected.equals(positionLeftOption)) {
+			if(gameData.charAt(0) == 'L') {
+				autoSelection = doLeftSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
+			
 		}
 		/*else if(gameData.charAt(1) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
 			autoSelection = doRightScale;
 		}*/
-		else if(gameData.charAt(0) == 'R' && autoSelected.equals(positionRightOption) && !autoSelected.equals(crossAutoLineOnlyOption)) {
-			autoSelection = doRightSwitch;
+		else if(autoSelected.equals(positionRightOption)) {
+			if(gameData.charAt(0) == 'R') {
+				autoSelection = doRightSwitch;
+			}
+			else {
+				autoSelection = crossAuto;
+			}
 		}
 		else if(autoSelected.equals(positionMiddleLeftOption)) {
 			if(gameData.charAt(0) == 'L') {
@@ -173,13 +188,13 @@ public class Robot extends IterativeRobot
 			}
 		case doOppositeMiddleLPos:
 			{
-				autoRoutines.doOppositeMiddle(false);
+				autoRoutines.doOppositeMiddle();
 				System.out.println("Middle Opposite Switch Left");
 			break;
 			}
 		case doOppositeMiddleRPos:
 			{
-				autoRoutines.doOppositeMiddle(true);
+				autoRoutines.doOppositeMiddle();
 				System.out.println("Middle Opposite Switch Right");
 			break;
 			}
@@ -223,14 +238,7 @@ public class Robot extends IterativeRobot
 		
 		intake.intake(RobotMap.opBoard);
 		
-		if(RobotMap.opBoard.getRawButton(10))
-		{
-			elevator.dropElevator();
-		}
-		else
-		{
-			elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-		}
+		elevator.buttonPosControl(4, 5);		
 		
 		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
 		
@@ -238,9 +246,33 @@ public class Robot extends IterativeRobot
 		
 		if(RobotMap.DEBUG)
 		{
-			System.out.println(elevator.getEncoder() + "\t" + elevator.getElevatorCurrent());
+			System.out.println(elevator.getEncoder());
 			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		}
+		/*
+if(elevatorToggle) {
+			
+			
+			if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+				elevatorToggle = !elevatorToggle;
+			}
+			
+		}
+		else {
+			if(RobotMap.opBoard.getRawButton(10))
+			{
+				elevator.dropElevator();
+			}
+			else
+			{
+				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
+			}
+			
+			if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
+				elevatorToggle = !elevatorToggle;
+			}
+		}*/
+		
 		//elevator.usingButtons(RobotMap.opBoard);
 		//l System.out.println(elevator.getEncoder());
 		

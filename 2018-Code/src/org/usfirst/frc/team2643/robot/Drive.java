@@ -29,8 +29,8 @@ public class Drive
 		currentLimit(leftDriveMaster);
 		currentLimit(rightDriveMaster);
 		
-		rampRate(leftDriveMaster);
-		rampRate(rightDriveMaster);
+		//rampRate(leftDriveMaster);
+		//rampRate(rightDriveMaster);
 		
 		rightDriveSlave1.follow(rightDriveMaster);
 		leftDriveSlave1.follow(leftDriveMaster);
@@ -45,8 +45,8 @@ public class Drive
 
 	public void currentLimit(WPI_TalonSRX motor)
 	{
-		motor.configContinuousCurrentLimit(30, 0);
-		motor.configPeakCurrentLimit(36, 0);
+		motor.configContinuousCurrentLimit(32, 0);
+		motor.configPeakCurrentLimit(35, 0);
 		motor.configPeakCurrentDuration(80, 0);
 		motor.enableCurrentLimit(true);
 	}
@@ -141,11 +141,11 @@ public class Drive
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
 			// Currently the deadzone is 5%
-			setRightSpeed(-x);
+			setRightSpeed(x);
 			setLeftSpeed(x);
 		} else if (y > 0.03 || y < 0.03)
 		{ // If the given axis is pushed up or
-			setRightSpeed(y);
+			setRightSpeed(-y);
 			setLeftSpeed(y);
 		} else
 		{ // If no joystick activity, set all motors to 0.

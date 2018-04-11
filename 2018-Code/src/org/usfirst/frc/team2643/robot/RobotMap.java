@@ -70,13 +70,14 @@ public class RobotMap
 	public static final double fullSpeed = 1;
 
 	// Set all motors to cruising speed! Aye aye cap'n!
+	
 	public static final double cruisingSpeed = 0.3;
 
 	// A reduced speed for careful stuff
 	public static final double reducedSpeed = 0.3;
 
 	// makes it so that it only prints statements when debug is true
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = !true;
 
 	// speed for lowering the slide
 	public static final double slideLoweringSpeed = -0.15; // TODO get speed
@@ -117,6 +118,8 @@ public class RobotMap
 	static final int maxEncoderValue = 9200; //TODO //From 12750
 	static final int moveUpSpeed = 0;
 	static final int moveDownSpeed = 0;
+	
+	static double encoderTick = 0;
 	
 	public static int feetToTicks(double feet)
 	{
