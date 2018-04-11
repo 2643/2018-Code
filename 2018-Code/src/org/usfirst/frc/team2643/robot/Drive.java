@@ -194,7 +194,7 @@ public class Drive
 	public void SRXmodifiedDrive(Joystick stick) {
 		double yAxis = stick.getRawAxis(1);
 		double turnModifier = stick.getRawAxis(4);
-		if(yAxis>0.03 || yAxis < -0.03) {
+		if(yAxis>0.03 || yAxis < -0.03 &&  turnModifier > -0.03 || turnModifier < 0.03) {
 			setLeftSpeed(yAxis);
 			setRightSpeed(yAxis);
 		}
