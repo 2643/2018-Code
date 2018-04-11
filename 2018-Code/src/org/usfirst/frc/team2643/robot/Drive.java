@@ -190,26 +190,49 @@ public class Drive
 			setRightSpeed(0);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param stick
+	 * When calling the method, all you have to do is input a joystick. For example,
+	 * SRXmodifiedDrive(RobotMap.driveStick);
+	 */
 	public void SRXmodifiedDrive(Joystick stick) {
-		double yAxis = stick.getRawAxis(1);
-		double turnModifier = stick.getRawAxis(4);
-		if(yAxis>0.03 || yAxis < -0.03 &&  turnModifier > -0.03 || turnModifier < 0.03) {
+		double yAxis = stick.getRawAxis(1); 	//These two variables are constantly updated as the program iterates through the system.
+		double turnModifier = stick.getRawAxis(4); //The only purpose they serve are for ease of programming and so you don't 
+		//see stick.getRawAxis(1) everywhere
+		
+		if(yAxis >0.03 || yAxis < -0.03 &&  turnModifier > -0.03 || turnModifier < 0.03) {//This comparator ensures that the driver does not want to turn and is only driving straight forward
 			setLeftSpeed(yAxis);
-			setRightSpeed(yAxis);
+			setRightSpeed(yAxis);//So for example, if the driver pushes the left stick forward, the robot will move forward.
 		}
-		else if(yAxis>0.03||yAxis<-0.03 && turnModifier > 0.03) {
-			setLeftSpeed(yAxis);
-			setRightSpeed(yAxis+turnModifier);
+		
+		else if(yAxis>0.03||yAxis<-0.03 && turnModifier > 0.03) { //This comparator will ensure that the robot turns the correct direction when the right stick is moved side to side.
+			if(yAxis>0.8||yAxis<-0.8) { //This if statement tests to see if the bot is being run close to full speed. If it is, then you must subtract from the output of the opposite motor.
+				setLeftSpeed(yAxis - Math.abs(turnModifier));
+				setRightSpeed(yAxis);
+			}
+			else {
+				setLeftSpeed(yAxis);
+				setRightSpeed(yAxis + Math.abs(turnModifier)); //Once the driver moves the right stick in the +x direction, 
+			}
 		}
+		
 		else if(yAxis>0.03||yAxis<-.03 && turnModifier<-0.03) {
-			setLeftSpeed(yAxis+turnModifier);
-			setRightSpeed(yAxis);
+			if(yAxis>0.8||yAxis<-0.8) {
+				setLeftSpeed(yAxis);
+				setRightSpeed(yAxis - Math.abs(turnModifier));
+			}
+			else {
+				setLeftSpeed(yAxis);
+				setRightSpeed(yAxis + Math.abs(turnModifier)); //Once the driver moves the right stick in the +x direction, 
+			}
 		}
+		
 		else if(yAxis<0.03||yAxis>-.03 && turnModifier < -0.03 || turnModifier > 0.03) {
 			setLeftSpeed(turnModifier);
 			setRightSpeed(-turnModifier);
 		}
+		
 		else {
 			stopAllSpeed();
 		}
