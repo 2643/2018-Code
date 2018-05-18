@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot
 	public static Intake intake;
 	public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
+	public static GamePadControl gpadControl;
 	
 	final int doLeftScale = 0,
 			doRightScale = 1,
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot
 		intake = new Intake(RobotMap.leftIntake, RobotMap.rightIntake);
 		angleIntake = new IntakeAngle(RobotMap.inclineMotor);
 		autoRoutines = new AutoRoutines();
+		gpadControl = new GamePadControl(RobotMap.elevator1, RobotMap.opStick);
 		
 		//gyro.calibrate();
 	}
@@ -235,74 +237,28 @@ public class Robot extends IterativeRobot
 	{		
 		/** Drive code */
 
-		//drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
-		drive.SRXmodifiedDrive(RobotMap.driveStick);
+		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1),-RobotMap.driveStick.getRawAxis(5));
+		//drive.SRXarcadeDrive(-RobotMap.driveStick.getRawAxis(1),-RobotMap.driveStick.getRawAxis(0));
 		
-		intake.intake(RobotMap.opBoard);
+		//Operator GamePad Controls
+		gpadControl.gamepadElevator();
+		gpadControl.gamepadIncline();
+		gpadControl.gamepadIntake();
+		//Operator GamePad Controls
 		
-		elevator.buttonPosControl(4, 5);		
+		//Elevator Driver Station button controls
+		//intake.intake(RobotMap.opBoard);
+		//elevator.buttonPosControl(4, 5);		
+		//angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+		//Elevator Driver Station button controls
 		
-		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
 		
 		if(RobotMap.DEBUG)
 		{
 			System.out.println(elevator.getEncoder());
 			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		}
-		/*
-if(elevatorToggle) {
-			
-			
-			if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-				elevatorToggle = !elevatorToggle;
-			}
-			
-		}
-		else {
-			if(RobotMap.opBoard.getRawButton(10))
-			{
-				elevator.dropElevator();
-			}
-			else
-			{
-				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-			}
-			
-			if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-				elevatorToggle = !elevatorToggle;
-			}
-		}*/
-		
-		//elevator.usingButtons(RobotMap.opBoard);
-		//l System.out.println(elevator.getEncoder());
-		
-		//System.out.println(RobotMap.opBoard.getThrottle());
-//		switch(elevatorState) {
-//			case usingPot:
-//			{
-//				elevator.moveUsingPot(RobotMap.opBoard.getThrottle());
-//				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-//					nextState = usingButtons;
-//					elevatorState = transition;
-//					System.out.println("Changed to Buttons");
-//				}
-//			}
-//			case usingButtons:
-//			{
-//				elevator.usingButtons(RobotMap.opBoard);
-//				if(RobotMap.opBoard.getRawButton(1) && RobotMap.opBoard.getRawButton(9)) {
-//					nextState = usingPot;
-//					elevatorState = transition;
-//					System.out.println("Changed to Pot");
-//				}
-//			}
-//			case transition:
-//			{
-//				RobotMap.elevator1.set(0);
-//				elevatorState = nextState;
-//			}
-//		}
 	}
 
 	/**

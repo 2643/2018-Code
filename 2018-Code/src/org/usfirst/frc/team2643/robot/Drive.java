@@ -177,6 +177,9 @@ public class Drive
 	
 	public void SRXtankDrive(double x, double y)
 	{	
+		/*if(RobotMap.driveStick.getRawAxis(1)>0.03 && RobotMap.driveStick.getRawAxis(5)>0.03) {
+			
+		}*/
 		if(RobotMap.driveStick.getRawAxis(1)>0.03 || RobotMap.driveStick.getRawAxis(1)<-0.03) {
 			setLeftSpeed(x);
 		}
@@ -190,6 +193,8 @@ public class Drive
 			setRightSpeed(0);
 		}
 	}
+	
+	
 	
 	/**
 	 * 
