@@ -10,16 +10,16 @@ public class RobotMap {
 	static Joystick opBoard = new Joystick(1);
 	
 	static WPI_TalonSRX
-		leftFront = new WPI_TalonSRX(1),
-		leftBack = new WPI_TalonSRX(2),
-		rightFront = new WPI_TalonSRX(3),
-		rightBack = new WPI_TalonSRX(4),
+		leftFront = new WPI_TalonSRX(14),
+		leftBack = new WPI_TalonSRX(15),
+		rightFront = new WPI_TalonSRX(1),
+		rightBack = new WPI_TalonSRX(16),
 		elevator1 = new WPI_TalonSRX(5),
-		elevator2 = new WPI_TalonSRX(6),
-		leftIntake = new WPI_TalonSRX(7),
-		rightIntake = new WPI_TalonSRX(8);
+		elevator2 = new WPI_TalonSRX(30),
+		leftIntake = new WPI_TalonSRX(9),
+		rightIntake = new WPI_TalonSRX(6);
 	
-	static DigitalInput elevatorLimitSwitch = new DigitalInput(9);
+	static DigitalInput elevatorLimitSwitch = new DigitalInput(0);
 	
 	public static final int fastIntakeButton = 8,
 			fastOuttakeButton = 7,
