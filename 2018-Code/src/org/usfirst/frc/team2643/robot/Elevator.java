@@ -4,119 +4,80 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Joystick;
+public class Elevator {
+	
+	WPI_TalonSRX masterElevator;
+	WPI_TalonSRX slaveElevator;
+	
+	private double elevatorIncrease;
+	public Elevator(WPI_TalonSRX elevator1, WPI_TalonSRX elevator2) {
+		masterElevator = elevator1;
+		slaveElevator = elevator2;
+		
+		slaveElevator.follow(masterElevator);
+		
+		currentLimit();
+		
+		masterElevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		
+		defaultPIDLSMotor();
+	}
+	
+	public void currentLimit() {
+		masterElevator.configPeakCurrentDuration(150, 0);
+		masterElevator.configPeakCurrentLimit(40, 0);
+		masterElevator.configContinuousCurrentLimit(35, 0);
+		masterElevator.enableCurrentLimit(true);
+	}
+	
+	public void dropElevator()
+	{
+		if(!RobotMap.elevatorLimitSwitch.get()) {
+			masterElevator.set(0);
+			resetEncoder();
+		}
+		else{
+			
+			masterElevator.set(-0.4);
+		}
+		
+	}
 
-public class Elevator
-{
-	private WPI_TalonSRX lsMotor;
-	
-	/**
-	 * Initialize Elevator 
-	 * @param lsm - linear slide motor
-	 */
-	public Elevator(WPI_TalonSRX lsm)
-	{
-		lsMotor = lsm;
-		defaultPIDLSMotor();
-		lsMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+	public void resetEncoder() {
+		masterElevator.getSensorCollection().setQuadraturePosition(0, 20);
 	}
 	
-	/**
-	 * Initialize Elevator 
-	 * @param lsm - linear slide motor
-	 * @param profile - PID profile
-	 */
-	public Elevator(WPI_TalonSRX lsm, int profile)
-	{
-		lsMotor = lsm;
-		defaultPIDLSMotor();
-		lsMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
-	}
-	
-	/**
-	 * Default PID profile (0)
-	 */
 	public void defaultPIDLSMotor()
 	{
-		lsMotor.selectProfileSlot(EnvironmentVariables.defaultPID, 0); 
-		lsMotor.config_kF(0, EnvironmentVariables.PIDF, 20); 
-		lsMotor.config_kP(0, EnvironmentVariables.PIDP, 20); 
-		lsMotor.config_kI(0, EnvironmentVariables.PIDI, 20); 
-		lsMotor.config_kD(0, EnvironmentVariables.PIDD, 20);
+		masterElevator.setSensorPhase(true);
+		masterElevator.selectProfileSlot(RobotMap.defaultPID, 0);
+		masterElevator.config_kF(0, RobotMap.PIDF, 20);
+		masterElevator.config_kP(0, RobotMap.PIDP, 20);
+		masterElevator.config_kI(0, RobotMap.PIDI, 20);
+		masterElevator.config_kD(0, RobotMap.PIDD, 20);
+		masterElevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 	
-	/**
-	 * Configure PID profile
-	 * @param profile - profile (0 or 1)
-	 * @param fVal - f constant
-	 * @param pVal - position constant
-	 * @param iVal - integral constant
-	 * @param dVal - derivative constant
-	 */
-	public void configPIDProfile(int profile, double fVal, double pVal, double iVal, double dVal)
-	{
-		lsMotor.selectProfileSlot(profile, 0); 
-		lsMotor.config_kF(0, fVal, 20); 
-		lsMotor.config_kP(0, pVal, 20); 
-		lsMotor.config_kI(0, iVal, 20); 
-		lsMotor.config_kD(0, dVal, 20);
-	}
-	
-	/**
-	 * Get encoder value for the elevator
-	 * @return - encoder value for the elevator
-	 */
-	public int getEncoderValues()
-	{
-		return lsMotor.getSensorCollection().getQuadraturePosition() / 2;
-	}
-	
-	/**
-	 * Convert Feet to encoders and move
-	 * @param pos - Movement by feet
-	 */
-	public void moveElevatorToPosFeet(int pos)
-	{
-		pos = RobotMap.feetToTicks(pos);
-		lsMotor.set(ControlMode.Position, pos);
-	}
-	
-	/**
-	 * Convert inches to encoder and move
-	 * @param pos - movement in inches
-	 */
-	public void moveElevatorToPosInches(int pos)
-	{
-		pos = RobotMap.feetToTicks(pos/12);
-		lsMotor.set(ControlMode.Position, pos);
-	}
-	
-	/**
-	 * move elevator by movement rate
-	 * @param value - double value (can be used with joystick values)
-	 */
-	public void moveElevatorWithInput(double value)
-	{
-		if(getEncoderValues() > EnvironmentVariables.maxEncoderValue)
-			if(value < 0)
-				lsMotor.set(ControlMode.PercentOutput, value);
-		else
-			lsMotor.set(ControlMode.PercentOutput, value);
-	}
-	
-	/**
-	 * move elevator using POV on controller with a constant speed
-	 * @param stick - joystick controller
-	 */
-	public void moveElevatorUsingPOV(Joystick stick)
-	{
-		if(getEncoderValues() > EnvironmentVariables.maxEncoderValue)
-			if(stick.getPOV() == 180)
-				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
-		else
-			if(stick.getPOV() == 0)
-				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveUpSpeed);
-			else if(stick.getPOV() == 180)
-				lsMotor.set(ControlMode.PercentOutput, EnvironmentVariables.moveDownSpeed);
+	public void buttonPosControl(int buttonUp, int buttonDown) {
+		masterElevator.set(ControlMode.Position, RobotMap.encoderTick);
+		
+		elevatorIncrease = (RobotMap.opBoard.getThrottle() + 1)/2;
+		
+		if(RobotMap.opBoard.getRawButton(buttonDown)) {
+			if(RobotMap.encoderTick<0) {
+				RobotMap.encoderTick = 0;
+			}
+			else {
+				RobotMap.encoderTick -= 46 + (46*elevatorIncrease);
+			}
+		}
+		else if(RobotMap.opBoard.getRawButton(buttonUp)) {
+			if(RobotMap.encoderTick>RobotMap.maxEncoderValue) {
+				RobotMap.encoderTick = RobotMap.maxEncoderValue;
+			}
+			else {
+				RobotMap.encoderTick += 46 + (46*elevatorIncrease);
+			}
+		}
 	}
 }
