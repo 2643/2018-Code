@@ -235,15 +235,13 @@ public class Robot extends IterativeRobot
 	{		
 		/** Drive code */
 
-		//drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
-		
-		drive.SRXmodifiedDrive(RobotMap.driveStick);
+		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
 		
 		intake.intake(RobotMap.opBoard);
 		
-		elevator.buttonPosControl(4, 5);		
+		elevator.usingButtons(RobotMap.opBoard);		
 		
-		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+		//angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
 		
 		if(RobotMap.DEBUG)
 		{
