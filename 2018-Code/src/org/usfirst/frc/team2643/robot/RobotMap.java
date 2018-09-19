@@ -26,8 +26,8 @@ public class RobotMap {
 			safetyButton = 1,
 			slowIntakeButton = 3,
 			slowOuttakeButton = 2,
-			elevatorUp = 5,
-			elevatorDown = 4,
+			elevatorUp = 4,
+			elevatorDown = 5,
 			switchStates = 9,
 			winchUp = 12,
 			winchDown = 11;

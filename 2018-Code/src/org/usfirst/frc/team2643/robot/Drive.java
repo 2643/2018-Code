@@ -38,7 +38,7 @@ public class Drive {
 			frontLeft.set(0);
 			}
 		if(RobotMap.driveStick.getRawAxis(5)>0.03 || RobotMap.driveStick.getRawAxis(5)<-0.03) {
-			frontRight.set(y);
+			frontRight.set(-y);
 		}
 		else {
 			frontRight.set(0);

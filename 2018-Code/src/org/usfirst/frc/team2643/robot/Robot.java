@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 		
 		intake.intake(RobotMap.opBoard);
 		
-		elevator.buttonPosControl(4, 5);
+		elevator.percentOutputControl();
 		
 	}
 
@@ -98,6 +98,6 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() { 
 	}
 }

@@ -9,7 +9,7 @@ public class Elevator {
 	WPI_TalonSRX masterElevator;
 	WPI_TalonSRX slaveElevator;
 	
-	private double elevatorIncrease;
+	//private double elevatorIncrease;
 	public Elevator(WPI_TalonSRX elevator1, WPI_TalonSRX elevator2) {
 		masterElevator = elevator1;
 		slaveElevator = elevator2;
@@ -58,26 +58,39 @@ public class Elevator {
 		masterElevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 	}
 	
-	public void buttonPosControl(int buttonUp, int buttonDown) {
-		masterElevator.set(ControlMode.Position, RobotMap.encoderTick);
-		
-		elevatorIncrease = (RobotMap.opBoard.getThrottle() + 1)/2;
-		
-		if(RobotMap.opBoard.getRawButton(buttonDown)) {
-			if(RobotMap.encoderTick<0) {
-				RobotMap.encoderTick = 0;
-			}
-			else {
-				RobotMap.encoderTick -= 46 + (46*elevatorIncrease);
-			}
+//	public void buttonPosControl(int buttonUp, int buttonDown) {
+//		masterElevator.set(ControlMode.Position, RobotMap.encoderTick);
+//		
+//		elevatorIncrease = (RobotMap.opBoard.getThrottle() + 1)/2;
+//		
+//		if(RobotMap.opBoard.getRawButton(buttonDown)) {
+//			if(RobotMap.encoderTick<0) {
+//				RobotMap.encoderTick = 0;
+//			}
+//			else {
+//				RobotMap.encoderTick -= 46 + (46*elevatorIncrease);
+//			}
+//		}
+//		else if(RobotMap.opBoard.getRawButton(buttonUp)) {
+//			if(RobotMap.encoderTick>RobotMap.maxEncoderValue) {
+//				RobotMap.encoderTick = RobotMap.maxEncoderValue;
+//			}
+//			else {
+//				RobotMap.encoderTick += 46 + (46*elevatorIncrease);
+//			}
+//		}
+//	}
+	
+	public void percentOutputControl() {
+		if(RobotMap.opBoard.getRawButton(RobotMap.elevatorUp)) {
+			RobotMap.elevator1.set(0.7);
 		}
-		else if(RobotMap.opBoard.getRawButton(buttonUp)) {
-			if(RobotMap.encoderTick>RobotMap.maxEncoderValue) {
-				RobotMap.encoderTick = RobotMap.maxEncoderValue;
-			}
-			else {
-				RobotMap.encoderTick += 46 + (46*elevatorIncrease);
-			}
+		else if(RobotMap.opBoard.getRawButton(RobotMap.elevatorDown)) {
+			RobotMap.elevator1.set(-0.3);
+		}
+		else {
+			RobotMap.elevator1.set(0);
 		}
 	}
+	
 }
