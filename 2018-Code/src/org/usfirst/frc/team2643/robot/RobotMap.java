@@ -52,8 +52,8 @@ public class RobotMap
 			safetyButton = 1,
 			slowIntakeButton = 3,
 			slowOuttakeButton = 2,
-			elevatorUp = 5,
-			elevatorDown = 4,
+			elevatorUp = 4,
+			elevatorDown = 5,
 			switchStates = 9,
 			winchUp = 12,
 			winchDown = 11;
@@ -115,7 +115,7 @@ public class RobotMap
 	static final double PIDI = 0;
 	static final double PIDD = 0;
 	
-	static final int maxEncoderValue = 9200; //TODO //From 12750
+	static final int maxEncoderValue = 50000; //TODO //From 12750
 	static final int moveUpSpeed = 0;
 	static final int moveDownSpeed = 0;
 	

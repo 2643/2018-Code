@@ -2,6 +2,7 @@ package org.usfirst.frc.team2643.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -38,7 +39,9 @@ public class Elevator
 		elevatorSlave = slaveMotor;
 		defaultPIDLSMotor();
 		elevatorSlave.follow(elevator);
-		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, profile, 20);
+		elevator.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 20);
+
 	}
 	
 	public void currentLimit() {
@@ -125,7 +128,7 @@ public class Elevator
 	 */
 	public int getEncoder()
 	{
-		return elevator.getSensorCollection().getQuadraturePosition() / 2;
+		return elevator.getSensorCollection().getQuadraturePosition();
 	}
 
 	public void resetEncoder()
@@ -163,7 +166,7 @@ public class Elevator
 	 */
 	public void setPosition(double tick)
 	{
-		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 20);
 		if (tick > RobotMap.maxEncoderValue)
 		{
 			elevator.set(ControlMode.Position, RobotMap.maxEncoderValue);
@@ -273,7 +276,7 @@ public class Elevator
 				RobotMap.encoderTick = 0;
 			}
 			else {
-				RobotMap.encoderTick -= 46 + (46*elevatorIncrease);
+				RobotMap.encoderTick -= 110 + (110*elevatorIncrease);
 			}
 		}
 		else if(RobotMap.opBoard.getRawButton(buttonUp)) {
@@ -281,7 +284,7 @@ public class Elevator
 				RobotMap.encoderTick = RobotMap.maxEncoderValue;
 			}
 			else {
-				RobotMap.encoderTick += 46 + (46*elevatorIncrease);
+				RobotMap.encoderTick += 110 + (110*elevatorIncrease);
 			}
 		}
 	}

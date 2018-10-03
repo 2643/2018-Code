@@ -239,14 +239,19 @@ public class Robot extends IterativeRobot
 		
 		intake.intake(RobotMap.opBoard);
 		
-		elevator.usingButtons(RobotMap.opBoard);		
+		//elevator.usingButtons(RobotMap.opBoard);		
+		elevator.buttonPosControl(RobotMap.elevatorUp, RobotMap.elevatorDown);
 		
-		//angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
+		
+		if(RobotMap.opBoard.getRawButton(6)) {
+			elevator.resetEncoder();
+		}
 		
 		if(RobotMap.DEBUG)
 		{
 			System.out.println(elevator.getEncoder());
-			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
+			//System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
 		}
 		/*
 if(elevatorToggle) {
