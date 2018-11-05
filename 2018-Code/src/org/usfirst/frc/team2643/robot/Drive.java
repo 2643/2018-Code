@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -114,6 +115,14 @@ public class Drive
 	public void setRightSpeed(double speed)
 	{
 		rightDriveMaster.set(-speed);
+	}
+	
+	public void setLeftEncoder(int ticks) {
+		leftDriveMaster.set(ControlMode.Position, ticks);
+	}
+	
+	public void setRightEncoder(int ticks) {
+		rightDriveMaster.set(ControlMode.Position, ticks);
 	}
 
 	/**

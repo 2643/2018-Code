@@ -1,7 +1,11 @@
 package org.usfirst.frc.team2643.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,6 +57,9 @@ public class Robot extends IterativeRobot
 			usingButtons = 3;
 	
 	static boolean elevatorToggle = true;
+	
+	public static Encoder leftEncoder = new Encoder(2,3);
+	public static Encoder rightEncoder = new Encoder(0,1);
 	
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -172,16 +179,17 @@ public class Robot extends IterativeRobot
 		case doLeftSwitch:
 			{
 				autoRoutines.doSwitch(false);
+				//autoRoutines.doOurSwitch();
 				System.out.println("BotLeftSwitchLeft");
 			break;
 			}
 		case doRightSwitch:
 			{
-				autoRoutines.doSwitch(true);
+				autoRoutines.doOurSwitch();
 				System.out.println("BotRightSwitchRight");
 			break;
 			}
-		case doMiddleSwitch:
+		case doMiddleSwitch: //right middle (use this)
 			{
 				autoRoutines.middleCube();
 				System.out.println("Middle Do Switch");
@@ -193,9 +201,10 @@ public class Robot extends IterativeRobot
 				System.out.println("Middle Opposite Switch Left");
 			break;
 			}
-		case doOppositeMiddleRPos:
+		case doOppositeMiddleRPos: //right middle (use this)
 			{
 				autoRoutines.doOppositeMiddle();
+				//autoRoutines.doOppositeMiddleWithEncoder();
 				System.out.println("Middle Opposite Switch Right");
 			break;
 			}
@@ -219,6 +228,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
+		
 		//elevator.dropElevator();
 		//elevator.resetEncoder();
 		//elevator.defaultPIDLSMotor();
@@ -232,21 +242,26 @@ public class Robot extends IterativeRobot
 	 */
 	@Override
 	public void teleopPeriodic()
-	{		
-		/** Drive code */
-
+	{	
+		
 		drive.SRXtankDrive(-RobotMap.driveStick.getRawAxis(1), -RobotMap.driveStick.getRawAxis(5));
-		
 		intake.intake(RobotMap.opBoard);
-		
-		//elevator.usingButtons(RobotMap.opBoard);		
 		elevator.buttonPosControl(RobotMap.elevatorUp, RobotMap.elevatorDown);
-		
 		angleIntake.angleUsingButtons(RobotMap.winchUp, RobotMap.winchDown);
 		
-		if(RobotMap.opBoard.getRawButton(6)) {
+	//	autoRoutines.doOppositeMiddleWithEncoder();
+		
+		/** Drive code */
+//		double leftDriveEncoder =RobotMap.leftDrive1.getSensorCollection().getQuadraturePosition();
+//		double rightDriveEncoder =RobotMap.rightDrive1.getSensorCollection().getQuadraturePosition();
+		//double leftEncoderPotentialDifference = RobotMap.rightIntake.getSensorCollection().getQuadraturePosition();
+		
+		
+		/*if(RobotMap.opBoard.getRawButton(6)) {
 			elevator.resetEncoder();
-		}
+		}*/
+		
+		//System.out.println(leftDriveEncoder + "\t" + rightDriveEncoder);
 		
 		if(RobotMap.DEBUG)
 		{
@@ -314,10 +329,19 @@ if(elevatorToggle) {
 	@Override
 	public void testPeriodic()
 	{
-		if(RobotMap.opBoard.getRawButton(1)) {
-			gyro.reset();
-		}
-		System.out.println(gyro.getAngle());
+		
+		int leftDriveEncoder =leftEncoder.get();
+		int rightDriveEncoder =rightEncoder.get();
+		System.out.println(leftDriveEncoder + "\t" + rightDriveEncoder);
+		
+		
+		autoRoutines.doOppositeMiddleWithEncoder();
+		
+		
+//		if(RobotMap.opBoard.getRawButton(1)) {
+//			gyro.reset();
+//		}
+//		System.out.println(gyro.getAngle());
 		
 		/*System.out.println("DO NOT RUN AT FULL SPEED IF YOU DON'T WANT TO BREAK THE ROBOT");
 		if (RobotMap.driveStick.getRawButton(0) == true)

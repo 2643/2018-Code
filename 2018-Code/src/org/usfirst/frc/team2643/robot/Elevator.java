@@ -54,34 +54,34 @@ public class Elevator
 	/**
 	 * Drop elevator before the start of teleop?
 	 */
-	public void dropElevator()
-	{
-		if(!RobotMap.elevatorLimitSwitch.get()) {
-			elevator.set(0);
-			resetEncoder();
-		}
-		else{
-			
-			elevator.set(-0.4);
-		}
-		
-		if(RobotMap.DEBUG)
-		{
-			System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
-		}
-	}
+//	public void dropElevator()
+//	{
+//		if(!RobotMap.elevatorLimitSwitch.get()) {
+//			elevator.set(0);
+//			resetEncoder();
+//		}
+//		else{
+//			
+//			elevator.set(-0.4);
+//		}
+//		
+//		if(RobotMap.DEBUG)
+//		{
+//		//	System.out.println("E Limit Switch: " + RobotMap.elevatorLimitSwitch.get());
+//		}
+//	}
 
-	public void dropElevator(double speed)
-	{
-		while (RobotMap.elevatorLimitSwitch.get())
-		{
-			elevator.set(-speed);
-			//System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
-		}
-		atBot = true;
-		resetEncoder();
-	}
-	
+//	public void dropElevator(double speed)
+//	{
+//		while (RobotMap.elevatorLimitSwitch.get())
+//		{
+//			elevator.set(-speed);
+//			//System.out.println("Limit Switch got?: " + RobotMap.elevatorLimitSwitch.get());
+//		}
+//		atBot = true;
+//		resetEncoder();
+//	}
+//	
 	/**
 	 * Default PID profile (0)
 	 */
@@ -195,48 +195,48 @@ public class Elevator
 	 * @param value
 	 *            - double value (can be used with joystick values)
 	 */
-	public void moveElevatorWithInput(double value)
-	{
-		value = -value;
+//	public void moveElevatorWithInput(double value)
+//	{
+//		value = -value;
+//
+//		// System.out.println(!RobotMap.elevatorLimitSwitch.get());
+//		if (!RobotMap.elevatorLimitSwitch.get())
+//		{
+//			resetEncoder();
+//			if (value > 0)
+//			{
+//				elevator.set(ControlMode.PercentOutput, value * 1.5);
+//			} else
+//			{
+//				elevator.set(ControlMode.PercentOutput, 0);
+//			}
+//		} else if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
+//		{
+//			if (value < 0)
+//			{
+//				elevator.set(ControlMode.PercentOutput, value * 1.5);
+//			} else
+//			{
+//				elevator.set(ControlMode.PercentOutput, 0);
+//			}
+//		} else
+//		{
+//			elevator.set(ControlMode.PercentOutput, value * 1.5);
+//		}
+//	}
 
-		// System.out.println(!RobotMap.elevatorLimitSwitch.get());
-		if (!RobotMap.elevatorLimitSwitch.get())
-		{
-			resetEncoder();
-			if (value > 0)
-			{
-				elevator.set(ControlMode.PercentOutput, value * 1.5);
-			} else
-			{
-				elevator.set(ControlMode.PercentOutput, 0);
-			}
-		} else if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
-		{
-			if (value < 0)
-			{
-				elevator.set(ControlMode.PercentOutput, value * 1.5);
-			} else
-			{
-				elevator.set(ControlMode.PercentOutput, 0);
-			}
-		} else
-		{
-			elevator.set(ControlMode.PercentOutput, value * 1.5);
-		}
-	}
-
-	public void moveDownToLimit()
-	{
-		if(getEncoder() > 0 && !RobotMap.elevatorLimitSwitch.get())
-		{
-			elevator.set(-0.20);
-			if(RobotMap.elevatorLimitSwitch.get())
-			{
-				elevator.set(0);
-				resetEncoder();
-			}
-		}
-	}
+//	public void moveDownToLimit()
+//	{
+//		if(getEncoder() > 0 && !RobotMap.elevatorLimitSwitch.get())
+//		{
+//			elevator.set(-0.20);
+//			if(RobotMap.elevatorLimitSwitch.get())
+//			{
+//				elevator.set(0);
+//				resetEncoder();
+//			}
+//		}
+//	}
 
 	public void moveUsingPot(double value)
 	{
@@ -295,21 +295,21 @@ public class Elevator
 	 * @param stick
 	 *            - joystick controller
 	 */
-	public void moveElevatorUsingPOV(Joystick stick)
-	{
-		if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
-			if (stick.getPOV() == 180)
-				elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
-			else if (RobotMap.elevatorLimitSwitch.get())
-				if (stick.getPOV() == 0)
-					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
-				else if (stick.getPOV() == 0)
-					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
-				else if (stick.getPOV() == 180)
-					elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
-				else
-					elevator.set(0.0);
-	}
+//	public void moveElevatorUsingPOV(Joystick stick)
+//	{
+//		if (Math.abs(getEncoder()) > RobotMap.maxEncoderValue)
+//			if (stick.getPOV() == 180)
+//				elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
+//			else if (RobotMap.elevatorLimitSwitch.get())
+//				if (stick.getPOV() == 0)
+//					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
+//				else if (stick.getPOV() == 0)
+//					elevator.set(ControlMode.PercentOutput, RobotMap.moveUpSpeed);
+//				else if (stick.getPOV() == 180)
+//					elevator.set(ControlMode.PercentOutput, RobotMap.moveDownSpeed);
+//				else
+//					elevator.set(0.0);
+//	}
 
 	public void presetLocations()
 	{

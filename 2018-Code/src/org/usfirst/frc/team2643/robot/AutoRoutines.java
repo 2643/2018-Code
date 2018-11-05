@@ -32,7 +32,7 @@ public class AutoRoutines extends Robot {
 			
 private final int //Auto Constants under some random encoder ticks (457)
 //			encoderTicksToSwitch = 3208, //168 Inches (4073)
-			ninetyDegreeTurn = 95;
+			ninetyDegreeTurn = 130;
 //			encoderTicksToMidField = 4358, //5400
 //			encoderTicksFromSideToSide = 3915, //211 inches (5115)
 //			encoderTicksFromMidFieldToSwitch = 401; //32 inches (775)
@@ -94,7 +94,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
-			if(timer.get()>0.9) {
+			if(timer.get()>1.5) {
 				drive.setAllSpeed(0);
 				System.out.println("Finished Cross Auto Line");
 				break;
@@ -226,19 +226,76 @@ private final int //Auto Constants under some random encoder ticks (457)
 	}
 	
 	
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void doOurSwitch() {
+		switch(RobotMap.autoState) {
+		case startMove:
+		{
+			timer.start();
+			drive.setLeftSpeed(0.5);
+			drive.setRightSpeed(0.5);
+			System.out.println("Start Move");
+			RobotMap.autoState = endMove;
+			break;
+		}
+		
+		case endMove:
+		{
+			if(timer.get()>1.85) {
+				drive.setAllSpeed(0);
+				System.out.println("End Move");
+				RobotMap.autoState = startTurn;
+			break;
+			}
+		}
+		
+		case startTurn:
+		{
+			gyro.reset();
+			drive.setLeftSpeed(-0.5);
+			drive.setRightSpeed(0.5);
+			RobotMap.elevator1.set(ControlMode.Position, 6500);
+			timer.reset();
+			intake.setSpeedLeft(-0.3);
+			System.out.println("start turn");
+			RobotMap.autoState = endTurn;
+		break;
+		}
+		
+		case endTurn:
+		{
+			if(timer.get()>1) {
+				intake.setSpeed(0);
+			}
+			
+			if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
+				drive.setAllSpeed(0);
+				RobotMap.autoState = releaseCube;
+			break;
+			}
+		}
+		
+		case releaseCube:
+		{
+			intake.setSpeed(-0.8);
+			timer.reset();
+			RobotMap.autoState = stopRelease;
+		break;
+		}
+		
+		case stopRelease:
+		{
+			if(timer.get()>2) {
+				intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				drive.setAllSpeed(0);
+				timer.stop();
+			break;
+			}
+		}
+		
+		}
+	}
 	
-	
-	
-	
-	
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -250,8 +307,9 @@ private final int //Auto Constants under some random encoder ticks (457)
 			timer.start();
 			drive.setLeftSpeed(0.4);
 			drive.setRightSpeed(0.4);
-			//RobotMap.elevator1.set(ControlMode.Position, 800);
-			//intake.setSpeedLeft(0.38);
+			
+			intake.setSpeedLeft(-0.4);
+			RobotMap.elevator1.set(ControlMode.Position, 6500);
 			System.out.println("Finished Start");
 			RobotMap.autoState = endMove;
 		break;
@@ -261,10 +319,13 @@ private final int //Auto Constants under some random encoder ticks (457)
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
+			if(timer.get()>1) {
+				intake.setSpeed(0);
+			}
 			if(timer.get()>2.5) {
 				drive.setAllSpeed(0);
-				intake.setSpeed(0);
-				//RobotMap.elevator1.set(0.13);
+				//intake.setSpeed(0);
+				
 				System.out.println("Finished Cross Auto Line");
 				RobotMap.autoState = releaseCube;
 				break;
@@ -273,7 +334,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 		}
 		case releaseCube:
 		{
-			intake.setSpeed(-0.8);
+			intake.setSpeed(-0.7);
 			System.out.println("Started ReleaseCube");
 			timer.start();
 			RobotMap.autoState = stopRelease;
@@ -281,7 +342,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 		}
 		case stopRelease:
 		{	
-			if(timer.get()>2.5) {
+			if(timer.get()>4.5) {
 				intake.setSpeed(0);
 				timer.stop();
 				System.out.println("Dropped Cube");
@@ -293,14 +354,23 @@ private final int //Auto Constants under some random encoder ticks (457)
 		case endCase:
 		{
 			intake.setSpeed(0);
-			//RobotMap.elevator1.set(0);
+			RobotMap.elevator1.set(0);
 			drive.setAllSpeed(0);
 			System.out.println("Finished auto!!");
+			leftEncoder.reset();
+			rightEncoder.reset();
+			//RobotMap.autoState = 30;
 			if(Timer.getMatchTime()>15) {
 				break;
 			}
 		break;
 		}
+//		case 30:
+//		{
+//			RobotMap.leftDrive1.set(ControlMode.Position, 4);
+//			RobotMap.rightDrive1.set(ControlMode.Position, 4);
+//			break;
+//		}
 		}
 	}//End of method
 	
@@ -362,7 +432,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				if(Timer.getMatchTime()>15) {
 					break;
 				}
-					if(timer.get()>0.6+movementIncrease) {
+					if(timer.get()>0.75+movementIncrease) {
 						drive.setAllSpeed(0);
 						gyro.reset();
 						System.out.println("Stopped Move");
@@ -412,6 +482,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 					}
 					else {
 						movementIncrease = 0.7;
+						intake.setSpeedLeft(0); //TODO Edit these
 					}
 					System.out.println("Ended Turn");
 					RobotMap.autoState = startMove;
@@ -427,7 +498,180 @@ private final int //Auto Constants under some random encoder ticks (457)
 					drive.setRightSpeed(-0.5);
 					gyro.reset();
 					doneTurning = true;
-					//RobotMap.elevator1.set(ControlMode.Position, 2650);
+					RobotMap.elevator1.set(ControlMode.Position, 6500);
+					intake.setSpeedLeft(-0.3);//TODO edit these
+					System.out.println("Started Second Turn");
+					RobotMap.autoState = endTurn;
+				break;
+			}
+			
+			
+			case releaseCube:
+			{
+				intake.setSpeed(-0.8);
+				System.out.println("Started ReleaseCube");
+				timer.start();
+				RobotMap.autoState = stopRelease;
+				break;
+			}
+			
+			
+			case stopRelease:
+			{	
+				if(timer.get()>3) {
+					intake.setSpeed(0);
+					timer.stop();
+					System.out.println("Dropped Cube");
+					RobotMap.autoState = endCase;
+					break;
+				}
+			break;
+			}
+			
+			
+			case endCase:
+			{
+				intake.setSpeed(0);
+				RobotMap.elevator1.set(0);
+				drive.setAllSpeed(0);
+				System.out.println("Finished auto!!");
+				if(Timer.getMatchTime()>15) {
+					break;
+				}
+			break;
+			}
+			}
+		}//End of method
+	
+	
+	
+	public void doOppositeMiddleWithEncoder() {	//TODO Flip Polarities!!
+		
+		int leftEncoderVal;
+		int rightEncoderVal;
+		
+		switch(RobotMap.autoState) {
+			case startMove:
+			{
+				//timer.start();
+				drive.setLeftSpeed(0.4);
+				drive.setRightSpeed(0.4);
+				System.out.println("Finished Start");
+				RobotMap.autoState = endMove;
+			break;
+			}
+			/*case gyroStartMove:
+			{
+				timer.start();
+				gyro.reset();
+				System.out.println("Finished Gyro Start");
+				while(Timer.getMatchTime() <= 0.6+movementIncrease)
+				{
+					double angle = gyro.getAngle();
+					
+					if(( (int) ac.getX() * 10 ) != pAc)
+					{
+						if(!once)
+						{
+							gyro.reset();
+							once = !once;
+							angle = gyro.getAngle();
+							System.out.println("gyro reset: " + angle);
+						}
+						
+						double motorVal = (angle * kp) + (kd * (angle - pVal)) + (ki * pTotal);
+						drive.setLeftSpeed(-motorVal);
+						drive.setRightSpeed(0.4);
+						pVal = angle;
+						pTotal += angle;
+					}
+					else
+					{
+						pAc = ac.getX() * 10;
+						drive.setAllSpeed(0.4);
+					}
+					Timer.delay(0.004);
+				}
+				RobotMap.autoState = endMove;
+				break;
+			}
+			*/
+			case endMove:
+			{
+				if(Timer.getMatchTime()>15) {
+					break;
+				}
+				leftEncoderVal = Robot.leftEncoder.get();
+				rightEncoderVal = Robot.rightEncoder.get();
+					if(leftEncoderVal<-12-movementIncrease) {
+						drive.setAllSpeed(0);
+						gyro.reset();
+						System.out.println("Stopped Move");
+						if(turnTwo) {
+							if(doneTurning) {
+								RobotMap.autoState = releaseCube;
+							}else
+							{
+								RobotMap.autoState = secondTurn;
+								break;
+							}
+						}
+						else {
+							RobotMap.autoState = startTurn;
+							break;
+						}
+				}
+				break;
+			}
+			
+			
+			case startTurn:
+			{
+					drive.setLeftSpeed(-0.5);
+					drive.setRightSpeed(0.5);
+					gyro.reset();
+					intake.setSpeedLeft(0.25);
+					timer.start();
+					//leftEncoder.reset();
+					System.out.println("Started First Turn");
+					RobotMap.autoState = endTurn;
+				break;
+			}
+			
+			
+			case endTurn:
+			{
+				if(timer.get()>0.4) {
+					intake.setSpeed(0);
+				}
+				
+				if(Math.abs(gyro.getAngle())>ninetyDegreeTurn) {
+					drive.stopAllSpeed();
+					turnTwo = true;
+					timer.reset();
+					if(!doneTurning) {
+						movementIncrease = 21;
+						leftEncoder.reset();
+					}
+					else {
+						movementIncrease = 0;
+						leftEncoder.reset();
+					}
+					System.out.println("Ended Turn");
+					RobotMap.autoState = startMove;
+					break;
+				}
+				break;
+			}
+			
+			
+			case secondTurn:
+			{
+					drive.setLeftSpeed(0.5);
+					drive.setRightSpeed(-0.5);
+					gyro.reset();
+					doneTurning = true;
+					//RobotMap.elevator1.set(ControlMode.Position, 150);
 					System.out.println("Started Second Turn");
 					RobotMap.autoState = endTurn;
 				break;
@@ -463,6 +707,7 @@ private final int //Auto Constants under some random encoder ticks (457)
 				RobotMap.elevator1.set(0);
 				drive.setAllSpeed(0);
 				System.out.println("Finished auto!!");
+				RobotMap.elevator1.set(0);
 				if(Timer.getMatchTime()>15) {
 					break;
 				}
