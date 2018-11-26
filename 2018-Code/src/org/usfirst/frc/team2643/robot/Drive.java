@@ -104,23 +104,35 @@ public class Drive
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * 
-	 * @param The
-	 *            speed to set the motors to
+	 * @param speed - A double that is the speed the motor is set to
+	 * 
 	 */
 	public void setLeftSpeed(double speed)
 	{
 		leftDriveMaster.set(speed);
 	}
-		
+		/**
+		 * Sets speed for right side
+		 * 
+		 * @param speed - A double that is the speed the motor is set to
+		 */
 	public void setRightSpeed(double speed)
 	{
 		rightDriveMaster.set(-speed);
 	}
-	
+	/**
+	 * Makes the motors on the left side go to an encoder distance of ticks
+	 *
+	 * @param ticks - A number
+	 */
 	public void setLeftEncoder(int ticks) {
 		leftDriveMaster.set(ControlMode.Position, ticks);
 	}
-	
+	/**
+	 * Makes the motors on the right side go to an encoder distance of ticks
+	 * 
+	 * @param ticks - A number
+	 */
 	public void setRightEncoder(int ticks) {
 		rightDriveMaster.set(ControlMode.Position, ticks);
 	}
@@ -145,7 +157,12 @@ public class Drive
 	{
 		setAllSpeed(0);
 	}
-	
+	/**
+	 * Uses joystick axis to do arcade drive
+	 * 
+	 * @param x - x axis of joystick
+	 * @param y - y axis of joystick
+	 */
 	public void SRXarcadeDrive(double x, double y)
 	{
 		if (x < -0.03 || x > 0.03)
@@ -155,7 +172,7 @@ public class Drive
 			setRightSpeed(x);
 			setLeftSpeed(x);
 		} else if (y > 0.03 || y < 0.03)
-		{ // If the given axis is pushed up or
+		{ // If the given axis is pushed up or down
 			setRightSpeed(-y);
 			setLeftSpeed(y);
 		} else
@@ -163,12 +180,20 @@ public class Drive
 			setAllSpeed(0);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param motor
+	 * @return The current output
+	 */
 	public double getCurrent(WPI_TalonSRX motor)
 	{
 		return motor.getOutputCurrent();
 	}
-	
+	/**
+	 * 
+	 * @param side
+	 * @return
+	 */
 	public double totalCurrentDraw(String side)
 	{
 		double totalCurrent = 0;
@@ -184,15 +209,21 @@ public class Drive
 		return totalCurrent;
 	}
 	
+	// Allows tankdrive with Talon SRX Motors
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void SRXtankDrive(double x, double y)
 	{	
-		if(RobotMap.driveStick.getRawAxis(1)>0.03 || RobotMap.driveStick.getRawAxis(1)<-0.03) {
+		if(RobotMap.driveStick.getRawAxis(1) > 0.03 || RobotMap.driveStick.getRawAxis(1) < -0.03) {
 			setLeftSpeed(x);
 		}
 		else {
 			setLeftSpeed(0);
 		}
-		if(RobotMap.driveStick.getRawAxis(5)>0.03 || RobotMap.driveStick.getRawAxis(5)<-0.03) {
+		if(RobotMap.driveStick.getRawAxis(5) > 0.03 || RobotMap.driveStick.getRawAxis(5) < -0.03) {
 			setRightSpeed(y);
 		}
 		else {
@@ -207,14 +238,13 @@ public class Drive
 	 * SRXmodifiedDrive(RobotMap.driveStick);
 	 */
 	public void SRXmodifiedDrive(Joystick stick) {
-		double yAxis = -stick.getRawAxis(1); 	//These two variables are constantly updated as the program iterates through the system.
-		double turnModifier = stick.getRawAxis(4); //The only purpose they serve are for ease of programming and so you don't 
-		//see stick.getRawAxis(1) everywhere
+		double yAxis = -stick.getRawAxis(1); 	// The 2 variables are constantly updated
+		double turnModifier = stick.getRawAxis(4); // Only purpose is to make things simpler and cuts down unnecessary code
 		
 		System.out.println(yAxis + "\t" + turnModifier);
 		
-		if(yAxis>0.03||yAxis<-0.03 && turnModifier > 0.03) { //This comparator will ensure that the robot turns the correct direction when the right stick is moved side to side.
-			/*if(yAxis>0.8||yAxis<-0.8) { //This if statement tests to see if the bot is being run close to full speed. If it is, then you must subtract from the output of the opposite motor.
+		if(yAxis>0.03 || yAxis < -0.03 && turnModifier > 0.03) { // Ensures the robot moves in correspondence with movement of right stick
+			/*if(yAxis>0.8||yAxis<-0.8) { // Checks whether robot is close to max speed. If it is, it subtracts the output of the opposite motor
 				setLeftSpeed(yAxis - Math.abs(turnModifier));
 				setRightSpeed(yAxis);
 			}*/
@@ -224,7 +254,7 @@ public class Drive
 			
 		}
 		
-		else if(yAxis>0.03||yAxis<-0.03 && turnModifier<-0.03) { //Honestly just read the previous comments and use your intuition, its the same thing as the last block, just for the opposite side.
+		else if(yAxis > 0.03 || yAxis < -0.03 && turnModifier < -0.03) { // Same thing as last block for opposite side
 			/*if(yAxis>0.8||yAxis<-0.8) {
 				setLeftSpeed(yAxis);
 				setRightSpeed(yAxis - Math.abs(turnModifier));
@@ -234,13 +264,13 @@ public class Drive
 				setRightSpeed(yAxis + Math.abs(turnModifier)); 
 		}
 		
-		else if(yAxis >0.03 || yAxis < -0.03/* &&  turnModifier < -0.03 || turnModifier < 0.03*/) {//This comparator ensures that the driver does not want to turn and is only driving straight forward
+		else if(yAxis > 0.03 || yAxis < -0.03/* &&  turnModifier < -0.03 || turnModifier < 0.03*/) {// Ensures that robot is going forward
 			setLeftSpeed(yAxis);
-			setRightSpeed(yAxis);//So for example, if the driver pushes the left stick forward, the robot will move forward.
+			setRightSpeed(yAxis);
 			System.out.println("forward");
 		}
 		
-		else if(yAxis<0.03||yAxis>-.03 && turnModifier < -0.03 || turnModifier > 0.03) {
+		else if(yAxis < 0.03 || yAxis > -0.03 && turnModifier < -0.03 || turnModifier > 0.03) {
 			setLeftSpeed(turnModifier);
 			setRightSpeed(-turnModifier);
 		}
