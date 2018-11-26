@@ -17,8 +17,7 @@ public class Elevator
 	/**
 	 * Initialize Elevator
 	 * 
-	 * @param lsm
-	 *            - linear slide motor
+	 * @param lsm - linear slide motor
 	 */
 	public Elevator(WPI_TalonSRX liftMotor, WPI_TalonSRX slaveMotor)
 	{
@@ -28,10 +27,7 @@ public class Elevator
 	/**
 	 * Initialize Elevator
 	 * 
-	 * @param lsm
-	 *            - linear slide motor
-	 * @param profile
-	 *            - PID profile
+	 * @param profile - PID profile
 	 */
 	public Elevator(WPI_TalonSRX liftMotor, WPI_TalonSRX slaveMotor, int profile)
 	{
@@ -99,16 +95,13 @@ public class Elevator
 	/**
 	 * Configure PID profile
 	 * 
-	 * @param profile
-	 *            - profile (0 or 1)
-	 * @param fVal
-	 *            - f constant
-	 * @param pVal
-	 *            - position constant
-	 * @param iVal
-	 *            - integral constant
-	 * @param dVal
-	 *            - derivative constant
+	 * @param profile  - profile (0 or 1)
+	 * @param fVal - f constant
+	 * @param pVal - position constant
+	 * @param iVal - integral constant
+	 * @param dVal - derivative constant
+	 *
+	 * Calculates derivative to maximize efficiency in movement.
 	 */
 	public void configPIDProfile(int profile, double fVal, double pVal, double iVal, double dVal)
 	{
@@ -149,7 +142,7 @@ public class Elevator
 	}
 	
 	/**
-	 * Convert Feet to encoders and move
+	 * Convert Feet to encoder distance and move
 	 * 
 	 * @param pos
 	 *            - Movement by feet
