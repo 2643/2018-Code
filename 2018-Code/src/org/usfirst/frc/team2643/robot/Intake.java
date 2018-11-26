@@ -22,7 +22,7 @@ public class Intake {
 		//Limiting current of rightIntake
 		limitCurrent(rightIntake);
 	}
-	 
+	  
 	public double getSpeed()
 	{
 		return speed;
