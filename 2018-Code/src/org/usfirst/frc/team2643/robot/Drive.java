@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive
 {
-
+	//define the motor names
 	private final WPI_TalonSRX leftDriveMaster;
 	private final WPI_TalonSRX leftDriveSlave1;
 	private final WPI_TalonSRX leftDriveSlave2;
@@ -12,11 +12,13 @@ public class Drive
 	private final WPI_TalonSRX rightDriveSlave1;
 	private final WPI_TalonSRX rightDriveSlave2;
 	
+	//initialize them
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2, WPI_TalonSRX r1, WPI_TalonSRX r2)
 	{
 		this(l1, l2, null, r1, r2, null, null);
 	}
 	
+	//continue initializing them.
 	public Drive(WPI_TalonSRX l1, WPI_TalonSRX l2,  WPI_TalonSRX l3, WPI_TalonSRX r1, WPI_TalonSRX r2, WPI_TalonSRX r3, GyroScope gyro)
 	{
 		leftDriveMaster = l1;
@@ -43,6 +45,7 @@ public class Drive
 //		rightDriveMaster.setSensorPhase(true);
 	}
 
+	//set limits
 	public void currentLimit(WPI_TalonSRX motor)
 	{
 		motor.configContinuousCurrentLimit(30, 0);
@@ -51,6 +54,7 @@ public class Drive
 		motor.enableCurrentLimit(true);
 	}
 	
+	//PID setting
 	public void rampRate(WPI_TalonSRX motor) {
 		motor.configOpenloopRamp(0.2, 0);
 	}
@@ -101,14 +105,16 @@ public class Drive
 	/**
 	 * Sets all motors on the right side of the robot to the given value
 	 * 
-	 * @param The
-	 *            speed to set the motors to
+	 * @param speed the speed to set the motors to
 	 */
+
+	//set left speed
 	public void setLeftSpeed(double speed)
 	{
 		leftDriveMaster.set(speed);
 	}
-		
+	
+	// set right speed	
 	public void setRightSpeed(double speed)
 	{
 		rightDriveMaster.set(-speed);
@@ -121,6 +127,8 @@ public class Drive
 	 *            The speed to set the motor to. Make sure it is not too fast or you
 	 *            will consume too much voltage
 	 */
+
+	//make both sides go the same speed
 	public void setAllSpeed(double speed)
 	{ // Set all of the motors to the given value.
 		setLeftSpeed(speed);
@@ -135,16 +143,18 @@ public class Drive
 		setAllSpeed(0);
 	}
 	
+	//drive from joystick
 	public void SRXarcadeDrive(double x, double y)
 	{
 		if (x < -0.03 || x > 0.03)
 		{ // If the given axis is pushed to the left or right, then set them to the value
 			// of that axis. 0.05 is the given dead zone and can be increased or decreased.
 			// Currently the deadzone is 5%
+			// deadzone is where robot is stopped.
 			setRightSpeed(-x);
 			setLeftSpeed(x);
 		} else if (y > 0.03 || y < 0.03)
-		{ // If the given axis is pushed up or
+		{ // If the given axis is pushed up or down, then it will move foward or back
 			setRightSpeed(y);
 			setLeftSpeed(y);
 		} else
@@ -153,11 +163,13 @@ public class Drive
 		}
 	}
 	
+	//get the current for all motors
 	public double getCurrent(WPI_TalonSRX motor)
 	{
 		return motor.getOutputCurrent();
 	}
 	
+	//find current draw for the side
 	public double totalCurrentDraw(String side)
 	{
 		double totalCurrent = 0;
@@ -173,6 +185,7 @@ public class Drive
 		return totalCurrent;
 	}
 	
+	//driving by joystick.
 	public void SRXtankDrive(double x, double y)
 	{	
 		if(RobotMap.driveStick.getRawAxis(1)>0.03 || RobotMap.driveStick.getRawAxis(1)<-0.03) {
