@@ -69,27 +69,21 @@ public class RobotMap
 	// please never use this the battery will drain muy rapido
 	public static final double fullSpeed = 1;
 
-	// Set all motors to cruising speed! Aye aye cap'n!
 	public static final double cruisingSpeed = 0.3;
 
-	// A reduced speed for careful stuff
 	public static final double reducedSpeed = 0.3;
 
 	// makes it so that it only prints statements when debug is true
 	public static final boolean DEBUG = false;
 
-	// speed for lowering the slide
 	public static final double slideLoweringSpeed = -0.15; // TODO get speed
 
-	// speed for raising the slide
 	public static final double slideRaisingSpeed = 0.3; // TODO get speed
 
-	// speed for mainting the position of the slide
 	public static final double slideHoverSpeed = 0; // TODO get speed
 
-	// speed for output cube
 	public static final double outputCubeSpeed = 1;
-	// speed for input cube
+	
 	public static final double inputCubeSpeed = -0.7;
 
 	// Elevator variables
@@ -118,6 +112,13 @@ public class RobotMap
 	static final int moveUpSpeed = 0;
 	static final int moveDownSpeed = 0;
 	
+	/**
+	 * Finds out how many rotations have passed and returns
+	 * ticks equal to that amount
+	 * 
+	 * @param feet Measurement
+	 * @return Amount of rotations that have passed
+	 */
 	public static int feetToTicks(double feet)
 	{
 		double rotations = feet / circumferenceFeet;
