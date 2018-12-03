@@ -10,7 +10,7 @@ public class IntakeAngle {
 	 * Constructor for angle motor
 	 * @param a a is the angle motor and it is a WPI talonSRX motor
 	 */
-	public IntakeAngle(WPI_TalonSRX a) {
+	public IntakeAngle(WPI_TalonSRX a) { 
 		angleMotor = a;
 		angleMotor.setNeutralMode(NeutralMode.Brake);
 	}
