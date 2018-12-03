@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot
 {
+	// Strings for auto mode	
 	// The V is to prevent it from conflicting with a class name
 	final String crossAutoLineOnlyOption = "CrossAutoLineOnly";
 	final String positionLeftOption = "PositionLeft";
@@ -25,14 +26,14 @@ public class Robot extends IterativeRobot
 	SendableChooser<String> chooser = new SendableChooser<>();
 
 	int driveState = 0;
-
+	//Defining the subsystems
 	public static Drive drive;
 	public static Elevator elevator;
 	public static GyroScope gyro;
 	public static Intake intake;
 	public static IntakeAngle angleIntake;
 	public static AutoRoutines autoRoutines;
-	
+	// Defining the auto routines
 	final int doLeftScale = 0,
 			doRightScale = 1,
 			doLeftSwitch = 2,
@@ -58,6 +59,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void robotInit()
 	{
+		// Add a default or object chooser
 		chooser.addDefault(crossAutoLineOnlyOption, crossAutoLineOnlyOption);
 		chooser.addObject(positionLeftOption, positionLeftOption);
 		chooser.addObject(positionMiddleLeftOption, positionMiddleLeftOption);
@@ -65,7 +67,7 @@ public class Robot extends IterativeRobot
 		chooser.addObject(positionRightOption, positionRightOption);
 
 		SmartDashboard.putData("Auto choices", chooser);
-
+		// Constructor for the individual subsystems
 		gyro = new GyroScope();
 		drive = new Drive(RobotMap.leftDrive1, RobotMap.leftDrive2, /*RobotMap.leftDrive3,*/ RobotMap.rightDrive1, RobotMap.rightDrive2);
 		elevator = new Elevator(RobotMap.elevator1, RobotMap.elevator2, 0);
@@ -88,6 +90,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit()
 	{
+		// This function resets the encoder
 		autoSelected = chooser.getSelected();
 		System.out.println("Auto selected: " + autoSelected);
 		elevator.resetEncoder();
