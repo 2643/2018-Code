@@ -4,10 +4,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Intake {
+	// Sets the intakes and speed
 	private final WPI_TalonSRX leftIntake;
 	private final WPI_TalonSRX rightIntake;
 	private double speed = 0;
 	
+	/**
+	 * Constructor for intake
+	 * 
+	 * @param left Left Intake
+	 * @param right Right Intake
+	 */
 	public Intake(WPI_TalonSRX left, WPI_TalonSRX right)
 	{
 		leftIntake = left;
@@ -15,12 +22,19 @@ public class Intake {
 		limitCurrent(leftIntake);
 		limitCurrent(rightIntake);
 	}
-	
+	/**
+	 * Gets speed
+	 * @return speed
+	 */
 	public double getSpeed()
 	{
 		return speed;
 	}
-	
+	/**
+	 * Limits the current
+	 * 
+	 * @param motor The motor to limit the current
+	 */
 	public void limitCurrent(WPI_TalonSRX motor) {
 		motor.configContinuousCurrentLimit(38, 0);
 		motor.configPeakCurrentLimit(40, 0);
@@ -29,7 +43,8 @@ public class Intake {
 	}
 	
 	/**
-	 * use this for buttons
+	 * Sets the intake motor according to button input
+	 * @param board the operator board with the buttons used
 	 */
 	public void intake(Joystick board)
 	{
@@ -53,23 +68,40 @@ public class Intake {
 		}
 	}
 	
+	/**
+	 * Sets the left intake to the negative of value
+	 * 
+	 * @param value Value of the speed (-1 < x < 1)
+	 */
 	public void setSpeedLeft(double value)
 	{
 		leftIntake.set(-value);
 	}
 	
+	/**
+	 * Sets the right intake to value
+	 * 
+	 * @param value Value of the speed (-1 < x < 1)
+	 */
 	public void setSpeedRight(double value)
 	{
 		rightIntake.set(value);
 	}
 	
+	/**
+	 * Sets the speed
+	 * 
+	 * @param speed Speed (-1 < x < 1)
+	 */
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
 		setSpeedLeft(speed);
 		setSpeedRight(speed);
 	}
-	
+	/**
+	 * Stops the robot
+	 */
 	public void stop()
 	{
 		setSpeed(0);
