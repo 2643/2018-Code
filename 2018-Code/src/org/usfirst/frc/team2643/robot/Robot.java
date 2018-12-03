@@ -319,7 +319,7 @@ public class Robot extends IterativeRobot
 				RobotMap.elevator1.set(RobotMap.slideHoverSpeed);
 			}
 			System.out.println(RobotMap.elevator1.getSensorCollection().getQuadraturePosition());
-		}
+		} 
 
 		else if (RobotMap.driveStick.getRawButton(7) == true)
 		{
