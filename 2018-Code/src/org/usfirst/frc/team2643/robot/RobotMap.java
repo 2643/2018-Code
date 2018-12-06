@@ -15,6 +15,7 @@ public class RobotMap
 	/*
 	 * These are the motors, encoders, joysticks and limit switch
 	 */
+<<<<<<< HEAD
 	// Drive motors
 	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(14); // Front Left
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // Back left
@@ -27,6 +28,35 @@ public class RobotMap
 	public static final WPI_TalonSRX elevator1 = new WPI_TalonSRX(5);
 	public static final WPI_TalonSRX elevator2 = new WPI_TalonSRX(30);
 	//public static final DigitalInput elevatorLimitSwitch = new DigitalInput(0);
+=======
+<<<<<<< HEAD
+	//Current Numbers
+	static double current0, current1, current2, current5, current6, current8, current9, current10, current13, current14, current15;
+	//Temperature Numbers
+	static double temp0, temp1, temp2, temp3, temp4, temp5, temp6;
+	//Temperature and Current Numbers names are to be equal to which port 
+			
+	//Drive Motors
+	static WPI_TalonSRX rightBackDrive = new WPI_TalonSRX(16);
+	static WPI_TalonSRX rightMiddleDrive = new WPI_TalonSRX(1);
+	static WPI_TalonSRX rightFrontDrive = new WPI_TalonSRX(2);
+	static WPI_TalonSRX leftBackDrive = new WPI_TalonSRX(15);
+	static WPI_TalonSRX leftMiddleDrive = new WPI_TalonSRX(14);
+	static WPI_TalonSRX leftFrontDrive = new WPI_TalonSRX(13);
+	
+	//Motor to move elevator up
+	public static final WPI_TalonSRX elevator = new WPI_TalonSRX(4);
+	
+	static WPI_TalonSRX leftIntake = new WPI_TalonSRX(9);
+	static WPI_TalonSRX rightIntake = new WPI_TalonSRX(5);
+	
+=======
+	//Drive motors
+	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(1);   //TODO change this port
+	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(2);   //TODO change this port
+	public static final WPI_TalonSRX rightDrive1 = new WPI_TalonSRX(4);  //TODO change this port
+	public static final WPI_TalonSRX rightDrive2 = new WPI_TalonSRX(5);  //TODO change this port
+>>>>>>> master
 
 	//Intake motors
 	public static final WPI_TalonSRX leftIntake = new WPI_TalonSRX(9);
@@ -38,10 +68,22 @@ public class RobotMap
 	// Acceptable encoder error
 	public static final int ACCEPTABLE_ENCODER_ERROR = 100;
 
+<<<<<<< HEAD
 	// slide limits for elevator
 	public static final int slideBeforeTopLimit = 0; // TODO test this out at some point
 
 	// joystick
+=======
+	//Acceptable encoder error
+	public static final int ACCEPTABLE_ENCODER_ERROR = 100;	
+>>>>>>> 632d0a34346fb87c7c7c2949c595313bed72923f
+	//slide limits for elevator
+	public static final int slideBeforeTopLimit = 0; //TODO test this out at some point
+	
+	public static final DigitalInput limitSwitch = new DigitalInput(0);
+	
+	//joystick
+>>>>>>> master
 	public static final Joystick driveStick = new Joystick(0);
 	public static final Joystick opBoard = new Joystick(1);
 	public static final Joystick opStick = new Joystick(2);

@@ -35,6 +35,7 @@ public class Drive
 		//rampRate(leftDriveMaster);
 		//rampRate(rightDriveMaster);
 		
+<<<<<<< HEAD
 		rightDriveSlave1.follow(rightDriveMaster);
 		leftDriveSlave1.follow(leftDriveMaster);
 		//rightDriveSlave2.follow(rightDriveMaster);
@@ -44,6 +45,31 @@ public class Drive
 //		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 20);
 //		leftDriveMaster.setSensorPhase(true);
 //		rightDriveMaster.setSensorPhase(true);
+=======
+		leftDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		rightDriveMaster.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		leftDriveMaster.setSensorPhase(false);
+		rightDriveMaster.setSensorPhase(false);
+	}
+	
+	public void setToPositionMode()
+	{
+		leftDriveMaster.set(ControlMode.Position,0);
+		rightDriveMaster.set(ControlMode.Position,0);
+	}
+	
+	public void setToPercentValue()
+	{
+		leftDriveMaster.set(ControlMode.PercentOutput, 1);
+		rightDriveMaster.set(ControlMode.PercentOutput,1);
+	}
+	
+
+	//returns left encoder ticks, which is for some reason twice the actual
+	public int getLeftEncoder()
+	{
+		return leftDriveMaster.getSensorCollection().getQuadraturePosition() / 2; 
+>>>>>>> master
 	}
 
 	public void currentLimit(WPI_TalonSRX motor)
