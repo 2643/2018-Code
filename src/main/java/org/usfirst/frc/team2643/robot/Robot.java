@@ -4,12 +4,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
-	Joystick opStick = new Joystick(0);
+	Joystick joystick = new Joystick(0);
 	
 	public static final WPI_TalonSRX leftDrive1 = new WPI_TalonSRX(14); // Front Left
 	public static final WPI_TalonSRX leftDrive2 = new WPI_TalonSRX(15); // Back left
@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		new Thread(() -> {
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
 	}
 	@Override
@@ -45,10 +45,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		leftDrive1.set(-driveStick.getRawAxis(1));
-		leftDrive1.set(-driveStick.getRawAxis(1));
-		rightDrive1.set(driveStick.getRawAxis(5));
-		rightDrive2.set(driveStick.getRawAxis(5));
+		leftDrive1.set(-joystick.getRawAxis(1));
+		leftDrive1.set(-joystick.getRawAxis(1));
+		rightDrive1.set(joystick.getRawAxis(5));
+		rightDrive2.set(joystick.getRawAxis(5));
 		/*
 		if(opStick.getRawButton(1) == true) {
 			leftIntake.set(-0.6);
