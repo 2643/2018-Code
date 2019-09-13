@@ -50,7 +50,8 @@ public class RobotMap
 	public static int elevatorDown = 2;
 	
 	public static int winchUp = 6;
-	public static int winchDown = 5; 
+	public static int winchDown = 5
+	; 
 
 	public static int fastIntakeButton = 3;
 	public static int fastOuttakeButton = 4;
